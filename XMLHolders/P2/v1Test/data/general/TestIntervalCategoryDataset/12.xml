@@ -1,0 +1,6 @@
+<unit><function><type><specifier>public</specifier> <name>void</name></type> <name>removeItem</name><parameter_list>(<parameter><decl><type><name>Comparable</name></type> <name>rowKey</name></decl></parameter>, <parameter><decl><type><name>Comparable</name></type> <name>columnKey</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>removeObject</name></name><argument_list>(<argument><expr><name>rowKey</name></expr></argument>, <argument><expr><name>columnKey</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>fireDatasetChanged</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

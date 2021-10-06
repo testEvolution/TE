@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\metrics\JavaMetricsProviderTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name></name>;</package>
+
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertNotEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Map</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>JavaParsingHelper</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTAnyTypeDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTCompilationUnit</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>MethodLikeNode</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>api</name><operator>.</operator><name>JavaClassMetricKey</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>api</name><operator>.</operator><name>JavaOperationMetricKey</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>metrics</name><operator>.</operator><name>LanguageMetricsProvider</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>metrics</name><operator>.</operator><name>MetricKey</name></name>;</import>
+
+
+<comment type="block" format="javadoc">/**
+ * @author ClÃ©ment Fournier
+ */</comment>
+<class><specifier>public</specifier> class <name>JavaMetricsProviderTest</name> <block>{
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>final</specifier> <name>JavaParsingHelper</name></type> <name>java8</name> <init>= <expr><call><name><name>JavaParsingHelper</name><operator>.</operator><name>WITH_PROCESSING</name><operator>.</operator><name>withDefaultVersion</name></name><argument_list>(<argument><expr><literal type="string">"1.8"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testComputeAllMetrics</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name><name>LanguageMetricsProvider</name><argument_list type="generic">&lt;<argument><name>?</name></argument>, <argument><name>?</name></argument>&gt;</argument_list></name></type> <name>provider</name> <init>= <expr><call><name><name>java8</name><operator>.</operator><name>getHandler</name></name><argument_list>(<argument><expr><literal type="string">"1.8"</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getLanguageMetricsProvider</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>acu</name> <init>= <expr><call><name><name>java8</name><operator>.</operator><name>parse</name></name><argument_list>(<argument><expr><literal type="string">"class Foo { void bar() { System.out.println(1); } }"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>ASTAnyTypeDeclaration</name></type> <name>type</name> <init>= <expr><call><name><name>acu</name><operator>.</operator><name>getFirstDescendantOfType</name></name><argument_list>(<argument><expr><name><name>ASTAnyTypeDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>Map</name><argument_list type="generic">&lt;<argument><name><name>MetricKey</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></argument>, <argument><name>Double</name></argument>&gt;</argument_list></name></type> <name>results</name> <init>= <expr><call><name><name>provider</name><operator>.</operator><name>computeAllMetricsFor</name></name><argument_list>(<argument><expr><name>type</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>JavaClassMetricKey</name></type> <name>key</name> <range>: <expr><call><name><name>JavaClassMetricKey</name><operator>.</operator><name>values</name></name><argument_list>()</argument_list></call></expr></range></decl></init>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>results</name><operator>.</operator><name>containsKey</name></name><argument_list>(<argument><expr><name>key</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+
+        <decl_stmt><decl><type><name>MethodLikeNode</name></type> <name>op</name> <init>= <expr><call><name><name>acu</name><operator>.</operator><name>getFirstDescendantOfType</name></name><argument_list>(<argument><expr><name><name>MethodLikeNode</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>Map</name><argument_list type="generic">&lt;<argument><name><name>MetricKey</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></argument>, <argument><name>Double</name></argument>&gt;</argument_list></name></type> <name>opResults</name> <init>= <expr><call><name><name>provider</name><operator>.</operator><name>computeAllMetricsFor</name></name><argument_list>(<argument><expr><name>op</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>JavaOperationMetricKey</name></type> <name>key</name> <range>: <expr><call><name><name>JavaOperationMetricKey</name><operator>.</operator><name>values</name></name><argument_list>()</argument_list></call></expr></range></decl></init>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>opResults</name><operator>.</operator><name>containsKey</name></name><argument_list>(<argument><expr><name>key</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testThereIsNoMemoisation</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name><name>LanguageMetricsProvider</name><argument_list type="generic">&lt;<argument><name>?</name></argument>, <argument><name>?</name></argument>&gt;</argument_list></name></type> <name>provider</name> <init>= <expr><call><name><name>java8</name><operator>.</operator><name>getHandler</name></name><argument_list>(<argument><expr><literal type="string">"1.8"</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getLanguageMetricsProvider</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>ASTAnyTypeDeclaration</name></type> <name>tdecl1</name> <init>= <expr><call><name><name>java8</name><operator>.</operator><name>parse</name></name><argument_list>(<argument><expr><literal type="string">"class Foo { void bar() { System.out.println(1); } }"</literal></expr></argument>)</argument_list></call>
+                                            <operator>.</operator><call><name>getFirstDescendantOfType</name><argument_list>(<argument><expr><name><name>ASTAnyTypeDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>Map</name><argument_list type="generic">&lt;<argument><name><name>MetricKey</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></argument>, <argument><name>Double</name></argument>&gt;</argument_list></name></type> <name>reference</name> <init>= <expr><call><name><name>provider</name><operator>.</operator><name>computeAllMetricsFor</name></name><argument_list>(<argument><expr><name>tdecl1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// same name, different characteristics</comment>
+        <decl_stmt><decl><type><name>ASTAnyTypeDeclaration</name></type> <name>tdecl2</name> <init>= <expr><call><name><name>java8</name><operator>.</operator><name>parse</name></name><argument_list>(<argument><expr><literal type="string">"class Foo { void bar(){} \npublic void hey() { System.out.println(1); } }"</literal></expr></argument>)</argument_list></call>
+                                            <operator>.</operator><call><name>getFirstDescendantOfType</name><argument_list>(<argument><expr><name><name>ASTAnyTypeDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>Map</name><argument_list type="generic">&lt;<argument><name><name>MetricKey</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></argument>, <argument><name>Double</name></argument>&gt;</argument_list></name></type> <name>secondTest</name> <init>= <expr><call><name><name>provider</name><operator>.</operator><name>computeAllMetricsFor</name></name><argument_list>(<argument><expr><name>tdecl2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>reference</name></expr></argument>, <argument><expr><name>secondTest</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+
+}</block></class>
+</unit>

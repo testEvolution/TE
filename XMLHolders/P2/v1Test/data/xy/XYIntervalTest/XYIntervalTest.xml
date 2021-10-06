@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\data\xy\XYIntervalTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * -------------------
+ * XYIntervalTest.java
+ * -------------------
+ * (C) Copyright 2006-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 20-Oct-2006 : Version 1 (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link XYInterval} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>XYIntervalTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that the equals method can distinguish all the required fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYInterval</name></type> <name>i1</name> <init>= <expr><operator>new</operator> <call><name>XYInterval</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">2.5</literal></expr></argument>, <argument><expr><literal type="number">3.5</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYInterval</name></type> <name>i2</name> <init>= <expr><operator>new</operator> <call><name>XYInterval</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">2.5</literal></expr></argument>, <argument><expr><literal type="number">3.5</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>i1</name></expr></argument>, <argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>i1</name> <operator>=</operator> <operator>new</operator> <call><name>XYInterval</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">2.5</literal></expr></argument>, <argument><expr><literal type="number">3.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>i1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>i2</name> <operator>=</operator> <operator>new</operator> <call><name>XYInterval</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">2.5</literal></expr></argument>, <argument><expr><literal type="number">3.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>i1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>i1</name> <operator>=</operator> <operator>new</operator> <call><name>XYInterval</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">2.5</literal></expr></argument>, <argument><expr><literal type="number">3.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>i1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>i2</name> <operator>=</operator> <operator>new</operator> <call><name>XYInterval</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">2.5</literal></expr></argument>, <argument><expr><literal type="number">3.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>i1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>i1</name> <operator>=</operator> <operator>new</operator> <call><name>XYInterval</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="number">3.3</literal></expr></argument>, <argument><expr><literal type="number">2.5</literal></expr></argument>, <argument><expr><literal type="number">3.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>i1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>i2</name> <operator>=</operator> <operator>new</operator> <call><name>XYInterval</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="number">3.3</literal></expr></argument>, <argument><expr><literal type="number">2.5</literal></expr></argument>, <argument><expr><literal type="number">3.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>i1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>i1</name> <operator>=</operator> <operator>new</operator> <call><name>XYInterval</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="number">3.3</literal></expr></argument>, <argument><expr><literal type="number">2.6</literal></expr></argument>, <argument><expr><literal type="number">3.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>i1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>i2</name> <operator>=</operator> <operator>new</operator> <call><name>XYInterval</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="number">3.3</literal></expr></argument>, <argument><expr><literal type="number">2.6</literal></expr></argument>, <argument><expr><literal type="number">3.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>i1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>i1</name> <operator>=</operator> <operator>new</operator> <call><name>XYInterval</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="number">3.3</literal></expr></argument>, <argument><expr><literal type="number">2.6</literal></expr></argument>, <argument><expr><literal type="number">3.6</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>i1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>i2</name> <operator>=</operator> <operator>new</operator> <call><name>XYInterval</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="number">3.3</literal></expr></argument>, <argument><expr><literal type="number">2.6</literal></expr></argument>, <argument><expr><literal type="number">3.6</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>i1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * This class is immutable.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYInterval</name></type> <name>i1</name> <init>= <expr><operator>new</operator> <call><name>XYInterval</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">2.5</literal></expr></argument>, <argument><expr><literal type="number">3.5</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><name>i1</name> <operator>instanceof</operator> <name>Cloneable</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYInterval</name></type> <name>i1</name> <init>= <expr><operator>new</operator> <call><name>XYInterval</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">2.5</literal></expr></argument>, <argument><expr><literal type="number">3.5</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYInterval</name></type> <name>i2</name> <init>= <expr><operator>(</operator><name>XYInterval</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>i1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>i1</name></expr></argument>, <argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

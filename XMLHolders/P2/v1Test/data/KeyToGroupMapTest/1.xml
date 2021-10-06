@@ -1,0 +1,31 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGroupCount</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>KeyToGroupMap</name></type> <name>m1</name> <init>= <expr><operator>new</operator> <call><name>KeyToGroupMap</name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// a new map always has 1 group (the default group)</comment>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// if the default group is not mapped to, it should still count towards</comment>
+        <comment type="line">// the group count...</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"C1"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// now when the default group is mapped to, it shouldn't increase the</comment>
+        <comment type="line">// group count...</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"C2"</literal></expr></argument>, <argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// complicate things a little...</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"C3"</literal></expr></argument>, <argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"C4"</literal></expr></argument>, <argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"C5"</literal></expr></argument>, <argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"C6"</literal></expr></argument>, <argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// now overwrite group "G2"...</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"C4"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"C5"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

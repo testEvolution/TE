@@ -1,0 +1,69 @@
+<unit><function><type><specifier>private</specifier> <name>boolean</name></type> <name>checkIndependence</name><parameter_list>(<parameter><decl><type><name>LineAndShapeRenderer</name></type> <name>r1</name></decl></parameter>,
+                                      <parameter><decl><type><name>LineAndShapeRenderer</name></type> <name>r2</name></decl></parameter>)</parameter_list> <block>{<block_content>
+
+        <comment type="line">// should be equal...</comment>
+        <if_stmt><if>if <condition>(<expr><operator>!</operator><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+
+        <comment type="line">// and independent...</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setDefaultLinesVisible</name></name><argument_list>(<argument><expr><operator>!</operator><call><name><name>r1</name><operator>.</operator><name>getDefaultLinesVisible</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <if_stmt><if>if <condition>(<expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setDefaultLinesVisible</name></name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>getDefaultLinesVisible</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <if_stmt><if>if <condition>(<expr><operator>!</operator><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setSeriesLinesVisible</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <if_stmt><if>if <condition>(<expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setSeriesLinesVisible</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <if_stmt><if>if <condition>(<expr><operator>!</operator><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setDefaultShapesVisible</name></name><argument_list>(<argument><expr><operator>!</operator><call><name><name>r1</name><operator>.</operator><name>getDefaultShapesVisible</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <if_stmt><if>if <condition>(<expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setDefaultShapesVisible</name></name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>getDefaultShapesVisible</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <if_stmt><if>if <condition>(<expr><operator>!</operator><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setSeriesShapesVisible</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <if_stmt><if>if <condition>(<expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setSeriesShapesVisible</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <if_stmt><if>if <condition>(<expr><operator>!</operator><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setSeriesShapesFilled</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setSeriesShapesFilled</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <if_stmt><if>if <condition>(<expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setSeriesShapesFilled</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <if_stmt><if>if <condition>(<expr><operator>!</operator><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setDefaultShapesFilled</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setDefaultShapesFilled</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <if_stmt><if>if <condition>(<expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setDefaultShapesFilled</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <if_stmt><if>if <condition>(<expr><operator>!</operator><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <return>return <expr><literal type="boolean">true</literal></expr>;</return>
+
+    </block_content>}</block></function>
+
+    </unit>

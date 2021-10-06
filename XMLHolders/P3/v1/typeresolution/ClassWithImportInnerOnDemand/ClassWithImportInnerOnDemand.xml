@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\typeresolution\ClassWithImportInnerOnDemand.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Map</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * This class is to verify that the inner class "Entry" of java.util.Map is
+ * imported correctly.
+ */</comment>
+<class><specifier>public</specifier> class <name>ClassWithImportInnerOnDemand</name> <block>{
+
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>foo</name><parameter_list>(<parameter><decl><type><name><name>Map</name><argument_list type="generic">&lt;<argument><name>String</name></argument>, <argument><name>String</name></argument>&gt;</argument_list></name></type> <name>m</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>Map</name><operator>.</operator><name><name>Entry</name><argument_list type="generic">&lt;<argument><name>String</name></argument>, <argument><name>String</name></argument>&gt;</argument_list></name></name></type> <name>e</name> <init>= <expr><call><name><name>m</name><operator>.</operator><name>entrySet</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>iterator</name><argument_list>()</argument_list></call><operator>.</operator><call><name>next</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <assert>assert <expr><name>e</name> <operator>!=</operator> <literal type="null">null</literal></expr>;</assert>
+    </block_content>}</block></function>
+
+    <comment type="line">// StringTokenizer will only be considered if inner classes are visited</comment>
+    <interface>interface <name>Inner</name> <block>{
+        <function_decl><type><name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>StringTokenizer</name></name></type> <name>createTokenizer</name><parameter_list>()</parameter_list>;</function_decl>
+    }</block></interface>
+}</block></class>
+</unit>

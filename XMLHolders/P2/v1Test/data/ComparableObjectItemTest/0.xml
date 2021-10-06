@@ -1,0 +1,14 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testConstructor</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// check null argument 1</comment>
+        <try>try <block>{<block_content>
+            <comment type="block">/* ComparableObjectItem item1 = */</comment> <expr_stmt><expr><operator>new</operator> <call><name>ComparableObjectItem</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>,
+                    <argument><expr><literal type="string">"XYZ"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"There should be an exception."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// expected</comment>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    </unit>

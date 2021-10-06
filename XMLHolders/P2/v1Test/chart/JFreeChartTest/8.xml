@@ -1,0 +1,18 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization4</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name>RegularTimePeriod</name></type> <name>t</name> <init>= <expr><operator>new</operator> <call><name>Day</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>TimeSeries</name></type> <name>series</name> <init>= <expr><operator>new</operator> <call><name>TimeSeries</name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>t</name></expr></argument>, <argument><expr><literal type="number">36.4</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>t</name> <operator>=</operator> <call><name><name>t</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>t</name></expr></argument>, <argument><expr><literal type="number">63.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>TimeSeriesCollection</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>TimeSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>c1</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createTimeSeriesChart</name></name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>, <argument><expr><literal type="string">"Date"</literal></expr></argument>,
+                <argument><expr><literal type="string">"Value"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>c2</name> <init>= <expr><operator>(</operator><name>JFreeChart</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>c1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>c1</name></expr></argument>, <argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

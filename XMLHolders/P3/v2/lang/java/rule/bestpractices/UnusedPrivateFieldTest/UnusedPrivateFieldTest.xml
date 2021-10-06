@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\rule\bestpractices\UnusedPrivateFieldTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>rule</name><operator>.</operator><name>bestpractices</name></name>;</package>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>testframework</name><operator>.</operator><name>PmdRuleTst</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>UnusedPrivateFieldTest</name> <super_list><extends>extends <super><name>PmdRuleTst</name></super></extends></super_list> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * This test will fail, as soon Lombok classes are on the test classpath.
+     * The test classpath is used as auxclasspath during unit tests.
+     * If lombok is present, then the test case for #1952 will never fail
+     * and won't reproduce the false-negative case anymore.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>makeSureLombokIsNotOnClasspath</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>Class</name><operator>.</operator><name>forName</name></name><argument_list>(<argument><expr><literal type="string">"lombok.Value"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>fail</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>ClassNotFoundException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// this is ok</comment>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

@@ -1,0 +1,5 @@
+<unit><function><type><specifier>public</specifier> <name>void</name></type> <name>setNotified</name><parameter_list>(<parameter><decl><type><name>boolean</name></type> <name>notified</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>notified</name></name> <operator>=</operator> <name>notified</name></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

@@ -1,0 +1,18 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testBug1498805</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Locale</name></type> <name>saved</name> <init>= <expr><call><name><name>Locale</name><operator>.</operator><name>getDefault</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Locale</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name><name>Locale</name><operator>.</operator><name>UK</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <try>try <block>{<block_content>
+            <decl_stmt><decl><type><name>TimeZone</name></type> <name>zone</name> <init>= <expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><literal type="string">"GMT"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <decl_stmt><decl><type><name>GregorianCalendar</name></type> <name>gc</name> <init>= <expr><operator>new</operator> <call><name>GregorianCalendar</name><argument_list>(<argument><expr><name>zone</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name><name>gc</name><operator>.</operator><name>set</name></name><argument_list>(<argument><expr><literal type="number">2005</literal></expr></argument>, <argument><expr><name><name>Calendar</name><operator>.</operator><name>JANUARY</name></name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">12</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <decl_stmt><decl><type><name>Week</name></type> <name>w</name> <init>= <expr><operator>new</operator> <call><name>Week</name><argument_list>(<argument><expr><call><name><name>gc</name><operator>.</operator><name>getTime</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>zone</name></expr></argument>, <argument><expr><name><name>Locale</name><operator>.</operator><name>UK</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">53</literal></expr></argument>, <argument><expr><call><name><name>w</name><operator>.</operator><name>getWeek</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Year</name><argument_list>(<argument><expr><literal type="number">2004</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>w</name><operator>.</operator><name>getYear</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <finally>finally <block>{<block_content>
+            <expr_stmt><expr><call><name><name>Locale</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name>saved</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></finally></try>
+    </block_content>}</block></function>
+
+    </unit>

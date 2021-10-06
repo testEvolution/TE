@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\data\statistics\RegressionTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * -------------------
+ * RegressionTest.java
+ * -------------------
+ * (C) Copyright 2002-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 30-Sep-2002 : Version 1 (DG);
+ * 17-Oct-2002 : Fixed errors reported by Checkstyle (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>statistics</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>XYDataset</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>XYSeries</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>XYSeriesCollection</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link Regression} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>RegressionTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Checks the results of an OLS regression on sample dataset 1.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testOLSRegression1a</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>data</name> <init>= <expr><call><name>createSampleData1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>result1</name> <init>= <expr><call><name><name>Regression</name><operator>.</operator><name>getOLSRegression</name></name><argument_list>(<argument><expr><name>data</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">.25680930</literal></expr></argument>, <argument><expr><name><name>result1</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.72792106</literal></expr></argument>, <argument><expr><name><name>result1</name><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks the results of an OLS regression on sample dataset 1 AFTER
+     * converting it to an XYSeries.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testOLSRegression1b</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>data</name> <init>= <expr><call><name>createSampleData1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <literal type="number">11</literal></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>data</name><index>[<expr><name>i</name></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><name><name>data</name><index>[<expr><name>i</name></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+        <decl_stmt><decl><type><name>XYDataset</name></type> <name>ds</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>(<argument><expr><name>series</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>result2</name> <init>= <expr><call><name><name>Regression</name><operator>.</operator><name>getOLSRegression</name></name><argument_list>(<argument><expr><name>ds</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">.25680930</literal></expr></argument>, <argument><expr><name><name>result2</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.72792106</literal></expr></argument>, <argument><expr><name><name>result2</name><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks the results of a power regression on sample dataset 1.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPowerRegression1a</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>data</name> <init>= <expr><call><name>createSampleData1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>result</name> <init>= <expr><call><name><name>Regression</name><operator>.</operator><name>getPowerRegression</name></name><argument_list>(<argument><expr><name>data</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.91045813</literal></expr></argument>, <argument><expr><name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.88918346</literal></expr></argument>, <argument><expr><name><name>result</name><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks the results of a power regression on sample dataset 1 AFTER
+     * converting it to an XYSeries.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPowerRegression1b</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>data</name> <init>= <expr><call><name>createSampleData1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <literal type="number">11</literal></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>data</name><index>[<expr><name>i</name></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><name><name>data</name><index>[<expr><name>i</name></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+        <decl_stmt><decl><type><name>XYDataset</name></type> <name>ds</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>(<argument><expr><name>series</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>result</name> <init>= <expr><call><name><name>Regression</name><operator>.</operator><name>getPowerRegression</name></name><argument_list>(<argument><expr><name>ds</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.91045813</literal></expr></argument>, <argument><expr><name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.88918346</literal></expr></argument>, <argument><expr><name><name>result</name><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks the results of an OLS regression on sample dataset 2.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testOLSRegression2a</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>data</name> <init>= <expr><call><name>createSampleData2</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>result</name> <init>= <expr><call><name><name>Regression</name><operator>.</operator><name>getOLSRegression</name></name><argument_list>(<argument><expr><name>data</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">53.9729697</literal></expr></argument>, <argument><expr><name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">4.1823030</literal></expr></argument>, <argument><expr><name><name>result</name><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks the results of an OLS regression on sample dataset 2 AFTER
+     * converting it to an XYSeries.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testOLSRegression2b</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>data</name> <init>= <expr><call><name>createSampleData2</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <literal type="number">10</literal></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>data</name><index>[<expr><name>i</name></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><name><name>data</name><index>[<expr><name>i</name></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+        <decl_stmt><decl><type><name>XYDataset</name></type> <name>ds</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>(<argument><expr><name>series</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>result</name> <init>= <expr><call><name><name>Regression</name><operator>.</operator><name>getOLSRegression</name></name><argument_list>(<argument><expr><name>ds</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">53.9729697</literal></expr></argument>, <argument><expr><name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">4.1823030</literal></expr></argument>, <argument><expr><name><name>result</name><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks the results of a power regression on sample dataset 2.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPowerRegression2a</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>data</name> <init>= <expr><call><name>createSampleData2</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>result</name> <init>= <expr><call><name><name>Regression</name><operator>.</operator><name>getPowerRegression</name></name><argument_list>(<argument><expr><name>data</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">106.1241681</literal></expr></argument>, <argument><expr><name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">0.8466615</literal></expr></argument>, <argument><expr><name><name>result</name><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks the results of a power regression on sample dataset 2 AFTER
+     * converting it to an XYSeries.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPowerRegression2b</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>data</name> <init>= <expr><call><name>createSampleData2</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <literal type="number">10</literal></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>data</name><index>[<expr><name>i</name></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><name><name>data</name><index>[<expr><name>i</name></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+        <decl_stmt><decl><type><name>XYDataset</name></type> <name>ds</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>(<argument><expr><name>series</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>result</name> <init>= <expr><call><name><name>Regression</name><operator>.</operator><name>getPowerRegression</name></name><argument_list>(<argument><expr><name>ds</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">106.1241681</literal></expr></argument>, <argument><expr><name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">0.8466615</literal></expr></argument>, <argument><expr><name><name>result</name><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Creates and returns a sample dataset.
+     * &lt;P&gt;
+     * The data is taken from Table 11.2, page 313 of "Understanding Statistics"
+     * by Ott and Mendenhall (Duxbury Press).
+     *
+     * @return The sample data.
+     */</comment>
+    <function><type><specifier>private</specifier> <name><name>double</name><index>[]</index><index>[]</index></name></type> <name>createSampleData1</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>result</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">11</literal></expr>]</index><index>[<expr><literal type="number">2</literal></expr>]</index></name></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.00</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">1.60</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">1</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.25</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">1</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.00</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">2</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.60</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">2</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">1.80</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">3</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.65</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">3</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.80</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">4</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.80</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">4</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.10</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">5</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.10</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">5</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.00</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">6</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.90</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">6</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.65</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">7</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.25</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">7</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.25</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">8</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.30</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">8</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.60</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">9</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.60</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">9</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.00</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">10</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.25</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">10</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.10</literal></expr>;</expr_stmt>
+
+        <return>return <expr><name>result</name></expr>;</return>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Creates a sample data set.
+     *
+     * @return The sample data.
+     */</comment>
+    <function><type><specifier>private</specifier> <name><name>double</name><index>[]</index><index>[]</index></name></type> <name>createSampleData2</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>result</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">10</literal></expr>]</index><index>[<expr><literal type="number">2</literal></expr>]</index></name></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">56.27</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">1</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">1</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">41.32</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">2</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">4</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">2</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">31.45</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">3</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">5</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">3</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">30.05</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">4</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">6</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">4</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">24.69</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">5</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">7</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">5</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">19.78</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">6</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">8</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">6</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">20.94</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">7</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">9</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">7</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">16.73</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">8</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">10</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">8</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">14.21</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">9</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">11</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">9</literal></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">12.44</literal></expr>;</expr_stmt>
+
+        <return>return <expr><name>result</name></expr>;</return>
+
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

@@ -1,0 +1,22 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization4</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultCategoryDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createBarChart</name></name><argument_list>(
+                <argument><expr><literal type="string">"Test Chart"</literal></expr></argument>, <argument><expr><literal type="string">"Category Axis"</literal></expr></argument>, <argument><expr><literal type="string">"Value Axis"</literal></expr></argument>,
+                <argument><expr><name>dataset</name></expr></argument>, <argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CategoryPlot</name></type> <name>plot</name> <init>= <expr><operator>(</operator><name>CategoryPlot</name><operator>)</operator> <call><name><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>addRangeMarker</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>ValueMarker</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>Layer</name><operator>.</operator><name>FOREGROUND</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>addRangeMarker</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>IntervalMarker</name><argument_list>(<argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="number">3.3</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>Layer</name><operator>.</operator><name>BACKGROUND</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart2</name> <init>= <expr><operator>(</operator><name>JFreeChart</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>chart</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>chart</name></expr></argument>, <argument><expr><name>chart2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// now check that the chart is usable...</comment>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>chart2</name><operator>.</operator><name>createBufferedImage</name></name><argument_list>(<argument><expr><literal type="number">300</literal></expr></argument>, <argument><expr><literal type="number">200</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>Exception</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"No exception should be thrown."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    </unit>

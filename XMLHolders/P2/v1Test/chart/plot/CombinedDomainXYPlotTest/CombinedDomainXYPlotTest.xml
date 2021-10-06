@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\plot\CombinedDomainXYPlotTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * -----------------------------
+ * CombinedDomainXYPlotTest.java
+ * -----------------------------
+ * (C) Copyright 2003-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 21-Aug-2003 : Version 1 (DG);
+ * 03-Jan-2008 : Added testNotification() (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>plot</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Font</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Graphics2D</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>geom</name><operator>.</operator><name>Rectangle2D</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>image</name><operator>.</operator><name>BufferedImage</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>ArrayList</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>JFreeChart</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>annotations</name><operator>.</operator><name>XYTextAnnotation</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>axis</name><operator>.</operator><name>AxisLocation</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>axis</name><operator>.</operator><name>NumberAxis</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>event</name><operator>.</operator><name>ChartChangeEvent</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>event</name><operator>.</operator><name>ChartChangeListener</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>renderer</name><operator>.</operator><name>xy</name><operator>.</operator><name>StandardXYItemRenderer</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>renderer</name><operator>.</operator><name>xy</name><operator>.</operator><name>XYItemRenderer</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>XYDataset</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>XYSeries</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>XYSeriesCollection</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link CombinedDomainXYPlot} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>CombinedDomainXYPlotTest</name> <super_list><implements>implements <super><name>ChartChangeListener</name></super></implements></super_list> <block>{
+
+    <comment type="block" format="javadoc">/** A list of the events received. */</comment>
+    <decl_stmt><decl><type><specifier>private</specifier> <name><name>List</name><argument_list type="generic">&lt;<argument><name>ChartChangeEvent</name></argument>&gt;</argument_list></name></type> <name>events</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Receives a chart change event.
+     *
+     * @param event  the event.
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>chartChanged</name><parameter_list>(<parameter><decl><type><name>ChartChangeEvent</name></type> <name>event</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>events</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>event</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that the constructor will accept a null axis.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testConstructor1</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>CombinedDomainXYPlot</name></type> <name>plot</name> <init>= <expr><operator>new</operator> <call><name>CombinedDomainXYPlot</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><call><name><name>plot</name><operator>.</operator><name>getDomainAxis</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * This is a test to replicate the bug report 987080.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testRemoveSubplot</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>CombinedDomainXYPlot</name></type> <name>plot</name> <init>= <expr><operator>new</operator> <call><name>CombinedDomainXYPlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>plot1</name> <init>= <expr><operator>new</operator> <call><name>XYPlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>plot2</name> <init>= <expr><operator>new</operator> <call><name>XYPlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>plot1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>plot2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <comment type="line">// remove plot2, but plot1 is removed instead</comment>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>remove</name></name><argument_list>(<argument><expr><name>plot2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>List</name></type> <name>plots</name> <init>= <expr><call><name><name>plot</name><operator>.</operator><name>getSubplots</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>plots</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call> <operator>==</operator> <name>plot1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Tests the equals() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>CombinedDomainXYPlot</name></type> <name>plot1</name> <init>= <expr><call><name>createPlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CombinedDomainXYPlot</name></type> <name>plot2</name> <init>= <expr><call><name>createPlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>plot1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>plot2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>plot2</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>plot1</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that cloning works.
+     * 
+     * @throws java.lang.CloneNotSupportedException
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>CombinedDomainXYPlot</name></type> <name>plot1</name> <init>= <expr><call><name>createPlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CombinedDomainXYPlot</name></type> <name>plot2</name> <init>= <expr><operator>(</operator><name>CombinedDomainXYPlot</name><operator>)</operator> <call><name><name>plot1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>plot1</name> <operator>!=</operator> <name>plot2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>plot1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>plot2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>plot1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>plot2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>CombinedDomainXYPlot</name></type> <name>plot1</name> <init>= <expr><call><name>createPlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CombinedDomainXYPlot</name></type> <name>plot2</name> <init>= <expr><operator>(</operator><name>CombinedDomainXYPlot</name><operator>)</operator> 
+                <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>plot1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>plot1</name></expr></argument>, <argument><expr><name>plot2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Check that only one chart change event is generated by a change to a
+     * subplot.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNotification</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>CombinedDomainXYPlot</name></type> <name>plot</name> <init>= <expr><call><name>createPlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><operator>new</operator> <call><name>JFreeChart</name><argument_list>(<argument><expr><name>plot</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>subplot1</name> <init>= <expr><operator>(</operator><name>XYPlot</name><operator>)</operator> <call><name><name>plot</name><operator>.</operator><name>getSubplots</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>NumberAxis</name></type> <name>yAxis</name> <init>= <expr><operator>(</operator><name>NumberAxis</name><operator>)</operator> <call><name><name>subplot1</name><operator>.</operator><name>getRangeAxis</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>yAxis</name><operator>.</operator><name>setAutoRangeIncludesZero</name></name><argument_list>(<argument><expr><operator>!</operator><call><name><name>yAxis</name><operator>.</operator><name>getAutoRangeIncludesZero</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>events</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// a redraw should NOT trigger another change event</comment>
+        <decl_stmt><decl><type><name>BufferedImage</name></type> <name>image</name> <init>= <expr><operator>new</operator> <call><name>BufferedImage</name><argument_list>(<argument><expr><literal type="number">200</literal></expr></argument>, <argument><expr><literal type="number">100</literal></expr></argument>,
+                <argument><expr><name><name>BufferedImage</name><operator>.</operator><name>TYPE_INT_RGB</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Graphics2D</name></type> <name>g2</name> <init>= <expr><call><name><name>image</name><operator>.</operator><name>createGraphics</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>events</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>draw</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>, <argument><expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><literal type="number">200.0</literal></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>this</name><operator>.</operator><name>events</name><operator>.</operator><name>isEmpty</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Creates a sample dataset.
+     *
+     * @return Series 1.
+     */</comment>
+    <function><type><specifier>private</specifier> <name>XYDataset</name></type> <name>createDataset1</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <comment type="line">// create dataset 1...</comment>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">12353.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="number">13734.4</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">30.0</literal></expr></argument>, <argument><expr><literal type="number">14525.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">40.0</literal></expr></argument>, <argument><expr><literal type="number">13984.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">50.0</literal></expr></argument>, <argument><expr><literal type="number">12999.4</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">60.0</literal></expr></argument>, <argument><expr><literal type="number">14274.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">70.0</literal></expr></argument>, <argument><expr><literal type="number">15943.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">80.0</literal></expr></argument>, <argument><expr><literal type="number">14845.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">90.0</literal></expr></argument>, <argument><expr><literal type="number">14645.4</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><literal type="number">16234.6</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">110.0</literal></expr></argument>, <argument><expr><literal type="number">17232.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">120.0</literal></expr></argument>, <argument><expr><literal type="number">14232.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">130.0</literal></expr></argument>, <argument><expr><literal type="number">13102.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">140.0</literal></expr></argument>, <argument><expr><literal type="number">14230.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">150.0</literal></expr></argument>, <argument><expr><literal type="number">11235.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series2</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series 2"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">15000.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="number">11000.4</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">30.0</literal></expr></argument>, <argument><expr><literal type="number">17000.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">40.0</literal></expr></argument>, <argument><expr><literal type="number">15000.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">50.0</literal></expr></argument>, <argument><expr><literal type="number">14000.4</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">60.0</literal></expr></argument>, <argument><expr><literal type="number">12000.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">70.0</literal></expr></argument>, <argument><expr><literal type="number">11000.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">80.0</literal></expr></argument>, <argument><expr><literal type="number">12000.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">90.0</literal></expr></argument>, <argument><expr><literal type="number">13000.4</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><literal type="number">12000.6</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">110.0</literal></expr></argument>, <argument><expr><literal type="number">13000.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">120.0</literal></expr></argument>, <argument><expr><literal type="number">17000.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">130.0</literal></expr></argument>, <argument><expr><literal type="number">18000.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">140.0</literal></expr></argument>, <argument><expr><literal type="number">16000.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">150.0</literal></expr></argument>, <argument><expr><literal type="number">17000.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>collection</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>collection</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>collection</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <return>return <expr><name>collection</name></expr>;</return>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Creates a sample dataset.
+     *
+     * @return Series 2.
+     */</comment>
+    <function><type><specifier>private</specifier> <name>XYDataset</name></type> <name>createDataset2</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series2</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series 3"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">16853.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="number">19642.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">30.0</literal></expr></argument>, <argument><expr><literal type="number">18253.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">40.0</literal></expr></argument>, <argument><expr><literal type="number">15352.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">50.0</literal></expr></argument>, <argument><expr><literal type="number">13532.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><literal type="number">12635.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">110.0</literal></expr></argument>, <argument><expr><literal type="number">13998.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">120.0</literal></expr></argument>, <argument><expr><literal type="number">11943.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">130.0</literal></expr></argument>, <argument><expr><literal type="number">16943.9</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">140.0</literal></expr></argument>, <argument><expr><literal type="number">17843.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">150.0</literal></expr></argument>, <argument><expr><literal type="number">16495.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">160.0</literal></expr></argument>, <argument><expr><literal type="number">17943.6</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">170.0</literal></expr></argument>, <argument><expr><literal type="number">18500.7</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">180.0</literal></expr></argument>, <argument><expr><literal type="number">19595.9</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <return>return <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>(<argument><expr><name>series2</name></expr></argument>)</argument_list></call></expr>;</return>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Creates a sample plot.
+     *
+     * @return A sample plot.
+     */</comment>
+    <function><type><specifier>private</specifier> <name>CombinedDomainXYPlot</name></type> <name>createPlot</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// create subplot 1...</comment>
+        <decl_stmt><decl><type><name>XYDataset</name></type> <name>data1</name> <init>= <expr><call><name>createDataset1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYItemRenderer</name></type> <name>renderer1</name> <init>= <expr><operator>new</operator> <call><name>StandardXYItemRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>NumberAxis</name></type> <name>rangeAxis1</name> <init>= <expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"Range 1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>subplot1</name> <init>= <expr><operator>new</operator> <call><name>XYPlot</name><argument_list>(<argument><expr><name>data1</name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><name>rangeAxis1</name></expr></argument>, <argument><expr><name>renderer1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>subplot1</name><operator>.</operator><name>setRangeAxisLocation</name></name><argument_list>(<argument><expr><name><name>AxisLocation</name><operator>.</operator><name>BOTTOM_OR_LEFT</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>XYTextAnnotation</name></type> <name>annotation</name> <init>= <expr><operator>new</operator> <call><name>XYTextAnnotation</name><argument_list>(<argument><expr><literal type="string">"Hello!"</literal></expr></argument>, <argument><expr><literal type="number">50.0</literal></expr></argument>,
+                <argument><expr><literal type="number">10000.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>annotation</name><operator>.</operator><name>setFont</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Font</name><argument_list>(<argument><expr><literal type="string">"SansSerif"</literal></expr></argument>, <argument><expr><name><name>Font</name><operator>.</operator><name>PLAIN</name></name></expr></argument>, <argument><expr><literal type="number">9</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>annotation</name><operator>.</operator><name>setRotationAngle</name></name><argument_list>(<argument><expr><name><name>Math</name><operator>.</operator><name>PI</name></name> <operator>/</operator> <literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>subplot1</name><operator>.</operator><name>addAnnotation</name></name><argument_list>(<argument><expr><name>annotation</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// create subplot 2...</comment>
+        <decl_stmt><decl><type><name>XYDataset</name></type> <name>data2</name> <init>= <expr><call><name>createDataset2</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYItemRenderer</name></type> <name>renderer2</name> <init>= <expr><operator>new</operator> <call><name>StandardXYItemRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>NumberAxis</name></type> <name>rangeAxis2</name> <init>= <expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"Range 2"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>rangeAxis2</name><operator>.</operator><name>setAutoRangeIncludesZero</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>subplot2</name> <init>= <expr><operator>new</operator> <call><name>XYPlot</name><argument_list>(<argument><expr><name>data2</name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><name>rangeAxis2</name></expr></argument>, <argument><expr><name>renderer2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>subplot2</name><operator>.</operator><name>setRangeAxisLocation</name></name><argument_list>(<argument><expr><name><name>AxisLocation</name><operator>.</operator><name>TOP_OR_LEFT</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// parent plot...</comment>
+        <decl_stmt><decl><type><name>CombinedDomainXYPlot</name></type> <name>plot</name> <init>= <expr><operator>new</operator> <call><name>CombinedDomainXYPlot</name><argument_list>(
+                <argument><expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"Domain"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setGap</name></name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// add the subplots...</comment>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>subplot1</name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>subplot2</name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setOrientation</name></name><argument_list>(<argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <return>return <expr><name>plot</name></expr>;</return>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

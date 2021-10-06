@@ -1,0 +1,21 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>String</name></argument>&gt;</argument_list></name></type> <name>t1</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>t1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="string">"Tooltip A1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>t1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="string">"Tooltip A2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>t1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="string">"Tooltip A3"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>String</name></argument>&gt;</argument_list></name></type> <name>t2</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>t2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="string">"Tooltip B1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>t2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="string">"Tooltip B2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>t2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="string">"Tooltip B3"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>CustomXYToolTipGenerator</name></type> <name>g1</name> <init>= <expr><operator>new</operator> <call><name>CustomXYToolTipGenerator</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>addToolTipSeries</name></name><argument_list>(<argument><expr><name>t1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>addToolTipSeries</name></name><argument_list>(<argument><expr><name>t2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>CustomXYToolTipGenerator</name></type> <name>g2</name> <init>= <expr><operator>(</operator><name>CustomXYToolTipGenerator</name><operator>)</operator> 
+                <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>g1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>g1</name></expr></argument>, <argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</unit>

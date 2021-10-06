@@ -1,0 +1,35 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSetKey</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>TimeSeries</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>TimeSeries</name><argument_list>(<argument><expr><literal type="string">"S"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>setKey</name></name><argument_list>(<argument><expr><literal type="string">"S1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"S1"</literal></expr></argument>, <argument><expr><call><name><name>s1</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <decl_stmt><decl><type><name>TimeSeriesCollection</name></type> <name>c</name> <init>= <expr><operator>new</operator> <call><name>TimeSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>TimeSeries</name></type> <name>s2</name> <init>= <expr><operator>new</operator> <call><name>TimeSeries</name><argument_list>(<argument><expr><literal type="string">"S2"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <comment type="line">// now we should be allowed to change s1's key to anything but "S2"</comment>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>setKey</name></name><argument_list>(<argument><expr><literal type="string">"OK"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"OK"</literal></expr></argument>, <argument><expr><call><name><name>s1</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>setKey</name></name><argument_list>(<argument><expr><literal type="string">"S2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expect an exception here."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// OK</comment>
+        </block_content>}</block></catch></try>
+        
+        <comment type="line">// after s1 is removed from the collection, we should be able to set</comment>
+        <comment type="line">// the key to anything we want...</comment>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>removeSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>setKey</name></name><argument_list>(<argument><expr><literal type="string">"S2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+                
+        <comment type="line">// check that removing by index also works</comment>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>setKey</name></name><argument_list>(<argument><expr><literal type="string">"S1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>removeSeries</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>setKey</name></name><argument_list>(<argument><expr><literal type="string">"S2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

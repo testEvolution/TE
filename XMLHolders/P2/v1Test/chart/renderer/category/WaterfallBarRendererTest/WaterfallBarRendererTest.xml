@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\renderer\category\WaterfallBarRendererTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * -----------------------------
+ * WaterfallBarRendererTest.java
+ * -----------------------------
+ * (C) Copyright 2003-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 21-Oct-2003 : Version 1 (DG);
+ * 23-Apr-2008 : Added testPublicCloneable() (DG);
+ * 04-Feb-2009 : Added testFindRangeBounds() (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>renderer</name><operator>.</operator><name>category</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertNull</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Color</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>util</name><operator>.</operator><name>PublicCloneable</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link WaterfallBarRenderer} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>WaterfallBarRendererTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Some tests for the findRangeBounds() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFindRangeBounds</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>WaterfallBarRenderer</name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name>WaterfallBarRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>r</name><operator>.</operator><name>findRangeBounds</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Check that the equals() method distinguishes all fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>WaterfallBarRenderer</name></type> <name>r1</name> <init>= <expr><operator>new</operator> <call><name>WaterfallBarRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>WaterfallBarRenderer</name></type> <name>r2</name> <init>= <expr><operator>new</operator> <call><name>WaterfallBarRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>r1</name></expr></argument>, <argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// firstBarPaint;</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setFirstBarPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>cyan</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setFirstBarPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>cyan</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// lastBarPaint;</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setLastBarPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>cyan</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setLastBarPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>cyan</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// positiveBarPaint;</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setPositiveBarPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>cyan</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setPositiveBarPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>cyan</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">//private Paint negativeBarPaint;</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setNegativeBarPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>cyan</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setNegativeBarPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>cyan</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Two objects that are equal are required to return the same hashCode.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testHashcode</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>WaterfallBarRenderer</name></type> <name>r1</name> <init>= <expr><operator>new</operator> <call><name>WaterfallBarRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>WaterfallBarRenderer</name></type> <name>r2</name> <init>= <expr><operator>new</operator> <call><name>WaterfallBarRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h1</name> <init>= <expr><call><name><name>r1</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h2</name> <init>= <expr><call><name><name>r2</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>h1</name></expr></argument>, <argument><expr><name>h2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that cloning works.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>WaterfallBarRenderer</name></type> <name>r1</name> <init>= <expr><operator>new</operator> <call><name>WaterfallBarRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>WaterfallBarRenderer</name></type> <name>r2</name> <init>= <expr><operator>(</operator><name>WaterfallBarRenderer</name><operator>)</operator> <call><name><name>r1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>r1</name> <operator>!=</operator> <name>r2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>r2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// quick check for independence</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setFirstBarPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>YELLOW</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setFirstBarPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>YELLOW</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Check that this class implements PublicCloneable.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPublicCloneable</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>WaterfallBarRenderer</name></type> <name>r1</name> <init>= <expr><operator>new</operator> <call><name>WaterfallBarRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>r1</name> <operator>instanceof</operator> <name>PublicCloneable</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>WaterfallBarRenderer</name></type> <name>r1</name> <init>= <expr><operator>new</operator> <call><name>WaterfallBarRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>WaterfallBarRenderer</name></type> <name>r2</name> <init>= <expr><operator>(</operator><name>WaterfallBarRenderer</name><operator>)</operator> 
+                <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>r1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>r1</name></expr></argument>, <argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+<comment type="line">//    /**</comment>
+<comment type="line">//     * Check that the paint object returned for a middle column with 0 </comment>
+<comment type="line">//     * difference is the positive bar paint object</comment>
+<comment type="line">//     */</comment>
+<comment type="line">//    @Test</comment>
+<comment type="line">// public void testGetSeriesPaintForDifferentValues() {</comment>
+<comment type="line">//Color firstPaint = Color.cyan;</comment>
+<comment type="line">//Color positivePaint = Color.GREEN;</comment>
+<comment type="line">//Color negativePaint = Color.RED;</comment>
+<comment type="line">//Color lastPaint = Color.BLUE;</comment>
+<comment type="line">//WaterfallBarRenderer waterfallBarRenderer = new WaterfallBarRenderer(firstPaint, positivePaint, negativePaint, lastPaint);</comment>
+<comment type="line">//</comment>
+<comment type="line" format="doxygen">//// Sets of tests for making sure the correct paint object is returned</comment>
+<comment type="line" format="doxygen">//// for different scenarios. </comment>
+<comment type="line">//	</comment>
+<comment type="line" format="doxygen">//// In the first set, the "firstPaint" object is always returned because</comment>
+<comment type="line" format="doxygen">//// this is first column (regardless of the value of the value difference).</comment>
+<comment type="line">//assertSame(firstPaint, waterfallBarRenderer.getSeriesPaintObject(0, 1, 0d));</comment>
+<comment type="line">//assertSame(firstPaint, waterfallBarRenderer.getSeriesPaintObject(0, 2, 1d));</comment>
+<comment type="line">//assertSame(firstPaint, waterfallBarRenderer.getSeriesPaintObject(0, 2, -1d));</comment>
+<comment type="line">//</comment>
+<comment type="line" format="doxygen">//// In the second set, the "positivePaint" object is returned for middle</comment>
+<comment type="line" format="doxygen">//// columns which are greater than or equal to 0. </comment>
+<comment type="line">//assertSame(positivePaint, waterfallBarRenderer.getSeriesPaintObject(1, 1, 1d));</comment>
+<comment type="line">//assertSame(positivePaint, waterfallBarRenderer.getSeriesPaintObject(1, 1, 0d));</comment>
+<comment type="line">//assertSame(positivePaint, waterfallBarRenderer.getSeriesPaintObject(1, 3, 0d));</comment>
+<comment type="line">//</comment>
+<comment type="line" format="doxygen">//// In the third set, the "negativePaint" object is returned for middle </comment>
+<comment type="line" format="doxygen">//// columns which are less than zero.</comment>
+<comment type="line">//assertSame(negativePaint, waterfallBarRenderer.getSeriesPaintObject(1, 1, -0.5d));</comment>
+<comment type="line">//assertSame(negativePaint, waterfallBarRenderer.getSeriesPaintObject(1, 3, -0.5d));</comment>
+<comment type="line">//assertSame(negativePaint, waterfallBarRenderer.getSeriesPaintObject(1, 0, -0.5d));</comment>
+<comment type="line">//		</comment>
+<comment type="line" format="doxygen">//// In the last set, the "lastPaint" object is returned because this is the </comment>
+<comment type="line" format="doxygen">//// last column (regardless of the value of the value difference).</comment>
+<comment type="line">//assertSame(lastPaint, waterfallBarRenderer.getSeriesPaintObject(1, 2, 0d));</comment>
+<comment type="line">//assertSame(lastPaint, waterfallBarRenderer.getSeriesPaintObject(1, 2, 1d));</comment>
+<comment type="line">//assertSame(lastPaint, waterfallBarRenderer.getSeriesPaintObject(1, 2, -1d));</comment>
+<comment type="line">//}</comment>
+
+}</block></class>
+</unit>

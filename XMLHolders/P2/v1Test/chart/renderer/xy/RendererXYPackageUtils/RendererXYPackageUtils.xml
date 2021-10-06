@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\renderer\xy\RendererXYPackageUtils.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ---------------------------
+ * RendererXYPackageTests.java
+ * ---------------------------
+ * (C) Copyright 2004-2020, by Object Refinery Limited.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>renderer</name><operator>.</operator><name>xy</name></name>;</package>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>DefaultTableXYDataset</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>TableXYDataset</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>XYSeries</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>XYSeriesCollection</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * A collection of tests for the org.jfree.chart.renderer.xy package.
+ * &lt;P&gt;
+ * These tests can be run using JUnit (http://www.junit.org).
+ */</comment>
+<class><specifier>public</specifier> class <name>RendererXYPackageUtils</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Creates and returns a sample dataset for testing purposes.
+     *
+     * @return A sample dataset.
+     */</comment>
+    <function><type><specifier>public</specifier> <specifier>static</specifier> <name>XYSeriesCollection</name></type> <name>createTestXYSeriesCollection</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>result</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series2</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series 2"</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <return>return <expr><name>result</name></expr>;</return>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Creates and returns a sample dataset for testing purposes.
+     *
+     * @return A sample dataset.
+     */</comment>
+    <function><type><specifier>public</specifier> <specifier>static</specifier> <name>TableXYDataset</name></type> <name>createTestTableXYDataset</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultTableXYDataset</name></type> <name>result</name> <init>= <expr><operator>new</operator> <call><name>DefaultTableXYDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series2</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series 2"</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <return>return <expr><name>result</name></expr>;</return>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

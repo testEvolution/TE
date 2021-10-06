@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\ChartPanelTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * -------------------
+ * ChartPanelTest.java
+ * -------------------
+ * (C) Copyright 2004-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 13-Jul-2004 : Version 1 (DG);
+ * 12-Jan-2009 : Added test2502355() (DG);
+ * 08-Jun-2009 : Added testSetMouseWheelEnabled() (DG);
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>geom</name><operator>.</operator><name>Rectangle2D</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>ArrayList</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>EventListener</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<import>import <name><name>javax</name><operator>.</operator><name>swing</name><operator>.</operator><name>event</name><operator>.</operator><name>CaretListener</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>axis</name><operator>.</operator><name>NumberAxis</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>event</name><operator>.</operator><name>ChartChangeEvent</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>event</name><operator>.</operator><name>ChartChangeListener</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>plot</name><operator>.</operator><name>PlotOrientation</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>plot</name><operator>.</operator><name>XYPlot</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>DefaultXYDataset</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link ChartPanel} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>ChartPanelTest</name> <super_list><implements>implements <super><name>ChartChangeListener</name></super>, <super><name>ChartMouseListener</name></super></implements></super_list> <block>{
+
+    <decl_stmt><decl><type><specifier>private</specifier> <name><name>List</name><argument_list type="generic">&lt;<argument><name>ChartChangeEvent</name></argument>&gt;</argument_list></name></type> <name>chartChangeEvents</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Receives a chart change event and stores it in a list for later
+     * inspection.
+     *
+     * @param event  the event.
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>chartChanged</name><parameter_list>(<parameter><decl><type><name>ChartChangeEvent</name></type> <name>event</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>event</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test that the constructor will accept a null chart.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testConstructor1</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ChartPanel</name></type> <name>panel</name> <init>= <expr><operator>new</operator> <call><name>ChartPanel</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><call><name><name>panel</name><operator>.</operator><name>getChart</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test that it is possible to set the panel's chart to null.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSetChart</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><operator>new</operator> <call><name>JFreeChart</name><argument_list>(<argument><expr><operator>new</operator> <call><name>XYPlot</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ChartPanel</name></type> <name>panel</name> <init>= <expr><operator>new</operator> <call><name>ChartPanel</name><argument_list>(<argument><expr><name>chart</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>panel</name><operator>.</operator><name>setChart</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><call><name><name>panel</name><operator>.</operator><name>getChart</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Check the behaviour of the getListeners() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetListeners</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ChartPanel</name></type> <name>p</name> <init>= <expr><operator>new</operator> <call><name>ChartPanel</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>p</name><operator>.</operator><name>addChartMouseListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>EventListener</name><index>[]</index></name></type> <name>listeners</name> <init>= <expr><call><name><name>p</name><operator>.</operator><name>getListeners</name></name><argument_list>(<argument><expr><name><name>ChartMouseListener</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><name><name>listeners</name><operator>.</operator><name>length</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>this</name></expr></argument>, <argument><expr><name><name>listeners</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <comment type="line">// try a listener type that isn't registered</comment>
+        <expr_stmt><expr><name>listeners</name> <operator>=</operator> <call><name><name>p</name><operator>.</operator><name>getListeners</name></name><argument_list>(<argument><expr><name><name>CaretListener</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name><name>listeners</name><operator>.</operator><name>length</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>p</name><operator>.</operator><name>removeChartMouseListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>listeners</name> <operator>=</operator> <call><name><name>p</name><operator>.</operator><name>getListeners</name></name><argument_list>(<argument><expr><name><name>ChartMouseListener</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name><name>listeners</name><operator>.</operator><name>length</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try a null argument</comment>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><name>listeners</name> <operator>=</operator> <call><name><name>p</name><operator>.</operator><name>getListeners</name></name><argument_list>(<argument><expr><operator>(</operator><name>Class</name><operator>)</operator> <literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>NullPointerException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try a class that isn't a listener</comment>
+        <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">false</literal></expr>;</expr_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><name>listeners</name> <operator>=</operator> <call><name><name>p</name><operator>.</operator><name>getListeners</name></name><argument_list>(<argument><expr><name><name>Integer</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>ClassCastException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Ignores a mouse click event.
+     *
+     * @param event  the event.
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>chartMouseClicked</name><parameter_list>(<parameter><decl><type><name>ChartMouseEvent</name></type> <name>event</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <comment type="line">// ignore</comment>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Ignores a mouse move event.
+     *
+     * @param event  the event.
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>chartMouseMoved</name><parameter_list>(<parameter><decl><type><name>ChartMouseEvent</name></type> <name>event</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <comment type="line">// ignore</comment>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks that a call to the zoom() method generates just one
+     * ChartChangeEvent.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test2502355_zoom</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultXYDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultXYDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createXYLineChart</name></name><argument_list>(<argument><expr><literal type="string">"TestChart"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>,
+                <argument><expr><literal type="string">"Y"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>, <argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ChartPanel</name></type> <name>panel</name> <init>= <expr><operator>new</operator> <call><name>ChartPanel</name><argument_list>(<argument><expr><name>chart</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>panel</name><operator>.</operator><name>zoom</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks that a call to the zoomInBoth() method generates just one
+     * ChartChangeEvent.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test2502355_zoomInBoth</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultXYDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultXYDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createXYLineChart</name></name><argument_list>(<argument><expr><literal type="string">"TestChart"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>,
+                <argument><expr><literal type="string">"Y"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>, <argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ChartPanel</name></type> <name>panel</name> <init>= <expr><operator>new</operator> <call><name>ChartPanel</name><argument_list>(<argument><expr><name>chart</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>panel</name><operator>.</operator><name>zoomInBoth</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks that a call to the zoomOutBoth() method generates just one
+     * ChartChangeEvent.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test2502355_zoomOutBoth</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultXYDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultXYDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createXYLineChart</name></name><argument_list>(<argument><expr><literal type="string">"TestChart"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>,
+                <argument><expr><literal type="string">"Y"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>, <argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ChartPanel</name></type> <name>panel</name> <init>= <expr><operator>new</operator> <call><name>ChartPanel</name><argument_list>(<argument><expr><name>chart</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>panel</name><operator>.</operator><name>zoomOutBoth</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks that a call to the restoreAutoBounds() method generates just one
+     * ChartChangeEvent.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test2502355_restoreAutoBounds</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultXYDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultXYDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createXYLineChart</name></name><argument_list>(<argument><expr><literal type="string">"TestChart"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>,
+                <argument><expr><literal type="string">"Y"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>, <argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ChartPanel</name></type> <name>panel</name> <init>= <expr><operator>new</operator> <call><name>ChartPanel</name><argument_list>(<argument><expr><name>chart</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>panel</name><operator>.</operator><name>restoreAutoBounds</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks that a call to the zoomInDomain() method, for a plot with more
+     * than one domain axis, generates just one ChartChangeEvent.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test2502355_zoomInDomain</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultXYDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultXYDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createXYLineChart</name></name><argument_list>(<argument><expr><literal type="string">"TestChart"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>,
+                <argument><expr><literal type="string">"Y"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>, <argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>plot</name> <init>= <expr><operator>(</operator><name>XYPlot</name><operator>)</operator> <call><name><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setDomainAxis</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"X2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>ChartPanel</name></type> <name>panel</name> <init>= <expr><operator>new</operator> <call><name>ChartPanel</name><argument_list>(<argument><expr><name>chart</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>panel</name><operator>.</operator><name>zoomInDomain</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks that a call to the zoomInRange() method, for a plot with more
+     * than one range axis, generates just one ChartChangeEvent.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test2502355_zoomInRange</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultXYDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultXYDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createXYLineChart</name></name><argument_list>(<argument><expr><literal type="string">"TestChart"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>,
+                <argument><expr><literal type="string">"Y"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>, <argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>plot</name> <init>= <expr><operator>(</operator><name>XYPlot</name><operator>)</operator> <call><name><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setRangeAxis</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"X2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>ChartPanel</name></type> <name>panel</name> <init>= <expr><operator>new</operator> <call><name>ChartPanel</name><argument_list>(<argument><expr><name>chart</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>panel</name><operator>.</operator><name>zoomInRange</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks that a call to the zoomOutDomain() method, for a plot with more
+     * than one domain axis, generates just one ChartChangeEvent.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test2502355_zoomOutDomain</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultXYDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultXYDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createXYLineChart</name></name><argument_list>(<argument><expr><literal type="string">"TestChart"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>,
+                <argument><expr><literal type="string">"Y"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>, <argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>plot</name> <init>= <expr><operator>(</operator><name>XYPlot</name><operator>)</operator> <call><name><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setDomainAxis</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"X2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>ChartPanel</name></type> <name>panel</name> <init>= <expr><operator>new</operator> <call><name>ChartPanel</name><argument_list>(<argument><expr><name>chart</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>panel</name><operator>.</operator><name>zoomOutDomain</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks that a call to the zoomOutRange() method, for a plot with more
+     * than one range axis, generates just one ChartChangeEvent.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test2502355_zoomOutRange</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultXYDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultXYDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createXYLineChart</name></name><argument_list>(<argument><expr><literal type="string">"TestChart"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>,
+                <argument><expr><literal type="string">"Y"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>, <argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>plot</name> <init>= <expr><operator>(</operator><name>XYPlot</name><operator>)</operator> <call><name><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setRangeAxis</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"X2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>ChartPanel</name></type> <name>panel</name> <init>= <expr><operator>new</operator> <call><name>ChartPanel</name><argument_list>(<argument><expr><name>chart</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>panel</name><operator>.</operator><name>zoomOutRange</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks that a call to the restoreAutoDomainBounds() method, for a plot
+     * with more than one range axis, generates just one ChartChangeEvent.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test2502355_restoreAutoDomainBounds</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultXYDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultXYDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createXYLineChart</name></name><argument_list>(<argument><expr><literal type="string">"TestChart"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>,
+                <argument><expr><literal type="string">"Y"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>, <argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>plot</name> <init>= <expr><operator>(</operator><name>XYPlot</name><operator>)</operator> <call><name><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setDomainAxis</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"X2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>ChartPanel</name></type> <name>panel</name> <init>= <expr><operator>new</operator> <call><name>ChartPanel</name><argument_list>(<argument><expr><name>chart</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>panel</name><operator>.</operator><name>restoreAutoDomainBounds</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks that a call to the restoreAutoRangeBounds() method, for a plot
+     * with more than one range axis, generates just one ChartChangeEvent.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test2502355_restoreAutoRangeBounds</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultXYDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultXYDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createXYLineChart</name></name><argument_list>(<argument><expr><literal type="string">"TestChart"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>,
+                <argument><expr><literal type="string">"Y"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>, <argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>plot</name> <init>= <expr><operator>(</operator><name>XYPlot</name><operator>)</operator> <call><name><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setRangeAxis</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"X2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>ChartPanel</name></type> <name>panel</name> <init>= <expr><operator>new</operator> <call><name>ChartPanel</name><argument_list>(<argument><expr><name>chart</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>panel</name><operator>.</operator><name>restoreAutoRangeBounds</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * In version 1.0.13 there is a bug where enabling the mouse wheel handler
+     * twice would in fact disable it.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSetMouseWheelEnabled</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultXYDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultXYDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createXYLineChart</name></name><argument_list>(<argument><expr><literal type="string">"TestChart"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>,
+                <argument><expr><literal type="string">"Y"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>, <argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ChartPanel</name></type> <name>panel</name> <init>= <expr><operator>new</operator> <call><name>ChartPanel</name><argument_list>(<argument><expr><name>chart</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>panel</name><operator>.</operator><name>setMouseWheelEnabled</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>panel</name><operator>.</operator><name>isMouseWheelEnabled</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>panel</name><operator>.</operator><name>setMouseWheelEnabled</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>panel</name><operator>.</operator><name>isMouseWheelEnabled</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>panel</name><operator>.</operator><name>setMouseWheelEnabled</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>panel</name><operator>.</operator><name>isMouseWheelEnabled</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

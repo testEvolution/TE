@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\rule\codestyle\DuplicateImportsTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>rule</name><operator>.</operator><name>codestyle</name></name>;</package>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>testframework</name><operator>.</operator><name>PmdRuleTst</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>DuplicateImportsTest</name> <super_list><extends>extends <super><name>PmdRuleTst</name></super></extends></super_list> <block>{
+    <comment type="block" format="javadoc">/**
+     * This is just for testing DuplicateImports for static imports and
+     * disambiguation.
+     */</comment>
+    <comment type="line">// Do not delete this method, its needed for a test case</comment>
+    <comment type="line">// see:</comment>
+    <comment type="line">// /pmd-java/src/test/resources/net/sourceforge/pmd/lang/java/rule/codestyle/xml/DuplicateImports.xml</comment>
+    <comment type="line">// #1306 False positive on duplicate when using static imports</comment>
+    <function><type><specifier>public</specifier> <specifier>static</specifier> <name>void</name></type> <name>assertTrue</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>message</name></decl></parameter>, <parameter><decl><type><name>boolean</name></type> <name>condition</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <if_stmt><if>if <condition>(<expr><operator>!</operator><name>condition</name></expr>)</condition> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>println</name></name><argument_list>(<argument><expr><name>message</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></if></if_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

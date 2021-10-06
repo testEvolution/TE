@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\annotations\TextAnnotationTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * -----------------------
+ * TextAnnotationTest.java
+ * -----------------------
+ * (C) Copyright 2003-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   Martin Hoeller;
+ *
+ * Changes
+ * -------
+ * 19-Aug-2003 : Version 1 (DG);
+ * 07-Jan-2005 : Added testHashCode() method (DG);
+ * 28-Oct-2011 : Added testSetRotationAnchor() method for bug #3428870 (MH);
+ * 01-Jul-2013 : Added testChangeEvents() (DG);
+ * 
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>annotations</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>fail</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertNotNull</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Color</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Font</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>GradientPaint</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>event</name><operator>.</operator><name>AnnotationChangeEvent</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>event</name><operator>.</operator><name>AnnotationChangeListener</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>TextAnchor</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link TextAnnotation} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>TextAnnotationTest</name> <super_list><implements>implements <super><name>AnnotationChangeListener</name></super></implements></super_list> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that the equals method can distinguish all the required fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>TextAnnotation</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>CategoryTextAnnotation</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>, <argument><expr><literal type="string">"Category"</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>TextAnnotation</name></type> <name>a2</name> <init>= <expr><operator>new</operator> <call><name>CategoryTextAnnotation</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>, <argument><expr><literal type="string">"Category"</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// text</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><literal type="string">"Text"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><literal type="string">"Text"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// font</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setFont</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Font</name><argument_list>(<argument><expr><literal type="string">"Serif"</literal></expr></argument>, <argument><expr><name><name>Font</name><operator>.</operator><name>BOLD</name></name></expr></argument>, <argument><expr><literal type="number">18</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setFont</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Font</name><argument_list>(<argument><expr><literal type="string">"Serif"</literal></expr></argument>, <argument><expr><name><name>Font</name><operator>.</operator><name>BOLD</name></name></expr></argument>, <argument><expr><literal type="number">18</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// paint</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setPaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>,
+                <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>pink</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setPaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>,
+                <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>pink</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// textAnchor</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setTextAnchor</name></name><argument_list>(<argument><expr><name><name>TextAnchor</name><operator>.</operator><name>BOTTOM_LEFT</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setTextAnchor</name></name><argument_list>(<argument><expr><name><name>TextAnchor</name><operator>.</operator><name>BOTTOM_LEFT</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// rotationAnchor</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setRotationAnchor</name></name><argument_list>(<argument><expr><name><name>TextAnchor</name><operator>.</operator><name>BOTTOM_LEFT</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setRotationAnchor</name></name><argument_list>(<argument><expr><name><name>TextAnchor</name><operator>.</operator><name>BOTTOM_LEFT</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// rotationAngle</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setRotationAngle</name></name><argument_list>(<argument><expr><name><name>Math</name><operator>.</operator><name>PI</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setRotationAngle</name></name><argument_list>(<argument><expr><name><name>Math</name><operator>.</operator><name>PI</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Two objects that are equal are required to return the same hashCode.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testHashCode</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>TextAnnotation</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>CategoryTextAnnotation</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>, <argument><expr><literal type="string">"Category"</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>TextAnnotation</name></type> <name>a2</name> <init>= <expr><operator>new</operator> <call><name>CategoryTextAnnotation</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>, <argument><expr><literal type="string">"Category"</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h1</name> <init>= <expr><call><name><name>a1</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h2</name> <init>= <expr><call><name><name>a2</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>h1</name></expr></argument>, <argument><expr><name>h2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test null-argument (Bug #3428870).
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSetRotationAnchor</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>TextAnnotation</name></type> <name>a</name> <init>= <expr><operator>new</operator> <call><name>CategoryTextAnnotation</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>, <argument><expr><literal type="string">"Category"</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>a</name><operator>.</operator><name>setRotationAnchor</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Should have thrown Exception."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// ok, exception is expected</comment>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+ 
+    <comment type="block" format="javadoc">/**
+     * Some tests to ensure that change events are generated as expected.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testChangeEvents</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>TextAnnotation</name></type> <name>a</name> <init>= <expr><operator>new</operator> <call><name>CategoryTextAnnotation</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>, <argument><expr><literal type="string">"A"</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>a</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><literal type="string">"B"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+                <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><literal type="string">"B"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a</name><operator>.</operator><name>setFont</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Font</name><argument_list>(<argument><expr><literal type="string">"SansSerif"</literal></expr></argument>, <argument><expr><name><name>Font</name><operator>.</operator><name>PLAIN</name></name></expr></argument>, <argument><expr><literal type="number">12</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a</name><operator>.</operator><name>setPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a</name><operator>.</operator><name>setTextAnchor</name></name><argument_list>(<argument><expr><name><name>TextAnchor</name><operator>.</operator><name>CENTER_LEFT</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a</name><operator>.</operator><name>setRotationAnchor</name></name><argument_list>(<argument><expr><name><name>TextAnchor</name><operator>.</operator><name>CENTER_LEFT</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a</name><operator>.</operator><name>setRotationAngle</name></name><argument_list>(<argument><expr><literal type="number">123.4</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+   </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <name>AnnotationChangeEvent</name></type> <name>lastEvent</name></decl>;</decl_stmt>
+    
+    <comment type="block" format="javadoc">/**
+     * Receives notification of a change to an annotation.
+     * 
+     * @param event  the event. 
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>annotationChanged</name><parameter_list>(<parameter><decl><type><name>AnnotationChangeEvent</name></type> <name>event</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <name>event</name></expr>;</expr_stmt>  
+    </block_content>}</block></function>
+ 
+}</block></class>
+</unit>

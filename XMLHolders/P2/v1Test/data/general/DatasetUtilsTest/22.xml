@@ -1,0 +1,12 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFindMinimumRangeValue</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>CategoryDataset</name></type> <name>d1</name> <init>= <expr><call><name>createCategoryDataset1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Number</name></type> <name>min1</name> <init>= <expr><call><name><name>DatasetUtils</name><operator>.</operator><name>findMinimumRangeValue</name></name><argument_list>(<argument><expr><name>d1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><name>min1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>XYDataset</name></type> <name>d2</name> <init>= <expr><call><name>createXYDataset1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Number</name></type> <name>min2</name> <init>= <expr><call><name><name>DatasetUtils</name><operator>.</operator><name>findMinimumRangeValue</name></name><argument_list>(<argument><expr><name>d2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><name>min2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

@@ -1,0 +1,20 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetGroupIndex</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>KeyToGroupMap</name></type> <name>m1</name> <init>= <expr><operator>new</operator> <call><name>KeyToGroupMap</name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// the default group is always at index 0</comment>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupIndex</name></name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// a non-existent group should return -1</comment>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupIndex</name></name><argument_list>(<argument><expr><literal type="string">"G3"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// indices are assigned in the order that groups are originally mapped</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K3"</literal></expr></argument>, <argument><expr><literal type="string">"G3"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K2"</literal></expr></argument>, <argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupIndex</name></name><argument_list>(<argument><expr><literal type="string">"G3"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupIndex</name></name><argument_list>(<argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupIndex</name></name><argument_list>(<argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

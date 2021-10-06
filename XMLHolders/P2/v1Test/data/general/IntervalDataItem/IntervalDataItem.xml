@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\data\general\IntervalDataItem.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ---------------------
+ * IntervalDataItem.java
+ * ---------------------
+ * (C) Copyright 2009, by Object Refinery Limited.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 10-Sep-2009 : Version 1, based on DefaultCategoryDataset (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>general</name></name>;</package>
+
+<comment type="block" format="javadoc">/**
+ * A data holder for a value and an associated range or interval.  Used by
+ * the TestIntervalCategoryDataset class.
+ */</comment>
+<class><specifier>public</specifier> class <name>IntervalDataItem</name> <block>{
+
+    <decl_stmt><decl><type><specifier>private</specifier> <name>Number</name></type> <name>value</name></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <name>Number</name></type> <name>lowerBound</name></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <name>Number</name></type> <name>upperBound</name></decl>;</decl_stmt>
+
+    <constructor><specifier>public</specifier> <name>IntervalDataItem</name><parameter_list>(<parameter><decl><type><name>Number</name></type> <name>value</name></decl></parameter>, <parameter><decl><type><name>Number</name></type> <name>lowerBound</name></decl></parameter>, <parameter><decl><type><name>Number</name></type> <name>upperBound</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>value</name></name> <operator>=</operator> <name>value</name></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lowerBound</name></name> <operator>=</operator> <name>lowerBound</name></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>upperBound</name></name> <operator>=</operator> <name>upperBound</name></expr>;</expr_stmt>
+    </block_content>}</block></constructor>
+
+    <function><type><specifier>public</specifier> <name>Number</name></type> <name>getLowerBound</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><name>lowerBound</name></expr>;</return>
+    </block_content>}</block></function>
+
+    <function><type><specifier>public</specifier> <name>Number</name></type> <name>getUpperBound</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><name>upperBound</name></expr>;</return>
+    </block_content>}</block></function>
+
+    <function><type><specifier>public</specifier> <name>Number</name></type> <name>getValue</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><name>value</name></expr>;</return>
+    </block_content>}</block></function>
+}</block></class>
+
+</unit>

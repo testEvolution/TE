@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\ast\JavaQualifiedNameTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertNotEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertNotNull</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertNull</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Arrays</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>ast</name><operator>.</operator><name>Node</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>JavaParsingHelper</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>qname</name><operator>.</operator><name>JavaOperationQualifiedName</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>qname</name><operator>.</operator><name>JavaTypeQualifiedName</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>qname</name><operator>.</operator><name>QualifiedNameFactory</name></name>;</import>
+
+
+<comment type="block" format="javadoc">/**
+ * @author ClÃ©ment Fournier
+ */</comment>
+<class><specifier>public</specifier> class <name>JavaQualifiedNameTest</name> <block>{
+
+
+    <function><type><specifier>private</specifier> <parameter_list type="generic">&lt;<parameter><name>T</name> <extends>extends <name>Node</name></extends></parameter>&gt;</parameter_list> <name><name>List</name><argument_list type="generic">&lt;<argument><name>T</name></argument>&gt;</argument_list></name></type> <name>getNodes</name><parameter_list>(<parameter><decl><type><name><name>Class</name><argument_list type="generic">&lt;<argument><name>T</name></argument>&gt;</argument_list></name></type> <name>target</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>code</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><call><name><name>JavaParsingHelper</name><operator>.</operator><name>WITH_PROCESSING</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name>target</name></expr></argument>, <argument><expr><name>code</name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEmptyPackage</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"class Foo {}"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <for>for <control>(<init><decl><type><name>ASTClassOrInterfaceDeclaration</name></type> <name>coid</name> <range>: <expr><name>nodes</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <decl_stmt><decl><type><name>JavaTypeQualifiedName</name></type> <name>qname</name> <init>= <expr><call><name><name>coid</name><operator>.</operator><name>getQualifiedName</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Foo"</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>qname</name><operator>.</operator><name>getPackageList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>isEmpty</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>qname</name><operator>.</operator><name>isUnnamedPackage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>getClassList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPackage</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"package foo.bar; class Bzaz{}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <for>for <control>(<init><decl><type><name>ASTClassOrInterfaceDeclaration</name></type> <name>coid</name> <range>: <expr><name>nodes</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <decl_stmt><decl><type><name>JavaTypeQualifiedName</name></type> <name>qname</name> <init>= <expr><call><name><name>coid</name><operator>.</operator><name>getQualifiedName</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"foo.bar.Bzaz"</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>getPackageList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>getClassList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNestedClass</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"package foo.bar; class Bzaz{ class Bor{ class Foo{}}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>ASTClassOrInterfaceDeclaration</name></type> <name>coid</name> <range>: <expr><name>nodes</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <decl_stmt><decl><type><name>JavaTypeQualifiedName</name></type> <name>qname</name> <init>= <expr><call><name><name>coid</name><operator>.</operator><name>getQualifiedName</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+            <switch>switch <condition>(<expr><call><name><name>coid</name><operator>.</operator><name>getImage</name></name><argument_list>()</argument_list></call></expr>)</condition> <block>{<block_content>
+            <case>case <expr><literal type="string">"Foo"</literal></expr>:</case>
+                <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"foo.bar.Bzaz$Bor$Foo"</literal></expr></argument>,
+                             <argument><expr><call><name><name>qname</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+                <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>getClassList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+                <break>break;</break>
+            <default>default:</default>
+                <break>break;</break>
+            </block_content>}</block></switch>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNestedEnum</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"package foo.bar; class Foo { enum Bzaz{HOO;}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTEnumDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTEnumDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>ASTEnumDeclaration</name></type> <name>coid</name> <range>: <expr><name>nodes</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <decl_stmt><decl><type><name>JavaTypeQualifiedName</name></type> <name>qname</name> <init>= <expr><call><name><name>coid</name><operator>.</operator><name>getQualifiedName</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"foo.bar.Foo$Bzaz"</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>getPackageList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>getClassList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEnum</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"package foo.bar; enum Bzaz{HOO;}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTEnumDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTEnumDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>ASTEnumDeclaration</name></type> <name>coid</name> <range>: <expr><name>nodes</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <decl_stmt><decl><type><name>JavaTypeQualifiedName</name></type> <name>qname</name> <init>= <expr><call><name><name>coid</name><operator>.</operator><name>getQualifiedName</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"foo.bar.Bzaz"</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>getPackageList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>getClassList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEnumMethodMember</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"package foo.bar; enum Bzaz{HOO; void foo(){}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTMethodDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTMethodDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>ASTMethodDeclaration</name></type> <name>coid</name> <range>: <expr><name>nodes</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <decl_stmt><decl><type><name>JavaOperationQualifiedName</name></type> <name>qname</name> <init>= <expr><call><name><name>coid</name><operator>.</operator><name>getQualifiedName</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"foo.bar.Bzaz#foo()"</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>getClassName</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getPackageList</name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>getClassName</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getClassList</name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"foo()"</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>getOperation</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNestedEmptyPackage</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"class Bzaz{ class Bor{ class Foo{}}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>ASTClassOrInterfaceDeclaration</name></type> <name>coid</name> <range>: <expr><name>nodes</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <decl_stmt><decl><type><name>JavaTypeQualifiedName</name></type> <name>qname</name> <init>= <expr><call><name><name>coid</name><operator>.</operator><name>getQualifiedName</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+            <switch>switch <condition>(<expr><call><name><name>coid</name><operator>.</operator><name>getImage</name></name><argument_list>()</argument_list></call></expr>)</condition> <block>{<block_content>
+            <case>case <expr><literal type="string">"Foo"</literal></expr>:</case>
+                <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Bzaz$Bor$Foo"</literal></expr></argument>,
+                             <argument><expr><call><name><name>qname</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+                <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>qname</name><operator>.</operator><name>getPackageList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>isEmpty</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+                <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>qname</name><operator>.</operator><name>isUnnamedPackage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+                <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>getClassList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+                <break>break;</break>
+            <default>default:</default>
+                <break>break;</break>
+            </block_content>}</block></switch>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testMethod</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"package bar; class Bzaz{ public void foo(){}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTMethodDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTMethodDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>ASTMethodDeclaration</name></type> <name>declaration</name> <range>: <expr><name>nodes</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <decl_stmt><decl><type><name>JavaOperationQualifiedName</name></type> <name>qname</name> <init>= <expr><call><name><name>declaration</name><operator>.</operator><name>getQualifiedName</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"bar.Bzaz#foo()"</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><call><name><name>qname</name><operator>.</operator><name>getOperation</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"foo()"</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>getOperation</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testConstructor</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"package bar; class Bzaz{ public Bzaz(){}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTConstructorDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTConstructorDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>ASTConstructorDeclaration</name></type> <name>declaration</name> <range>: <expr><name>nodes</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <decl_stmt><decl><type><name>JavaOperationQualifiedName</name></type> <name>qname</name> <init>= <expr><call><name><name>declaration</name><operator>.</operator><name>getQualifiedName</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"bar.Bzaz#Bzaz()"</literal></expr></argument>,
+                         <argument><expr><call><name><name>qname</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><call><name><name>qname</name><operator>.</operator><name>getOperation</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Bzaz()"</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>getOperation</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testConstructorWithParams</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"package bar; class Bzaz{ public Bzaz(int j, String k){}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTConstructorDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTConstructorDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>ASTConstructorDeclaration</name></type> <name>declaration</name> <range>: <expr><name>nodes</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <decl_stmt><decl><type><name>JavaOperationQualifiedName</name></type> <name>qname</name> <init>= <expr><call><name><name>declaration</name><operator>.</operator><name>getQualifiedName</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"bar.Bzaz#Bzaz(int, String)"</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><call><name><name>qname</name><operator>.</operator><name>getOperation</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Bzaz(int, String)"</literal></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>getOperation</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testConstructorOverload</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"package bar; class Bzaz{ public Bzaz(int j) {} public Bzaz(int j, String k){}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTConstructorDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTConstructorDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>ASTConstructorDeclaration</name><index>[]</index></name></type> <name>arr</name> <init>= <expr><call><name><name>nodes</name><operator>.</operator><name>toArray</name></name><argument_list>(<argument><expr><operator>new</operator> <name><name>ASTConstructorDeclaration</name><index>[<expr><literal type="number">2</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name><name>arr</name><index>[<expr><literal type="number">0</literal></expr>]</index></name><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name><name>arr</name><index>[<expr><literal type="number">1</literal></expr>]</index></name><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testMethodOverload</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"package bar; class Bzaz{ public void foo(String j) {} "</literal>
+                <operator>+</operator> <literal type="string">"public void foo(int j){} public void foo(double k){}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTMethodDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTMethodDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>ASTMethodDeclaration</name><index>[]</index></name></type> <name>arr</name> <init>= <expr><call><name><name>nodes</name><operator>.</operator><name>toArray</name></name><argument_list>(<argument><expr><operator>new</operator> <name><name>ASTMethodDeclaration</name><index>[<expr><literal type="number">3</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name><name>arr</name><index>[<expr><literal type="number">0</literal></expr>]</index></name><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name><name>arr</name><index>[<expr><literal type="number">1</literal></expr>]</index></name><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name><name>arr</name><index>[<expr><literal type="number">1</literal></expr>]</index></name><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name><name>arr</name><index>[<expr><literal type="number">2</literal></expr>]</index></name><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testParseClass</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>JavaTypeQualifiedName</name></type> <name>outer</name> <init>= <expr><operator>(</operator><name>JavaTypeQualifiedName</name><operator>)</operator> <call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"foo.bar.Bzaz"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JavaTypeQualifiedName</name></type> <name>nested</name> <init>= <expr><operator>(</operator><name>JavaTypeQualifiedName</name><operator>)</operator> <call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"foo.bar.Bzaz$Bolg"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>outer</name><operator>.</operator><name>getClassList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Bzaz"</literal></expr></argument>, <argument><expr><call><name><name>outer</name><operator>.</operator><name>getClassList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>nested</name><operator>.</operator><name>getClassList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Bzaz"</literal></expr></argument>, <argument><expr><call><name><name>nested</name><operator>.</operator><name>getClassList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Bolg"</literal></expr></argument>, <argument><expr><call><name><name>nested</name><operator>.</operator><name>getClassList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testParsePackages</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>JavaTypeQualifiedName</name></type> <name>packs</name> <init>= <expr><operator>(</operator><name>JavaTypeQualifiedName</name><operator>)</operator> <call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"foo.bar.Bzaz$Bolg"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JavaTypeQualifiedName</name></type> <name>nopacks</name> <init>= <expr><operator>(</operator><name>JavaTypeQualifiedName</name><operator>)</operator> <call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><call><name><name>packs</name><operator>.</operator><name>getPackageList</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"foo"</literal></expr></argument>, <argument><expr><call><name><name>packs</name><operator>.</operator><name>getPackageList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"bar"</literal></expr></argument>, <argument><expr><call><name><name>packs</name><operator>.</operator><name>getPackageList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>nopacks</name><operator>.</operator><name>getPackageList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>isEmpty</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testParseOperation</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>JavaOperationQualifiedName</name></type> <name>noparams</name> <init>= <expr><operator>(</operator><name>JavaOperationQualifiedName</name><operator>)</operator> <call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"foo.bar.Bzaz$Bolg#bar()"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JavaOperationQualifiedName</name></type> <name>params</name> <init>= <expr><operator>(</operator><name>JavaOperationQualifiedName</name><operator>)</operator> <call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"foo.bar.Bzaz#bar(String, int)"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"bar()"</literal></expr></argument>, <argument><expr><call><name><name>noparams</name><operator>.</operator><name>getOperation</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"bar(String, int)"</literal></expr></argument>, <argument><expr><call><name><name>params</name><operator>.</operator><name>getOperation</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testParseLocalClasses</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>SIMPLE</name> <init>= <expr><literal type="string">"foo.bar.Bzaz$1Local"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>NESTED</name> <init>= <expr><literal type="string">"foo.Bar$1Local$Nested"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JavaTypeQualifiedName</name></type> <name>simple</name> <init>= <expr><operator>(</operator><name>JavaTypeQualifiedName</name><operator>)</operator> <call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><name>SIMPLE</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JavaTypeQualifiedName</name></type> <name>nested</name> <init>= <expr><operator>(</operator><name>JavaTypeQualifiedName</name><operator>)</operator> <call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><name>NESTED</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name>simple</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>simple</name><operator>.</operator><name>isLocalClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>simple</name><operator>.</operator><name>isAnonymousClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name>nested</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>nested</name><operator>.</operator><name>isLocalClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>simple</name><operator>.</operator><name>isAnonymousClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>SIMPLE</name></expr></argument>, <argument><expr><call><name><name>simple</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>NESTED</name></expr></argument>, <argument><expr><call><name><name>nested</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testParseAnonymousClass</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>SIMPLE</name> <init>= <expr><literal type="string">"Bzaz$12$13"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>JavaTypeQualifiedName</name></type> <name>simple</name> <init>= <expr><operator>(</operator><name>JavaTypeQualifiedName</name><operator>)</operator> <call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><name>SIMPLE</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name>simple</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>simple</name><operator>.</operator><name>isAnonymousClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>simple</name><operator>.</operator><name>isLocalClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"12"</literal></expr></argument>, <argument><expr><call><name><name>simple</name><operator>.</operator><name>getClassList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"13"</literal></expr></argument>, <argument><expr><call><name><name>simple</name><operator>.</operator><name>getClassList</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>SIMPLE</name></expr></argument>, <argument><expr><call><name><name>simple</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testParseLambdaName</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>IN_LAMBDA</name> <init>= <expr><literal type="string">"foo.bar.Bzaz$1Local#lambda$null$12"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>STATIC</name> <init>= <expr><literal type="string">"foo.bar.Bzaz#lambda$static$12"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>NEW</name> <init>= <expr><literal type="string">"foo.bar.Bzaz#lambda$new$1"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>IN_METHOD</name> <init>= <expr><literal type="string">"Bzaz#lambda$myMethod$4"</literal></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>String</name></type> <name>s</name> <range>: <expr><call><name><name>Arrays</name><operator>.</operator><name>asList</name></name><argument_list>(<argument><expr><name>IN_LAMBDA</name></expr></argument>, <argument><expr><name>STATIC</name></expr></argument>, <argument><expr><name>NEW</name></expr></argument>, <argument><expr><name>IN_METHOD</name></expr></argument>)</argument_list></call></expr></range></decl></init>)</control> <block>{<block_content>
+            <decl_stmt><decl><type><name>JavaOperationQualifiedName</name></type> <name>qname</name> <init>= <expr><operator>(</operator><name>JavaOperationQualifiedName</name><operator>)</operator> <call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><name>s</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name>qname</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>qname</name><operator>.</operator><name>isLambda</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>s</name></expr></argument>, <argument><expr><call><name><name>qname</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>qname</name></expr></argument>, <argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><call><name><name>qname</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testParseLambdaInEnumConstant</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>LAMBA_IN_ENUM_CONSTANT</name> <init>= <expr><literal type="string">"package foo; import java.util.function.Function; enum Bar { CONST(e -&gt; e); Bar(Function&lt;Object,Object&gt; o) {} }"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>QNAME</name> <init>= <expr><literal type="string">"foo.Bar#lambda$static$0"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>ASTLambdaExpression</name></type> <name>node</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTLambdaExpression</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>LAMBA_IN_ENUM_CONSTANT</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name>node</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><name>QNAME</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>getQualifiedName</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testParseMalformed</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">".foo.bar.Bzaz"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"foo.bar."</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"foo.bar.Bzaz#foo"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"foo.bar.Bzaz()"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"foo.bar.Bzaz#foo(String,)"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"foo.bar.Bzaz#foo(String , int)"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"foo.bar.Bzaz#lambda$static$23(String)"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"foo.bar.Bzaz#lambda$static$"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSimpleLocalClass</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"package bar; class Boron { public void foo(String j) { class Local {} } }"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>classes</name>
+                <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>JavaQualifiedName</name></type> <name>qname</name> <init>= <expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"bar.Boron$1Local"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>qname</name></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLocalClassNameClash</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"package bar; class Bzaz{ void foo() { class Local {} } {// initializer\n class Local {}}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>classes</name>
+                <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"bar.Bzaz$1Local"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"bar.Bzaz$2Local"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLocalClassDeepNesting</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name>
+                <init>= <expr><literal type="string">"class Bzaz{ void foo() { "</literal>
+                <operator>+</operator> <literal type="string">"  class Local { "</literal>
+                <operator>+</operator> <literal type="string">"    class Nested {"</literal>
+                <operator>+</operator> <literal type="string">"      {"</literal>
+                <operator>+</operator> <literal type="string">"        class InnerLocal{}"</literal>
+                <operator>+</operator> <literal type="string">"      }"</literal>
+                <operator>+</operator> <literal type="string">"    }"</literal>
+                <operator>+</operator> <literal type="string">"  }"</literal>
+                <operator>+</operator> <literal type="string">"}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>classes</name>
+                <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz$1Local"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz$1Local$Nested"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz$1Local$Nested$1InnerLocal"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAnonymousClass</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name>
+                <init>= <expr><literal type="string">"class Bzaz{ void foo() { "</literal>
+                <operator>+</operator> <literal type="string">"  new Runnable() {"</literal>
+                <operator>+</operator> <literal type="string">"      public void run() {}"</literal>
+                <operator>+</operator> <literal type="string">"  };"</literal>
+                <operator>+</operator> <literal type="string">"}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTAllocationExpression</name></argument>&gt;</argument_list></name></type> <name>classes</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTAllocationExpression</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz$1"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call><operator>.</operator><call><name>isLocalClass</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call><operator>.</operator><call><name>isAnonymousClass</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"1"</literal><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getClassSimpleName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testMultipleAnonymousClasses</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name>
+                <init>= <expr><literal type="string">"class Bzaz{ void foo() { "</literal>
+                <operator>+</operator> <literal type="string">"  new Runnable() {"</literal>
+                <operator>+</operator> <literal type="string">"      public void run() {}"</literal>
+                <operator>+</operator> <literal type="string">"  };"</literal>
+                <operator>+</operator> <literal type="string">"  new Runnable() {"</literal>
+                <operator>+</operator> <literal type="string">"      public void run() {}"</literal>
+                <operator>+</operator> <literal type="string">"  };"</literal>
+                <operator>+</operator> <literal type="string">"}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTAllocationExpression</name></argument>&gt;</argument_list></name></type> <name>classes</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTAllocationExpression</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz$1"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz$2"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNestedAnonymousClass</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name>
+                <init>= <expr><literal type="string">"class Bzaz{ void foo() {"</literal>
+                <operator>+</operator> <literal type="string">"  new Runnable() {"</literal>
+                <operator>+</operator> <literal type="string">"    public void run() {"</literal>
+                <operator>+</operator> <literal type="string">"      new Runnable() {"</literal>
+                <operator>+</operator> <literal type="string">"        public void run() {}"</literal>
+                <operator>+</operator> <literal type="string">"      };"</literal>
+                <operator>+</operator> <literal type="string">"    }"</literal>
+                <operator>+</operator> <literal type="string">"  };"</literal>
+                <operator>+</operator> <literal type="string">"}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTAllocationExpression</name></argument>&gt;</argument_list></name></type> <name>classes</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTAllocationExpression</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz$1"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz$1$1"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLocalInAnonymousClass</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name>
+                <init>= <expr><literal type="string">"class Bzaz{ void foo() {"</literal>
+                <operator>+</operator> <literal type="string">"  new Runnable() {"</literal>
+                <operator>+</operator> <literal type="string">"    public void run() {"</literal>
+                <operator>+</operator> <literal type="string">"      class FooRunnable {}"</literal>
+                <operator>+</operator> <literal type="string">"    }"</literal>
+                <operator>+</operator> <literal type="string">"  };"</literal>
+                <operator>+</operator> <literal type="string">"}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>classes</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz$1$1FooRunnable"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLambdaInStaticInitializer</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name>
+                <init>= <expr><literal type="string">"import java.util.function.*;"</literal>
+                <operator>+</operator> <literal type="string">"class Bzaz{ "</literal>
+                <operator>+</operator> <literal type="string">"  static {"</literal>
+                <operator>+</operator> <literal type="string">"     Consumer&lt;String&gt; l = s -&gt; {"</literal>
+                <operator>+</operator> <literal type="string">"         System.out.println(s);"</literal>
+                <operator>+</operator> <literal type="string">"     };"</literal>
+                <operator>+</operator> <literal type="string">"     l.accept(\"foo\");"</literal>
+                <operator>+</operator> <literal type="string">"  }"</literal>
+                <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTLambdaExpression</name></argument>&gt;</argument_list></name></type> <name>lambdas</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTLambdaExpression</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz#lambda$static$0"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLambdaInInitializerAndConstructor</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name>
+                <init>= <expr><literal type="string">"import java.util.function.*;"</literal>
+                <operator>+</operator> <literal type="string">"class Bzaz{ "</literal>
+                <operator>+</operator> <literal type="string">"  {"</literal>
+                <operator>+</operator> <literal type="string">"     Consumer&lt;String&gt; l = s -&gt; {"</literal>
+                <operator>+</operator> <literal type="string">"         System.out.println(s);"</literal>
+                <operator>+</operator> <literal type="string">"     };"</literal>
+                <operator>+</operator> <literal type="string">"     l.accept(\"foo\");"</literal>
+                <operator>+</operator> <literal type="string">"  }"</literal>
+                <operator>+</operator> <literal type="string">"  public Bzaz() {"</literal>
+                <operator>+</operator> <literal type="string">"     Consumer&lt;String&gt; l = s -&gt; {"</literal>
+                <operator>+</operator> <literal type="string">"         System.out.println(s);"</literal>
+                <operator>+</operator> <literal type="string">"     };"</literal>
+                <operator>+</operator> <literal type="string">"     l.accept(\"foo\");"</literal>
+                <operator>+</operator> <literal type="string">"  }"</literal>
+                <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTLambdaExpression</name></argument>&gt;</argument_list></name></type> <name>lambdas</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTLambdaExpression</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz#lambda$new$0"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz#lambda$new$1"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLambdaField</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name>
+                <init>= <expr><literal type="string">"import java.util.function.*;"</literal>
+                <operator>+</operator> <literal type="string">"public class Bzaz { "</literal>
+                <operator>+</operator> <literal type="string">"     Consumer&lt;String&gt; l = s -&gt; {"</literal>
+                <operator>+</operator> <literal type="string">"         System.out.println(s);"</literal>
+                <operator>+</operator> <literal type="string">"     };"</literal>
+                <operator>+</operator> <literal type="string">"     public static Consumer&lt;String&gt; k = s -&gt; {"</literal>
+                <operator>+</operator> <literal type="string">"         System.out.println(s);"</literal>
+                <operator>+</operator> <literal type="string">"     };"</literal>
+                <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTLambdaExpression</name></argument>&gt;</argument_list></name></type> <name>lambdas</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTLambdaExpression</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz#lambda$new$0"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz#lambda$static$1"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLambdaInterfaceField</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name>
+                <init>= <expr><literal type="string">"import java.util.function.*;"</literal>
+                <operator>+</operator> <literal type="string">"public interface Bzaz { "</literal>
+                <operator>+</operator> <literal type="string">"     Consumer&lt;String&gt; l = s -&gt; {"</literal>
+                <operator>+</operator> <literal type="string">"         System.out.println(s);"</literal>
+                <operator>+</operator> <literal type="string">"     };"</literal>
+                <operator>+</operator> <literal type="string">"     public static Consumer&lt;String&gt; k = s -&gt; {"</literal>
+                <operator>+</operator> <literal type="string">"         System.out.println(s);"</literal>
+                <operator>+</operator> <literal type="string">"     };"</literal>
+                <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTLambdaExpression</name></argument>&gt;</argument_list></name></type> <name>lambdas</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTLambdaExpression</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz#lambda$static$0"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz#lambda$static$1"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLambdaLocalClassField</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name>
+                <init>= <expr><literal type="string">"import java.util.function.*;"</literal>
+                <operator>+</operator> <literal type="string">"public class Bzaz { "</literal>
+                <operator>+</operator> <literal type="string">"  public void boo() {"</literal>
+                <operator>+</operator> <literal type="string">"     class Local {"</literal>
+                <operator>+</operator> <literal type="string">"         Consumer&lt;String&gt; l = s -&gt; {"</literal>
+                <operator>+</operator> <literal type="string">"             System.out.println(s);"</literal>
+                <operator>+</operator> <literal type="string">"         };"</literal>
+                <operator>+</operator> <literal type="string">"     }"</literal>
+                <operator>+</operator> <literal type="string">"  }"</literal>
+                <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTLambdaExpression</name></argument>&gt;</argument_list></name></type> <name>lambdas</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTLambdaExpression</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz$1Local#lambda$Local$0"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLambdaAnonymousClassField</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name>
+                <init>= <expr><literal type="string">"import java.util.function.*;"</literal>
+                <operator>+</operator> <literal type="string">"public class Bzaz { "</literal>
+                <operator>+</operator> <literal type="string">"  public void boo() {"</literal>
+                <operator>+</operator> <literal type="string">"     new Anonymous() {"</literal>
+                <operator>+</operator> <literal type="string">"         Consumer&lt;String&gt; l = s -&gt; {"</literal>
+                <operator>+</operator> <literal type="string">"             System.out.println(s);"</literal>
+                <operator>+</operator> <literal type="string">"         };"</literal>
+                <operator>+</operator> <literal type="string">"     };"</literal>
+                <operator>+</operator> <literal type="string">"  }"</literal>
+                <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTLambdaExpression</name></argument>&gt;</argument_list></name></type> <name>lambdas</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTLambdaExpression</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz$1#lambda$$0"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// This is here because of a bug with the regex parsing, which failed on "Bzaz$1#lambda$$0"</comment>
+        <comment type="line">// because the second segment of the lambda name was the empty string</comment>
+
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call><operator>.</operator><call><name>isLambda</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"lambda$$0"</literal></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getOperation</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getClassName</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getClassList</name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLambdasInMethod</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name>
+                <init>= <expr><literal type="string">"import java.util.function.*;"</literal>
+                <operator>+</operator> <literal type="string">"class Bzaz{ "</literal>
+                <operator>+</operator> <literal type="string">"  public void bar() {"</literal>
+                <operator>+</operator> <literal type="string">"     Consumer&lt;String&gt; l = s -&gt; {"</literal>
+                <operator>+</operator> <literal type="string">"         System.out.println(s);"</literal>
+                <operator>+</operator> <literal type="string">"     };"</literal>
+                <operator>+</operator> <literal type="string">"     l.accept(\"foo\");"</literal>
+                <operator>+</operator> <literal type="string">"  }"</literal>
+                <operator>+</operator> <literal type="string">"  public void fooBar() {"</literal>
+                <operator>+</operator> <literal type="string">"     Consumer&lt;String&gt; l = s -&gt; {"</literal>
+                <operator>+</operator> <literal type="string">"         System.out.println(s);"</literal>
+                <operator>+</operator> <literal type="string">"     };"</literal>
+                <operator>+</operator> <literal type="string">"     l.accept(\"foo\");"</literal>
+                <operator>+</operator> <literal type="string">"  }"</literal>
+                <operator>+</operator> <literal type="string">"  public void gollum() {"</literal>
+                <operator>+</operator> <literal type="string">"     Consumer&lt;String&gt; l = s -&gt; {"</literal>
+                <operator>+</operator> <literal type="string">"         System.out.println(s);"</literal>
+                <operator>+</operator> <literal type="string">"     };"</literal>
+                <operator>+</operator> <literal type="string">"     l.accept(\"foo\");"</literal>
+                <operator>+</operator> <literal type="string">"  }"</literal>
+                <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTLambdaExpression</name></argument>&gt;</argument_list></name></type> <name>lambdas</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTLambdaExpression</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz#lambda$bar$0"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz#lambda$fooBar$1"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz#lambda$gollum$2"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLambdaCounterBelongsToClass</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name>
+                <init>= <expr><literal type="string">"import java.util.function.*;"</literal>
+                <operator>+</operator> <literal type="string">"class Bzaz{ "</literal>
+                <operator>+</operator> <literal type="string">"  static {"</literal>
+                <operator>+</operator> <literal type="string">"     Consumer&lt;String&gt; l = s -&gt; {"</literal>
+                <operator>+</operator> <literal type="string">"         System.out.println(s);"</literal>
+                <operator>+</operator> <literal type="string">"     };"</literal>
+                <operator>+</operator> <literal type="string">"     l.accept(\"foo\");"</literal>
+                <operator>+</operator> <literal type="string">"  }"</literal>
+                <operator>+</operator> <literal type="string">"  public Bzaz() {"</literal>
+                <operator>+</operator> <literal type="string">"     Consumer&lt;String&gt; l = s -&gt; {"</literal>
+                <operator>+</operator> <literal type="string">"         System.out.println(s);"</literal>
+                <operator>+</operator> <literal type="string">"     };"</literal>
+                <operator>+</operator> <literal type="string">"     l.accept(\"foo\");"</literal>
+                <operator>+</operator> <literal type="string">"  }"</literal>
+                <operator>+</operator> <literal type="string">"  public void gollum() {"</literal>
+                <operator>+</operator> <literal type="string">"     Consumer&lt;String&gt; l = s -&gt; {"</literal>
+                <operator>+</operator> <literal type="string">"         System.out.println(s);"</literal>
+                <operator>+</operator> <literal type="string">"     };"</literal>
+                <operator>+</operator> <literal type="string">"     l.accept(\"foo\");"</literal>
+                <operator>+</operator> <literal type="string">"     new Runnable() {"</literal>
+                <operator>+</operator> <literal type="string">"       public void run() {"</literal>
+                <operator>+</operator> <literal type="string">"         Runnable r = () -&gt; {};"</literal>
+                <operator>+</operator> <literal type="string">"         r.run();"</literal>
+                <operator>+</operator> <literal type="string">"       }"</literal>
+                <operator>+</operator> <literal type="string">"     }.run();"</literal>
+                <operator>+</operator> <literal type="string">"  }"</literal>
+                <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTLambdaExpression</name></argument>&gt;</argument_list></name></type> <name>lambdas</name> <init>= <expr><call><name>getNodes</name><argument_list>(<argument><expr><name><name>ASTLambdaExpression</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz#lambda$static$0"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz#lambda$new$1"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz#lambda$gollum$2"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"Bzaz$1#lambda$run$0"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt> <comment type="line">// counter starts over for anon class</comment>
+
+        <comment type="line">// This is here because of a bug with the regex parsing, which caused "Bzaz$1#lambda$run$0"</comment>
+        <comment type="line">// to be parsed as</comment>
+        <comment type="line">// * classes == List("Bzaz", "#lambda", "run", "0").reverse()</comment>
+        <comment type="line">// * localIndices == List(-1, 1, -1, -1)</comment>
+        <comment type="line">// * operation == null</comment>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call><operator>.</operator><call><name>isLambda</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"lambda$run$0"</literal></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getOperation</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>lambdas</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getQualifiedName</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getClassName</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getClassList</name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetType</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>JavaTypeQualifiedName</name></type> <name>qname</name> <init>= <expr><call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofClass</name></name><argument_list>(<argument><expr><name><name>ASTAdditiveExpression</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>qname</name><operator>.</operator><name>getType</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name><name>ASTAdditiveExpression</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+
+</unit>

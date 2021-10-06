@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\symboltable\MethodScopeTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>symboltable</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Map</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>PMD</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTCompilationUnit</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTMethodDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>symboltable</name><operator>.</operator><name>NameDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>symboltable</name><operator>.</operator><name>NameOccurrence</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MethodScopeTest</name> <super_list><extends>extends <super><name>BaseNonParserTest</name></super></extends></super_list> <block>{
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testMethodParameterOccurrenceRecorded</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>acu</name> <init>= <expr><call><name>parseCode</name><argument_list>(<argument><expr><name>TEST1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Map</name><argument_list type="generic">&lt;<argument><name>NameDeclaration</name></argument>, <argument><name><name>List</name><argument_list type="generic">&lt;<argument><name>NameOccurrence</name></argument>&gt;</argument_list></name></argument>&gt;</argument_list></name></type> <name>m</name> <init>= <expr><call><name><name>acu</name><operator>.</operator><name>findDescendantsOfType</name></name><argument_list>(<argument><expr><name><name>ASTMethodDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call>
+                <operator>.</operator><call><name>getScope</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getDeclarations</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>NameDeclaration</name></type> <name>vnd</name> <init>= <expr><call><name><name>m</name><operator>.</operator><name>keySet</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>iterator</name><argument_list>()</argument_list></call><operator>.</operator><call><name>next</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"bar"</literal></expr></argument>, <argument><expr><call><name><name>vnd</name><operator>.</operator><name>getImage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>NameOccurrence</name></argument>&gt;</argument_list></name></type> <name>occs</name> <init>= <expr><call><name><name>m</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>vnd</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>NameOccurrence</name></type> <name>occ</name> <init>= <expr><call><name><name>occs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><call><name><name>occ</name><operator>.</operator><name>getLocation</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getBeginLine</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testMethodName</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>acu</name> <init>= <expr><call><name>parseCode</name><argument_list>(<argument><expr><name>TEST1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTMethodDeclaration</name></type> <name>meth</name> <init>= <expr><call><name><name>acu</name><operator>.</operator><name>findDescendantsOfType</name></name><argument_list>(<argument><expr><name><name>ASTMethodDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>MethodScope</name></type> <name>ms</name> <init>= <expr><operator>(</operator><name>MethodScope</name><operator>)</operator> <call><name><name>meth</name><operator>.</operator><name>getScope</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>ms</name><operator>.</operator><name>getName</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="string">"foo"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGenerics</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseCode</name><argument_list>(<argument><expr><name>TEST_GENERICS</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>public</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST1</name> <init>= <expr><literal type="string">"public class Foo {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">" void foo(int bar) {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"  bar = 2;"</literal>
+            <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">" }"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST_GENERICS</name> <init>= <expr><literal type="string">"public class Tree {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"  private List&lt;Object&gt; subForest;"</literal>
+            <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"  public &lt;B&gt; Tree&lt;B&gt; fmap(final F&lt;B&gt; f) { return Tree.&lt;B&gt;foo(); }"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+            <operator>+</operator> <literal type="string">"  public List&lt;Object&gt; subForest() { return null; }"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"}"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name></expr></init></decl>;</decl_stmt>
+}</block></class>
+</unit>

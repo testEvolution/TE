@@ -1,0 +1,9 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>PieLabelRecord</name></type> <name>p1</name> <init>= <expr><operator>new</operator> <call><name>PieLabelRecord</name><argument_list>(<argument><expr><literal type="string">"A"</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>TextBox</name><argument_list>(<argument><expr><literal type="string">"B"</literal></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>, <argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>PieLabelRecord</name></type> <name>p2</name> <init>= <expr><operator>(</operator><name>PieLabelRecord</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>p1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>b</name> <init>= <expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>b</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</unit>

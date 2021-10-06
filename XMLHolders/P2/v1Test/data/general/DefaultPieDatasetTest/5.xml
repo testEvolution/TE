@@ -1,0 +1,13 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultPieDataset</name></type> <name>d1</name> <init>= <expr><operator>new</operator> <call><name>DefaultPieDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="string">"C1"</literal></expr></argument>, <argument><expr><literal type="number">234.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="string">"C2"</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="string">"C3"</literal></expr></argument>, <argument><expr><literal type="number">345.9</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="string">"C4"</literal></expr></argument>, <argument><expr><literal type="number">452.7</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>DefaultPieDataset</name></type> <name>d2</name> <init>= <expr><operator>(</operator><name>DefaultPieDataset</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>d1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>d1</name></expr></argument>, <argument><expr><name>d2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</unit>

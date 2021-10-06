@@ -1,0 +1,40 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAddSubtitle</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultPieDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultPieDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createPieChart</name></name><argument_list>(<argument><expr><literal type="string">"title"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>TextTitle</name></type> <name>t0</name> <init>= <expr><operator>new</operator> <call><name>TextTitle</name><argument_list>(<argument><expr><literal type="string">"T0"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addSubtitle</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name>t0</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>t0</name></expr></argument>, <argument><expr><call><name><name>chart</name><operator>.</operator><name>getSubtitle</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>TextTitle</name></type> <name>t1</name> <init>= <expr><operator>new</operator> <call><name>TextTitle</name><argument_list>(<argument><expr><literal type="string">"T1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addSubtitle</name></name><argument_list>(<argument><expr><name>t1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>t1</name></expr></argument>, <argument><expr><call><name><name>chart</name><operator>.</operator><name>getSubtitle</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>  <comment type="line">// subtitle 1 is the legend</comment>
+
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addSubtitle</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Should have thrown an IllegalArgumentException on index out of range"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Null 'subtitle' argument."</literal></expr></argument>, <argument><expr><call><name><name>e</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addSubtitle</name></name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>, <argument><expr><name>t0</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Should have thrown an IllegalArgumentException on index out of range"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"The 'index' argument is out of range."</literal></expr></argument>, <argument><expr><call><name><name>e</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addSubtitle</name></name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><name>t0</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Should have thrown an IllegalArgumentException on index out of range"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+             <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"The 'index' argument is out of range."</literal></expr></argument>, <argument><expr><call><name><name>e</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+
+    </block_content>}</block></function>
+
+    </unit>

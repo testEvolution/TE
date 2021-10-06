@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\axis\LogAxisTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ----------------
+ * LogAxisTest.java
+ * ----------------
+ * (C) Copyright 2007-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 11-Jul-2007 : Version 1 (DG);
+ * 08-Apr-2008 : Fixed incorrect testEquals() method (DG);
+ * 28-Oct-2011 : Cdded test for endless loop, # 3429707 (MH);
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>axis</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Graphics2D</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>geom</name><operator>.</operator><name>Rectangle2D</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>image</name><operator>.</operator><name>BufferedImage</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ChartFactory</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>JFreeChart</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>plot</name><operator>.</operator><name>CategoryPlot</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>plot</name><operator>.</operator><name>PlotOrientation</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>plot</name><operator>.</operator><name>XYPlot</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>RectangleEdge</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>category</name><operator>.</operator><name>DefaultCategoryDataset</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>XYSeries</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>XYSeriesCollection</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link LogAxis} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>LogAxisTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that cloning works.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>LogAxis</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>a2</name> <init>= <expr><operator>(</operator><name>LogAxis</name><operator>)</operator> <call><name><name>a1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>a1</name> <operator>!=</operator> <name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>a2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that the equals method can distinguish all the required fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>LogAxis</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>a2</name> <init>= <expr><operator>new</operator> <call><name>LogAxis</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setBase</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setBase</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setSmallestValue</name></name><argument_list>(<argument><expr><literal type="number">0.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setSmallestValue</name></name><argument_list>(<argument><expr><literal type="number">0.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setMinorTickCount</name></name><argument_list>(<argument><expr><literal type="number">8</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setMinorTickCount</name></name><argument_list>(<argument><expr><literal type="number">8</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Two objects that are equal are required to return the same hashCode.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testHashCode</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>LogAxis</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>a2</name> <init>= <expr><operator>new</operator> <call><name>LogAxis</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h1</name> <init>= <expr><call><name><name>a1</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h2</name> <init>= <expr><call><name><name>a2</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>h1</name></expr></argument>, <argument><expr><name>h2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>double</name></type> <name>EPSILON</name> <init>= <expr><literal type="number">0.0000001</literal></expr></init></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Test the translation of Java2D values to data values.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testTranslateJava2DToValue</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>axis</name> <init>= <expr><operator>new</operator> <call><name>LogAxis</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>axis</name><operator>.</operator><name>setRange</name></name><argument_list>(<argument><expr><literal type="number">50.0</literal></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Rectangle2D</name></type> <name>dataArea</name> <init>= <expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">50.0</literal></expr></argument>, <argument><expr><literal type="number">400.0</literal></expr></argument>, <argument><expr><literal type="number">300.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>y1</name> <init>= <expr><call><name><name>axis</name><operator>.</operator><name>java2DToValue</name></name><argument_list>(<argument><expr><literal type="number">75.0</literal></expr></argument>, <argument><expr><name>dataArea</name></expr></argument>, <argument><expr><name><name>RectangleEdge</name><operator>.</operator><name>LEFT</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">94.3874312681693</literal></expr></argument>, <argument><expr><name>y1</name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>y2</name> <init>= <expr><call><name><name>axis</name><operator>.</operator><name>java2DToValue</name></name><argument_list>(<argument><expr><literal type="number">75.0</literal></expr></argument>, <argument><expr><name>dataArea</name></expr></argument>, <argument><expr><name><name>RectangleEdge</name><operator>.</operator><name>RIGHT</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">94.3874312681693</literal></expr></argument>, <argument><expr><name>y2</name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>x1</name> <init>= <expr><call><name><name>axis</name><operator>.</operator><name>java2DToValue</name></name><argument_list>(<argument><expr><literal type="number">75.0</literal></expr></argument>, <argument><expr><name>dataArea</name></expr></argument>, <argument><expr><name><name>RectangleEdge</name><operator>.</operator><name>TOP</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">55.961246381405</literal></expr></argument>, <argument><expr><name>x1</name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>x2</name> <init>= <expr><call><name><name>axis</name><operator>.</operator><name>java2DToValue</name></name><argument_list>(<argument><expr><literal type="number">75.0</literal></expr></argument>, <argument><expr><name>dataArea</name></expr></argument>, <argument><expr><name><name>RectangleEdge</name><operator>.</operator><name>BOTTOM</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">55.961246381405</literal></expr></argument>, <argument><expr><name>x2</name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>axis</name><operator>.</operator><name>setInverted</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>y3</name> <init>= <expr><call><name><name>axis</name><operator>.</operator><name>java2DToValue</name></name><argument_list>(<argument><expr><literal type="number">75.0</literal></expr></argument>, <argument><expr><name>dataArea</name></expr></argument>, <argument><expr><name><name>RectangleEdge</name><operator>.</operator><name>LEFT</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">52.9731547179647</literal></expr></argument>, <argument><expr><name>y3</name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>y4</name> <init>= <expr><call><name><name>axis</name><operator>.</operator><name>java2DToValue</name></name><argument_list>(<argument><expr><literal type="number">75.0</literal></expr></argument>, <argument><expr><name>dataArea</name></expr></argument>, <argument><expr><name><name>RectangleEdge</name><operator>.</operator><name>RIGHT</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">52.9731547179647</literal></expr></argument>, <argument><expr><name>y4</name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>x3</name> <init>= <expr><call><name><name>axis</name><operator>.</operator><name>java2DToValue</name></name><argument_list>(<argument><expr><literal type="number">75.0</literal></expr></argument>, <argument><expr><name>dataArea</name></expr></argument>, <argument><expr><name><name>RectangleEdge</name><operator>.</operator><name>TOP</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">89.3475453695651</literal></expr></argument>, <argument><expr><name>x3</name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>x4</name> <init>= <expr><call><name><name>axis</name><operator>.</operator><name>java2DToValue</name></name><argument_list>(<argument><expr><literal type="number">75.0</literal></expr></argument>, <argument><expr><name>dataArea</name></expr></argument>, <argument><expr><name><name>RectangleEdge</name><operator>.</operator><name>BOTTOM</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">89.3475453695651</literal></expr></argument>, <argument><expr><name>x4</name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>LogAxis</name><argument_list>(<argument><expr><literal type="string">"Test Axis"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>a2</name> <init>= <expr><operator>(</operator><name>LogAxis</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>a1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A simple test for the auto-range calculation looking at a
+     * LogAxis used as the range axis for a CategoryPlot.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAutoRange1</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultCategoryDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><literal type="string">"Row 1"</literal></expr></argument>, <argument><expr><literal type="string">"Column 1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="number">200.0</literal></expr></argument>, <argument><expr><literal type="string">"Row 1"</literal></expr></argument>, <argument><expr><literal type="string">"Column 2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createBarChart</name></name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>, <argument><expr><literal type="string">"Categories"</literal></expr></argument>,
+                <argument><expr><literal type="string">"Value"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CategoryPlot</name></type> <name>plot</name> <init>= <expr><operator>(</operator><name>CategoryPlot</name><operator>)</operator> <call><name><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>axis</name> <init>= <expr><operator>new</operator> <call><name>LogAxis</name><argument_list>(<argument><expr><literal type="string">"Log(Y)"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setRangeAxis</name></name><argument_list>(<argument><expr><name>axis</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><call><name><name>axis</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2.6066426411261268E7</literal></expr></argument>, <argument><expr><call><name><name>axis</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A simple test for the auto-range calculation looking at a
+     * NumberAxis used as the range axis for a CategoryPlot.  In this
+     * case, the original dataset is replaced with a new dataset.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAutoRange3</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultCategoryDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><literal type="string">"Row 1"</literal></expr></argument>, <argument><expr><literal type="string">"Column 1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="number">200.0</literal></expr></argument>, <argument><expr><literal type="string">"Row 1"</literal></expr></argument>, <argument><expr><literal type="string">"Column 2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createLineChart</name></name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>, <argument><expr><literal type="string">"Categories"</literal></expr></argument>,
+                <argument><expr><literal type="string">"Value"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>, <argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>,
+                <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CategoryPlot</name></type> <name>plot</name> <init>= <expr><operator>(</operator><name>CategoryPlot</name><operator>)</operator> <call><name><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>axis</name> <init>= <expr><operator>new</operator> <call><name>LogAxis</name><argument_list>(<argument><expr><literal type="string">"Log(Y)"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setRangeAxis</name></name><argument_list>(<argument><expr><name>axis</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">96.59363289248458</literal></expr></argument>, <argument><expr><call><name><name>axis</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">207.0529847682752</literal></expr></argument>, <argument><expr><call><name><name>axis</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// now replacing the dataset should update the axis range...</comment>
+        <decl_stmt><decl><type><name>DefaultCategoryDataset</name></type> <name>dataset2</name> <init>= <expr><operator>new</operator> <call><name>DefaultCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset2</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="number">900.0</literal></expr></argument>, <argument><expr><literal type="string">"Row 1"</literal></expr></argument>, <argument><expr><literal type="string">"Column 1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>dataset2</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="number">1000.0</literal></expr></argument>, <argument><expr><literal type="string">"Row 1"</literal></expr></argument>, <argument><expr><literal type="string">"Column 2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setDataset</name></name><argument_list>(<argument><expr><name>dataset2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">895.2712433374774</literal></expr></argument>, <argument><expr><call><name><name>axis</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1005.2819262292991</literal></expr></argument>, <argument><expr><call><name><name>axis</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks that the auto-range for the domain axis on an XYPlot is
+     * working as expected.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testXYAutoRange1</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createScatterPlot</name></name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>, <argument><expr><literal type="string">"Y"</literal></expr></argument>,
+                <argument><expr><name>dataset</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>plot</name> <init>= <expr><operator>(</operator><name>XYPlot</name><operator>)</operator> <call><name><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>axis</name> <init>= <expr><operator>new</operator> <call><name>LogAxis</name><argument_list>(<argument><expr><literal type="string">"Log(Y)"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setRangeAxis</name></name><argument_list>(<argument><expr><name>axis</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.9465508226401592</literal></expr></argument>, <argument><expr><call><name><name>axis</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3.1694019256486126</literal></expr></argument>, <argument><expr><call><name><name>axis</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks that the auto-range for the range axis on an XYPlot is
+     * working as expected.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testXYAutoRange2</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createScatterPlot</name></name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>, <argument><expr><literal type="string">"Y"</literal></expr></argument>,
+                <argument><expr><name>dataset</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>plot</name> <init>= <expr><operator>(</operator><name>XYPlot</name><operator>)</operator> <call><name><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>axis</name> <init>= <expr><operator>new</operator> <call><name>LogAxis</name><argument_list>(<argument><expr><literal type="string">"Log(Y)"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setRangeAxis</name></name><argument_list>(<argument><expr><name>axis</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.9465508226401592</literal></expr></argument>, <argument><expr><call><name><name>axis</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3.1694019256486126</literal></expr></argument>, <argument><expr><call><name><name>axis</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the setLowerBound() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSetLowerBound</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>axis</name> <init>= <expr><operator>new</operator> <call><name>LogAxis</name><argument_list>(<argument><expr><literal type="string">"X"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>axis</name><operator>.</operator><name>setRange</name></name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><literal type="number">10.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>axis</name><operator>.</operator><name>setLowerBound</name></name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>, <argument><expr><call><name><name>axis</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>axis</name><operator>.</operator><name>setLowerBound</name></name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><call><name><name>axis</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">11.0</literal></expr></argument>, <argument><expr><call><name><name>axis</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks the default value for the tickMarksVisible flag.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testTickMarksVisibleDefault</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>axis</name> <init>= <expr><operator>new</operator> <call><name>LogAxis</name><argument_list>(<argument><expr><literal type="string">"Log Axis"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>axis</name><operator>.</operator><name>isTickMarksVisible</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+    
+    <comment type="block" format="javadoc">/**
+     * Checks that a TickUnit with a size of 0 doesn't crash.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testRefreshTicksWithZeroTickUnit</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>axis</name> <init>= <expr><operator>new</operator> <call><name>LogAxis</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>AxisState</name></type> <name>state</name> <init>= <expr><operator>new</operator> <call><name>AxisState</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>BufferedImage</name></type> <name>image</name> <init>= <expr><operator>new</operator> <call><name>BufferedImage</name><argument_list>(<argument><expr><literal type="number">200</literal></expr></argument>, <argument><expr><literal type="number">100</literal></expr></argument>,
+                <argument><expr><name><name>BufferedImage</name><operator>.</operator><name>TYPE_INT_ARGB</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Graphics2D</name></type> <name>g2</name> <init>= <expr><call><name><name>image</name><operator>.</operator><name>createGraphics</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Rectangle2D</name></type> <name>area</name> <init>= <expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><literal type="number">200</literal></expr></argument>, <argument><expr><literal type="number">100</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>axis</name><operator>.</operator><name>refreshTicks</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>, <argument><expr><name>state</name></expr></argument>, <argument><expr><name>area</name></expr></argument>, <argument><expr><name><name>RectangleEdge</name><operator>.</operator><name>TOP</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

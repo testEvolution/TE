@@ -1,0 +1,5 @@
+<unit><function><type><specifier>public</specifier> <name>PlotChangeEvent</name></type> <name>getEvent</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><name><name>this</name><operator>.</operator><name>event</name></name></expr>;</return>
+    </block_content>}</block></function>
+
+    </unit>

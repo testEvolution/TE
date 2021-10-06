@@ -1,0 +1,16 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning4</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYLineAndShapeRenderer</name></type> <name>r1</name> <init>= <expr><operator>new</operator> <call><name>XYLineAndShapeRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>p1</name> <init>= <expr><operator>new</operator> <call><name>XYPlot</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"Domain Axis"</literal></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"Range Axis"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>r1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>p2</name> <init>= <expr><operator>(</operator><name>XYPlot</name><operator>)</operator> <call><name><name>p1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>p1</name> <operator>!=</operator> <name>p2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>p2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// verify that the plot is listening to the cloned renderer</comment>
+        <decl_stmt><decl><type><name>XYLineAndShapeRenderer</name></type> <name>r2</name> <init>= <expr><operator>(</operator><name>XYLineAndShapeRenderer</name><operator>)</operator> <call><name><name>p2</name><operator>.</operator><name>getRenderer</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r2</name><operator>.</operator><name>hasListener</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

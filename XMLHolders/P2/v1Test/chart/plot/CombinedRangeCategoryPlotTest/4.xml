@@ -1,0 +1,15 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testRemoveSubplot</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>CombinedRangeCategoryPlot</name></type> <name>plot</name> <init>= <expr><operator>new</operator> <call><name>CombinedRangeCategoryPlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CategoryPlot</name></type> <name>plot1</name> <init>= <expr><operator>new</operator> <call><name>CategoryPlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CategoryPlot</name></type> <name>plot2</name> <init>= <expr><operator>new</operator> <call><name>CategoryPlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CategoryPlot</name></type> <name>plot3</name> <init>= <expr><operator>new</operator> <call><name>CategoryPlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>plot1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>plot2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>plot3</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>remove</name></name><argument_list>(<argument><expr><name>plot2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>List</name></type> <name>plots</name> <init>= <expr><call><name><name>plot</name><operator>.</operator><name>getSubplots</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>plots</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\data\xy\XYSeriesCollectionTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ---------------------------
+ * XYSeriesCollectionTest.java
+ * ---------------------------
+ * (C) Copyright 2003-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 18-May-2003 : Version 1 (DG);
+ * 27-Nov-2006 : Updated testCloning() (DG);
+ * 08-Mar-2007 : Added testGetSeries() and testRemoveSeries() (DG);
+ * 08-May-2007 : Added testIndexOf() (DG);
+ * 03-Dec-2007 : Added testGetSeriesByKey() (DG);
+ * 22-Apr-2008 : Added testPublicCloneable (DG);
+ * 06-Mar-2009 : Added testGetDomainBounds (DG);
+ * 17-May-2010 : Added checks for duplicate series names (DG);
+ * 08-Jan-2012 : Added testBug3445507() (DG);
+ * 28-Jul-2012 : Added testSeriesRename() (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertNull</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertSame</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertNotSame</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>fail</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>util</name><operator>.</operator><name>PublicCloneable</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>Range</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>UnknownKeyException</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link XYSeriesCollection} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>XYSeriesCollectionTest</name> <block>{
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>double</name></type> <name>EPSILON</name> <init>= <expr><literal type="number">0.0000000001</literal></expr></init></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the constructor.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testConstructor</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>xysc</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>xysc</name><operator>.</operator><name>getSeriesCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><call><name><name>xysc</name><operator>.</operator><name>getIntervalWidth</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>, <argument><expr><call><name><name>xysc</name><operator>.</operator><name>getIntervalPositionFactor</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that the equals method can distinguish all the required fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>c1</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c1</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s2</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>s2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>c2</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c2</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>c1</name></expr></argument>, <argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>c1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>c1</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Empty Series"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>c1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>c2</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Empty Series"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>c1</name></expr></argument>, <argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>c1</name><operator>.</operator><name>setIntervalWidth</name></name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>c1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>c2</name><operator>.</operator><name>setIntervalWidth</name></name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>c1</name></expr></argument>, <argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>c1</name><operator>.</operator><name>setIntervalPositionFactor</name></name><argument_list>(<argument><expr><literal type="number">0.75</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>c1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>c2</name><operator>.</operator><name>setIntervalPositionFactor</name></name><argument_list>(<argument><expr><literal type="number">0.75</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>c1</name></expr></argument>, <argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>c1</name><operator>.</operator><name>setAutoWidth</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>c1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>c2</name><operator>.</operator><name>setAutoWidth</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>c1</name></expr></argument>, <argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that cloning works.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>c1</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c1</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>c2</name> <init>= <expr><operator>(</operator><name>XYSeriesCollection</name><operator>)</operator> <call><name><name>c1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNotSame</name><argument_list>(<argument><expr><name>c1</name></expr></argument>, <argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><call><name><name>c1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>c2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>c1</name></expr></argument>, <argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check independence</comment>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>setDescription</name></name><argument_list>(<argument><expr><literal type="string">"XYZ"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>c1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Verify that this class implements {@link PublicCloneable}.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPublicCloneable</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Object</name></type> <name>c1</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>c1</name> <operator>instanceof</operator> <name>PublicCloneable</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>c1</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c1</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>c2</name> <init>= <expr><operator>(</operator><name>XYSeriesCollection</name><operator>)</operator> 
+                <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>c1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>c1</name></expr></argument>, <argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A test for bug report 1170825.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test1170825</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <try>try <block>{<block_content>
+            <comment type="block">/* XYSeries s = */</comment> <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>getSeries</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// correct outcome</comment>
+        </block_content>}</block></catch>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IndexOutOfBoundsException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>  <comment type="line">// wrong outcome</comment>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some basic checks for the getSeries() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSeries</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>c</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"s1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"s1"</literal></expr></argument>, <argument><expr><call><name><name>c</name><operator>.</operator><name>getSeries</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getKey</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>getSeries</name></name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Should have thrown IndexOutOfBoundsException on negative key"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Series index out of bounds"</literal></expr></argument>, <argument><expr><call><name><name>e</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>getSeries</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Should have thrown IndexOutOfBoundsException on key out of range"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Series index out of bounds"</literal></expr></argument>, <argument><expr><call><name><name>e</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getSeries(Comparable) method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSeriesByKey</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>c</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"s1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"s1"</literal></expr></argument>, <argument><expr><call><name><name>c</name><operator>.</operator><name>getSeries</name></name><argument_list>(<argument><expr><literal type="string">"s1"</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getKey</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>getSeries</name></name><argument_list>(<argument><expr><literal type="string">"s2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Should have thrown UnknownKeyException on unknown key"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>UnknownKeyException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Key not found: s2"</literal></expr></argument>, <argument><expr><call><name><name>e</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>getSeries</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Should have thrown IndexOutOfBoundsException on null key"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Null 'key' argument."</literal></expr></argument>, <argument><expr><call><name><name>e</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+    
+    <comment type="block" format="javadoc">/**
+     * Some basic checks for the addSeries() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAddSeries</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>c</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"s1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// the dataset should prevent the addition of a series with the</comment>
+        <comment type="line">// same name as an existing series in the dataset</comment>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s2</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"s1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Should have thrown IllegalArgumentException on duplicate key"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"This dataset already contains a series with the key s1"</literal></expr></argument>, <argument><expr><call><name><name>e</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>c</name><operator>.</operator><name>getSeriesCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some basic checks for the removeSeries() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testRemoveSeries</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>c</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"s1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>removeSeries</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>c</name><operator>.</operator><name>getSeriesCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>removeSeries</name></name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Should have thrown IndexOutOfBoundsException on negative key"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Series index out of bounds."</literal></expr></argument>, <argument><expr><call><name><name>e</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>removeSeries</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Should have thrown IndexOutOfBoundsException on key out of range"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Series index out of bounds."</literal></expr></argument>, <argument><expr><call><name><name>e</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some tests for the indexOf() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testIndexOf</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"S1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s2</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"S2"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>indexOf</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>indexOf</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>indexOf</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>indexOf</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>indexOf</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>indexOf</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>removeSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>indexOf</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>indexOf</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s2b</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"S2"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>indexOf</name></name><argument_list>(<argument><expr><name>s2b</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getDomainBounds() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetDomainBounds</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Range</name></type> <name>r</name> <init>= <expr><call><name><name>dataset</name><operator>.</operator><name>getDomainBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><name>r</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>r</name> <operator>=</operator> <call><name><name>dataset</name><operator>.</operator><name>getDomainBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><name>r</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"S1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>r</name> <operator>=</operator> <call><name><name>dataset</name><operator>.</operator><name>getDomainBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><name>r</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>r</name> <operator>=</operator> <call><name><name>dataset</name><operator>.</operator><name>getDomainBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><name>r</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>r</name> <operator>=</operator> <call><name><name>dataset</name><operator>.</operator><name>getDomainBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>r</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>r</name> <operator>=</operator> <call><name><name>dataset</name><operator>.</operator><name>getDomainBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>, <argument><expr><literal type="number">1.5</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>r</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.0</literal></expr></argument>, <argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>r</name> <operator>=</operator> <call><name><name>dataset</name><operator>.</operator><name>getDomainBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>r</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>r</name> <operator>=</operator> <call><name><name>dataset</name><operator>.</operator><name>getDomainBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.5</literal></expr></argument>, <argument><expr><literal type="number">1.5</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>r</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getRangeBounds() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetRangeBounds</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        
+        <comment type="line">// when the dataset contains no series, we expect the value range to </comment>
+        <comment type="line">// be null</comment>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// when the dataset contains one or more series, but those series </comment>
+        <comment type="line">// contain no items, we expect the value range to be null</comment>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"S1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// tests with values</comment>
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.0</literal></expr></argument>, <argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s2</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"S2"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <expr_stmt><expr><call><name><name>s2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetRangeLowerBound</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        
+        <comment type="line">// when the dataset contains no series, we expect the value range to </comment>
+        <comment type="line">// be null</comment>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// when the dataset contains one or more series, but those series </comment>
+        <comment type="line">// contain no items, we expect the value range to be null</comment>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"S1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// tests with values</comment>
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.0</literal></expr></argument>, <argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s2</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"S2"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <expr_stmt><expr><call><name><name>s2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+    
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetRangeUpperBound</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        
+        <comment type="line">// when the dataset contains no series, we expect the value range to </comment>
+        <comment type="line">// be null</comment>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// when the dataset contains one or more series, but those series </comment>
+        <comment type="line">// contain no items, we expect the value range to be null</comment>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"S1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// tests with values</comment>
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.0</literal></expr></argument>, <argument><expr><operator>-</operator><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s2</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"S2"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <expr_stmt><expr><call><name><name>s2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+    
+    <comment type="block" format="javadoc">/**
+     * A check that the dataset prevents renaming a series to the name of an 
+     * existing series in the dataset.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testRenameSeries</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"S1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s2</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"S2"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>s2</name><operator>.</operator><name>setKey</name></name><argument_list>(<argument><expr><literal type="string">"S1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Should have thrown IllegalArgumentException on negative key"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+           <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Duplicate key2"</literal></expr></argument>, <argument><expr><call><name><name>e</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A test to cover bug 3445507.  The issue does not affect
+     * XYSeriesCollection.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testBug3445507</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"S1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>s2</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"S2"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">6.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>Range</name></type> <name>r</name> <init>= <expr><call><name><name>dataset</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>, <argument><expr><call><name><name>r</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">6.0</literal></expr></argument>, <argument><expr><call><name><name>r</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+ 
+    <comment type="block" format="javadoc">/**
+     * Test that a series belonging to a collection can be renamed (in fact, 
+     * because of a bug this was not possible in JFreeChart 1.0.14).
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSeriesRename</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// first check that a valid renaming works</comment>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"A"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series2</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"B"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>collection</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>collection</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>collection</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>setKey</name></name><argument_list>(<argument><expr><literal type="string">"C"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"C"</literal></expr></argument>, <argument><expr><call><name><name>collection</name><operator>.</operator><name>getSeries</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getKey</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <comment type="line">// next, check that setting a duplicate key fails</comment>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>setKey</name></name><argument_list>(<argument><expr><literal type="string">"C"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected an IllegalArgumentException."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// expected</comment>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"B"</literal></expr></argument>, <argument><expr><call><name><name>series2</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>  <comment type="line">// the series name should not </comment>
+        <comment type="line">// change because "C" is already the key for the other series in the</comment>
+        <comment type="line">// collection</comment>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

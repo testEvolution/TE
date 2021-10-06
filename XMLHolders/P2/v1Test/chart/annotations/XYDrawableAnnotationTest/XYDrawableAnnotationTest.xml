@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\annotations\XYDrawableAnnotationTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * -----------------------------
+ * XYDrawableAnnotationTest.java
+ * -----------------------------
+ * (C) Copyright 2003-2020, by Object Refinery Limited.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 19-Aug-2003 : Version 1 (DG);
+ * 01-Oct-2004 : Fixed bugs in tests (DG);
+ * 07-Jan-2005 : Added hashCode() test (DG);
+ * 23-Apr-2008 : Added testPublicCloneable() (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>annotations</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Graphics2D</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>geom</name><operator>.</operator><name>Rectangle2D</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>Serializable</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>Drawable</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>util</name><operator>.</operator><name>PublicCloneable</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link XYDrawableAnnotation} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>XYDrawableAnnotationTest</name> <block>{
+
+    <class><specifier>static</specifier> class <name>TestDrawable</name> <super_list><implements>implements <super><name>Drawable</name></super>, <super><name>Cloneable</name></super>, <super><name>Serializable</name></super></implements></super_list> <block>{
+        <comment type="block" format="javadoc">/**
+         * Default constructor.
+         */</comment>
+        <constructor><specifier>public</specifier> <name>TestDrawable</name><parameter_list>()</parameter_list> <block>{<block_content>
+        </block_content>}</block></constructor>
+        <comment type="block" format="javadoc">/**
+         * Draws something.
+         * @param g2  the graphics device.
+         * @param area  the area in which to draw.
+         */</comment>
+        <function><annotation>@<name>Override</name></annotation>
+        <type><specifier>public</specifier> <name>void</name></type> <name>draw</name><parameter_list>(<parameter><decl><type><name>Graphics2D</name></type> <name>g2</name></decl></parameter>, <parameter><decl><type><name>Rectangle2D</name></type> <name>area</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// do nothing</comment>
+        </block_content>}</block></function>
+        <comment type="block" format="javadoc">/**
+         * Tests this object for equality with an arbitrary object.
+         * @param obj  the object to test against ({@code null} permitted).
+         * @return A boolean.
+         */</comment>
+        <function><annotation>@<name>Override</name></annotation>
+        <type><specifier>public</specifier> <name>boolean</name></type> <name>equals</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>obj</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <if_stmt><if>if <condition>(<expr><name>obj</name> <operator>==</operator> <name>this</name></expr>)</condition> <block>{<block_content>
+                <return>return <expr><literal type="boolean">true</literal></expr>;</return>
+            </block_content>}</block></if></if_stmt>
+            <if_stmt><if>if <condition>(<expr><operator>!</operator><operator>(</operator><name>obj</name> <operator>instanceof</operator> <name>TestDrawable</name><operator>)</operator></expr>)</condition> <block>{<block_content>
+                <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+            </block_content>}</block></if></if_stmt>
+            <return>return <expr><literal type="boolean">true</literal></expr>;</return>
+        </block_content>}</block></function>
+        <comment type="block" format="javadoc">/**
+         * Returns a clone.
+         *
+         * @return A clone.
+         *
+         * @throws CloneNotSupportedException if there is a problem cloning.
+         */</comment>
+        <function><annotation>@<name>Override</name></annotation>
+        <type><specifier>public</specifier> <name>Object</name></type> <name>clone</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+            <return>return <expr><call><name><name>super</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr>;</return>
+        </block_content>}</block></function>
+    }</block></class>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that the equals method can distinguish all the required fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYDrawableAnnotation</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>,
+                <argument><expr><literal type="number">200.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYDrawableAnnotation</name></type> <name>a2</name> <init>= <expr><operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>,
+                <argument><expr><literal type="number">200.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>a1</name> <operator>=</operator> <operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">11.0</literal></expr></argument>, <argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><literal type="number">200.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>a2</name> <operator>=</operator> <operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">11.0</literal></expr></argument>, <argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><literal type="number">200.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>a1</name> <operator>=</operator> <operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">11.0</literal></expr></argument>, <argument><expr><literal type="number">22.0</literal></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><literal type="number">200.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>a2</name> <operator>=</operator> <operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">11.0</literal></expr></argument>, <argument><expr><literal type="number">22.0</literal></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><literal type="number">200.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>a1</name> <operator>=</operator> <operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">11.0</literal></expr></argument>, <argument><expr><literal type="number">22.0</literal></expr></argument>, <argument><expr><literal type="number">101.0</literal></expr></argument>, <argument><expr><literal type="number">200.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>a2</name> <operator>=</operator> <operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">11.0</literal></expr></argument>, <argument><expr><literal type="number">22.0</literal></expr></argument>, <argument><expr><literal type="number">101.0</literal></expr></argument>, <argument><expr><literal type="number">200.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>a1</name> <operator>=</operator> <operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">11.0</literal></expr></argument>, <argument><expr><literal type="number">22.0</literal></expr></argument>, <argument><expr><literal type="number">101.0</literal></expr></argument>, <argument><expr><literal type="number">202.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>a2</name> <operator>=</operator> <operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">11.0</literal></expr></argument>, <argument><expr><literal type="number">22.0</literal></expr></argument>, <argument><expr><literal type="number">101.0</literal></expr></argument>, <argument><expr><literal type="number">202.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>a1</name> <operator>=</operator> <operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">11.0</literal></expr></argument>, <argument><expr><literal type="number">22.0</literal></expr></argument>, <argument><expr><literal type="number">101.0</literal></expr></argument>, <argument><expr><literal type="number">202.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>a2</name> <operator>=</operator> <operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">11.0</literal></expr></argument>, <argument><expr><literal type="number">22.0</literal></expr></argument>, <argument><expr><literal type="number">101.0</literal></expr></argument>, <argument><expr><literal type="number">202.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Two objects that are equal are required to return the same hashCode.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testHashCode</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYDrawableAnnotation</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>,
+                <argument><expr><literal type="number">200.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYDrawableAnnotation</name></type> <name>a2</name> <init>= <expr><operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>,
+                <argument><expr><literal type="number">200.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h1</name> <init>= <expr><call><name><name>a1</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h2</name> <init>= <expr><call><name><name>a2</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>h1</name></expr></argument>, <argument><expr><name>h2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that cloning works.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYDrawableAnnotation</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>,
+                <argument><expr><literal type="number">200.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYDrawableAnnotation</name></type> <name>a2</name> <init>= <expr><operator>(</operator><name>XYDrawableAnnotation</name><operator>)</operator> <call><name><name>a1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>a1</name> <operator>!=</operator> <name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>a2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks that this class implements PublicCloneable.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPublicCloneable</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYDrawableAnnotation</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>,
+                <argument><expr><literal type="number">200.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>a1</name> <operator>instanceof</operator> <name>PublicCloneable</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYDrawableAnnotation</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>XYDrawableAnnotation</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>,
+                <argument><expr><literal type="number">200.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>TestDrawable</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYDrawableAnnotation</name></type> <name>a2</name> <init>= <expr><operator>(</operator><name>XYDrawableAnnotation</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>a1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

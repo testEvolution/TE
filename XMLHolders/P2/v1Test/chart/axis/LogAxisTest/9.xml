@@ -1,0 +1,12 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSetLowerBound</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>LogAxis</name></type> <name>axis</name> <init>= <expr><operator>new</operator> <call><name>LogAxis</name><argument_list>(<argument><expr><literal type="string">"X"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>axis</name><operator>.</operator><name>setRange</name></name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><literal type="number">10.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>axis</name><operator>.</operator><name>setLowerBound</name></name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>, <argument><expr><call><name><name>axis</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>axis</name><operator>.</operator><name>setLowerBound</name></name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><call><name><name>axis</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">11.0</literal></expr></argument>, <argument><expr><call><name><name>axis</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

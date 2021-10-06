@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\metrics\SignatureTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name></name>;</package>
+
+<import>import static <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ParserTstUtil</name><operator>.</operator><name>getOrderedNodes</name></name>;</import>
+<import>import static <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ParserTstUtil</name><operator>.</operator><name>parseJava17</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>ArrayList</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTCompilationUnit</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTFieldDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTMethodDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTMethodOrConstructorDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>JavaParserVisitorAdapter</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>testdata</name><operator>.</operator><name>GetterDetection</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>testdata</name><operator>.</operator><name>SetterDetection</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>multifile</name><operator>.</operator><name>signature</name><operator>.</operator><name>JavaFieldSignature</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>multifile</name><operator>.</operator><name>signature</name><operator>.</operator><name>JavaOperationSignature</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>multifile</name><operator>.</operator><name>signature</name><operator>.</operator><name>JavaOperationSignature</name><operator>.</operator><name>Role</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>multifile</name><operator>.</operator><name>signature</name><operator>.</operator><name>JavaSignature</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>multifile</name><operator>.</operator><name>signature</name><operator>.</operator><name>JavaSignature</name><operator>.</operator><name>Visibility</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Test class for {@link JavaSignature} and its subclasses.
+ *
+ * @author ClÃ©ment Fournier
+ */</comment>
+<class><specifier>public</specifier> class <name>SignatureTest</name> <block>{
+
+    <comment type="line">// common to operation and field signatures</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>visibilityTest</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"class Bzaz{ "</literal>
+            <operator>+</operator> <literal type="string">"public int bar;"</literal>
+            <operator>+</operator> <literal type="string">"String k;"</literal>
+            <operator>+</operator> <literal type="string">"protected double d;"</literal>
+            <operator>+</operator> <literal type="string">"private int i;"</literal>
+            <operator>+</operator> <literal type="string">"protected int x;"</literal>
+            <operator>+</operator> <literal type="string">"public Bzaz(){} "</literal>
+            <operator>+</operator> <literal type="string">"void bar(){} "</literal>
+            <operator>+</operator> <literal type="string">"protected void foo(int x){}"</literal>
+            <operator>+</operator> <literal type="string">"private Bzaz(int y){}"</literal>
+            <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTMethodOrConstructorDeclaration</name></argument>&gt;</argument_list></name></type> <name>operationDeclarations</name> <init>= <expr><call><name>getOrderedNodes</name><argument_list>(<argument><expr><name><name>ASTMethodOrConstructorDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTFieldDeclaration</name></argument>&gt;</argument_list></name></type> <name>fieldDeclarations</name> <init>= <expr><call><name>getOrderedNodes</name><argument_list>(<argument><expr><name><name>ASTFieldDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>JavaSignature</name></argument>&gt;</argument_list></name></type> <name>sigs</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>ASTMethodOrConstructorDeclaration</name></type> <name>node</name> <range>: <expr><name>operationDeclarations</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>sigs</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><call><name><name>JavaOperationSignature</name><operator>.</operator><name>buildFor</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+
+        <comment type="line">// operations</comment>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Visibility</name><operator>.</operator><name>PUBLIC</name></name></expr></argument>, <argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><name>visibility</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Visibility</name><operator>.</operator><name>PACKAGE</name></name></expr></argument>, <argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><name>visibility</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Visibility</name><operator>.</operator><name>PROTECTED</name></name></expr></argument>, <argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call><operator>.</operator><name>visibility</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Visibility</name><operator>.</operator><name>PRIVATE</name></name></expr></argument>, <argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call><operator>.</operator><name>visibility</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>sigs</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <for>for <control>(<init><decl><type><name>ASTFieldDeclaration</name></type> <name>node</name> <range>: <expr><name>fieldDeclarations</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>sigs</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><call><name><name>JavaFieldSignature</name><operator>.</operator><name>buildFor</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+
+        <comment type="line">// fields</comment>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Visibility</name><operator>.</operator><name>PUBLIC</name></name></expr></argument>, <argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><name>visibility</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Visibility</name><operator>.</operator><name>PACKAGE</name></name></expr></argument>, <argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><name>visibility</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Visibility</name><operator>.</operator><name>PROTECTED</name></name></expr></argument>, <argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call><operator>.</operator><name>visibility</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Visibility</name><operator>.</operator><name>PRIVATE</name></name></expr></argument>, <argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call><operator>.</operator><name>visibility</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>operationRoleTest</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"class Bzaz{ int x; "</literal>
+            <operator>+</operator> <literal type="string">"public static void foo(){} "</literal>
+            <operator>+</operator> <literal type="string">"Bzaz(){} "</literal>
+            <operator>+</operator> <literal type="string">"int getX(){return x;}"</literal>
+            <operator>+</operator> <literal type="string">" void setX(int a){x=a;}"</literal>
+            <operator>+</operator> <literal type="string">" public void doSomething(){}}"</literal></expr></init></decl>;</decl_stmt>
+
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTMethodOrConstructorDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getOrderedNodes</name><argument_list>(<argument><expr><name><name>ASTMethodOrConstructorDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>JavaOperationSignature</name></argument>&gt;</argument_list></name></type> <name>sigs</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>ASTMethodOrConstructorDeclaration</name></type> <name>node</name> <range>: <expr><name>nodes</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>sigs</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><call><name><name>JavaOperationSignature</name><operator>.</operator><name>buildFor</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Role</name><operator>.</operator><name>STATIC</name></name></expr></argument>, <argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><name>role</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Role</name><operator>.</operator><name>CONSTRUCTOR</name></name></expr></argument>, <argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><name>role</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Role</name><operator>.</operator><name>GETTER_OR_SETTER</name></name></expr></argument>, <argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call><operator>.</operator><name>role</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Role</name><operator>.</operator><name>GETTER_OR_SETTER</name></name></expr></argument>, <argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call><operator>.</operator><name>role</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Role</name><operator>.</operator><name>METHOD</name></name></expr></argument>, <argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>)</argument_list></call><operator>.</operator><name>role</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetterDetection</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>compilationUnit</name> <init>= <expr><call><name>parseJava17</name><argument_list>(<argument><expr><name><name>GetterDetection</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name><name>compilationUnit</name><operator>.</operator><name>jjtAccept</name></name><argument_list>(<argument><expr><operator>new</operator> <class><super><name>JavaParserVisitorAdapter</name></super><argument_list>()</argument_list> <block>{
+            <function><annotation>@<name>Override</name></annotation>
+            <type><specifier>public</specifier> <name>Object</name></type> <name>visit</name><parameter_list>(<parameter><decl><type><name>ASTMethodDeclaration</name></type> <name>node</name></decl></parameter>, <parameter><decl><type><name>Object</name></type> <name>data</name></decl></parameter>)</parameter_list> <block>{<block_content>
+                <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Role</name><operator>.</operator><name>GETTER_OR_SETTER</name></name></expr></argument>, <argument><expr><call><name><name>Role</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+                <return>return <expr><name>data</name></expr>;</return>
+            </block_content>}</block></function>
+        }</block></class></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSetterDetection</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>compilationUnit</name> <init>= <expr><call><name>parseJava17</name><argument_list>(<argument><expr><name><name>SetterDetection</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name><name>compilationUnit</name><operator>.</operator><name>jjtAccept</name></name><argument_list>(<argument><expr><operator>new</operator> <class><super><name>JavaParserVisitorAdapter</name></super><argument_list>()</argument_list> <block>{
+            <function><annotation>@<name>Override</name></annotation>
+            <type><specifier>public</specifier> <name>Object</name></type> <name>visit</name><parameter_list>(<parameter><decl><type><name>ASTMethodDeclaration</name></type> <name>node</name></decl></parameter>, <parameter><decl><type><name>Object</name></type> <name>data</name></decl></parameter>)</parameter_list> <block>{<block_content>
+                <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Role</name><operator>.</operator><name>GETTER_OR_SETTER</name></name></expr></argument>, <argument><expr><call><name><name>Role</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+                <return>return <expr><name>data</name></expr>;</return>
+            </block_content>}</block></function>
+        }</block></class></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>isAbstractOperationTest</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"abstract class Bzaz{ int x; "</literal>
+            <operator>+</operator> <literal type="string">"public static abstract void foo();"</literal>
+            <operator>+</operator> <literal type="string">"protected abstract int bar(int x);"</literal>
+            <operator>+</operator> <literal type="string">"int getX(){return x;}"</literal>
+            <operator>+</operator> <literal type="string">"void setX(int a){x=a;}"</literal>
+            <operator>+</operator> <literal type="string">"public void doSomething(){}}"</literal></expr></init></decl>;</decl_stmt>
+
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTMethodOrConstructorDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getOrderedNodes</name><argument_list>(<argument><expr><name><name>ASTMethodOrConstructorDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>JavaOperationSignature</name></argument>&gt;</argument_list></name></type> <name>sigs</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>ASTMethodOrConstructorDeclaration</name></type> <name>node</name> <range>: <expr><name>nodes</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>sigs</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><call><name><name>JavaOperationSignature</name><operator>.</operator><name>buildFor</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+
+
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><name>isAbstract</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><name>isAbstract</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call><operator>.</operator><name>isAbstract</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call><operator>.</operator><name>isAbstract</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>)</argument_list></call><operator>.</operator><name>isAbstract</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>isFinalFieldTest</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"class Bzaz{"</literal>
+            <operator>+</operator> <literal type="string">"public String x;"</literal>
+            <operator>+</operator> <literal type="string">"private int y;"</literal>
+            <operator>+</operator> <literal type="string">"private final int a;"</literal>
+            <operator>+</operator> <literal type="string">"protected final double u;"</literal>
+            <operator>+</operator> <literal type="string">"final long v;"</literal>
+            <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTFieldDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getOrderedNodes</name><argument_list>(<argument><expr><name><name>ASTFieldDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>JavaFieldSignature</name></argument>&gt;</argument_list></name></type> <name>sigs</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>ASTFieldDeclaration</name></type> <name>node</name> <range>: <expr><name>nodes</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>sigs</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><call><name><name>JavaFieldSignature</name><operator>.</operator><name>buildFor</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><name>isFinal</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><name>isFinal</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call><operator>.</operator><name>isFinal</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call><operator>.</operator><name>isFinal</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>)</argument_list></call><operator>.</operator><name>isFinal</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>isStaticFieldTest</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"class Bzaz{"</literal>
+            <operator>+</operator> <literal type="string">"public final String x;"</literal>
+            <operator>+</operator> <literal type="string">"private int y;"</literal>
+            <operator>+</operator> <literal type="string">"private static int a;"</literal>
+            <operator>+</operator> <literal type="string">"protected static final double u;"</literal>
+            <operator>+</operator> <literal type="string">"static long v;"</literal>
+            <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTFieldDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getOrderedNodes</name><argument_list>(<argument><expr><name><name>ASTFieldDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>JavaFieldSignature</name></argument>&gt;</argument_list></name></type> <name>sigs</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>ASTFieldDeclaration</name></type> <name>node</name> <range>: <expr><name>nodes</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>sigs</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><call><name><name>JavaFieldSignature</name><operator>.</operator><name>buildFor</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><name>isStatic</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><name>isStatic</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call><operator>.</operator><name>isStatic</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call><operator>.</operator><name>isStatic</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>)</argument_list></call><operator>.</operator><name>isStatic</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="line">// Ensure only one instance of a signature is created.</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>operationPoolTest</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"class Bzaz{ "</literal>
+            <operator>+</operator> <literal type="string">"public static void foo(){} "</literal>
+            <operator>+</operator> <literal type="string">"public static void az(){} "</literal>
+            <operator>+</operator> <literal type="string">"public static int getX(){return x;}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST2</name> <init>= <expr><literal type="string">"class Bzaz{ "</literal>
+            <operator>+</operator> <literal type="string">"void foo(){} "</literal>
+            <operator>+</operator> <literal type="string">"void az(){} "</literal>
+            <operator>+</operator> <literal type="string">"int rand(){return x;}}"</literal></expr></init></decl>;</decl_stmt>
+
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTMethodOrConstructorDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getOrderedNodes</name><argument_list>(<argument><expr><name><name>ASTMethodOrConstructorDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTMethodOrConstructorDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes2</name> <init>= <expr><call><name>getOrderedNodes</name><argument_list>(<argument><expr><name><name>ASTMethodOrConstructorDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>JavaOperationSignature</name></argument>&gt;</argument_list></name></type> <name>sigs</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>JavaOperationSignature</name></argument>&gt;</argument_list></name></type> <name>sigs2</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <call><name><name>sigs</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>sigs</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><call><name><name>JavaOperationSignature</name><operator>.</operator><name>buildFor</name></name><argument_list>(<argument><expr><call><name><name>nodes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>i</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>sigs2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><call><name><name>JavaOperationSignature</name><operator>.</operator><name>buildFor</name></name><argument_list>(<argument><expr><call><name><name>nodes2</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>i</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        </block_content>}</block></for>
+
+        <for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <call><name><name>sigs</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call> <operator>-</operator> <literal type="number">1</literal></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>i</name></expr></argument>)</argument_list></call> <operator>==</operator> <call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>i</name> <operator>+</operator> <literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>sigs2</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>i</name></expr></argument>)</argument_list></call> <operator>==</operator> <call><name><name>sigs2</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>i</name> <operator>+</operator> <literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+    <comment type="line">// Ensure only one instance of a signature is created.</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>fieldPoolTest</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"class Bzaz {"</literal>
+            <operator>+</operator> <literal type="string">"public int bar;"</literal>
+            <operator>+</operator> <literal type="string">"public String k;"</literal>
+            <operator>+</operator> <literal type="string">"public double d;"</literal>
+            <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST2</name> <init>= <expr><literal type="string">"class Foo {"</literal>
+            <operator>+</operator> <literal type="string">"private final int i;"</literal>
+            <operator>+</operator> <literal type="string">"private final int x;"</literal>
+            <operator>+</operator> <literal type="string">"private final String k;"</literal>
+            <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTFieldDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name>getOrderedNodes</name><argument_list>(<argument><expr><name><name>ASTFieldDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTFieldDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes2</name> <init>= <expr><call><name>getOrderedNodes</name><argument_list>(<argument><expr><name><name>ASTFieldDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>JavaFieldSignature</name></argument>&gt;</argument_list></name></type> <name>sigs</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>JavaFieldSignature</name></argument>&gt;</argument_list></name></type> <name>sigs2</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <call><name><name>sigs</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>sigs</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><call><name><name>JavaFieldSignature</name><operator>.</operator><name>buildFor</name></name><argument_list>(<argument><expr><call><name><name>nodes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>i</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>sigs2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><call><name><name>JavaFieldSignature</name><operator>.</operator><name>buildFor</name></name><argument_list>(<argument><expr><call><name><name>nodes2</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>i</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        </block_content>}</block></for>
+
+        <for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <call><name><name>sigs</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call> <operator>-</operator> <literal type="number">1</literal></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>i</name></expr></argument>)</argument_list></call> <operator>==</operator> <call><name><name>sigs</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>i</name> <operator>+</operator> <literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>sigs2</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>i</name></expr></argument>)</argument_list></call> <operator>==</operator> <call><name><name>sigs2</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>i</name> <operator>+</operator> <literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

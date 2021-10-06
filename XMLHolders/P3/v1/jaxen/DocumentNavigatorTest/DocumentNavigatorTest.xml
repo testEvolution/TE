@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\jaxen\DocumentNavigatorTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>jaxen</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertSame</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>fail</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Iterator</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jaxen</name><operator>.</operator><name>BaseXPath</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jaxen</name><operator>.</operator><name>JaxenException</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jaxen</name><operator>.</operator><name>UnsupportedAxisException</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Before</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>PMD</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>Report</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>LanguageRegistry</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>ast</name><operator>.</operator><name>Node</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>ast</name><operator>.</operator><name>xpath</name><operator>.</operator><name>DocumentNavigator</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>JavaLanguageModule</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTCompilationUnit</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTImportDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTPrimaryExpression</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTPrimaryPrefix</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTStatement</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>rule</name><operator>.</operator><name>AbstractJavaRule</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>testframework</name><operator>.</operator><name>RuleTst</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>DocumentNavigatorTest</name> <super_list><extends>extends <super><name>RuleTst</name></super></extends></super_list> <block>{
+
+    <decl_stmt><decl><type><specifier>private</specifier> <name>TestRule</name></type> <name>rule</name></decl>;</decl_stmt>
+
+    <class><specifier>private</specifier> class <name>TestRule</name> <super_list><extends>extends <super><name>AbstractJavaRule</name></super></extends></super_list> <block>{
+
+        <decl_stmt><decl><type><specifier>private</specifier> <name>Node</name></type> <name>compilationUnit</name></decl>;</decl_stmt>
+        <decl_stmt><decl><type><specifier>private</specifier> <name>Node</name></type> <name>importDeclaration</name></decl>;</decl_stmt>
+        <decl_stmt><decl><type><specifier>private</specifier> <name>Node</name></type> <name>statement</name></decl>;</decl_stmt>
+        <decl_stmt><decl><type><specifier>private</specifier> <name>Node</name></type> <name>primaryPrefix</name></decl>;</decl_stmt>
+        <decl_stmt><decl><type><specifier>private</specifier> <name>Node</name></type> <name>primaryExpression</name></decl>;</decl_stmt>
+
+        <comment type="block" format="javadoc">/**
+         * @see net.sourceforge.pmd.lang.java.ast.JavaParserVisitor#visit(ASTCompilationUnit,
+         *      Object)
+         */</comment>
+        <function><type><specifier>public</specifier> <name>Object</name></type> <name>visit</name><parameter_list>(<parameter><decl><type><name>ASTCompilationUnit</name></type> <name>node</name></decl></parameter>, <parameter><decl><type><name>Object</name></type> <name>data</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name><name>this</name><operator>.</operator><name>compilationUnit</name></name> <operator>=</operator> <name>node</name></expr>;</expr_stmt>
+            <return>return <expr><call><name><name>super</name><operator>.</operator><name>visit</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>, <argument><expr><name>data</name></expr></argument>)</argument_list></call></expr>;</return>
+        </block_content>}</block></function>
+
+        <function><type><specifier>public</specifier> <name>Object</name></type> <name>visit</name><parameter_list>(<parameter><decl><type><name>ASTImportDeclaration</name></type> <name>node</name></decl></parameter>, <parameter><decl><type><name>Object</name></type> <name>data</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name><name>this</name><operator>.</operator><name>importDeclaration</name></name> <operator>=</operator> <name>node</name></expr>;</expr_stmt>
+            <return>return <expr><call><name><name>super</name><operator>.</operator><name>visit</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>, <argument><expr><name>data</name></expr></argument>)</argument_list></call></expr>;</return>
+        </block_content>}</block></function>
+
+        <function><type><specifier>public</specifier> <name>Object</name></type> <name>visit</name><parameter_list>(<parameter><decl><type><name>ASTStatement</name></type> <name>node</name></decl></parameter>, <parameter><decl><type><name>Object</name></type> <name>data</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name><name>this</name><operator>.</operator><name>statement</name></name> <operator>=</operator> <name>node</name></expr>;</expr_stmt>
+            <return>return <expr><call><name><name>super</name><operator>.</operator><name>visit</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>, <argument><expr><name>data</name></expr></argument>)</argument_list></call></expr>;</return>
+        </block_content>}</block></function>
+
+        <function><type><specifier>public</specifier> <name>Object</name></type> <name>visit</name><parameter_list>(<parameter><decl><type><name>ASTPrimaryPrefix</name></type> <name>node</name></decl></parameter>, <parameter><decl><type><name>Object</name></type> <name>data</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name><name>this</name><operator>.</operator><name>primaryPrefix</name></name> <operator>=</operator> <name>node</name></expr>;</expr_stmt>
+            <return>return <expr><call><name><name>super</name><operator>.</operator><name>visit</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>, <argument><expr><name>data</name></expr></argument>)</argument_list></call></expr>;</return>
+        </block_content>}</block></function>
+
+        <function><type><specifier>public</specifier> <name>Object</name></type> <name>visit</name><parameter_list>(<parameter><decl><type><name>ASTPrimaryExpression</name></type> <name>node</name></decl></parameter>, <parameter><decl><type><name>Object</name></type> <name>data</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name><name>this</name><operator>.</operator><name>primaryExpression</name></name> <operator>=</operator> <name>node</name></expr>;</expr_stmt>
+            <return>return <expr><call><name><name>super</name><operator>.</operator><name>visit</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>, <argument><expr><name>data</name></expr></argument>)</argument_list></call></expr>;</return>
+        </block_content>}</block></function>
+    }</block></class>
+
+    <function><annotation>@<name>Before</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>setUp</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><name>rule</name> <operator>=</operator> <operator>new</operator> <call><name>TestRule</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>runTestFromString</name><argument_list>(<argument><expr><name>TEST</name></expr></argument>, <argument><expr><name>rule</name></expr></argument>, <argument><expr><operator>new</operator> <call><name>Report</name><argument_list>()</argument_list></call></expr></argument>,
+                    <argument><expr><call><name><name>LanguageRegistry</name><operator>.</operator><name>getLanguage</name></name><argument_list>(<argument><expr><name><name>JavaLanguageModule</name><operator>.</operator><name>NAME</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>getDefaultVersion</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>Throwable</name></type> <name>xx</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>xx</name><operator>.</operator><name>printStackTrace</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testChildAxisIterator</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DocumentNavigator</name></type> <name>nav</name> <init>= <expr><operator>new</operator> <call><name>DocumentNavigator</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Iterator</name><argument_list type="generic">&lt;<argument><name>Node</name></argument>&gt;</argument_list></name></type> <name>iter</name> <init>= <expr><call><name><name>nav</name><operator>.</operator><name>getChildAxisIterator</name></name><argument_list>(<argument><expr><name><name>rule</name><operator>.</operator><name>compilationUnit</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><call><name><name>rule</name><operator>.</operator><name>compilationUnit</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>iter</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><call><name><name>rule</name><operator>.</operator><name>compilationUnit</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>iter</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>iter</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testParentAxisIterator</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DocumentNavigator</name></type> <name>nav</name> <init>= <expr><operator>new</operator> <call><name>DocumentNavigator</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Iterator</name><argument_list type="generic">&lt;<argument><name>Node</name></argument>&gt;</argument_list></name></type> <name>iter</name> <init>= <expr><call><name><name>nav</name><operator>.</operator><name>getParentAxisIterator</name></name><argument_list>(<argument><expr><name><name>rule</name><operator>.</operator><name>importDeclaration</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><call><name><name>rule</name><operator>.</operator><name>importDeclaration</name><operator>.</operator><name>jjtGetParent</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>iter</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>iter</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testParentAxisIterator2</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DocumentNavigator</name></type> <name>nav</name> <init>= <expr><operator>new</operator> <call><name>DocumentNavigator</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Iterator</name><argument_list type="generic">&lt;<argument><name>Node</name></argument>&gt;</argument_list></name></type> <name>iter</name> <init>= <expr><call><name><name>nav</name><operator>.</operator><name>getParentAxisIterator</name></name><argument_list>(<argument><expr><name><name>rule</name><operator>.</operator><name>compilationUnit</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>iter</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testDescendantAxisIterator</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>UnsupportedAxisException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>DocumentNavigator</name></type> <name>nav</name> <init>= <expr><operator>new</operator> <call><name>DocumentNavigator</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Iterator</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>iter</name> <init>= <expr><call><name><name>nav</name><operator>.</operator><name>getDescendantAxisIterator</name></name><argument_list>(<argument><expr><name><name>rule</name><operator>.</operator><name>statement</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Node</name></type> <name>statementExpression</name> <init>= <expr><call><name><name>rule</name><operator>.</operator><name>statement</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><name>statementExpression</name></expr></argument>, <argument><expr><call><name><name>iter</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Node</name></type> <name>primaryExpression</name> <init>= <expr><call><name><name>statementExpression</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><name>primaryExpression</name></expr></argument>, <argument><expr><call><name><name>iter</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Node</name></type> <name>primaryPrefix</name> <init>= <expr><call><name><name>primaryExpression</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><name>primaryPrefix</name></expr></argument>, <argument><expr><call><name><name>iter</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Node</name></type> <name>primarySuffix</name> <init>= <expr><call><name><name>primaryExpression</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <comment type="line">// assertSame(primarySuffix, iter.next());</comment>
+        <decl_stmt><decl><type><name>Node</name></type> <name>name</name> <init>= <expr><call><name><name>primaryPrefix</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <comment type="line">// assertSame(name, iter.next());</comment>
+        <decl_stmt><decl><type><name>Node</name></type> <name>arguments</name> <init>= <expr><call><name><name>primarySuffix</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <comment type="line">// assertSame(arguments, iter.next());</comment>
+        <comment type="line">// assertFalse(iter.hasNext());</comment>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testDescendantAxisIterator2</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>UnsupportedAxisException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>DocumentNavigator</name></type> <name>nav</name> <init>= <expr><operator>new</operator> <call><name>DocumentNavigator</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Iterator</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>iter</name> <init>= <expr><call><name><name>nav</name><operator>.</operator><name>getDescendantAxisIterator</name></name><argument_list>(<argument><expr><name><name>rule</name><operator>.</operator><name>primaryPrefix</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Node</name></type> <name>name</name> <init>= <expr><call><name><name>rule</name><operator>.</operator><name>primaryPrefix</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><name>name</name></expr></argument>, <argument><expr><call><name><name>iter</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>iter</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFollowingSiblingAxisIterator</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DocumentNavigator</name></type> <name>nav</name> <init>= <expr><operator>new</operator> <call><name>DocumentNavigator</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Iterator</name><argument_list type="generic">&lt;<argument><name>Node</name></argument>&gt;</argument_list></name></type> <name>iter</name> <init>= <expr><call><name><name>nav</name><operator>.</operator><name>getFollowingSiblingAxisIterator</name></name><argument_list>(<argument><expr><call><name><name>rule</name><operator>.</operator><name>primaryExpression</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><call><name><name>rule</name><operator>.</operator><name>primaryExpression</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>iter</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>iter</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFollowingSiblingAxisIterator2</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DocumentNavigator</name></type> <name>nav</name> <init>= <expr><operator>new</operator> <call><name>DocumentNavigator</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Iterator</name><argument_list type="generic">&lt;<argument><name>Node</name></argument>&gt;</argument_list></name></type> <name>iter</name> <init>= <expr><call><name><name>nav</name><operator>.</operator><name>getFollowingSiblingAxisIterator</name></name><argument_list>(<argument><expr><call><name><name>rule</name><operator>.</operator><name>primaryExpression</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>iter</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPrecedingSiblingAxisIterator</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DocumentNavigator</name></type> <name>nav</name> <init>= <expr><operator>new</operator> <call><name>DocumentNavigator</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Iterator</name><argument_list type="generic">&lt;<argument><name>Node</name></argument>&gt;</argument_list></name></type> <name>iter</name> <init>= <expr><call><name><name>nav</name><operator>.</operator><name>getPrecedingSiblingAxisIterator</name></name><argument_list>(<argument><expr><call><name><name>rule</name><operator>.</operator><name>primaryExpression</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><call><name><name>rule</name><operator>.</operator><name>primaryExpression</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>iter</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>iter</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPrecedingSiblingAxisIterator2</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DocumentNavigator</name></type> <name>nav</name> <init>= <expr><operator>new</operator> <call><name>DocumentNavigator</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Iterator</name><argument_list type="generic">&lt;<argument><name>Node</name></argument>&gt;</argument_list></name></type> <name>iter</name> <init>= <expr><call><name><name>nav</name><operator>.</operator><name>getPrecedingSiblingAxisIterator</name></name><argument_list>(<argument><expr><call><name><name>rule</name><operator>.</operator><name>primaryExpression</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>iter</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testXPath</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>JaxenException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>BaseXPath</name></type> <name>xPath</name> <init>= <expr><operator>new</operator> <call><name>BaseXPath</name><argument_list>(<argument><expr><literal type="string">".//*"</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>DocumentNavigator</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>matches</name> <init>= <expr><call><name><name>xPath</name><operator>.</operator><name>selectNodes</name></name><argument_list>(<argument><expr><name><name>rule</name><operator>.</operator><name>statement</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">6</literal></expr></argument>, <argument><expr><call><name><name>matches</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testXPath2</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>JaxenException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>BaseXPath</name></type> <name>xPath</name> <init>= <expr><operator>new</operator> <call><name>BaseXPath</name><argument_list>(<argument><expr><literal type="string">".//*"</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>DocumentNavigator</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>matches</name> <init>= <expr><call><name><name>xPath</name><operator>.</operator><name>selectNodes</name></name><argument_list>(<argument><expr><name><name>rule</name><operator>.</operator><name>importDeclaration</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>matches</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>public</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"import java.io.*;"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"public class Foo {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">" public Foo() {"</literal>
+            <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"  try {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"   FileReader fr = new FileReader(\"/dev/null\");"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+            <operator>+</operator> <literal type="string">"  } catch (Exception e) {}"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"  try {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+            <operator>+</operator> <literal type="string">"   FileReader fr = new FileReader(\"/dev/null\");"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"  } catch (Exception e) {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+            <operator>+</operator> <literal type="string">"   e.printStackTrace();"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"   // this shouldn't show up on the report"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"  }"</literal>
+            <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">" }"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+}</block></class>
+</unit>

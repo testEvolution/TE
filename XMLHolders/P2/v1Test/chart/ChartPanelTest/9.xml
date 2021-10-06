@@ -1,0 +1,13 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test2502355_restoreAutoBounds</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultXYDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultXYDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createXYLineChart</name></name><argument_list>(<argument><expr><literal type="string">"TestChart"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>,
+                <argument><expr><literal type="string">"Y"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>, <argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ChartPanel</name></type> <name>panel</name> <init>= <expr><operator>new</operator> <call><name>ChartPanel</name><argument_list>(<argument><expr><name>chart</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>panel</name><operator>.</operator><name>restoreAutoBounds</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>chartChangeEvents</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

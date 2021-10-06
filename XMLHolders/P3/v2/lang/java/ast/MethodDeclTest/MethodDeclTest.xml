@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\ast\MethodDeclTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MethodDeclTest</name> <block>{
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPublic</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>access</name> <init>= <expr><block>{ <expr><literal type="string">"public"</literal></expr> }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTMethodDeclaration</name></type> <name>amd</name> <init>= <expr><call><name>getMethodDecl</name><argument_list>(<argument><expr><name>access</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Expecting method to be public."</literal></expr></argument>, <argument><expr><call><name><name>amd</name><operator>.</operator><name>isPublic</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPrivate</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>access</name> <init>= <expr><block>{ <expr><literal type="string">"private"</literal></expr> }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTMethodDeclaration</name></type> <name>amd</name> <init>= <expr><call><name>getMethodDecl</name><argument_list>(<argument><expr><name>access</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Expecting method to be private."</literal></expr></argument>, <argument><expr><call><name><name>amd</name><operator>.</operator><name>isPrivate</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testProtected</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>access</name> <init>= <expr><block>{ <expr><literal type="string">"protected"</literal></expr> }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTMethodDeclaration</name></type> <name>amd</name> <init>= <expr><call><name>getMethodDecl</name><argument_list>(<argument><expr><name>access</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Expecting method to be protected."</literal></expr></argument>, <argument><expr><call><name><name>amd</name><operator>.</operator><name>isProtected</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFinal</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>access</name> <init>= <expr><block>{ <expr><literal type="string">"public"</literal></expr>, <expr><literal type="string">"final"</literal></expr> }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTMethodDeclaration</name></type> <name>amd</name> <init>= <expr><call><name>getMethodDecl</name><argument_list>(<argument><expr><name>access</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Expecting method to be final."</literal></expr></argument>, <argument><expr><call><name><name>amd</name><operator>.</operator><name>isFinal</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Expecting method to be public."</literal></expr></argument>, <argument><expr><call><name><name>amd</name><operator>.</operator><name>isPublic</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSynchronized</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>access</name> <init>= <expr><block>{ <expr><literal type="string">"public"</literal></expr>, <expr><literal type="string">"synchronized"</literal></expr> }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTMethodDeclaration</name></type> <name>amd</name> <init>= <expr><call><name>getMethodDecl</name><argument_list>(<argument><expr><name>access</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Expecting method to be synchronized."</literal></expr></argument>, <argument><expr><call><name><name>amd</name><operator>.</operator><name>isSynchronized</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Expecting method to be public."</literal></expr></argument>, <argument><expr><call><name><name>amd</name><operator>.</operator><name>isPublic</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAbstract</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>access</name> <init>= <expr><block>{ <expr><literal type="string">"public"</literal></expr>, <expr><literal type="string">"abstract"</literal></expr> }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTMethodDeclaration</name></type> <name>amd</name> <init>= <expr><call><name>getMethodDecl</name><argument_list>(<argument><expr><name>access</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Expecting method to be abstract."</literal></expr></argument>, <argument><expr><call><name><name>amd</name><operator>.</operator><name>isAbstract</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Expecting method to be public."</literal></expr></argument>, <argument><expr><call><name><name>amd</name><operator>.</operator><name>isPublic</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNative</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>access</name> <init>= <expr><block>{ <expr><literal type="string">"private"</literal></expr>, <expr><literal type="string">"native"</literal></expr> }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTMethodDeclaration</name></type> <name>amd</name> <init>= <expr><call><name>getMethodDecl</name><argument_list>(<argument><expr><name>access</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Expecting method to be native."</literal></expr></argument>, <argument><expr><call><name><name>amd</name><operator>.</operator><name>isNative</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Expecting method to be private."</literal></expr></argument>, <argument><expr><call><name><name>amd</name><operator>.</operator><name>isPrivate</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testStrict</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>access</name> <init>= <expr><block>{ <expr><literal type="string">"public"</literal></expr>, <expr><literal type="string">"strictfp"</literal></expr> }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTMethodDeclaration</name></type> <name>amd</name> <init>= <expr><call><name>getMethodDecl</name><argument_list>(<argument><expr><name>access</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Expecting method to be strict."</literal></expr></argument>, <argument><expr><call><name><name>amd</name><operator>.</operator><name>isStrictfp</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Expecting method to be public."</literal></expr></argument>, <argument><expr><call><name><name>amd</name><operator>.</operator><name>isPublic</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>private</specifier> <name>ASTMethodDeclaration</name></type> <name>getMethodDecl</name><parameter_list>(<parameter><decl><type><name><name>String</name><index>[]</index></name></type> <name>access</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><call><name><name>AccessNodeTest</name><operator>.</operator><name>getDeclWithModifiers</name></name><argument_list>(<argument><expr><name>access</name></expr></argument>, <argument><expr><name><name>ASTMethodDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><literal type="string">"void stuff(){}"</literal></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

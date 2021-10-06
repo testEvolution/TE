@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\typeresolution\testdata\PmdStackOverflow.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name></name>;</package>
+
+<class><specifier>public</specifier> class <name>PmdStackOverflow</name> <block>{
+
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>shouldThrowStackOverfloError</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>MessageBuilder</name></type> <name>messageBuilder</name> <init>= <expr><operator>new</operator> <call><name>MessageBuilderA</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// Works</comment>
+        <decl_stmt><decl><type><name>PartBuilder</name></type> <name>partBuilder</name> <init>= <expr><call><name><name>messageBuilder</name><operator>.</operator><name>newComponent</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>messageBuilder</name><operator>.</operator><name>addComponent</name></name><argument_list>(<argument><expr><call><name><name>partBuilder</name><operator>.</operator><name>withSomeValue</name></name><argument_list>(<argument><expr><literal type="string">"ABC"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// Does not work</comment>
+        <expr_stmt><expr><call><name><name>messageBuilder</name><operator>.</operator><name>addComponent</name></name><argument_list>(<argument><expr><call><name><name>messageBuilder</name><operator>.</operator><name>newComponent</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>withSomeValue</name><argument_list>(<argument><expr><literal type="string">"ABC"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+
+<class><specifier>abstract</specifier> class <name><name>MessageBuilder</name><parameter_list>&lt;<parameter><name>T</name> <extends>extends <name>MessageBuilder</name></extends></parameter>, <parameter><name>U</name> <extends>extends <name><name>PartBuilder</name><parameter_list>&lt;<parameter><name>U</name></parameter>&gt;</parameter_list></name></extends></parameter>&gt;</parameter_list></name> <block>{
+
+    <function_decl><type><specifier>public</specifier> <specifier>abstract</specifier> <name>U</name></type> <name>newComponent</name><parameter_list>()</parameter_list>;</function_decl>
+
+    <function><type><specifier>public</specifier> <name>T</name></type> <name>addComponent</name><parameter_list>(<parameter><decl><type><name>U</name></type> <name>ignore</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><operator>(</operator><name>T</name><operator>)</operator> <name>this</name></expr>;</return>
+    </block_content>}</block></function>
+}</block></class>
+
+<class>class <name>MessageBuilderA</name> <super_list><extends>extends <super><name><name>MessageBuilder</name><argument_list type="generic">&lt;<argument><name>MessageBuilderA</name></argument>, <argument><name>PartBuilderA</name></argument>&gt;</argument_list></name></super></extends></super_list> <block>{
+
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>PartBuilderA</name></type> <name>newComponent</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><operator>new</operator> <call><name>PartBuilderA</name><argument_list>()</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+}</block></class>
+
+<class>class <name><name>PartBuilder</name><parameter_list>&lt;<parameter><name>T</name> <extends>extends <name>PartBuilder</name></extends></parameter>&gt;</parameter_list></name> <block>{
+
+    <function><type><specifier>public</specifier> <name>T</name></type> <name>withSomeValue</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>ignore</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><operator>(</operator><name>T</name><operator>)</operator> <name>this</name></expr>;</return>
+    </block_content>}</block></function>
+}</block></class>
+
+<class>class <name>PartBuilderA</name> <super_list><extends>extends <super><name><name>PartBuilder</name><argument_list type="generic">&lt;<argument><name>PartBuilderA</name></argument>&gt;</argument_list></name></super></extends></super_list> <block>{
+}</block></class>
+</unit>

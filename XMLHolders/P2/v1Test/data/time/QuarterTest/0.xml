@@ -1,0 +1,9 @@
+<unit><function><annotation>@<name>BeforeEach</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>setUp</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>q1Y1900</name></name> <operator>=</operator> <operator>new</operator> <call><name>Quarter</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1900</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>q2Y1900</name></name> <operator>=</operator> <operator>new</operator> <call><name>Quarter</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">1900</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>q3Y9999</name></name> <operator>=</operator> <operator>new</operator> <call><name>Quarter</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><literal type="number">9999</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>q4Y9999</name></name> <operator>=</operator> <operator>new</operator> <call><name>Quarter</name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><literal type="number">9999</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

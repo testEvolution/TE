@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\axis\AxisTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+ * Other names may be trademarks of their respective owners.]
+ *
+ * -------------
+ * AxisTest.java
+ * -------------
+ * (C) Copyright 2003-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 13-Aug-2003 : Version 1 (DG);
+ * 06-Jan-2004 : Added tests for axis line attributes (DG);
+ * 07-Jan-2005 : Added hashCode() test (DG);
+ * 25-Sep-2008 : Extended equals() to cover new fields (DG);
+ * 05-Aug-2013 : Extended equals for new fields (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>axis</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertNotEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertNotSame</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertSame</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>BasicStroke</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Color</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Font</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>GradientPaint</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>font</name><operator>.</operator><name>TextAttribute</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>text</name><operator>.</operator><name>AttributedString</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>RectangleInsets</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link Axis} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>AxisTest</name>  <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that cloning works.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>CategoryAxis</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>CategoryAxis</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAxisLinePaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>CategoryAxis</name></type> <name>a2</name> <init>= <expr><operator>(</operator><name>CategoryAxis</name><operator>)</operator> <call><name><name>a1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNotSame</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>a2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that the equals method can distinguish all the required fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Axis</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>CategoryAxis</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Axis</name></type> <name>a2</name> <init>= <expr><operator>new</operator> <call><name>CategoryAxis</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// visible flag...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setVisible</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setVisible</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// label...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setLabel</name></name><argument_list>(<argument><expr><literal type="string">"New Label"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setLabel</name></name><argument_list>(<argument><expr><literal type="string">"New Label"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// label font...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setLabelFont</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Font</name><argument_list>(<argument><expr><literal type="string">"Dialog"</literal></expr></argument>, <argument><expr><name><name>Font</name><operator>.</operator><name>PLAIN</name></name></expr></argument>, <argument><expr><literal type="number">8</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setLabelFont</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Font</name><argument_list>(<argument><expr><literal type="string">"Dialog"</literal></expr></argument>, <argument><expr><name><name>Font</name><operator>.</operator><name>PLAIN</name></name></expr></argument>, <argument><expr><literal type="number">8</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// label paint...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setLabelPaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>WHITE</name></name></expr></argument>,
+                <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setLabelPaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>WHITE</name></name></expr></argument>,
+                <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <comment type="line">// attributed label...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAttributedLabel</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>AttributedString</name><argument_list>(<argument><expr><literal type="string">"Hello World!"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAttributedLabel</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>AttributedString</name><argument_list>(<argument><expr><literal type="string">"Hello World!"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <decl_stmt><decl><type><name>AttributedString</name></type> <name>l1</name> <init>= <expr><call><name><name>a1</name><operator>.</operator><name>getAttributedLabel</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>l1</name><operator>.</operator><name>addAttribute</name></name><argument_list>(<argument><expr><name><name>TextAttribute</name><operator>.</operator><name>SUPERSCRIPT</name></name></expr></argument>, 
+                <argument><expr><name><name>TextAttribute</name><operator>.</operator><name>SUPERSCRIPT_SUB</name></name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAttributedLabel</name></name><argument_list>(<argument><expr><name>l1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>AttributedString</name></type> <name>l2</name> <init>= <expr><call><name><name>a2</name><operator>.</operator><name>getAttributedLabel</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>l2</name><operator>.</operator><name>addAttribute</name></name><argument_list>(<argument><expr><name><name>TextAttribute</name><operator>.</operator><name>SUPERSCRIPT</name></name></expr></argument>, 
+                <argument><expr><name><name>TextAttribute</name><operator>.</operator><name>SUPERSCRIPT_SUB</name></name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAttributedLabel</name></name><argument_list>(<argument><expr><name>l2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <comment type="line">// label insets...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setLabelInsets</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>RectangleInsets</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">10.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setLabelInsets</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>RectangleInsets</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">10.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// label angle...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setLabelAngle</name></name><argument_list>(<argument><expr><literal type="number">1.23</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setLabelAngle</name></name><argument_list>(<argument><expr><literal type="number">1.23</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <comment type="line">// label location...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setLabelLocation</name></name><argument_list>(<argument><expr><name><name>AxisLabelLocation</name><operator>.</operator><name>HIGH_END</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setLabelLocation</name></name><argument_list>(<argument><expr><name><name>AxisLabelLocation</name><operator>.</operator><name>HIGH_END</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <comment type="line">// axis line visible...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAxisLineVisible</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAxisLineVisible</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// axis line stroke...</comment>
+        <decl_stmt><decl><type><name>BasicStroke</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.1f</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAxisLineStroke</name></name><argument_list>(<argument><expr><name>s</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAxisLineStroke</name></name><argument_list>(<argument><expr><name>s</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// axis line paint...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAxisLinePaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>,
+                <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAxisLinePaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>,
+                <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// tick labels visible flag...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setTickLabelsVisible</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setTickLabelsVisible</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// tick label font...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setTickLabelFont</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Font</name><argument_list>(<argument><expr><literal type="string">"Dialog"</literal></expr></argument>, <argument><expr><name><name>Font</name><operator>.</operator><name>PLAIN</name></name></expr></argument>, <argument><expr><literal type="number">12</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setTickLabelFont</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Font</name><argument_list>(<argument><expr><literal type="string">"Dialog"</literal></expr></argument>, <argument><expr><name><name>Font</name><operator>.</operator><name>PLAIN</name></name></expr></argument>, <argument><expr><literal type="number">12</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// tick label paint...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setTickLabelPaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>YELLOW</name></name></expr></argument>,
+                <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setTickLabelPaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>YELLOW</name></name></expr></argument>,
+                <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// tick label insets...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setTickLabelInsets</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>RectangleInsets</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">10.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setTickLabelInsets</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>RectangleInsets</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">10.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// tick marks visible flag...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setTickMarksVisible</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setTickMarksVisible</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// tick mark inside length...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setTickMarkInsideLength</name></name><argument_list>(<argument><expr><literal type="number">1.23f</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setTickMarkInsideLength</name></name><argument_list>(<argument><expr><literal type="number">1.23f</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// tick mark outside length...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setTickMarkOutsideLength</name></name><argument_list>(<argument><expr><literal type="number">1.23f</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setTickMarkOutsideLength</name></name><argument_list>(<argument><expr><literal type="number">1.23f</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// tick mark stroke...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setTickMarkStroke</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">2.0f</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setTickMarkStroke</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">2.0f</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// tick mark paint...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setTickMarkPaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>CYAN</name></name></expr></argument>,
+                <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setTickMarkPaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>CYAN</name></name></expr></argument>,
+                <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// fixed dimension...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setFixedDimension</name></name><argument_list>(<argument><expr><literal type="number">3.21f</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setFixedDimension</name></name><argument_list>(<argument><expr><literal type="number">3.21f</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setMinorTickMarksVisible</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setMinorTickMarksVisible</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setMinorTickMarkInsideLength</name></name><argument_list>(<argument><expr><literal type="number">1.23f</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setMinorTickMarkInsideLength</name></name><argument_list>(<argument><expr><literal type="number">1.23f</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setMinorTickMarkOutsideLength</name></name><argument_list>(<argument><expr><literal type="number">3.21f</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setMinorTickMarkOutsideLength</name></name><argument_list>(<argument><expr><literal type="number">3.21f</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Two objects that are equal are required to return the same hashCode.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testHashCode</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Axis</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>CategoryAxis</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Axis</name></type> <name>a2</name> <init>= <expr><operator>new</operator> <call><name>CategoryAxis</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h1</name> <init>= <expr><call><name><name>a1</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h2</name> <init>= <expr><call><name><name>a2</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>h1</name></expr></argument>, <argument><expr><name>h2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+    
+    <comment type="block" format="javadoc">/**
+     * Checks that serialization works, particularly with the attributed label.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Axis</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>CategoryAxis</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>AttributedString</name></type> <name>label</name> <init>= <expr><operator>new</operator> <call><name>AttributedString</name><argument_list>(<argument><expr><literal type="string">"Axis Label"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>label</name><operator>.</operator><name>addAttribute</name></name><argument_list>(<argument><expr><name><name>TextAttribute</name><operator>.</operator><name>SUPERSCRIPT</name></name></expr></argument>, 
+                <argument><expr><name><name>TextAttribute</name><operator>.</operator><name>SUPERSCRIPT_SUB</name></name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">4</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAttributedLabel</name></name><argument_list>(<argument><expr><name>label</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Axis</name></type> <name>a2</name> <init>= <expr><operator>(</operator><name>Axis</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>a1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

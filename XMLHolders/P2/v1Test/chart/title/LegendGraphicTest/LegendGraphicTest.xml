@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\title\LegendGraphicTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ----------------------
+ * LegendGraphicTest.java
+ * ----------------------
+ * (C) Copyright 2005-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 01-Sep-2005 : Version 1 (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>title</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>BasicStroke</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Color</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Rectangle</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Stroke</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>geom</name><operator>.</operator><name>Line2D</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>geom</name><operator>.</operator><name>Rectangle2D</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>GradientPaintTransformType</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>RectangleAnchor</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>StandardGradientPaintTransformer</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link LegendGraphic} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>LegendGraphicTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Check that the equals() method distinguishes all fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>LegendGraphic</name></type> <name>g1</name> <init>= <expr><operator>new</operator> <call><name>LegendGraphic</name><argument_list>(<argument><expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>,
+                <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LegendGraphic</name></type> <name>g2</name> <init>= <expr><operator>new</operator> <call><name>LegendGraphic</name><argument_list>(<argument><expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>,
+                <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>g1</name></expr></argument>, <argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>g2</name></expr></argument>, <argument><expr><name>g1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// shapeVisible</comment>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>setShapeVisible</name></name><argument_list>(<argument><expr><operator>!</operator><call><name><name>g1</name><operator>.</operator><name>isShapeVisible</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>setShapeVisible</name></name><argument_list>(<argument><expr><operator>!</operator><call><name><name>g2</name><operator>.</operator><name>isShapeVisible</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// shape</comment>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>setShape</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">4.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>setShape</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">4.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// shapeFilled</comment>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>setShapeFilled</name></name><argument_list>(<argument><expr><operator>!</operator><call><name><name>g1</name><operator>.</operator><name>isShapeFilled</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>setShapeFilled</name></name><argument_list>(<argument><expr><operator>!</operator><call><name><name>g2</name><operator>.</operator><name>isShapeFilled</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// fillPaint</comment>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>setFillPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>GREEN</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>setFillPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>GREEN</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// shapeOutlineVisible</comment>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>setShapeOutlineVisible</name></name><argument_list>(<argument><expr><operator>!</operator><call><name><name>g1</name><operator>.</operator><name>isShapeOutlineVisible</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>setShapeOutlineVisible</name></name><argument_list>(<argument><expr><operator>!</operator><call><name><name>g2</name><operator>.</operator><name>isShapeOutlineVisible</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// outlinePaint</comment>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>setOutlinePaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>GREEN</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>setOutlinePaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>GREEN</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// outlineStroke</comment>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>setOutlineStroke</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.23f</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>setOutlineStroke</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.23f</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// shapeAnchor</comment>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>setShapeAnchor</name></name><argument_list>(<argument><expr><name><name>RectangleAnchor</name><operator>.</operator><name>BOTTOM_RIGHT</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>setShapeAnchor</name></name><argument_list>(<argument><expr><name><name>RectangleAnchor</name><operator>.</operator><name>BOTTOM_RIGHT</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// shapeLocation</comment>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>setShapeLocation</name></name><argument_list>(<argument><expr><name><name>RectangleAnchor</name><operator>.</operator><name>BOTTOM_RIGHT</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>setShapeLocation</name></name><argument_list>(<argument><expr><name><name>RectangleAnchor</name><operator>.</operator><name>BOTTOM_RIGHT</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// lineVisible</comment>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>setLineVisible</name></name><argument_list>(<argument><expr><operator>!</operator><call><name><name>g1</name><operator>.</operator><name>isLineVisible</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>setLineVisible</name></name><argument_list>(<argument><expr><operator>!</operator><call><name><name>g2</name><operator>.</operator><name>isLineVisible</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// line</comment>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>setLine</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name><name>Line2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>setLine</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name><name>Line2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// linePaint</comment>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>setLinePaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>GREEN</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>setLinePaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>GREEN</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// lineStroke</comment>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>setLineStroke</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.23f</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>setLineStroke</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.23f</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// fillPaintTransformer</comment>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>setFillPaintTransformer</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>StandardGradientPaintTransformer</name><argument_list>(
+                <argument><expr><name><name>GradientPaintTransformType</name><operator>.</operator><name>CENTER_HORIZONTAL</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>setFillPaintTransformer</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>StandardGradientPaintTransformer</name><argument_list>(
+                <argument><expr><name><name>GradientPaintTransformType</name><operator>.</operator><name>CENTER_HORIZONTAL</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Two objects that are equal are required to return the same hashCode.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testHashcode</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>LegendGraphic</name></type> <name>g1</name> <init>= <expr><operator>new</operator> <call><name>LegendGraphic</name><argument_list>(<argument><expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>,
+                <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LegendGraphic</name></type> <name>g2</name> <init>= <expr><operator>new</operator> <call><name>LegendGraphic</name><argument_list>(<argument><expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>,
+                <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h1</name> <init>= <expr><call><name><name>g1</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h2</name> <init>= <expr><call><name><name>g2</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>h1</name></expr></argument>, <argument><expr><name>h2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that cloning works.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>Rectangle</name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name>Rectangle</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><literal type="number">4</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LegendGraphic</name></type> <name>g1</name> <init>= <expr><operator>new</operator> <call><name>LegendGraphic</name><argument_list>(<argument><expr><name>r</name></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LegendGraphic</name></type> <name>g2</name> <init>= <expr><operator>(</operator><name>LegendGraphic</name><operator>)</operator> <call><name><name>g1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>g1</name> <operator>!=</operator> <name>g2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>g2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check independence</comment>
+        <expr_stmt><expr><call><name><name>r</name><operator>.</operator><name>setBounds</name></name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A test for cloning - checks that the line shape is cloned correctly.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning2</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>Rectangle</name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name>Rectangle</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><literal type="number">4</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LegendGraphic</name></type> <name>g1</name> <init>= <expr><operator>new</operator> <call><name>LegendGraphic</name><argument_list>(<argument><expr><name>r</name></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Line2D</name></type> <name>l</name> <init>= <expr><operator>new</operator> <call><name><name>Line2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>setLine</name></name><argument_list>(<argument><expr><name>l</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>LegendGraphic</name></type> <name>g2</name> <init>= <expr><operator>(</operator><name>LegendGraphic</name><operator>)</operator> <call><name><name>g1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>g1</name> <operator>!=</operator> <name>g2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>g2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check independence</comment>
+        <expr_stmt><expr><call><name><name>l</name><operator>.</operator><name>setLine</name></name><argument_list>(<argument><expr><literal type="number">4.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Stroke</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.23f</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LegendGraphic</name></type> <name>g1</name> <init>= <expr><operator>new</operator> <call><name>LegendGraphic</name><argument_list>(<argument><expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, 
+                <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>g1</name><operator>.</operator><name>setOutlineStroke</name></name><argument_list>(<argument><expr><name>s</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>LegendGraphic</name></type> <name>g2</name> <init>= <expr><operator>(</operator><name>LegendGraphic</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>g1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>g1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

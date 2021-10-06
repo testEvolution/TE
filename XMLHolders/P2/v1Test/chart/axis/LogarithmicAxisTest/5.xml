@@ -1,0 +1,17 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSwitchedLog10</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>getAllowNegativesFlag</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="string">"Axis should not allow negative values"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>Math</name><operator>.</operator><name>log</name></name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>)</argument_list></call> <operator>/</operator> <name><name>LogarithmicAxis</name><operator>.</operator><name>LOG10_VALUE</name></name></expr></argument>,
+                <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>switchedLog10</name></name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkSwitchedLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">20</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkSwitchedLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">10</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkSwitchedLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkSwitchedLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkSwitchedLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkSwitchedLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkSwitchedLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">0.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkSwitchedLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">0.0001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+     </block_content>}</block></function>
+
+     </unit>

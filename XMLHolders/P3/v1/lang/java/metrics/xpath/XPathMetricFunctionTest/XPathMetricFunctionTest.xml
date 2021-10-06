@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\metrics\xpath\XPathMetricFunctionTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>xpath</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>File</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>StringReader</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Iterator</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>rules</name><operator>.</operator><name>ExpectedException</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>PMD</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>PMDException</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>Report</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>Rule</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>RuleContext</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>RuleSet</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>RuleSetFactory</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>RuleSets</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>RuleViolation</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>LanguageRegistry</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>JavaLanguageModule</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>xpath</name><operator>.</operator><name>MetricFunction</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>rule</name><operator>.</operator><name>XPathRule</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * @author ClÃ©ment Fournier
+ * @since 6.0.0
+ */</comment>
+<class><specifier>public</specifier> class <name>XPathMetricFunctionTest</name> <block>{
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>VIOLATION_MESSAGE</name> <init>= <expr><literal type="string">"violation"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><annotation>@<name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Rule</name></name></annotation>
+    <type><specifier>public</specifier> <name>ExpectedException</name></type> <name>expected</name> <init>= <expr><call><name><name>ExpectedException</name><operator>.</operator><name>none</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+
+    <function><type><specifier>private</specifier> <name>Rule</name></type> <name>makeXpathRuleFromXPath</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>xpath</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XPathRule</name></type> <name>rule</name> <init>= <expr><operator>new</operator> <call><name>XPathRule</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>rule</name><operator>.</operator><name>setXPath</name></name><argument_list>(<argument><expr><name>xpath</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>rule</name><operator>.</operator><name>setMessage</name></name><argument_list>(<argument><expr><name>VIOLATION_MESSAGE</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>rule</name><operator>.</operator><name>setLanguage</name></name><argument_list>(<argument><expr><call><name><name>LanguageRegistry</name><operator>.</operator><name>getLanguage</name></name><argument_list>(<argument><expr><name><name>JavaLanguageModule</name><operator>.</operator><name>NAME</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <return>return <expr><name>rule</name></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function><type><specifier>private</specifier> <name><name>Iterator</name><argument_list type="generic">&lt;<argument><name>RuleViolation</name></argument>&gt;</argument_list></name></type> <name>getViolations</name><parameter_list>(<parameter><decl><type><name>Rule</name></type> <name>rule</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>code</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>PMDException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>PMD</name></type> <name>p</name> <init>= <expr><operator>new</operator> <call><name>PMD</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RuleContext</name></type> <name>ctx</name> <init>= <expr><operator>new</operator> <call><name>RuleContext</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Report</name></type> <name>report</name> <init>= <expr><operator>new</operator> <call><name>Report</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>ctx</name><operator>.</operator><name>setReport</name></name><argument_list>(<argument><expr><name>report</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>ctx</name><operator>.</operator><name>setSourceCodeFile</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>File</name><argument_list>(<argument><expr><literal type="string">"n/a"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>ctx</name><operator>.</operator><name>setIgnoreExceptions</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt> <comment type="line">// for test, we want immediate exceptions thrown and not collect them</comment>
+        <decl_stmt><decl><type><name>RuleSet</name></type> <name>rules</name> <init>= <expr><operator>new</operator> <call><name>RuleSetFactory</name><argument_list>()</argument_list></call><operator>.</operator><call><name>createSingleRuleRuleSet</name><argument_list>(<argument><expr><name>rule</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>p</name><operator>.</operator><name>getSourceCodeProcessor</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>processSourceCode</name><argument_list>(<argument><expr><operator>new</operator> <call><name>StringReader</name><argument_list>(<argument><expr><name>code</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><operator>new</operator> <call><name>RuleSets</name><argument_list>(<argument><expr><name>rules</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>ctx</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <return>return <expr><call><name><name>report</name><operator>.</operator><name>iterator</name></name><argument_list>()</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testWellFormedClassMetricRule</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>PMDException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>Rule</name></type> <name>rule</name> <init>= <expr><call><name>makeXpathRuleFromXPath</name><argument_list>(<argument><expr><literal type="string">"//ClassOrInterfaceDeclaration[metric('NCSS') &gt; 0]"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>code</name> <init>= <expr><literal type="string">"class Foo { Foo() {} void bar() {}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>Iterator</name><argument_list type="generic">&lt;<argument><name>RuleViolation</name></argument>&gt;</argument_list></name></type> <name>violations</name> <init>= <expr><call><name>getViolations</name><argument_list>(<argument><expr><name>rule</name></expr></argument>, <argument><expr><name>code</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>violations</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testWellFormedOperationMetricRule</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>PMDException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>Rule</name></type> <name>rule</name> <init>= <expr><call><name>makeXpathRuleFromXPath</name><argument_list>(<argument><expr><literal type="string">"//ConstructorDeclaration[metric('CYCLO') &gt; 1]"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>code</name> <init>= <expr><literal type="string">"class Goo { Goo() {if(true){}} }"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>Iterator</name><argument_list type="generic">&lt;<argument><name>RuleViolation</name></argument>&gt;</argument_list></name></type> <name>violations</name> <init>= <expr><call><name>getViolations</name><argument_list>(<argument><expr><name>rule</name></expr></argument>, <argument><expr><name>code</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>violations</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testBadCase</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>PMDException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>Rule</name></type> <name>rule</name> <init>= <expr><call><name>makeXpathRuleFromXPath</name><argument_list>(<argument><expr><literal type="string">"//ConstructorDeclaration[metric('cYclo') &gt; 1]"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>code</name> <init>= <expr><literal type="string">"class Hoo { Hoo() {if(true){}} }"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>Iterator</name><argument_list type="generic">&lt;<argument><name>RuleViolation</name></argument>&gt;</argument_list></name></type> <name>violations</name> <init>= <expr><call><name>getViolations</name><argument_list>(<argument><expr><name>rule</name></expr></argument>, <argument><expr><name>code</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>violations</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNonexistentMetric</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><call><name>testWithExpectedException</name><argument_list>(<argument><expr><literal type="string">"//ConstructorDeclaration[metric('FOOBAR') &gt; 1]"</literal></expr></argument>,
+                                  <argument><expr><literal type="string">"class Joo { Joo() {if(true){}} }"</literal></expr></argument>,
+                                  <argument><expr><name><name>IllegalArgumentException</name><operator>.</operator><name>class</name></name></expr></argument>,
+                                  <argument><expr><call><name><name>MetricFunction</name><operator>.</operator><name>badOperationMetricKeyMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testWrongNodeTypeGeneric</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><call><name>testWithExpectedException</name><argument_list>(<argument><expr><literal type="string">"//IfStatement[metric('NCSS') &gt; 1]"</literal></expr></argument>,
+                                  <argument><expr><literal type="string">"class Koo { Koo() {if(true){}} }"</literal></expr></argument>,
+                                  <argument><expr><name><name>IllegalStateException</name><operator>.</operator><name>class</name></name></expr></argument>,
+                                  <argument><expr><call><name><name>MetricFunction</name><operator>.</operator><name>genericBadNodeMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testWrongMetricKeyForTypeDeclaration</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><call><name>testWithExpectedException</name><argument_list>(<argument><expr><literal type="string">"//EnumDeclaration[metric('CYCLO') &gt; 1]"</literal></expr></argument>,
+                                  <argument><expr><literal type="string">"enum Loo { FOO; }"</literal></expr></argument>,
+                                  <argument><expr><name><name>IllegalArgumentException</name><operator>.</operator><name>class</name></name></expr></argument>,
+                                  <argument><expr><call><name><name>MetricFunction</name><operator>.</operator><name>badClassMetricKeyMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testWrongMetricKeyForOperationDeclaration</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><call><name>testWithExpectedException</name><argument_list>(<argument><expr><literal type="string">"//MethodDeclaration[metric('WMC') &gt; 1]"</literal></expr></argument>,
+                                  <argument><expr><literal type="string">"class Moo { void foo() {if(true){}} }"</literal></expr></argument>,
+                                  <argument><expr><name><name>IllegalArgumentException</name><operator>.</operator><name>class</name></name></expr></argument>,
+                                  <argument><expr><call><name><name>MetricFunction</name><operator>.</operator><name>badOperationMetricKeyMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><type><specifier>private</specifier> <name>void</name></type> <name>testWithExpectedException</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>xpath</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>code</name></decl></parameter>,
+                                           <parameter><decl><type><name><name>Class</name><argument_list type="generic">&lt;<argument><name>?</name> <extends>extends <name>Exception</name></extends></argument>&gt;</argument_list></name></type> <name>expectedThrowable</name></decl></parameter>,
+                                           <parameter><decl><type><name>String</name></type> <name>expectedMessage</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+
+        <decl_stmt><decl><type><name>Rule</name></type> <name>rule</name> <init>= <expr><call><name>makeXpathRuleFromXPath</name><argument_list>(<argument><expr><name>xpath</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name><name>expected</name><operator>.</operator><name>expect</name></name><argument_list>(<argument><expr><name>expectedThrowable</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>expected</name><operator>.</operator><name>expectMessage</name></name><argument_list>(<argument><expr><name>expectedMessage</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name>getViolations</name><argument_list>(<argument><expr><name>rule</name></expr></argument>, <argument><expr><name>code</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>PMDException</name></type> <name>pmdE</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <throw>throw <expr><operator>(</operator><name>Exception</name><operator>)</operator> <call><name><name>pmdE</name><operator>.</operator><name>getCause</name></name><argument_list>()</argument_list></call></expr>;</throw>
+        </block_content>}</block></catch></try>
+
+    </block_content>}</block></function>
+
+
+}</block></class>
+</unit>

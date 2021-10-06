@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\rule\bestpractices\unusedimports\ClassWithStringConstants.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>rule</name><operator>.</operator><name>bestpractices</name><operator>.</operator><name>unusedimports</name></name>;</package>
+
+<class><specifier>public</specifier> class <name>ClassWithStringConstants</name> <block>{
+
+    <constructor><specifier>private</specifier> <name>ClassWithStringConstants</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// Utility class</comment>
+    </block_content>}</block></constructor>
+
+    <decl_stmt><decl><type><specifier>public</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>CONST1</name> <init>= <expr><literal type="string">"a"</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>public</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>CONST2</name> <init>= <expr><literal type="string">"b"</literal></expr></init></decl>;</decl_stmt>
+}</block></class>
+</unit>

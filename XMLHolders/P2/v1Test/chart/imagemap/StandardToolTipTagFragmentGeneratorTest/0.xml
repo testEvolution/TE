@@ -1,0 +1,11 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGenerateURLFragment</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>StandardToolTipTagFragmentGenerator</name></type> <name>g</name>
+                <init>= <expr><operator>new</operator> <call><name>StandardToolTipTagFragmentGenerator</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">" title=\"abc\" alt=\"\""</literal></expr></argument>,
+                <argument><expr><call><name><name>g</name><operator>.</operator><name>generateToolTipFragment</name></name><argument_list>(<argument><expr><literal type="string">"abc"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">" title=\"Series &amp;quot;A&amp;quot;, 100.0\" alt=\"\""</literal></expr></argument>,
+                <argument><expr><call><name><name>g</name><operator>.</operator><name>generateToolTipFragment</name></name><argument_list>(<argument><expr><literal type="string">"Series \"A\", 100.0"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</unit>

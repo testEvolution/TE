@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\data\general\TestIntervalCategoryDataset.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * --------------------------------
+ * TestIntervalCategoryDataset.java
+ * --------------------------------
+ * (C) Copyright 2009-2020, by Object Refinery Limited.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 10-Sep-2009 : Version 1, based on DefaultCategoryDataset (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>general</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>Serializable</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>util</name><operator>.</operator><name>PublicCloneable</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>KeyedObjects2D</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>UnknownKeyException</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>category</name><operator>.</operator><name>IntervalCategoryDataset</name></name>;</import>
+<comment type="block" format="javadoc">/**
+ * A test implementation of the {@link IntervalCategoryDataset} interface.
+ */</comment>
+<class><specifier>public</specifier> class <name>TestIntervalCategoryDataset</name> <super_list><extends>extends <super><name>AbstractDataset</name></super></extends>
+        <implements>implements <super><name>IntervalCategoryDataset</name></super>, <super><name>PublicCloneable</name></super>, <super><name>Serializable</name></super></implements></super_list> <block>{
+
+    <comment type="block" format="javadoc">/** For serialization. */</comment>
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>long</name></type> <name>serialVersionUID</name> <init>= <expr><operator>-</operator><literal type="number">8168173757291644622L</literal></expr></init></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/** A storage structure for the data. */</comment>
+    <decl_stmt><decl><type><specifier>private</specifier> <name>KeyedObjects2D</name></type> <name>data</name></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Creates a new (empty) dataset.
+     */</comment>
+    <constructor><specifier>public</specifier> <name>TestIntervalCategoryDataset</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>data</name></name> <operator>=</operator> <operator>new</operator> <call><name>KeyedObjects2D</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></constructor>
+
+    <comment type="block" format="javadoc">/**
+     * Returns the number of rows in the table.
+     *
+     * @return The row count.
+     *
+     * @see #getColumnCount()
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>int</name></type> <name>getRowCount</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getRowCount</name></name><argument_list>()</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Returns the number of columns in the table.
+     *
+     * @return The column count.
+     *
+     * @see #getRowCount()
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>int</name></type> <name>getColumnCount</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getColumnCount</name></name><argument_list>()</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Returns a value from the table.
+     *
+     * @param row  the row index (zero-based).
+     * @param column  the column index (zero-based).
+     *
+     * @return The value (possibly {@code null}).
+     *
+     * @see #addValue(Number, Comparable, Comparable)
+     * @see #removeValue(Comparable, Comparable)
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>Number</name></type> <name>getValue</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>row</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>column</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>IntervalDataItem</name></type> <name>item</name> <init>= <expr><operator>(</operator><name>IntervalDataItem</name><operator>)</operator> <call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getObject</name></name><argument_list>(<argument><expr><name>row</name></expr></argument>,
+                <argument><expr><name>column</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <if_stmt><if>if <condition>(<expr><name>item</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="null">null</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <return>return <expr><call><name><name>item</name><operator>.</operator><name>getValue</name></name><argument_list>()</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Returns the key for the specified row.
+     *
+     * @param row  the row index (zero-based).
+     *
+     * @return The row key.
+     *
+     * @see #getRowIndex(Comparable)
+     * @see #getRowKeys()
+     * @see #getColumnKey(int)
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>Comparable</name></type> <name>getRowKey</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>row</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getRowKey</name></name><argument_list>(<argument><expr><name>row</name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Returns the row index for a given key.
+     *
+     * @param key  the row key ({@code null} not permitted).
+     *
+     * @return The row index.
+     *
+     * @see #getRowKey(int)
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>int</name></type> <name>getRowIndex</name><parameter_list>(<parameter><decl><type><name>Comparable</name></type> <name>key</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <comment type="line">// defer null argument check</comment>
+        <return>return <expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getRowIndex</name></name><argument_list>(<argument><expr><name>key</name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Returns the row keys.
+     *
+     * @return The keys.
+     *
+     * @see #getRowKey(int)
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>List</name></type> <name>getRowKeys</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getRowKeys</name></name><argument_list>()</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Returns a column key.
+     *
+     * @param column  the column index (zero-based).
+     *
+     * @return The column key.
+     *
+     * @see #getColumnIndex(Comparable)
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>Comparable</name></type> <name>getColumnKey</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>column</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getColumnKey</name></name><argument_list>(<argument><expr><name>column</name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Returns the column index for a given key.
+     *
+     * @param key  the column key ({@code null} not permitted).
+     *
+     * @return The column index.
+     *
+     * @see #getColumnKey(int)
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>int</name></type> <name>getColumnIndex</name><parameter_list>(<parameter><decl><type><name>Comparable</name></type> <name>key</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <comment type="line">// defer null argument check</comment>
+        <return>return <expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getColumnIndex</name></name><argument_list>(<argument><expr><name>key</name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Returns the column keys.
+     *
+     * @return The keys.
+     *
+     * @see #getColumnKey(int)
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>List</name></type> <name>getColumnKeys</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getColumnKeys</name></name><argument_list>()</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Returns the value for a pair of keys.
+     *
+     * @param rowKey  the row key ({@code null} not permitted).
+     * @param columnKey  the column key ({@code null} not permitted).
+     *
+     * @return The value (possibly {@code null}).
+     *
+     * @throws UnknownKeyException if either key is not defined in the dataset.
+     *
+     * @see #addValue(Number, Comparable, Comparable)
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>Number</name></type> <name>getValue</name><parameter_list>(<parameter><decl><type><name>Comparable</name></type> <name>rowKey</name></decl></parameter>, <parameter><decl><type><name>Comparable</name></type> <name>columnKey</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>IntervalDataItem</name></type> <name>item</name> <init>= <expr><operator>(</operator><name>IntervalDataItem</name><operator>)</operator> <call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getObject</name></name><argument_list>(<argument><expr><name>rowKey</name></expr></argument>,
+                <argument><expr><name>columnKey</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <if_stmt><if>if <condition>(<expr><name>item</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="null">null</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <return>return <expr><call><name><name>item</name><operator>.</operator><name>getValue</name></name><argument_list>()</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Adds a value to the table.  Performs the same function as setValue().
+     *
+     * @param value  the value.
+     * @param rowKey  the row key.
+     * @param columnKey  the column key.
+     *
+     * @see #getValue(Comparable, Comparable)
+     * @see #removeValue(Comparable, Comparable)
+     */</comment>
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>addItem</name><parameter_list>(<parameter><decl><type><name>Number</name></type> <name>value</name></decl></parameter>, <parameter><decl><type><name>Number</name></type> <name>lower</name></decl></parameter>, <parameter><decl><type><name>Number</name></type> <name>upper</name></decl></parameter>,
+            <parameter><decl><type><name>Comparable</name></type> <name>rowKey</name></decl></parameter>, <parameter><decl><type><name>Comparable</name></type> <name>columnKey</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>IntervalDataItem</name></type> <name>item</name> <init>= <expr><operator>new</operator> <call><name>IntervalDataItem</name><argument_list>(<argument><expr><name>value</name></expr></argument>, <argument><expr><name>lower</name></expr></argument>, <argument><expr><name>upper</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>addObject</name></name><argument_list>(<argument><expr><name>item</name></expr></argument>, <argument><expr><name>rowKey</name></expr></argument>, <argument><expr><name>columnKey</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>fireDatasetChanged</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Adds or updates a value in the table and sends a
+     * {@link DatasetChangeEvent} to all registered listeners.
+     *
+     * @param value  the value ({@code null} permitted).
+     * @param rowKey  the row key ({@code null} not permitted).
+     * @param columnKey  the column key ({@code null} not permitted).
+     *
+     * @see #getValue(Comparable, Comparable)
+     */</comment>
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>setItem</name><parameter_list>(<parameter><decl><type><name>Number</name></type> <name>value</name></decl></parameter>, <parameter><decl><type><name>Number</name></type> <name>lower</name></decl></parameter>, <parameter><decl><type><name>Number</name></type> <name>upper</name></decl></parameter>,
+            <parameter><decl><type><name>Comparable</name></type> <name>rowKey</name></decl></parameter>, <parameter><decl><type><name>Comparable</name></type> <name>columnKey</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>IntervalDataItem</name></type> <name>item</name> <init>= <expr><operator>new</operator> <call><name>IntervalDataItem</name><argument_list>(<argument><expr><name>value</name></expr></argument>, <argument><expr><name>lower</name></expr></argument>, <argument><expr><name>upper</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>addObject</name></name><argument_list>(<argument><expr><name>item</name></expr></argument>, <argument><expr><name>rowKey</name></expr></argument>, <argument><expr><name>columnKey</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>fireDatasetChanged</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Removes a value from the dataset and sends a {@link DatasetChangeEvent}
+     * to all registered listeners.
+     *
+     * @param rowKey  the row key.
+     * @param columnKey  the column key.
+     *
+     * @see #addValue(Number, Comparable, Comparable)
+     */</comment>
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>removeItem</name><parameter_list>(<parameter><decl><type><name>Comparable</name></type> <name>rowKey</name></decl></parameter>, <parameter><decl><type><name>Comparable</name></type> <name>columnKey</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>removeObject</name></name><argument_list>(<argument><expr><name>rowKey</name></expr></argument>, <argument><expr><name>columnKey</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>fireDatasetChanged</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Removes a row from the dataset and sends a {@link DatasetChangeEvent}
+     * to all registered listeners.
+     *
+     * @param rowIndex  the row index.
+     *
+     * @see #removeColumn(int)
+     */</comment>
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>removeRow</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>rowIndex</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>removeRow</name></name><argument_list>(<argument><expr><name>rowIndex</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>fireDatasetChanged</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Removes a row from the dataset and sends a {@link DatasetChangeEvent}
+     * to all registered listeners.
+     *
+     * @param rowKey  the row key.
+     *
+     * @see #removeColumn(Comparable)
+     */</comment>
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>removeRow</name><parameter_list>(<parameter><decl><type><name>Comparable</name></type> <name>rowKey</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>removeRow</name></name><argument_list>(<argument><expr><name>rowKey</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>fireDatasetChanged</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Removes a column from the dataset and sends a {@link DatasetChangeEvent}
+     * to all registered listeners.
+     *
+     * @param columnIndex  the column index.
+     *
+     * @see #removeRow(int)
+     */</comment>
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>removeColumn</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>columnIndex</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>removeColumn</name></name><argument_list>(<argument><expr><name>columnIndex</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>fireDatasetChanged</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Removes a column from the dataset and sends a {@link DatasetChangeEvent}
+     * to all registered listeners.
+     *
+     * @param columnKey  the column key ({@code null} not permitted).
+     *
+     * @see #removeRow(Comparable)
+     *
+     * @throws UnknownKeyException if {@code columnKey} is not defined
+     *         in the dataset.
+     */</comment>
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>removeColumn</name><parameter_list>(<parameter><decl><type><name>Comparable</name></type> <name>columnKey</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>removeColumn</name></name><argument_list>(<argument><expr><name>columnKey</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>fireDatasetChanged</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Clears all data from the dataset and sends a {@link DatasetChangeEvent}
+     * to all registered listeners.
+     */</comment>
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>clear</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>fireDatasetChanged</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Tests this dataset for equality with an arbitrary object.
+     *
+     * @param obj  the object ({@code null} permitted).
+     *
+     * @return A boolean.
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>boolean</name></type> <name>equals</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>obj</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <if_stmt><if>if <condition>(<expr><name>obj</name> <operator>==</operator> <name>this</name></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">true</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <if_stmt><if>if <condition>(<expr><operator>!</operator><operator>(</operator><name>obj</name> <operator>instanceof</operator> <name>TestIntervalCategoryDataset</name><operator>)</operator></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <decl_stmt><decl><type><name>TestIntervalCategoryDataset</name></type> <name>that</name> <init>= <expr><operator>(</operator><name>TestIntervalCategoryDataset</name><operator>)</operator> <name>obj</name></expr></init></decl>;</decl_stmt>
+        <if_stmt><if>if <condition>(<expr><operator>!</operator><call><name>getRowKeys</name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><call><name><name>that</name><operator>.</operator><name>getRowKeys</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <if_stmt><if>if <condition>(<expr><operator>!</operator><call><name>getColumnKeys</name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><call><name><name>that</name><operator>.</operator><name>getColumnKeys</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>rowCount</name> <init>= <expr><call><name>getRowCount</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>colCount</name> <init>= <expr><call><name>getColumnCount</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <for>for <control>(<init><decl><type><name>int</name></type> <name>r</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>r</name> <operator>&lt;</operator> <name>rowCount</name></expr>;</condition> <incr><expr><name>r</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+            <for>for <control>(<init><decl><type><name>int</name></type> <name>c</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>c</name> <operator>&lt;</operator> <name>colCount</name></expr>;</condition> <incr><expr><name>c</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+                <decl_stmt><decl><type><name>Number</name></type> <name>v1</name> <init>= <expr><call><name>getValue</name><argument_list>(<argument><expr><name>r</name></expr></argument>, <argument><expr><name>c</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+                <decl_stmt><decl><type><name>Number</name></type> <name>v2</name> <init>= <expr><call><name><name>that</name><operator>.</operator><name>getValue</name></name><argument_list>(<argument><expr><name>r</name></expr></argument>, <argument><expr><name>c</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+                <if_stmt><if>if <condition>(<expr><name>v1</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition> <block>{<block_content>
+                    <if_stmt><if>if <condition>(<expr><name>v2</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition> <block>{<block_content>
+                        <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+                    </block_content>}</block></if></if_stmt>
+                </block_content>}</block></if>
+                <if type="elseif">else if <condition>(<expr><operator>!</operator><call><name><name>v1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>v2</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+                    <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+                </block_content>}</block></if></if_stmt>
+            </block_content>}</block></for>
+        </block_content>}</block></for>
+        <return>return <expr><literal type="boolean">true</literal></expr>;</return>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Returns a hash code for the dataset.
+     *
+     * @return A hash code.
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>int</name></type> <name>hashCode</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Returns a clone of the dataset.
+     *
+     * @return A clone.
+     *
+     * @throws CloneNotSupportedException if there is a problem cloning the
+     *         dataset.
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>Object</name></type> <name>clone</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>TestIntervalCategoryDataset</name></type> <name>clone</name> <init>= <expr><operator>(</operator><name>TestIntervalCategoryDataset</name><operator>)</operator>
+                <call><name><name>super</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><name><name>clone</name><operator>.</operator><name>data</name></name> <operator>=</operator> <operator>(</operator><name>KeyedObjects2D</name><operator>)</operator> <call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <return>return <expr><name>clone</name></expr>;</return>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>Number</name></type> <name>getStartValue</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>series</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>category</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>IntervalDataItem</name></type> <name>item</name> <init>= <expr><operator>(</operator><name>IntervalDataItem</name><operator>)</operator> <call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getObject</name></name><argument_list>(<argument><expr><name>series</name></expr></argument>,
+                <argument><expr><name>category</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <if_stmt><if>if <condition>(<expr><name>item</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="null">null</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <return>return <expr><call><name><name>item</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>Number</name></type> <name>getStartValue</name><parameter_list>(<parameter><decl><type><name>Comparable</name></type> <name>series</name></decl></parameter>, <parameter><decl><type><name>Comparable</name></type> <name>category</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>IntervalDataItem</name></type> <name>item</name> <init>= <expr><operator>(</operator><name>IntervalDataItem</name><operator>)</operator> <call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getObject</name></name><argument_list>(<argument><expr><name>series</name></expr></argument>,
+                <argument><expr><name>category</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <if_stmt><if>if <condition>(<expr><name>item</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="null">null</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <return>return <expr><call><name><name>item</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>Number</name></type> <name>getEndValue</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>series</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>category</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>IntervalDataItem</name></type> <name>item</name> <init>= <expr><operator>(</operator><name>IntervalDataItem</name><operator>)</operator> <call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getObject</name></name><argument_list>(<argument><expr><name>series</name></expr></argument>,
+                <argument><expr><name>category</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <if_stmt><if>if <condition>(<expr><name>item</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="null">null</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <return>return <expr><call><name><name>item</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>Number</name></type> <name>getEndValue</name><parameter_list>(<parameter><decl><type><name>Comparable</name></type> <name>series</name></decl></parameter>, <parameter><decl><type><name>Comparable</name></type> <name>category</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>IntervalDataItem</name></type> <name>item</name> <init>= <expr><operator>(</operator><name>IntervalDataItem</name><operator>)</operator> <call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getObject</name></name><argument_list>(<argument><expr><name>series</name></expr></argument>,
+                <argument><expr><name>category</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <if_stmt><if>if <condition>(<expr><name>item</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="null">null</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <return>return <expr><call><name><name>item</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+}</block></class>
+
+</unit>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\jaxen\RegexpAcceptanceTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>jaxen</name></name>;</package>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>Rule</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>LanguageRegistry</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>JavaLanguageModule</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>rule</name><operator>.</operator><name>XPathRule</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>testframework</name><operator>.</operator><name>SimpleAggregatorTst</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>testframework</name><operator>.</operator><name>TestDescriptor</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>RegexpAcceptanceTest</name> <super_list><extends>extends <super><name>SimpleAggregatorTst</name></super></extends></super_list> <block>{
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>XPATH</name> <init>= <expr><literal type="string">"//ClassOrInterfaceDeclaration[matches(@Image, 'F?o')]"</literal></expr></init></decl>;</decl_stmt>
+
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>protected</specifier> <name>void</name></type> <name>setUp</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// not registering any rule</comment>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSimple</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Rule</name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name>XPathRule</name><argument_list>(<argument><expr><name>XPATH</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>r</name><operator>.</operator><name>setLanguage</name></name><argument_list>(<argument><expr><call><name><name>LanguageRegistry</name><operator>.</operator><name>getLanguage</name></name><argument_list>(<argument><expr><name><name>JavaLanguageModule</name><operator>.</operator><name>NAME</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r</name><operator>.</operator><name>setMessage</name></name><argument_list>(<argument><expr><literal type="string">""</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>TestDescriptor</name><index>[]</index></name></type> <name>testDescriptors</name> <init>= <expr><call><name>extractTestsFromXml</name><argument_list>(<argument><expr><name>r</name></expr></argument>, <argument><expr><literal type="string">"RegexpAcceptance"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <for>for <control>(<init><decl><type><name>TestDescriptor</name></type> <name>testDescriptor</name> <range>: <expr><name>testDescriptors</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>testDescriptor</name><operator>.</operator><name>setReinitializeRule</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+        <expr_stmt><expr><call><name>runTests</name><argument_list>(<argument><expr><name>testDescriptors</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

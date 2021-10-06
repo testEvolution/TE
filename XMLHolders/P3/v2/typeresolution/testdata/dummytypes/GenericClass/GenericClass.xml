@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\typeresolution\testdata\dummytypes\GenericClass.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name><operator>.</operator><name>dummytypes</name></name>;</package>
+
+<class><specifier>public</specifier> class <name><name>GenericClass</name><parameter_list>&lt;<parameter><name>T</name></parameter>, <parameter><name>S</name></parameter>&gt;</parameter_list></name> <block>{
+    <decl_stmt><decl><type><specifier>public</specifier> <name>T</name></type> <name>first</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>public</specifier> <name>S</name></type> <name>second</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>public</specifier> <name><name>GenericClass</name><argument_list type="generic">&lt;<argument><name>S</name></argument>, <argument><name>T</name></argument>&gt;</argument_list></name></type> <name>generic</name></decl>;</decl_stmt>
+}</block></class>
+</unit>

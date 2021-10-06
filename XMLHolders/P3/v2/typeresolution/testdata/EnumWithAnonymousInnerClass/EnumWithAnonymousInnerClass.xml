@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\typeresolution\testdata\EnumWithAnonymousInnerClass.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name></name>;</package>
+
+<enum><specifier>public</specifier> enum <name>EnumWithAnonymousInnerClass</name> <block>{
+    <decl><name>A</name> <block>{
+        <function><annotation>@<name>Override</name></annotation>
+        <type><specifier>public</specifier> <name>void</name></type> <name>foo</name><parameter_list>()</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>super</name><operator>.</operator><name>foo</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></function>
+    }</block></decl>,
+    <decl><name>B</name></decl>;
+    
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>foo</name><parameter_list>()</parameter_list> <block>{<block_content>
+    </block_content>}</block></function>
+    
+    <interface>interface <name>Inner</name> <block>{
+        <function_decl><type><name>int</name></type> <name>get</name><parameter_list>()</parameter_list>;</function_decl>
+    }</block></interface>
+
+    <decl_stmt><decl><type><specifier>public</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>Inner</name></type> <name>VAL</name> <init>= <expr><operator>new</operator> <class><super><name>Inner</name></super><argument_list>()</argument_list> <block>{
+        <function><annotation>@<name>Override</name></annotation>
+        <type><specifier>public</specifier> <name>int</name></type> <name>get</name><parameter_list>()</parameter_list> <block>{<block_content>
+            <return>return <expr><literal type="number">1</literal></expr>;</return>
+        </block_content>}</block></function>
+    }</block></class></expr></init></decl>;</decl_stmt>
+}</block></enum>
+</unit>

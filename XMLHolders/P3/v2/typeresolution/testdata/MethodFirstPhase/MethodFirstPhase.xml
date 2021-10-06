@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\typeresolution\testdata\MethodFirstPhase.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>ArrayList</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Arrays</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Collections</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>HashSet</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Set</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MethodFirstPhase</name> <block>{
+    <function><type><name>void</name></type> <name>test</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">//  primitive, char, simple</comment>
+        <decl_stmt><decl><type><name>int</name></type> <name>a</name> <init>= <expr><call><name>subtype</name><argument_list>(<argument><expr><call><name><name>Long</name><operator>.</operator><name>valueOf</name></name><argument_list>(<argument><expr><literal type="number">10</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="char">'a'</literal></expr></argument>, <argument><expr><literal type="string">""</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <comment type="line">// TODO: add null, array types</comment>
+
+        <decl_stmt><decl><type><name>Exception</name></type> <name>b</name> <init>= <expr><call><name>vararg</name><argument_list>(<argument><expr><operator>(</operator><name>Number</name><operator>)</operator> <literal type="null">null</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>Set</name><argument_list type="generic">&lt;<argument><name>String</name></argument>&gt;</argument_list></name></type> <name>set</name> <init>= <expr><operator>new</operator> <call><name><name>HashSet</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>set</name><operator>.</operator><name>addAll</name></name><argument_list>(<argument><expr><call><name><name>Arrays</name><operator>.</operator><name>asList</name></name><argument_list>(<argument><expr><literal type="string">"a"</literal></expr></argument>, <argument><expr><literal type="string">"b"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt> <comment type="line">// TODO: return type of method call Arrays.asList is missing</comment>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>String</name></argument>&gt;</argument_list></name></type> <name>myList</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Collections</name><operator>.</operator><name>sort</name></name><argument_list>(<argument><expr><name>myList</name></expr></argument>)</argument_list></call></expr>;</expr_stmt> <comment type="line">// TODO: generic type variables on methods</comment>
+    </block_content>}</block></function>
+
+    <function><type><name>String</name></type> <name>vararg</name><parameter_list>(<parameter><decl><type><name>Number</name><modifier>...</modifier></type> <name>a</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><literal type="null">null</literal></expr>;</return>
+    </block_content>}</block></function>
+
+    <function><type><name>Exception</name></type> <name>vararg</name><parameter_list>(<parameter><decl><type><name>Number</name></type> <name>a</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><literal type="null">null</literal></expr>;</return>
+    </block_content>}</block></function>
+
+    <function><type><name>void</name></type> <name>stringVarargs</name><parameter_list>(<parameter><decl><type><name>String</name><modifier>...</modifier></type> <name>s</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        
+    </block_content>}</block></function>
+
+    <function><type><name>void</name></type> <name>classVarargs</name><parameter_list>(<parameter><decl><type><name><name>Class</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name><modifier>...</modifier></type> <name>c</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        
+    </block_content>}</block></function>
+
+    <function><type><name>Exception</name></type> <name>subtype</name><parameter_list>(<parameter><decl><type><name>short</name></type> <name>a</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>b</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>c</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><literal type="null">null</literal></expr>;</return>
+    </block_content>}</block></function>
+
+    <function><type><parameter_list type="generic">&lt;<parameter><name>T</name> <extends>extends <name>CharSequence</name></extends></parameter>&gt;</parameter_list> <name>int</name></type> <name>subtype</name><parameter_list>(<parameter><decl><type><name>T</name></type> <name>a</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>b</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>c</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><literal type="number">0</literal></expr>;</return>
+    </block_content>}</block></function>
+    
+    <function><type><name>int</name></type> <name>subtype</name><parameter_list>(<parameter><decl><type><name>Long</name></type> <name>a</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>b</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>c</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><literal type="number">0</literal></expr>;</return>
+    </block_content>}</block></function>
+
+    <function><type><name>Exception</name></type> <name>subtype</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>a</name></decl></parameter>, <parameter><decl><type><name>byte</name></type> <name>b</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>c</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><literal type="null">null</literal></expr>;</return>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

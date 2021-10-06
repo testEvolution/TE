@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\rule\documentation\CommentRequiredTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>rule</name><operator>.</operator><name>documentation</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertNotNull</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertNull</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>ArrayList</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>Rule</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>properties</name><operator>.</operator><name>PropertyDescriptor</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>testframework</name><operator>.</operator><name>PmdRuleTst</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>CommentRequiredTest</name> <super_list><extends>extends <super><name>PmdRuleTst</name></super></extends></super_list> <block>{
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>allCommentTypesIgnored</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>CommentRequiredRule</name></type> <name>rule</name> <init>= <expr><operator>new</operator> <call><name>CommentRequiredRule</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><literal type="string">"By default, the rule should be functional"</literal></expr></argument>, <argument><expr><call><name><name>rule</name><operator>.</operator><name>dysfunctionReason</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name><name>PropertyDescriptor</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></argument>&gt;</argument_list></name></type> <name>propertyDescriptors</name> <init>= <expr><call><name>getProperties</name><argument_list>(<argument><expr><name>rule</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <for>for <control>(<init><decl><type><name><name>PropertyDescriptor</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>property</name> <range>: <expr><name>propertyDescriptors</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name>setPropertyValue</name><argument_list>(<argument><expr><name>rule</name></expr></argument>, <argument><expr><name>property</name></expr></argument>, <argument><expr><literal type="string">"Ignored"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><literal type="string">"All properties are ignored, rule should be dysfunctional"</literal></expr></argument>, <argument><expr><call><name><name>rule</name><operator>.</operator><name>dysfunctionReason</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// now, try out combinations: only one of the properties is required.</comment>
+        <for>for <control>(<init><decl><type><name><name>PropertyDescriptor</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>property</name> <range>: <expr><name>propertyDescriptors</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name>setPropertyValue</name><argument_list>(<argument><expr><name>rule</name></expr></argument>, <argument><expr><name>property</name></expr></argument>, <argument><expr><literal type="string">"Required"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><literal type="string">"The property "</literal> <operator>+</operator> <call><name><name>property</name><operator>.</operator><name>name</name></name><argument_list>()</argument_list></call> <operator>+</operator> <literal type="string">" is set to required, the rule should be functional."</literal></expr></argument>,
+                <argument><expr><call><name><name>rule</name><operator>.</operator><name>dysfunctionReason</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>setPropertyValue</name><argument_list>(<argument><expr><name>rule</name></expr></argument>, <argument><expr><name>property</name></expr></argument>, <argument><expr><literal type="string">"Ignored"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+    <function><type><specifier>private</specifier> <specifier>static</specifier> <name><name>List</name><argument_list type="generic">&lt;<argument><name><name>PropertyDescriptor</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></argument>&gt;</argument_list></name></type> <name>getProperties</name><parameter_list>(<parameter><decl><type><name>Rule</name></type> <name>rule</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name><name>PropertyDescriptor</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></argument>&gt;</argument_list></name></type> <name>result</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <for>for <control>(<init><decl><type><name><name>PropertyDescriptor</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>property</name> <range>: <expr><call><name><name>rule</name><operator>.</operator><name>getPropertyDescriptors</name></name><argument_list>()</argument_list></call></expr></range></decl></init>)</control> <block>{<block_content>
+            <if_stmt><if>if <condition>(<expr><name>property</name> <operator>!=</operator> <name><name>Rule</name><operator>.</operator><name>VIOLATION_SUPPRESS_REGEX_DESCRIPTOR</name></name>
+                    <operator>&amp;&amp;</operator> <name>property</name> <operator>!=</operator> <name><name>Rule</name><operator>.</operator><name>VIOLATION_SUPPRESS_XPATH_DESCRIPTOR</name></name></expr>)</condition> <block>{<block_content>
+                <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>property</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            </block_content>}</block></if></if_stmt>
+        </block_content>}</block></for>
+        <return>return <expr><name>result</name></expr>;</return>
+    </block_content>}</block></function>
+
+    <function><type><specifier>private</specifier> <specifier>static</specifier> <parameter_list type="generic">&lt;<parameter><name>T</name></parameter>&gt;</parameter_list> <name>void</name></type> <name>setPropertyValue</name><parameter_list>(<parameter><decl><type><name>Rule</name></type> <name>rule</name></decl></parameter>, <parameter><decl><type><name><name>PropertyDescriptor</name><argument_list type="generic">&lt;<argument><name>T</name></argument>&gt;</argument_list></name></type> <name>property</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>value</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name><name>rule</name><operator>.</operator><name>setProperty</name></name><argument_list>(<argument><expr><name>property</name></expr></argument>, <argument><expr><call><name><name>property</name><operator>.</operator><name>valueFrom</name></name><argument_list>(<argument><expr><name>value</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

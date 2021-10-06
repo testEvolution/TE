@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\axis\LogarithmicAxisTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ------------------------
+ * LogarithmicAxisTest.java
+ * ------------------------
+ * (C) Copyright 2003-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 26-Mar-2003 : Version 1 (DG);
+ * 02-Mar-2007 : Added tests from bug report 880597 (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>axis</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>geom</name><operator>.</operator><name>Rectangle2D</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>RectangleEdge</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>BeforeEach</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link LogarithmicAxis} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>LogarithmicAxisTest</name> <block>{
+
+    <class><specifier>static</specifier> class <name>MyLogarithmicAxis</name> <super_list><extends>extends <super><name>LogarithmicAxis</name></super></extends></super_list> <block>{
+
+        <comment type="block" format="javadoc">/**
+         * Creates a new instance.
+         *
+         * @param label  the label.
+         */</comment>
+        <constructor><specifier>public</specifier> <name>MyLogarithmicAxis</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>label</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>label</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></constructor>
+
+        <comment type="block">/* (non-Javadoc)
+         * @see org.jfree.chart.axis.LogarithmicAxis#switchedLog10(double)
+         */</comment>
+        <function><annotation>@<name>Override</name></annotation>
+        <type><specifier>protected</specifier> <name>double</name></type> <name>switchedLog10</name><parameter_list>(<parameter><decl><type><name>double</name></type> <name>val</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <return>return <expr><call><name><name>super</name><operator>.</operator><name>switchedLog10</name></name><argument_list>(<argument><expr><name>val</name></expr></argument>)</argument_list></call></expr>;</return>
+        </block_content>}</block></function>
+
+    }</block></class>
+
+    <comment type="block" format="javadoc">/** Tolerance for floating point comparisons */</comment>
+    <decl_stmt><decl><type><specifier>public</specifier> <specifier>static</specifier> <name>double</name></type> <name>EPSILON</name> <init>= <expr><literal type="number">0.000001</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><name>MyLogarithmicAxis</name></type> <name>axis</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Sets up a new axis.
+     *
+     * @throws Exception
+     */</comment>
+    <function><annotation>@<name>BeforeEach</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>setUp</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>axis</name></name> <operator>=</operator> <operator>new</operator> <call><name>MyLogarithmicAxis</name><argument_list>(<argument><expr><literal type="string">"Value (log)"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setAllowNegativesFlag</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setLog10TickLabelsFlag</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setLowerMargin</name></name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setUpperMargin</name></name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setLowerBound</name></name><argument_list>(<argument><expr><literal type="number">0.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setUpperBound</name></name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>LogarithmicAxis</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>LogarithmicAxis</name><argument_list>(<argument><expr><literal type="string">"Test Axis"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LogarithmicAxis</name></type> <name>a2</name> <init>= <expr><operator>(</operator><name>LogarithmicAxis</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>a1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test if adjustedLog10 and adjustedPow10 are inverses of each other
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAdjustedLog10</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>checkLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">20</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">10</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">0.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">0.0001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>private</specifier> <name>void</name></type> <name>checkLogPowRoundTrip</name><parameter_list>(<parameter><decl><type><name>double</name></type> <name>value</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>value</name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>adjustedLog10</name></name><argument_list>(
+                <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>adjustedPow10</name></name><argument_list>(<argument><expr><name>value</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>, <argument><expr><literal type="string">"log(pow(x)) = x"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>value</name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>adjustedPow10</name></name><argument_list>(
+                <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>adjustedLog10</name></name><argument_list>(<argument><expr><name>value</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>, <argument><expr><literal type="string">"pow(log(x)) = x"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test if switchedLog10 and switchedPow10 are inverses of each other
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSwitchedLog10</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>getAllowNegativesFlag</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="string">"Axis should not allow negative values"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>Math</name><operator>.</operator><name>log</name></name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>)</argument_list></call> <operator>/</operator> <name><name>LogarithmicAxis</name><operator>.</operator><name>LOG10_VALUE</name></name></expr></argument>,
+                <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>switchedLog10</name></name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkSwitchedLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">20</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkSwitchedLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">10</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkSwitchedLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkSwitchedLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkSwitchedLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkSwitchedLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkSwitchedLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">0.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkSwitchedLogPowRoundTrip</name><argument_list>(<argument><expr><literal type="number">0.0001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+     </block_content>}</block></function>
+
+     <function><type><specifier>private</specifier> <name>void</name></type> <name>checkSwitchedLogPowRoundTrip</name><parameter_list>(<parameter><decl><type><name>double</name></type> <name>value</name></decl></parameter>)</parameter_list> <block>{<block_content>
+         <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>value</name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>switchedLog10</name></name><argument_list>(
+                 <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>switchedPow10</name></name><argument_list>(<argument><expr><name>value</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>, <argument><expr><literal type="string">"log(pow(x)) = x"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+         <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>value</name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>switchedPow10</name></name><argument_list>(
+                 <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>switchedLog10</name></name><argument_list>(<argument><expr><name>value</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>, <argument><expr><literal type="string">"pow(log(x)) = x"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+     </block_content>}</block></function>
+
+     <comment type="block" format="javadoc">/**
+      * Test of java2DToValue method.
+      */</comment>
+     <function><annotation>@<name>Test</name></annotation>
+     <type><specifier>public</specifier> <name>void</name></type> <name>testJava2DToValue</name><parameter_list>()</parameter_list> <block>{<block_content>
+         <decl_stmt><decl><type><name>Rectangle2D</name></type> <name>plotArea</name> <init>= <expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">22</literal></expr></argument>, <argument><expr><literal type="number">33</literal></expr></argument>, <argument><expr><literal type="number">500</literal></expr></argument>, <argument><expr><literal type="number">500</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+         <decl_stmt><decl><type><name>RectangleEdge</name></type> <name>edge</name> <init>= <expr><name><name>RectangleEdge</name><operator>.</operator><name>BOTTOM</name></name></expr></init></decl>;</decl_stmt>
+
+         <comment type="line">// set axis bounds to be both greater than 1</comment>
+         <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setRange</name></name><argument_list>(<argument><expr><literal type="number">10</literal></expr></argument>, <argument><expr><literal type="number">20</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+         <expr_stmt><expr><call><name>checkPointsToValue</name><argument_list>(<argument><expr><name>edge</name></expr></argument>, <argument><expr><name>plotArea</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+         <comment type="line">// check for bounds interval that includes 1</comment>
+         <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setRange</name></name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>, <argument><expr><literal type="number">10</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+         <expr_stmt><expr><call><name>checkPointsToValue</name><argument_list>(<argument><expr><name>edge</name></expr></argument>, <argument><expr><name>plotArea</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+         <comment type="line">// check for bounds interval that includes 1</comment>
+         <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setRange</name></name><argument_list>(<argument><expr><literal type="number">0.2</literal></expr></argument>, <argument><expr><literal type="number">20</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+         <expr_stmt><expr><call><name>checkPointsToValue</name><argument_list>(<argument><expr><name>edge</name></expr></argument>, <argument><expr><name>plotArea</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+         <comment type="line">// check for both bounds smaller than 1</comment>
+         <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setRange</name></name><argument_list>(<argument><expr><literal type="number">0.2</literal></expr></argument>, <argument><expr><literal type="number">0.7</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+         <expr_stmt><expr><call><name>checkPointsToValue</name><argument_list>(<argument><expr><name>edge</name></expr></argument>, <argument><expr><name>plotArea</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+     </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test of valueToJava2D method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testValueToJava2D</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Rectangle2D</name></type> <name>plotArea</name> <init>= <expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">22</literal></expr></argument>, <argument><expr><literal type="number">33</literal></expr></argument>, <argument><expr><literal type="number">500</literal></expr></argument>, <argument><expr><literal type="number">500</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RectangleEdge</name></type> <name>edge</name> <init>= <expr><name><name>RectangleEdge</name><operator>.</operator><name>BOTTOM</name></name></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// set axis bounds to be both greater than 1</comment>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setRange</name></name><argument_list>(<argument><expr><literal type="number">10</literal></expr></argument>, <argument><expr><literal type="number">20</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkPointsToJava2D</name><argument_list>(<argument><expr><name>edge</name></expr></argument>, <argument><expr><name>plotArea</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check for bounds interval that includes 1</comment>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setRange</name></name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>, <argument><expr><literal type="number">10</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkPointsToJava2D</name><argument_list>(<argument><expr><name>edge</name></expr></argument>, <argument><expr><name>plotArea</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check for bounds interval that includes 1</comment>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setRange</name></name><argument_list>(<argument><expr><literal type="number">0.2</literal></expr></argument>, <argument><expr><literal type="number">20</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkPointsToJava2D</name><argument_list>(<argument><expr><name>edge</name></expr></argument>, <argument><expr><name>plotArea</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check for both bounds smaller than 1</comment>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setRange</name></name><argument_list>(<argument><expr><literal type="number">0.2</literal></expr></argument>, <argument><expr><literal type="number">0.7</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>checkPointsToJava2D</name><argument_list>(<argument><expr><name>edge</name></expr></argument>, <argument><expr><name>plotArea</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>private</specifier> <name>void</name></type> <name>checkPointsToJava2D</name><parameter_list>(<parameter><decl><type><name>RectangleEdge</name></type> <name>edge</name></decl></parameter>, <parameter><decl><type><name>Rectangle2D</name></type> <name>plotArea</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>plotArea</name><operator>.</operator><name>getX</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>valueToJava2D</name></name><argument_list>(
+                <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>plotArea</name></expr></argument>, <argument><expr><name>edge</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>, 
+                <argument><expr><literal type="string">"Left most point on the axis should be beginning of range."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>plotArea</name><operator>.</operator><name>getX</name></name><argument_list>()</argument_list></call> <operator>+</operator> <call><name><name>plotArea</name><operator>.</operator><name>getWidth</name></name><argument_list>()</argument_list></call></expr></argument>,
+                <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>valueToJava2D</name></name><argument_list>(<argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr></argument>,
+                <argument><expr><name>plotArea</name></expr></argument>, <argument><expr><name>edge</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>, 
+                <argument><expr><literal type="string">"Right most point on the axis should be end of range."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>plotArea</name><operator>.</operator><name>getX</name></name><argument_list>()</argument_list></call> <operator>+</operator> <operator>(</operator><call><name><name>plotArea</name><operator>.</operator><name>getWidth</name></name><argument_list>()</argument_list></call> <operator>/</operator> <literal type="number">2</literal><operator>)</operator></expr></argument>,
+                <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>valueToJava2D</name></name><argument_list>(<argument><expr><call><name><name>Math</name><operator>.</operator><name>sqrt</name></name><argument_list>(<argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call>
+                <operator>*</operator> <call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>plotArea</name></expr></argument>, <argument><expr><name>edge</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>, 
+                <argument><expr><literal type="string">"Center point on the axis should geometric mean of the bounds."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Check the translation java2D to value for left, right, and center point.
+     *
+     * @param edge  the edge.
+     * @param plotArea  the plot area.
+     */</comment>
+     <function><type><specifier>private</specifier> <name>void</name></type> <name>checkPointsToValue</name><parameter_list>(<parameter><decl><type><name>RectangleEdge</name></type> <name>edge</name></decl></parameter>, <parameter><decl><type><name>Rectangle2D</name></type> <name>plotArea</name></decl></parameter>)</parameter_list> <block>{<block_content>
+         <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>java2DToValue</name></name><argument_list>(
+                 <argument><expr><call><name><name>plotArea</name><operator>.</operator><name>getX</name></name><argument_list>()</argument_list></call> <operator>+</operator> <call><name><name>plotArea</name><operator>.</operator><name>getWidth</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>plotArea</name></expr></argument>, <argument><expr><name>edge</name></expr></argument>)</argument_list></call></expr></argument>,
+                 <argument><expr><name>EPSILON</name></expr></argument>, <argument><expr><literal type="string">"Right most point on the axis should be end of range."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+         <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>,
+                 <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>java2DToValue</name></name><argument_list>(<argument><expr><call><name><name>plotArea</name><operator>.</operator><name>getX</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>plotArea</name></expr></argument>, <argument><expr><name>edge</name></expr></argument>)</argument_list></call></expr></argument>,
+                 <argument><expr><name>EPSILON</name></expr></argument>, <argument><expr><literal type="string">"Left most point on the axis should be beginning of range."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+         <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>Math</name><operator>.</operator><name>sqrt</name></name><argument_list>(<argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call>
+                 <operator>*</operator> <call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>java2DToValue</name></name><argument_list>(
+                 <argument><expr><call><name><name>plotArea</name><operator>.</operator><name>getX</name></name><argument_list>()</argument_list></call> <operator>+</operator> <operator>(</operator><call><name><name>plotArea</name><operator>.</operator><name>getWidth</name></name><argument_list>()</argument_list></call> <operator>/</operator> <literal type="number">2</literal><operator>)</operator></expr></argument>, <argument><expr><name>plotArea</name></expr></argument>, <argument><expr><name>edge</name></expr></argument>)</argument_list></call></expr></argument>,
+                 <argument><expr><name>EPSILON</name></expr></argument>, <argument><expr><literal type="string">"Center point on the axis should geometric mean of the bounds."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

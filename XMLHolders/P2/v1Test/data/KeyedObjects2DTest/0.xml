@@ -1,0 +1,14 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>KeyedObjects2D</name></type> <name>k1</name> <init>= <expr><operator>new</operator> <call><name>KeyedObjects2D</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>KeyedObjects2D</name></type> <name>k2</name> <init>= <expr><operator>new</operator> <call><name>KeyedObjects2D</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>k1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>k2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>k2</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>k1</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>k1</name><operator>.</operator><name>addObject</name></name><argument_list>(<argument><expr><literal type="number">99</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>k1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>k2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>k2</name><operator>.</operator><name>addObject</name></name><argument_list>(<argument><expr><literal type="number">99</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>k1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>k2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

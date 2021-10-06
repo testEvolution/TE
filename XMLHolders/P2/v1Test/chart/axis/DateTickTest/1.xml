@@ -1,0 +1,15 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testHashCode</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Date</name></type> <name>d1</name> <init>= <expr><operator>new</operator> <call><name>Date</name><argument_list>(<argument><expr><literal type="number">0L</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>l1</name> <init>= <expr><literal type="string">"Label 1"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>TextAnchor</name></type> <name>ta1</name> <init>= <expr><name><name>TextAnchor</name><operator>.</operator><name>CENTER</name></name></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>DateTick</name></type> <name>t1</name> <init>= <expr><operator>new</operator> <call><name>DateTick</name><argument_list>(<argument><expr><name>d1</name></expr></argument>, <argument><expr><name>l1</name></expr></argument>, <argument><expr><name>ta1</name></expr></argument>, <argument><expr><name>ta1</name></expr></argument>, <argument><expr><name><name>Math</name><operator>.</operator><name>PI</name></name> <operator>/</operator> <literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DateTick</name></type> <name>t2</name> <init>= <expr><operator>new</operator> <call><name>DateTick</name><argument_list>(<argument><expr><name>d1</name></expr></argument>, <argument><expr><name>l1</name></expr></argument>, <argument><expr><name>ta1</name></expr></argument>, <argument><expr><name>ta1</name></expr></argument>, <argument><expr><name><name>Math</name><operator>.</operator><name>PI</name></name> <operator>/</operator> <literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>t1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>t2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h1</name> <init>= <expr><call><name><name>t1</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h2</name> <init>= <expr><call><name><name>t2</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>h1</name></expr></argument>, <argument><expr><name>h2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

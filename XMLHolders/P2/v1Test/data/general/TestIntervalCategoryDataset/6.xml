@@ -1,0 +1,6 @@
+<unit><function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>Comparable</name></type> <name>getColumnKey</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>column</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getColumnKey</name></name><argument_list>(<argument><expr><name>column</name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    </unit>

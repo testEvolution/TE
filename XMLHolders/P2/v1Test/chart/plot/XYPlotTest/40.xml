@@ -1,0 +1,24 @@
+<unit><function><annotation>@<name>Test</name></annotation> 
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetRendererForDataset2</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>NumberAxis</name></type> <name>xAxis</name> <init>= <expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"X"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>NumberAxis</name></type> <name>yAxis</name> <init>= <expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"Y"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYItemRenderer</name></type> <name>renderer</name> <init>= <expr><operator>new</operator> <call><name>DefaultXYItemRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>plot</name> <init>= <expr><operator>new</operator> <call><name>XYPlot</name><argument_list>(<argument><expr><name>dataset</name></expr></argument>, <argument><expr><name>xAxis</name></expr></argument>, <argument><expr><name>yAxis</name></expr></argument>, <argument><expr><name>renderer</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// add a second dataset</comment>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>dataset2</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset2</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series in dataset 2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setDataset</name></name><argument_list>(<argument><expr><literal type="number">99</literal></expr></argument>, <argument><expr><name>dataset2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+       
+        <comment type="line">// by default, the renderer with index 0 is used</comment>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>renderer</name></expr></argument>, <argument><expr><call><name><name>plot</name><operator>.</operator><name>getRendererForDataset</name></name><argument_list>(<argument><expr><name>dataset2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <comment type="line">// add a second renderer with the same index as dataset2, now it will</comment>
+        <comment type="line">// be used</comment>
+        <decl_stmt><decl><type><name>XYLineAndShapeRenderer</name></type> <name>renderer2</name> <init>= <expr><operator>new</operator> <call><name>XYLineAndShapeRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setRenderer</name></name><argument_list>(<argument><expr><literal type="number">99</literal></expr></argument>, <argument><expr><name>renderer</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>renderer2</name></expr></argument>, <argument><expr><call><name><name>plot</name><operator>.</operator><name>getRendererForDataset</name></name><argument_list>(<argument><expr><name>dataset2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+    
+    </unit>

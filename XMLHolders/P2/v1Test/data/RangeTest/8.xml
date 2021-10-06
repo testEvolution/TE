@@ -1,0 +1,32 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testScale</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Range</name></type> <name>r1</name> <init>= <expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Range</name></type> <name>r2</name> <init>= <expr><call><name><name>Range</name><operator>.</operator><name>scale</name></name><argument_list>(<argument><expr><name>r1</name></expr></argument>, <argument><expr><literal type="number">0.10</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><call><name><name>r2</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="number">0.001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><call><name><name>r2</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="number">0.001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>r1</name> <operator>=</operator> <operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>r2</name> <operator>=</operator> <call><name><name>Range</name><operator>.</operator><name>scale</name></name><argument_list>(<argument><expr><name>r1</name></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">20.0</literal></expr></argument>, <argument><expr><call><name><name>r2</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="number">0.001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">200.0</literal></expr></argument>, <argument><expr><call><name><name>r2</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="number">0.001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// Scaling with a factor of 1 does not change the range</comment>
+        <expr_stmt><expr><name>r2</name> <operator>=</operator> <call><name><name>Range</name><operator>.</operator><name>scale</name></name><argument_list>(<argument><expr><name>r1</name></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>r1</name></expr></argument>, <argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>Range</name><operator>.</operator><name>scale</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><literal type="number">0.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Null value is accepted"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>Exception</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        </block_content>}</block></catch></try>
+
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>Range</name><operator>.</operator><name>scale</name></name><argument_list>(<argument><expr><name>r1</name></expr></argument>, <argument><expr><operator>-</operator><literal type="number">0.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Negative factor accepted"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>Exception</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    </unit>

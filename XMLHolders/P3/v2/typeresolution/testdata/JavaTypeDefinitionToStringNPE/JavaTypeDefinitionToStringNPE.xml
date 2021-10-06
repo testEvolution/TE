@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\typeresolution\testdata\JavaTypeDefinitionToStringNPE.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Collection</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Collections</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>HashMap</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Map</name></name>;</import>
+
+<class><specifier>public</specifier> class <name><name>JavaTypeDefinitionToStringNPE</name><parameter_list>&lt;<parameter><name>A</name> <extends>extends <name>JavaTypeDefinitionToStringNPE</name><operator>.</operator><name><name>SelfReferringType</name><parameter_list>&lt;<parameter><name>A</name></parameter>&gt;</parameter_list></name></extends></parameter>&gt;</parameter_list></name> <block>{
+
+    <decl_stmt><decl><type><name><name>Map</name><argument_list type="generic">&lt;<argument><name><name>TypeLink</name><argument_list type="generic">&lt;<argument><name>?</name></argument>, <argument><name>?</name> <super>super <name>A</name></super></argument>&gt;</argument_list></name></argument>, <argument><name><name>Collection</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></argument>&gt;</argument_list></name></type> <name>contents</name> <init>= <expr><operator>new</operator> <call><name><name>HashMap</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+    <class><specifier>public</specifier> <specifier>static</specifier> class <name><name>TypeLink</name><parameter_list>&lt;<parameter><name>U</name></parameter>, <parameter><name>T</name></parameter>&gt;</parameter_list></name> <block>{ }</block></class>
+
+    <class><specifier>public</specifier> <specifier>static</specifier> class <name><name>SelfReferringType</name><parameter_list>&lt;<parameter><name>T</name> <extends>extends <name><name>SelfReferringType</name><parameter_list>&lt;<parameter><name>T</name></parameter>&gt;</parameter_list></name></extends></parameter>&gt;</parameter_list></name> <block>{ }</block></class>
+
+    <function><type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>putNull</name><parameter_list>(<parameter><decl><type><name><name>TypeLink</name><argument_list type="generic">&lt;<argument><name>?</name></argument>, <argument><name>?</name> <super>super <name>A</name></super></argument>&gt;</argument_list></name></type> <name>field</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name><name>contents</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><name>field</name></expr></argument>, <argument><expr><call><name><name>Collections</name><operator>.</operator><name>singleton</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

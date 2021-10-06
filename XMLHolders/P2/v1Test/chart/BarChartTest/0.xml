@@ -1,0 +1,6 @@
+<unit><function><annotation>@<name>BeforeEach</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>setUp</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>chart</name></name> <operator>=</operator> <call><name>createBarChart</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

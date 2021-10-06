@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\symboltable\testdata\InnerClass.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>symboltable</name><operator>.</operator><name>testdata</name></name>;</package>
+
+<class><specifier>public</specifier> class <name>InnerClass</name> <block>{
+    <class><specifier>public</specifier> <specifier>static</specifier> class <name>TheInnerClass</name> <block>{
+        <enum><specifier>public</specifier> enum <name>EnumTest</name> <block>{
+            <decl><name>THREE</name></decl>, <decl><name>FOUR</name></decl>;
+        }</block></enum>
+    }</block></class>
+
+    <enum>enum <name>EnumTest</name> <block>{
+        <decl><name>ONE</name></decl>, <decl><name>TWO</name></decl>;
+    }</block></enum>
+
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>foo</name><parameter_list>(<parameter><decl><type><name>TheInnerClass</name></type> <name>arg</name></decl></parameter>)</parameter_list> <block>{<block_content>
+    </block_content>}</block></function>
+
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>bar</name><parameter_list>(<parameter><decl><type><name><name>InnerClass</name><operator>.</operator><name>TheInnerClass</name></name></type> <name>arg</name></decl></parameter>)</parameter_list> <block>{<block_content>
+    </block_content>}</block></function>
+
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>baz</name><parameter_list>(<parameter><decl><type><name>EnumTest</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

@@ -1,0 +1,9 @@
+<unit><function><annotation>@<name>BeforeEach</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>setUp</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>jan1900</name></name> <operator>=</operator> <operator>new</operator> <call><name>Month</name><argument_list>(<argument><expr><name><name>MonthConstants</name><operator>.</operator><name>JANUARY</name></name></expr></argument>, <argument><expr><literal type="number">1900</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>feb1900</name></name> <operator>=</operator> <operator>new</operator> <call><name>Month</name><argument_list>(<argument><expr><name><name>MonthConstants</name><operator>.</operator><name>FEBRUARY</name></name></expr></argument>, <argument><expr><literal type="number">1900</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>nov9999</name></name> <operator>=</operator> <operator>new</operator> <call><name>Month</name><argument_list>(<argument><expr><name><name>MonthConstants</name><operator>.</operator><name>NOVEMBER</name></name></expr></argument>, <argument><expr><literal type="number">9999</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>dec9999</name></name> <operator>=</operator> <operator>new</operator> <call><name>Month</name><argument_list>(<argument><expr><name><name>MonthConstants</name><operator>.</operator><name>DECEMBER</name></name></expr></argument>, <argument><expr><literal type="number">9999</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

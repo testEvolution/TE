@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\typeresolution\testdata\FieldAccessPrimaryGenericSimple.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name></name>;</package>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name><operator>.</operator><name>dummytypes</name><operator>.</operator><name>GenericClass</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name><operator>.</operator><name>dummytypes</name><operator>.</operator><name>GenericSuperClassA</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>FieldAccessPrimaryGenericSimple</name> <super_list><extends>extends <super><name><name>GenericSuperClassA</name><argument_list type="generic">&lt;<argument><name>Long</name></argument>&gt;</argument_list></name></super></extends></super_list> <block>{
+    <decl_stmt><decl><type><name><name>GenericClass</name><argument_list type="generic">&lt;<argument><name>String</name></argument>, <argument><name>Double</name></argument>&gt;</argument_list></name></type> <name>genericField</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name><name>GenericClass</name><argument_list type="generic">&lt;<argument><name>String</name></argument>, <argument><name><name>GenericClass</name><argument_list type="generic">&lt;<argument><name>Number</name></argument>, <argument><name>Double</name></argument>&gt;</argument_list></name></argument>&gt;</argument_list></name></type> <name>genericTypeArg</name></decl>;</decl_stmt>
+
+    <function><type><name>void</name></type> <name>foo</name><parameter_list>(<parameter><decl><type><name><name>GenericClass</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>, <argument><name>Character</name></argument>&gt;</argument_list></name></type> <name>param</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>GenericClass</name><argument_list type="generic">&lt;<argument><name>Float</name></argument>, <argument><name>Long</name></argument>&gt;</argument_list></name></type> <name>local</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// access a generic field through member field</comment>
+        <comment type="line">// Primary[Prefix[this], Suffix[genericField], Suffix[first]]</comment>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>genericField</name><operator>.</operator><name>first</name></name> <operator>=</operator> <literal type="string">""</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><operator>(</operator><name>this</name><operator>)</operator><operator>.</operator><name><name>genericField</name><operator>.</operator><name>second</name></name> <operator>=</operator> <operator>new</operator> <call><name>Double</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// access a generic field whose type depends on a generic type argument</comment>
+        <comment type="line">// Primary[Prefix[this], Suffix[genericTypeArg], Suffix[second], Suffix[second]]</comment>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>genericTypeArg</name><operator>.</operator><name>second</name><operator>.</operator><name>second</name></name> <operator>=</operator> <operator>new</operator> <call><name>Double</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// access a generic field whose type depends on indirect type arguments</comment>
+        <comment type="line">// Primary[Prefix[this], Suffix[genericField], Suffix[generic], Suffix[generic]...]</comment>
+        <expr_stmt><expr><operator>(</operator><name>this</name><operator>)</operator><operator>.</operator><name><name>genericField</name><operator>.</operator><name>generic</name><operator>.</operator><name>generic</name><operator>.</operator><name>generic</name><operator>.</operator><name>first</name></name> <operator>=</operator> <operator>new</operator> <call><name>Double</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// test inherited generic</comment>
+        <comment type="line">// Primary[Primary[Prefix[(this)]], Suffix[fieldA]]</comment>
+        <expr_stmt><expr><operator>(</operator><name>this</name><operator>)</operator><operator>.</operator><name>fieldA</name> <operator>=</operator> <operator>new</operator> <call><name>Long</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>fieldB</name><operator>.</operator><name>generic</name><operator>.</operator><name>second</name></name> <operator>=</operator> <literal type="string">""</literal></expr>;</expr_stmt>
+
+        <comment type="line">// test inherited generic</comment>
+        <comment type="line">// Primary[Prefix[super], Suffix[fieldA]]</comment>
+        <expr_stmt><expr><name><name>super</name><operator>.</operator><name>fieldA</name></name> <operator>=</operator> <operator>new</operator> <call><name>Long</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>super</name><operator>.</operator><name>fieldB</name><operator>.</operator><name>generic</name><operator>.</operator><name>second</name></name> <operator>=</operator> <literal type="string">""</literal></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <class>class <name><name>Nested</name><parameter_list>&lt;<parameter><name>T</name> <extends>extends <name><name>GenericClass</name><parameter_list>&lt;<parameter><name>String</name></parameter>, <parameter><name>Number</name></parameter>&gt;</parameter_list></name></extends></parameter>&gt;</parameter_list></name> <block>{
+        <decl_stmt><decl><type><name>T</name></type> <name>field</name></decl>;</decl_stmt>
+        
+        <function><type><name>void</name></type> <name>foo</name><parameter_list>()</parameter_list> <block>{<block_content>
+            <comment type="line">// Primary[Prefix[this], Suffix[field], Suffix[first]]</comment>
+            <expr_stmt><expr><name><name>this</name><operator>.</operator><name>field</name><operator>.</operator><name>first</name></name> <operator>=</operator> <literal type="string">""</literal></expr>;</expr_stmt>
+        </block_content>}</block></function>
+    }</block></class>
+}</block></class>
+</unit>

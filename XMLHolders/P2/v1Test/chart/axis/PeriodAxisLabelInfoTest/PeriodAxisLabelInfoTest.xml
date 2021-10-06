@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\axis\PeriodAxisLabelInfoTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ----------------------------
+ * PeriodAxisLabelInfoTest.java
+ * ----------------------------
+ * (C) Copyright 2004-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 10-Jun-2003 : Version 1 (DG);
+ * 07-Jan-2005 : Added test for hashCode() (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>axis</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>BasicStroke</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Color</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Font</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Paint</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Stroke</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>text</name><operator>.</operator><name>DateFormat</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>text</name><operator>.</operator><name>SimpleDateFormat</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Date</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Locale</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>TimeZone</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>RectangleInsets</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>time</name><operator>.</operator><name>Day</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>time</name><operator>.</operator><name>Month</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>time</name><operator>.</operator><name>Year</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link PeriodAxisLabelInfo} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>PeriodAxisLabelInfoTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that the equals method can distinguish all the required fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>PeriodAxisLabelInfo</name></type> <name>info1</name> <init>= <expr><operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name><name>Day</name><operator>.</operator><name>class</name></name></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>SimpleDateFormat</name><argument_list>(<argument><expr><literal type="string">"d"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>PeriodAxisLabelInfo</name></type> <name>info2</name> <init>= <expr><operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name><name>Day</name><operator>.</operator><name>class</name></name></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>SimpleDateFormat</name><argument_list>(<argument><expr><literal type="string">"d"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>info2</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info1</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>Class</name></type> <name>c1</name> <init>= <expr><name><name>Day</name><operator>.</operator><name>class</name></name></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Class</name></type> <name>c2</name> <init>= <expr><name><name>Month</name><operator>.</operator><name>class</name></name></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DateFormat</name></type> <name>df1</name> <init>= <expr><operator>new</operator> <call><name>SimpleDateFormat</name><argument_list>(<argument><expr><literal type="string">"d"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DateFormat</name></type> <name>df2</name> <init>= <expr><operator>new</operator> <call><name>SimpleDateFormat</name><argument_list>(<argument><expr><literal type="string">"MMM"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RectangleInsets</name></type> <name>sp1</name> <init>= <expr><operator>new</operator> <call><name>RectangleInsets</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RectangleInsets</name></type> <name>sp2</name> <init>= <expr><operator>new</operator> <call><name>RectangleInsets</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Font</name></type> <name>lf1</name> <init>= <expr><operator>new</operator> <call><name>Font</name><argument_list>(<argument><expr><literal type="string">"SansSerif"</literal></expr></argument>, <argument><expr><name><name>Font</name><operator>.</operator><name>PLAIN</name></name></expr></argument>, <argument><expr><literal type="number">10</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Font</name></type> <name>lf2</name> <init>= <expr><operator>new</operator> <call><name>Font</name><argument_list>(<argument><expr><literal type="string">"SansSerif"</literal></expr></argument>, <argument><expr><name><name>Font</name><operator>.</operator><name>BOLD</name></name></expr></argument>, <argument><expr><literal type="number">9</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Paint</name></type> <name>lp1</name> <init>= <expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Paint</name></type> <name>lp2</name> <init>= <expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>b1</name> <init>= <expr><literal type="boolean">true</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>b2</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Stroke</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">0.5f</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Stroke</name></type> <name>s2</name> <init>= <expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">0.25f</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Paint</name></type> <name>dp1</name> <init>= <expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Paint</name></type> <name>dp2</name> <init>= <expr><name><name>Color</name><operator>.</operator><name>GREEN</name></name></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><name>info1</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>df1</name></expr></argument>, <argument><expr><name>sp1</name></expr></argument>, <argument><expr><name>lf1</name></expr></argument>, <argument><expr><name>lp1</name></expr></argument>, <argument><expr><name>b1</name></expr></argument>, <argument><expr><name>s1</name></expr></argument>, <argument><expr><name>dp1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>info2</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c1</name></expr></argument>, <argument><expr><name>df1</name></expr></argument>, <argument><expr><name>sp1</name></expr></argument>, <argument><expr><name>lf1</name></expr></argument>, <argument><expr><name>lp1</name></expr></argument>, <argument><expr><name>b1</name></expr></argument>, <argument><expr><name>s1</name></expr></argument>, <argument><expr><name>dp1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>info2</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>df1</name></expr></argument>, <argument><expr><name>sp1</name></expr></argument>, <argument><expr><name>lf1</name></expr></argument>, <argument><expr><name>lp1</name></expr></argument>, <argument><expr><name>b1</name></expr></argument>, <argument><expr><name>s1</name></expr></argument>, <argument><expr><name>dp1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>info1</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>df2</name></expr></argument>, <argument><expr><name>sp1</name></expr></argument>, <argument><expr><name>lf1</name></expr></argument>, <argument><expr><name>lp1</name></expr></argument>, <argument><expr><name>b1</name></expr></argument>, <argument><expr><name>s1</name></expr></argument>, <argument><expr><name>dp1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>info2</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>df2</name></expr></argument>, <argument><expr><name>sp1</name></expr></argument>, <argument><expr><name>lf1</name></expr></argument>, <argument><expr><name>lp1</name></expr></argument>, <argument><expr><name>b1</name></expr></argument>, <argument><expr><name>s1</name></expr></argument>, <argument><expr><name>dp1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>info1</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>df2</name></expr></argument>, <argument><expr><name>sp2</name></expr></argument>, <argument><expr><name>lf1</name></expr></argument>, <argument><expr><name>lp1</name></expr></argument>, <argument><expr><name>b1</name></expr></argument>, <argument><expr><name>s1</name></expr></argument>, <argument><expr><name>dp1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>info2</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>df2</name></expr></argument>, <argument><expr><name>sp2</name></expr></argument>, <argument><expr><name>lf1</name></expr></argument>, <argument><expr><name>lp1</name></expr></argument>, <argument><expr><name>b1</name></expr></argument>, <argument><expr><name>s1</name></expr></argument>, <argument><expr><name>dp1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>info1</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>df2</name></expr></argument>, <argument><expr><name>sp2</name></expr></argument>, <argument><expr><name>lf2</name></expr></argument>, <argument><expr><name>lp1</name></expr></argument>, <argument><expr><name>b1</name></expr></argument>, <argument><expr><name>s1</name></expr></argument>, <argument><expr><name>dp1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>info2</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>df2</name></expr></argument>, <argument><expr><name>sp2</name></expr></argument>, <argument><expr><name>lf2</name></expr></argument>, <argument><expr><name>lp1</name></expr></argument>, <argument><expr><name>b1</name></expr></argument>, <argument><expr><name>s1</name></expr></argument>, <argument><expr><name>dp1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>info1</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>df2</name></expr></argument>, <argument><expr><name>sp2</name></expr></argument>, <argument><expr><name>lf2</name></expr></argument>, <argument><expr><name>lp2</name></expr></argument>, <argument><expr><name>b1</name></expr></argument>, <argument><expr><name>s1</name></expr></argument>, <argument><expr><name>dp1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>info2</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>df2</name></expr></argument>, <argument><expr><name>sp2</name></expr></argument>, <argument><expr><name>lf2</name></expr></argument>, <argument><expr><name>lp2</name></expr></argument>, <argument><expr><name>b1</name></expr></argument>, <argument><expr><name>s1</name></expr></argument>, <argument><expr><name>dp1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>info1</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>df2</name></expr></argument>, <argument><expr><name>sp2</name></expr></argument>, <argument><expr><name>lf2</name></expr></argument>, <argument><expr><name>lp2</name></expr></argument>, <argument><expr><name>b2</name></expr></argument>, <argument><expr><name>s1</name></expr></argument>, <argument><expr><name>dp1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>info2</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>df2</name></expr></argument>, <argument><expr><name>sp2</name></expr></argument>, <argument><expr><name>lf2</name></expr></argument>, <argument><expr><name>lp2</name></expr></argument>, <argument><expr><name>b2</name></expr></argument>, <argument><expr><name>s1</name></expr></argument>, <argument><expr><name>dp1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>info1</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>df2</name></expr></argument>, <argument><expr><name>sp2</name></expr></argument>, <argument><expr><name>lf2</name></expr></argument>, <argument><expr><name>lp2</name></expr></argument>, <argument><expr><name>b2</name></expr></argument>, <argument><expr><name>s2</name></expr></argument>, <argument><expr><name>dp1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>info2</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>df2</name></expr></argument>, <argument><expr><name>sp2</name></expr></argument>, <argument><expr><name>lf2</name></expr></argument>, <argument><expr><name>lp2</name></expr></argument>, <argument><expr><name>b2</name></expr></argument>, <argument><expr><name>s2</name></expr></argument>, <argument><expr><name>dp1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>info1</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>df2</name></expr></argument>, <argument><expr><name>sp2</name></expr></argument>, <argument><expr><name>lf2</name></expr></argument>, <argument><expr><name>lp2</name></expr></argument>, <argument><expr><name>b2</name></expr></argument>, <argument><expr><name>s2</name></expr></argument>, <argument><expr><name>dp2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>info2</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name>c2</name></expr></argument>, <argument><expr><name>df2</name></expr></argument>, <argument><expr><name>sp2</name></expr></argument>, <argument><expr><name>lf2</name></expr></argument>, <argument><expr><name>lp2</name></expr></argument>, <argument><expr><name>b2</name></expr></argument>, <argument><expr><name>s2</name></expr></argument>, <argument><expr><name>dp2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Two objects that are equal are required to return the same hashCode.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testHashCode</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>PeriodAxisLabelInfo</name></type> <name>info1</name> <init>= <expr><operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name><name>Day</name><operator>.</operator><name>class</name></name></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>SimpleDateFormat</name><argument_list>(<argument><expr><literal type="string">"d"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>PeriodAxisLabelInfo</name></type> <name>info2</name> <init>= <expr><operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name><name>Day</name><operator>.</operator><name>class</name></name></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>SimpleDateFormat</name><argument_list>(<argument><expr><literal type="string">"d"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h1</name> <init>= <expr><call><name><name>info1</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h2</name> <init>= <expr><call><name><name>info2</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>h1</name></expr></argument>, <argument><expr><name>h2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that cloning works.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>PeriodAxisLabelInfo</name></type> <name>info1</name> <init>= <expr><operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name><name>Day</name><operator>.</operator><name>class</name></name></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>SimpleDateFormat</name><argument_list>(<argument><expr><literal type="string">"d"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>PeriodAxisLabelInfo</name></type> <name>info2</name> <init>= <expr><operator>(</operator><name>PeriodAxisLabelInfo</name><operator>)</operator> <call><name><name>info1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>info1</name> <operator>!=</operator> <name>info2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>info2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>info1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>PeriodAxisLabelInfo</name></type> <name>info1</name> <init>= <expr><operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name><name>Day</name><operator>.</operator><name>class</name></name></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>SimpleDateFormat</name><argument_list>(<argument><expr><literal type="string">"d"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>PeriodAxisLabelInfo</name></type> <name>info2</name> <init>= <expr><operator>(</operator><name>PeriodAxisLabelInfo</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>info1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>info1</name></expr></argument>, <argument><expr><name>info2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A test for the createInstance() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCreateInstance</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>TimeZone</name></type> <name>zone</name> <init>= <expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><literal type="string">"GMT"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>PeriodAxisLabelInfo</name></type> <name>info</name> <init>= <expr><operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name><name>Day</name><operator>.</operator><name>class</name></name></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>SimpleDateFormat</name><argument_list>(<argument><expr><literal type="string">"d"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Day</name></type> <name>d</name> <init>= <expr><operator>(</operator><name>Day</name><operator>)</operator> <call><name><name>info</name><operator>.</operator><name>createInstance</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Date</name><argument_list>(<argument><expr><literal type="number">0L</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>zone</name></expr></argument>, <argument><expr><name><name>Locale</name><operator>.</operator><name>UK</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Day</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1970</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>d</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>info</name> <operator>=</operator> <operator>new</operator> <call><name>PeriodAxisLabelInfo</name><argument_list>(<argument><expr><name><name>Year</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><operator>new</operator> <call><name>SimpleDateFormat</name><argument_list>(<argument><expr><literal type="string">"YYYY"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Year</name></type> <name>y</name> <init>= <expr><operator>(</operator><name>Year</name><operator>)</operator> <call><name><name>info</name><operator>.</operator><name>createInstance</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Date</name><argument_list>(<argument><expr><literal type="number">0L</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>zone</name></expr></argument>, <argument><expr><name><name>Locale</name><operator>.</operator><name>UK</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Year</name><argument_list>(<argument><expr><literal type="number">1970</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>y</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

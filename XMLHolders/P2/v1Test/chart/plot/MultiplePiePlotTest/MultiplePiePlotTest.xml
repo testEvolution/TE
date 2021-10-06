@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\plot\MultiplePiePlotTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ------------------------
+ * MultiplePiePlotTest.java
+ * ------------------------
+ * (C) Copyright 2005-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 16-Jun-2005 : Version 1 (DG);
+ * 06-Apr-2006 : Added tests for new fields (DG);
+ * 18-Apr-2008 : Added testConstructor() (DG);
+ * 30-Dec-2008 : Updated for new legendItemShape field (DG);
+ * 01-Jun-2009 : Added test for getLegendItems() bug, series key is not
+ *               set (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>plot</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertNull</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Color</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>GradientPaint</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>geom</name><operator>.</operator><name>Rectangle2D</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ChartFactory</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>JFreeChart</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>LegendItem</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>LegendItemCollection</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>event</name><operator>.</operator><name>PlotChangeEvent</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>event</name><operator>.</operator><name>PlotChangeListener</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>util</name><operator>.</operator><name>TableOrder</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>category</name><operator>.</operator><name>DefaultCategoryDataset</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Some tests for the {@link MultiplePiePlot} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>MultiplePiePlotTest</name> <super_list><implements>implements <super><name>PlotChangeListener</name></super></implements></super_list> <block>{
+
+    <comment type="block" format="javadoc">/** The last event received. */</comment>
+    <decl_stmt><decl><type><name>PlotChangeEvent</name></type> <name>lastEvent</name></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Receives a plot change event and records it.  Some tests will use this
+     * to check that events have been generated (or not) when required.
+     *
+     * @param event  the event.
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>plotChanged</name><parameter_list>(<parameter><decl><type><name>PlotChangeEvent</name></type> <name>event</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <name>event</name></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the constructors.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testConstructor</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>MultiplePiePlot</name></type> <name>plot</name> <init>= <expr><operator>new</operator> <call><name>MultiplePiePlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>plot</name><operator>.</operator><name>getDataset</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// the following checks that the plot registers itself as a listener</comment>
+        <comment type="line">// with the dataset passed to the constructor - see patch 1943021</comment>
+        <decl_stmt><decl><type><name>DefaultCategoryDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><name>plot</name> <operator>=</operator> <operator>new</operator> <call><name>MultiplePiePlot</name><argument_list>(<argument><expr><name>dataset</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>dataset</name><operator>.</operator><name>hasListener</name></name><argument_list>(<argument><expr><name>plot</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Check that the equals() method distinguishes the required fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>MultiplePiePlot</name></type> <name>p1</name> <init>= <expr><operator>new</operator> <call><name>MultiplePiePlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>MultiplePiePlot</name></type> <name>p2</name> <init>= <expr><operator>new</operator> <call><name>MultiplePiePlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>p2</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p1</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>p1</name><operator>.</operator><name>setDataExtractOrder</name></name><argument_list>(<argument><expr><name><name>TableOrder</name><operator>.</operator><name>BY_ROW</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>p2</name><operator>.</operator><name>setDataExtractOrder</name></name><argument_list>(<argument><expr><name><name>TableOrder</name><operator>.</operator><name>BY_ROW</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>p1</name><operator>.</operator><name>setLimit</name></name><argument_list>(<argument><expr><literal type="number">1.23</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>p2</name><operator>.</operator><name>setLimit</name></name><argument_list>(<argument><expr><literal type="number">1.23</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>p1</name><operator>.</operator><name>setAggregatedItemsKey</name></name><argument_list>(<argument><expr><literal type="string">"Aggregated Items"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>p2</name><operator>.</operator><name>setAggregatedItemsKey</name></name><argument_list>(<argument><expr><literal type="string">"Aggregated Items"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>p1</name><operator>.</operator><name>setAggregatedItemsPaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>,
+                <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>YELLOW</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>p2</name><operator>.</operator><name>setAggregatedItemsPaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>,
+                <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>YELLOW</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>p1</name><operator>.</operator><name>setPieChart</name></name><argument_list>(<argument><expr><call><name><name>ChartFactory</name><operator>.</operator><name>createPieChart</name></name><argument_list>(<argument><expr><literal type="string">"Title"</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>,
+                <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>p2</name><operator>.</operator><name>setPieChart</name></name><argument_list>(<argument><expr><call><name><name>ChartFactory</name><operator>.</operator><name>createPieChart</name></name><argument_list>(<argument><expr><literal type="string">"Title"</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>,
+                <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>p1</name><operator>.</operator><name>setLegendItemShape</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>p2</name><operator>.</operator><name>setLegendItemShape</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some basic checks for the clone() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>MultiplePiePlot</name></type> <name>p1</name> <init>= <expr><operator>new</operator> <call><name>MultiplePiePlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Rectangle2D</name></type> <name>rect</name> <init>= <expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>p1</name><operator>.</operator><name>setLegendItemShape</name></name><argument_list>(<argument><expr><name>rect</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>MultiplePiePlot</name></type> <name>p2</name> <init>= <expr><operator>(</operator><name>MultiplePiePlot</name><operator>)</operator> <call><name><name>p1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>p1</name> <operator>!=</operator> <name>p2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>p2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check independence</comment>
+        <expr_stmt><expr><call><name><name>rect</name><operator>.</operator><name>setRect</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>, <argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>MultiplePiePlot</name></type> <name>p1</name> <init>= <expr><operator>new</operator> <call><name>MultiplePiePlot</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>p1</name><operator>.</operator><name>setAggregatedItemsPaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>YELLOW</name></name></expr></argument>,
+                <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>MultiplePiePlot</name></type> <name>p2</name> <init>= <expr><operator>(</operator><name>MultiplePiePlot</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>p1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>p1</name></expr></argument>, <argument><expr><name>p2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Fetches the legend items and checks the values.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetLegendItems</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultCategoryDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">35.0</literal></expr></argument>, <argument><expr><literal type="string">"S1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">45.0</literal></expr></argument>, <argument><expr><literal type="string">"S1"</literal></expr></argument>, <argument><expr><literal type="string">"C2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">55.0</literal></expr></argument>, <argument><expr><literal type="string">"S2"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">15.0</literal></expr></argument>, <argument><expr><literal type="string">"S2"</literal></expr></argument>, <argument><expr><literal type="string">"C2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>MultiplePiePlot</name></type> <name>plot</name> <init>= <expr><operator>new</operator> <call><name>MultiplePiePlot</name><argument_list>(<argument><expr><name>dataset</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><operator>new</operator> <call><name>JFreeChart</name><argument_list>(<argument><expr><name>plot</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LegendItemCollection</name></type> <name>legendItems</name> <init>= <expr><call><name><name>plot</name><operator>.</operator><name>getLegendItems</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>legendItems</name><operator>.</operator><name>getItemCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>LegendItem</name></type> <name>item1</name> <init>= <expr><call><name><name>legendItems</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"S1"</literal></expr></argument>, <argument><expr><call><name><name>item1</name><operator>.</operator><name>getLabel</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"S1"</literal></expr></argument>, <argument><expr><call><name><name>item1</name><operator>.</operator><name>getSeriesKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>item1</name><operator>.</operator><name>getSeriesIndex</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>dataset</name></expr></argument>, <argument><expr><call><name><name>item1</name><operator>.</operator><name>getDataset</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>item1</name><operator>.</operator><name>getDatasetIndex</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>LegendItem</name></type> <name>item2</name> <init>= <expr><call><name><name>legendItems</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"S2"</literal></expr></argument>, <argument><expr><call><name><name>item2</name><operator>.</operator><name>getLabel</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"S2"</literal></expr></argument>, <argument><expr><call><name><name>item2</name><operator>.</operator><name>getSeriesKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>item2</name><operator>.</operator><name>getSeriesIndex</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>dataset</name></expr></argument>, <argument><expr><call><name><name>item2</name><operator>.</operator><name>getDataset</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>item2</name><operator>.</operator><name>getDatasetIndex</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

@@ -1,0 +1,119 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name>NumberAxis</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>NumberAxis</name></type> <name>a2</name> <init>= <expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// axis line visible flag...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAxisLineVisible</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAxisLineVisible</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// positiveArrowVisible;</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setPositiveArrowVisible</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setPositiveArrowVisible</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// negativeArrowVisible;</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setNegativeArrowVisible</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setNegativeArrowVisible</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">//private Shape upArrow;</comment>
+
+        <comment type="line">//private Shape downArrow;</comment>
+
+        <comment type="line">//private Shape leftArrow;</comment>
+
+        <comment type="line">//private Shape rightArrow;</comment>
+
+        <comment type="line">// axisLinePaint</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAxisLinePaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAxisLinePaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// axisLineStroke</comment>
+        <decl_stmt><decl><type><name>Stroke</name></type> <name>stroke</name> <init>= <expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">2.0f</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAxisLineStroke</name></name><argument_list>(<argument><expr><name>stroke</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAxisLineStroke</name></name><argument_list>(<argument><expr><name>stroke</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// inverted</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setInverted</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setInverted</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// range</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setRange</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">50.0</literal></expr></argument>, <argument><expr><literal type="number">75.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setRange</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">50.0</literal></expr></argument>, <argument><expr><literal type="number">75.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// autoRange</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAutoRange</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAutoRange</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// autoRangeMinimumSize</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAutoRangeMinimumSize</name></name><argument_list>(<argument><expr><literal type="number">3.33</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAutoRangeMinimumSize</name></name><argument_list>(<argument><expr><literal type="number">3.33</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setDefaultAutoRange</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">1.2</literal></expr></argument>, <argument><expr><literal type="number">3.4</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setDefaultAutoRange</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">1.2</literal></expr></argument>, <argument><expr><literal type="number">3.4</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// upperMargin</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setUpperMargin</name></name><argument_list>(<argument><expr><literal type="number">0.09</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setUpperMargin</name></name><argument_list>(<argument><expr><literal type="number">0.09</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// lowerMargin</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setLowerMargin</name></name><argument_list>(<argument><expr><literal type="number">0.09</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setLowerMargin</name></name><argument_list>(<argument><expr><literal type="number">0.09</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">//private double fixedAutoRange;</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setFixedAutoRange</name></name><argument_list>(<argument><expr><literal type="number">50.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setFixedAutoRange</name></name><argument_list>(<argument><expr><literal type="number">50.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">//private boolean autoTickUnitSelection;</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAutoTickUnitSelection</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAutoTickUnitSelection</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">//private TickUnits standardTickUnits;</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setStandardTickUnits</name></name><argument_list>(<argument><expr><call><name><name>NumberAxis</name><operator>.</operator><name>createIntegerTickUnits</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setStandardTickUnits</name></name><argument_list>(<argument><expr><call><name><name>NumberAxis</name><operator>.</operator><name>createIntegerTickUnits</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// verticalTickLabels</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setVerticalTickLabels</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setVerticalTickLabels</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+
+        <comment type="line">//private int autoTickIndex;</comment>
+        <comment type="line">//protected double reservedForTickLabels;</comment>
+        <comment type="line">//protected double reservedForAxisLabel;</comment>
+
+    </block_content>}</block></function>
+
+    </unit>

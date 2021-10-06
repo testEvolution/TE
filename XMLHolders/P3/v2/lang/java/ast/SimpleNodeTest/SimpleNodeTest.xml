@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\ast\SimpleNodeTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertNotNull</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertNull</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertSame</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jaxen</name><operator>.</operator><name>JaxenException</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Ignore</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>ast</name><operator>.</operator><name>Node</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>JavaParsingHelper</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>SimpleNodeTest</name> <super_list><extends>extends <super><name>BaseParserTest</name></super></extends></super_list> <block>{
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testMethodDiffLines</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTMethodDeclaration</name></argument>&gt;</argument_list></name></type> <name>methods</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTMethodDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>METHOD_DIFF_LINES</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>verifyNode</name><argument_list>(<argument><expr><call><name><name>methods</name><operator>.</operator><name>iterator</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>next</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">9</literal></expr></argument>, <argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testMethodSameLine</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTMethodDeclaration</name></argument>&gt;</argument_list></name></type> <name>methods</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTMethodDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>METHOD_SAME_LINE</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>verifyNode</name><argument_list>(<argument><expr><call><name><name>methods</name><operator>.</operator><name>iterator</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>next</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">9</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">21</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNoLookahead</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>uCD</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>NO_LOOKAHEAD</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>verifyNode</name><argument_list>(<argument><expr><call><name><name>uCD</name><operator>.</operator><name>iterator</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>next</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">8</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">20</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testHasExplicitExtends</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTClassOrInterfaceDeclaration</name></type> <name>ucd</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>HAS_EXPLICIT_EXTENDS</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>iterator</name><argument_list>()</argument_list></call><operator>.</operator><call><name>next</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>ucd</name><operator>.</operator><name>getChild</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call> <operator>instanceof</operator> <name>ASTExtendsList</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNoExplicitExtends</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTClassOrInterfaceDeclaration</name></type> <name>ucd</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>NO_EXPLICIT_EXTENDS</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>iterator</name><argument_list>()</argument_list></call><operator>.</operator><call><name>next</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>ucd</name><operator>.</operator><name>getChild</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call> <operator>instanceof</operator> <name>ASTExtendsList</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testHasExplicitImplements</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTClassOrInterfaceDeclaration</name></type> <name>ucd</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>HAS_EXPLICIT_IMPLEMENTS</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>iterator</name><argument_list>()</argument_list></call><operator>.</operator><call><name>next</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>ucd</name><operator>.</operator><name>getChild</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call> <operator>instanceof</operator> <name>ASTImplementsList</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNoExplicitImplements</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTClassOrInterfaceDeclaration</name></type> <name>ucd</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>NO_EXPLICIT_IMPLEMENTS</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>iterator</name><argument_list>()</argument_list></call><operator>.</operator><call><name>next</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>ucd</name><operator>.</operator><name>getChild</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call> <operator>instanceof</operator> <name>ASTImplementsList</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testColumnsOnQualifiedName</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <for>for <control>(<init><decl><type><name>Node</name></type> <name>node</name> <range>: <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTName</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>QUALIFIED_NAME</name></expr></argument>)</argument_list></call></expr></range></decl></init>)</control> <block>{<block_content>
+            <if_stmt><if>if <condition>(<expr><call><name><name>node</name><operator>.</operator><name>getImage</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><literal type="string">"java.io.File"</literal></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+                <expr_stmt><expr><call><name>verifyNode</name><argument_list>(<argument><expr><name>node</name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">8</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">19</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            </block_content>}</block></if></if_stmt>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLineNumbersForNameSplitOverTwoLines</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <for>for <control>(<init><decl><type><name>Node</name></type> <name>node</name> <range>: <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTName</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>BROKEN_LINE_IN_NAME</name></expr></argument>)</argument_list></call></expr></range></decl></init>)</control> <block>{<block_content>
+            <if_stmt><if>if <condition>(<expr><call><name><name>node</name><operator>.</operator><name>getImage</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><literal type="string">"java.io.File"</literal></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+                <expr_stmt><expr><call><name>verifyNode</name><argument_list>(<argument><expr><name>node</name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">8</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">4</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            </block_content>}</block></if></if_stmt>
+            <if_stmt><if>if <condition>(<expr><call><name><name>node</name><operator>.</operator><name>getImage</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><literal type="string">"Foo"</literal></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+                <expr_stmt><expr><call><name>verifyNode</name><argument_list>(<argument><expr><name>node</name></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">15</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">18</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            </block_content>}</block></if></if_stmt>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLineNumbersAreSetOnAllSiblings</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <for>for <control>(<init><decl><type><name>ASTBlock</name></type> <name>b</name> <range>: <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTBlock</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>LINE_NUMBERS_ON_SIBLINGS</name></expr></argument>)</argument_list></call></expr></range></decl></init>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>b</name><operator>.</operator><name>getBeginLine</name></name><argument_list>()</argument_list></call> <operator>&gt;</operator> <literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+        <for>for <control>(<init><decl><type><name>ASTVariableInitializer</name></type> <name>b</name> <range>: <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTVariableInitializer</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>LINE_NUMBERS_ON_SIBLINGS</name></expr></argument>)</argument_list></call></expr></range></decl></init>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>b</name><operator>.</operator><name>getBeginLine</name></name><argument_list>()</argument_list></call> <operator>&gt;</operator> <literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+        <for>for <control>(<init><decl><type><name>ASTExpression</name></type> <name>b</name> <range>: <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTExpression</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>LINE_NUMBERS_ON_SIBLINGS</name></expr></argument>)</argument_list></call></expr></range></decl></init>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>b</name><operator>.</operator><name>getBeginLine</name></name><argument_list>()</argument_list></call> <operator>&gt;</operator> <literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFindDescendantsOfType</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTBlock</name></type> <name>block</name> <init>= <expr><operator>new</operator> <call><name>ASTBlock</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>block</name><operator>.</operator><name>jjtAddChild</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>ASTReturnStatement</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>block</name><operator>.</operator><name>findDescendantsOfType</name></name><argument_list>(<argument><expr><name><name>ASTReturnStatement</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFindDescendantsOfTypeMultiple</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTBlock</name></type> <name>block</name> <init>= <expr><operator>new</operator> <call><name>ASTBlock</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>block</name><operator>.</operator><name>jjtAddChild</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>ASTBlockStatement</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>block</name><operator>.</operator><name>jjtAddChild</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>ASTBlockStatement</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTBlockStatement</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name><name>block</name><operator>.</operator><name>findDescendantsOfType</name></name><argument_list>(<argument><expr><name><name>ASTBlockStatement</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>nodes</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFindDescendantsOfTypeRecurse</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTBlock</name></type> <name>block</name> <init>= <expr><operator>new</operator> <call><name>ASTBlock</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTBlock</name></type> <name>childBlock</name> <init>= <expr><operator>new</operator> <call><name>ASTBlock</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>block</name><operator>.</operator><name>jjtAddChild</name></name><argument_list>(<argument><expr><name>childBlock</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>childBlock</name><operator>.</operator><name>jjtAddChild</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>ASTMethodDeclaration</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTMethodDeclaration</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name><name>block</name><operator>.</operator><name>findDescendantsOfType</name></name><argument_list>(<argument><expr><name><name>ASTMethodDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>nodes</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetFirstChild</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTBlock</name></type> <name>block</name> <init>= <expr><operator>new</operator> <call><name>ASTBlock</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTStatement</name></type> <name>x</name> <init>= <expr><operator>new</operator> <call><name>ASTStatement</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>block</name><operator>.</operator><name>jjtAddChild</name></name><argument_list>(<argument><expr><name>x</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>block</name><operator>.</operator><name>jjtAddChild</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>ASTStatement</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>Node</name></type> <name>n</name> <init>= <expr><call><name><name>block</name><operator>.</operator><name>getFirstDescendantOfType</name></name><argument_list>(<argument><expr><name><name>ASTStatement</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name>n</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>n</name> <operator>instanceof</operator> <name>ASTStatement</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>x</name></expr></argument>, <argument><expr><name>n</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetFirstChildNested</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTBlock</name></type> <name>block</name> <init>= <expr><operator>new</operator> <call><name>ASTBlock</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTStatement</name></type> <name>x</name> <init>= <expr><operator>new</operator> <call><name>ASTStatement</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTAssignmentOperator</name></type> <name>x1</name> <init>= <expr><operator>new</operator> <call><name>ASTAssignmentOperator</name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>x</name><operator>.</operator><name>jjtAddChild</name></name><argument_list>(<argument><expr><name>x1</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>block</name><operator>.</operator><name>jjtAddChild</name></name><argument_list>(<argument><expr><name>x</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>block</name><operator>.</operator><name>jjtAddChild</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>ASTStatement</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>Node</name></type> <name>n</name> <init>= <expr><call><name><name>block</name><operator>.</operator><name>getFirstDescendantOfType</name></name><argument_list>(<argument><expr><name><name>ASTAssignmentOperator</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name>n</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>n</name> <operator>instanceof</operator> <name>ASTAssignmentOperator</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>x1</name></expr></argument>, <argument><expr><name>n</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetFirstChildNestedDeeper</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTBlock</name></type> <name>block</name> <init>= <expr><operator>new</operator> <call><name>ASTBlock</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTStatement</name></type> <name>x</name> <init>= <expr><operator>new</operator> <call><name>ASTStatement</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTAssignmentOperator</name></type> <name>x1</name> <init>= <expr><operator>new</operator> <call><name>ASTAssignmentOperator</name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTName</name></type> <name>x2</name> <init>= <expr><operator>new</operator> <call><name>ASTName</name><argument_list>(<argument><expr><literal type="number">5</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name><name>x</name><operator>.</operator><name>jjtAddChild</name></name><argument_list>(<argument><expr><name>x1</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>x1</name><operator>.</operator><name>jjtAddChild</name></name><argument_list>(<argument><expr><name>x2</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>block</name><operator>.</operator><name>jjtAddChild</name></name><argument_list>(<argument><expr><name>x</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>block</name><operator>.</operator><name>jjtAddChild</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>ASTStatement</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>Node</name></type> <name>n</name> <init>= <expr><call><name><name>block</name><operator>.</operator><name>getFirstDescendantOfType</name></name><argument_list>(<argument><expr><name><name>ASTName</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name>n</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>n</name> <operator>instanceof</operator> <name>ASTName</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>x2</name></expr></argument>, <argument><expr><name>n</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testParentMethods</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>u</name> <init>= <expr><call><name><name>JavaParsingHelper</name><operator>.</operator><name>JUST_PARSE</name><operator>.</operator><name>parse</name></name><argument_list>(<argument><expr><name>TEST1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>ASTMethodDeclarator</name></type> <name>d</name> <init>= <expr><call><name><name>u</name><operator>.</operator><name>getFirstDescendantOfType</name></name><argument_list>(<argument><expr><name><name>ASTMethodDeclarator</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><literal type="string">"getFirstParentOfType ASTMethodDeclaration"</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getParent</name></name><argument_list>()</argument_list></call></expr></argument>,
+                <argument><expr><call><name><name>d</name><operator>.</operator><name>getFirstParentOfType</name></name><argument_list>(<argument><expr><name><name>ASTMethodDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><literal type="string">"getFirstParentOfType ASTName"</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getFirstParentOfType</name></name><argument_list>(<argument><expr><name><name>ASTName</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><literal type="string">"getNthParent 1"</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getParent</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getNthParent</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><literal type="string">"getNthParent 2"</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getParent</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getParent</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getNthParent</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><literal type="string">"getNthParent 6"</literal></expr></argument>, <argument><expr><name>u</name></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getNthParent</name></name><argument_list>(<argument><expr><literal type="number">6</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><literal type="string">"getNthParent 7"</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getNthParent</name></name><argument_list>(<argument><expr><literal type="number">7</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><literal type="string">"getNthParent 8"</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getNthParent</name></name><argument_list>(<argument><expr><literal type="number">8</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST1</name> <init>= <expr><literal type="string">"public class Test {\n  void bar(String s) {\n   s = s.toLowerCase();\n  }\n}"</literal></expr></init></decl>;</decl_stmt>
+
+    <function><annotation>@<name>Ignore</name></annotation>
+    <annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testContainsNoInner</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>c</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTCompilationUnit</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>CONTAINS_NO_INNER</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>iterator</name><argument_list>()</argument_list></call><operator>.</operator><call><name>next</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTFieldDeclaration</name></argument>&gt;</argument_list></name></type> <name>res</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>findDescendantsOfType</name></name><argument_list>(<argument><expr><name><name>ASTFieldDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>res</name><operator>.</operator><name>isEmpty</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <comment type="block">/*
+         * String expectedXml =
+         * "&lt;CompilationUnit BeginColumn=\"1\" BeginLine=\"5\" EndColumn=\"1\" EndLine=\"5\"&gt;"
+         * +
+         * "&lt;TypeDeclaration BeginColumn=\"1\" BeginLine=\"1\" EndColumn=\"1\" EndLine=\"5\"&gt;"
+         * +
+         * "&lt;ClassOrInterfaceDeclaration Abstract=\"false\" BeginColumn=\"8\" BeginLine=\"1\" EndColumn=\"1\" "
+         * +
+         * "EndLine=\"5\" Final=\"false\" Image=\"Test\" Interface=\"false\" Native=\"false\" Nested=\"false\" PackagePrivate=\"false\" Private=\"false\" Protected=\"false\" Public=\"true\" Static=\"false\" Strictfp=\"false\" Synchronized=\"false\" Transient=\"false\" Volatile=\"false\"&gt;"
+         * +
+         * "&lt;ClassOrInterfaceBody BeginColumn=\"19\" BeginLine=\"1\" EndColumn=\"1\" EndLine=\"5\"&gt;"
+         * +
+         * "&lt;ClassOrInterfaceBodyDeclaration AnonymousInnerClass=\"false\" BeginColumn=\"3\" BeginLine=\"2\" EndColumn=\"3\" EndLine=\"4\"&gt;"
+         * +
+         * "&lt;ClassOrInterfaceDeclaration Abstract=\"false\" BeginColumn=\"10\" BeginLine=\"2\" EndColumn=\"3\" EndLine=\"4\" Final=\"false\" "
+         * +
+         * "Image=\"Inner\" Interface=\"false\" Native=\"false\" Nested=\"true\" PackagePrivate=\"false\" Private=\"false\" Protected=\"false\" "
+         * +
+         * "Public=\"true\" Static=\"false\" Strictfp=\"false\" Synchronized=\"false\" Transient=\"false\" Volatile=\"false\"&gt;"
+         * +
+         * "&lt;ClassOrInterfaceBody BeginColumn=\"22\" BeginLine=\"2\" EndColumn=\"3\" EndLine=\"4\"&gt;"
+         * +
+         * "&lt;ClassOrInterfaceBodyDeclaration AnonymousInnerClass=\"false\" BeginColumn=\"4\" BeginLine=\"3\" EndColumn=\"11\" EndLine=\"3\"&gt;"
+         * +
+         * "&lt;FieldDeclaration Abstract=\"false\" Array=\"false\" ArrayDepth=\"0\" BeginColumn=\"4\" BeginLine=\"3\" EndColumn=\"11\" EndLine=\"3\" Final=\"false\" Native=\"false\" PackagePrivate=\"true\" Private=\"false\" Protected=\"false\" Public=\"false\" Static=\"false\" Strictfp=\"false\" Synchronized=\"false\" Transient=\"false\" VariableName=\"foo\" Volatile=\"false\"&gt;&lt;Type Array=\"false\" ArrayDepth=\"0\" BeginColumn=\"4\" BeginLine=\"3\" EndColumn=\"6\" EndLine=\"3\"&gt;"
+         * +
+         * "&lt;PrimitiveType Array=\"false\" ArrayDepth=\"0\" BeginColumn=\"4\" BeginLine=\"3\" Boolean=\"false\" EndColumn=\"6\" EndLine=\"3\" Image=\"int\"/&gt;"
+         * + "&lt;/Type&gt;" +
+         * "&lt;VariableDeclarator BeginColumn=\"8\" BeginLine=\"3\" EndColumn=\"10\" EndLine=\"3\"&gt;"
+         * +
+         * "&lt;VariableDeclaratorId Array=\"false\" ArrayDepth=\"0\" BeginColumn=\"8\" BeginLine=\"3\" EndColumn=\"10\" EndLine=\"3\" ExceptionBlockParameter=\"false\" Image=\"foo\"/&gt;"
+         * +
+         * "&lt;/VariableDeclarator&gt;&lt;/FieldDeclaration&gt;&lt;/ClassOrInterfaceBodyDeclaration&gt;&lt;/ClassOrInterfaceBody&gt;"
+         * +
+         * "&lt;/ClassOrInterfaceDeclaration&gt;&lt;/ClassOrInterfaceBodyDeclaration&gt;&lt;/ClassOrInterfaceBody&gt;&lt;/ClassOrInterfaceDeclaration&gt;"
+         * + "&lt;/TypeDeclaration&gt;&lt;/CompilationUnit&gt;"; assertEquals( expectedXml,
+         * getXmlString( c ) );
+         */</comment> </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testContainsNoInnerWithAnonInner</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>c</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>parse</name></name><argument_list>(<argument><expr><name>CONTAINS_NO_INNER_WITH_ANON_INNER</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTFieldDeclaration</name></argument>&gt;</argument_list></name></type> <name>res</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>findDescendantsOfType</name></name><argument_list>(<argument><expr><name><name>ASTFieldDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>res</name><operator>.</operator><name>isEmpty</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testContainsChildOfType</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTClassOrInterfaceDeclaration</name></type> <name>c</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>CONTAINS_CHILDREN_OF_TYPE</name></expr></argument>)</argument_list></call>
+                <operator>.</operator><call><name>iterator</name><argument_list>()</argument_list></call><operator>.</operator><call><name>next</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>c</name><operator>.</operator><name>hasDescendantOfType</name></name><argument_list>(<argument><expr><name><name>ASTFieldDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testXPathNodeSelect</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>JaxenException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTClassOrInterfaceDeclaration</name></type> <name>c</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST_XPATH</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>iterator</name><argument_list>()</argument_list></call><operator>.</operator><call><name>next</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>Node</name></argument>&gt;</argument_list></name></type> <name>nodes</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>findChildNodesWithXPath</name></name><argument_list>(<argument><expr><literal type="string">"//FieldDeclaration"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>nodes</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>nodes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call> <operator>instanceof</operator> <name>ASTFieldDeclaration</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>c</name><operator>.</operator><name>hasDescendantMatchingXPath</name></name><argument_list>(<argument><expr><literal type="string">"//FieldDeclaration"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>c</name><operator>.</operator><name>hasDescendantMatchingXPath</name></name><argument_list>(<argument><expr><literal type="string">"//MethodDeclaration"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testUserData</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTClassOrInterfaceDeclaration</name></type> <name>c</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>HAS_EXPLICIT_EXTENDS</name></expr></argument>)</argument_list></call>
+                <operator>.</operator><call><name>iterator</name><argument_list>()</argument_list></call><operator>.</operator><call><name>next</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>c</name><operator>.</operator><name>getUserData</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>setUserData</name></name><argument_list>(<argument><expr><literal type="string">"foo"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"foo"</literal></expr></argument>, <argument><expr><call><name><name>c</name><operator>.</operator><name>getUserData</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>setUserData</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>c</name><operator>.</operator><name>getUserData</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>private</specifier> <name>void</name></type> <name>verifyNode</name><parameter_list>(<parameter><decl><type><name>Node</name></type> <name>node</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>beginLine</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>beginCol</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>endLine</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>endCol</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Unexpected beginning line: "</literal></expr></argument>, <argument><expr><name>beginLine</name></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>getBeginLine</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Unexpected beginning column: "</literal></expr></argument>, <argument><expr><name>beginCol</name></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>getBeginColumn</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Unexpected ending line:"</literal></expr></argument>, <argument><expr><name>endLine</name></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>getEndLine</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Unexpected ending column:"</literal></expr></argument>, <argument><expr><name>endCol</name></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>getEndColumn</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>HAS_EXPLICIT_EXTENDS</name> <init>= <expr><literal type="string">"public class Test extends Foo {}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>NO_EXPLICIT_EXTENDS</name> <init>= <expr><literal type="string">"public class Test {}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>HAS_EXPLICIT_IMPLEMENTS</name> <init>= <expr><literal type="string">"public class Test implements Foo {}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>NO_EXPLICIT_IMPLEMENTS</name> <init>= <expr><literal type="string">"public class Test {}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>METHOD_SAME_LINE</name> <init>= <expr><literal type="string">"public class Test {\n public void foo() {}\n}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>QUALIFIED_NAME</name> <init>= <expr><literal type="string">"import java.io.File;\npublic class Foo{}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>BROKEN_LINE_IN_NAME</name> <init>= <expr><literal type="string">"import java.io.\nFile;\npublic class Foo{}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>LINE_NUMBERS_ON_SIBLINGS</name> <init>=
+        <expr><literal type="string">"public class Foo {\n void bar() {\n  try {\n  } catch (Exception1 e) {\n   int x =2;\n  }\n if (x != null) {}\n }\n}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>NO_LOOKAHEAD</name> <init>= <expr><literal type="string">"public class Foo { }"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>METHOD_DIFF_LINES</name> <init>= <expr><literal type="string">"public class Test {\n public void foo() {\n  int x;\n }\n}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>CONTAINS_CHILDREN_OF_TYPE</name> <init>= <expr><literal type="string">"public class Test {\n  int x;\n}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>CONTAINS_NO_INNER</name> <init>= <expr><literal type="string">"public class Test {\n  public class Inner {\n   int foo;\n  }\n}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>CONTAINS_NO_INNER_WITH_ANON_INNER</name> <init>= <expr><literal type="string">"public class Test {\n  void bar() {\n   foo(new Fuz() { int x = 2;});\n  }\n}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST_XPATH</name> <init>= <expr><literal type="string">"public class Test {\n  int x = 2;\n  int y = 42;\n}"</literal></expr></init></decl>;</decl_stmt>
+}</block></class>
+</unit>

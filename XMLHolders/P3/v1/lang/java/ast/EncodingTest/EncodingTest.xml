@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\ast\EncodingTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name></name>;</package>
+
+<import>import static <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ParserTstUtil</name><operator>.</operator><name>parseJava14</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>PMD</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>EncodingTest</name> <block>{
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testDecodingOfUTF8</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>acu</name> <init>= <expr><call><name>parseJava14</name><argument_list>(<argument><expr><name>TEST_UTF8</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>methodName</name> <init>= <expr><call><name><name>acu</name><operator>.</operator><name>findDescendantsOfType</name></name><argument_list>(<argument><expr><name><name>ASTMethodDeclarator</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getImage</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Ã©"</literal></expr></argument>, <argument><expr><name>methodName</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST_UTF8</name> <init>= <expr><literal type="string">"class Foo {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"  void Ã©() {}"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"  void fiddle() {}"</literal>
+            <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+}</block></class>
+</unit>

@@ -1,0 +1,14 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>LegendItem</name></type> <name>item1</name> <init>= <expr><operator>new</operator> <call><name>LegendItem</name><argument_list>(<argument><expr><literal type="string">"Item"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LegendItem</name></type> <name>item2</name> <init>= <expr><operator>(</operator><name>LegendItem</name><operator>)</operator> <call><name><name>item1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertNotSame</name><argument_list>(<argument><expr><name>item1</name></expr></argument>, <argument><expr><name>item2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><call><name><name>item1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>item2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>item1</name></expr></argument>, <argument><expr><name>item2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// the clone references the same dataset as the original</comment>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><call><name><name>item1</name><operator>.</operator><name>getDataset</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>item2</name><operator>.</operator><name>getDataset</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</unit>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\axis\ValueAxisTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ------------------
+ * ValueAxisTest.java
+ * ------------------
+ * (C) Copyright 2003-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 13-Aug-2003 : Version 1 (DG);
+ * 22-Mar-2007 : Extended testEquals() for new field (DG);
+ * 04-Sep-2012 : Added test3555275() (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>axis</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>BasicStroke</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Color</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Graphics2D</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Stroke</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>geom</name><operator>.</operator><name>Rectangle2D</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>image</name><operator>.</operator><name>BufferedImage</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ChartFactory</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ChartRenderingInfo</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>JFreeChart</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>plot</name><operator>.</operator><name>CategoryPlot</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>plot</name><operator>.</operator><name>PlotOrientation</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>plot</name><operator>.</operator><name>XYPlot</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>RectangleInsets</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>Range</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>category</name><operator>.</operator><name>DefaultCategoryDataset</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>XYSeries</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>XYSeriesCollection</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link ValueAxis} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>ValueAxisTest</name> <block>{
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>double</name></type> <name>EPSILON</name> <init>= <expr><literal type="number">0.000000001</literal></expr></init></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that cloning works.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>ValueAxis</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ValueAxis</name></type> <name>a2</name> <init>= <expr><operator>(</operator><name>NumberAxis</name><operator>)</operator> <call><name><name>a1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>a1</name> <operator>!=</operator> <name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>a2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that the equals method can distinguish all the required fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name>NumberAxis</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>NumberAxis</name></type> <name>a2</name> <init>= <expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// axis line visible flag...</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAxisLineVisible</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAxisLineVisible</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// positiveArrowVisible;</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setPositiveArrowVisible</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setPositiveArrowVisible</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// negativeArrowVisible;</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setNegativeArrowVisible</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setNegativeArrowVisible</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">//private Shape upArrow;</comment>
+
+        <comment type="line">//private Shape downArrow;</comment>
+
+        <comment type="line">//private Shape leftArrow;</comment>
+
+        <comment type="line">//private Shape rightArrow;</comment>
+
+        <comment type="line">// axisLinePaint</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAxisLinePaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAxisLinePaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// axisLineStroke</comment>
+        <decl_stmt><decl><type><name>Stroke</name></type> <name>stroke</name> <init>= <expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">2.0f</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAxisLineStroke</name></name><argument_list>(<argument><expr><name>stroke</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAxisLineStroke</name></name><argument_list>(<argument><expr><name>stroke</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// inverted</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setInverted</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setInverted</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// range</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setRange</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">50.0</literal></expr></argument>, <argument><expr><literal type="number">75.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setRange</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">50.0</literal></expr></argument>, <argument><expr><literal type="number">75.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// autoRange</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAutoRange</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAutoRange</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// autoRangeMinimumSize</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAutoRangeMinimumSize</name></name><argument_list>(<argument><expr><literal type="number">3.33</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAutoRangeMinimumSize</name></name><argument_list>(<argument><expr><literal type="number">3.33</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setDefaultAutoRange</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">1.2</literal></expr></argument>, <argument><expr><literal type="number">3.4</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setDefaultAutoRange</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">1.2</literal></expr></argument>, <argument><expr><literal type="number">3.4</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// upperMargin</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setUpperMargin</name></name><argument_list>(<argument><expr><literal type="number">0.09</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setUpperMargin</name></name><argument_list>(<argument><expr><literal type="number">0.09</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// lowerMargin</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setLowerMargin</name></name><argument_list>(<argument><expr><literal type="number">0.09</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setLowerMargin</name></name><argument_list>(<argument><expr><literal type="number">0.09</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">//private double fixedAutoRange;</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setFixedAutoRange</name></name><argument_list>(<argument><expr><literal type="number">50.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setFixedAutoRange</name></name><argument_list>(<argument><expr><literal type="number">50.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">//private boolean autoTickUnitSelection;</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setAutoTickUnitSelection</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setAutoTickUnitSelection</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">//private TickUnits standardTickUnits;</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setStandardTickUnits</name></name><argument_list>(<argument><expr><call><name><name>NumberAxis</name><operator>.</operator><name>createIntegerTickUnits</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setStandardTickUnits</name></name><argument_list>(<argument><expr><call><name><name>NumberAxis</name><operator>.</operator><name>createIntegerTickUnits</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// verticalTickLabels</comment>
+        <expr_stmt><expr><call><name><name>a1</name><operator>.</operator><name>setVerticalTickLabels</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>a2</name><operator>.</operator><name>setVerticalTickLabels</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+
+        <comment type="line">//private int autoTickIndex;</comment>
+        <comment type="line">//protected double reservedForTickLabels;</comment>
+        <comment type="line">//protected double reservedForAxisLabel;</comment>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Tests the the lower and upper margin settings produce the expected
+     * results.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAxisMargins</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"S1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">200.0</literal></expr></argument>, <argument><expr><literal type="number">2.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>(<argument><expr><name>series</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>setIntervalWidth</name></name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createScatterPlot</name></name><argument_list>(<argument><expr><literal type="string">"Title"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>, <argument><expr><literal type="string">"Y"</literal></expr></argument>, 
+                <argument><expr><name>dataset</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ValueAxis</name></type> <name>domainAxis</name> <init>= <expr><operator>(</operator><operator>(</operator><name>XYPlot</name><operator>)</operator> <call><name><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call><operator>)</operator><operator>.</operator><call><name>getDomainAxis</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Range</name></type> <name>r</name> <init>= <expr><call><name><name>domainAxis</name><operator>.</operator><name>getRange</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">110.0</literal></expr></argument>, <argument><expr><call><name><name>r</name><operator>.</operator><name>getLength</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>domainAxis</name><operator>.</operator><name>setLowerMargin</name></name><argument_list>(<argument><expr><literal type="number">0.10</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>domainAxis</name><operator>.</operator><name>setUpperMargin</name></name><argument_list>(<argument><expr><literal type="number">0.10</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>r</name> <operator>=</operator> <call><name><name>domainAxis</name><operator>.</operator><name>getRange</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">120.0</literal></expr></argument>, <argument><expr><call><name><name>r</name><operator>.</operator><name>getLength</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+    
+    <comment type="block" format="javadoc">/**
+     * A test for bug 3555275 (where the fixed axis space is calculated 
+     * incorrectly).
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test3555275</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultCategoryDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createLineChart</name></name><argument_list>(<argument><expr><literal type="string">"Title"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>, <argument><expr><literal type="string">"Y"</literal></expr></argument>,
+                <argument><expr><name>dataset</name></expr></argument>, <argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CategoryPlot</name></type> <name>plot</name> <init>= <expr><operator>(</operator><name>CategoryPlot</name><operator>)</operator> <call><name><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setInsets</name></name><argument_list>(<argument><expr><name><name>RectangleInsets</name><operator>.</operator><name>ZERO_INSETS</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setAxisOffset</name></name><argument_list>(<argument><expr><name><name>RectangleInsets</name><operator>.</operator><name>ZERO_INSETS</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>ValueAxis</name></type> <name>yAxis</name> <init>= <expr><call><name><name>plot</name><operator>.</operator><name>getRangeAxis</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>yAxis</name><operator>.</operator><name>setFixedDimension</name></name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>BufferedImage</name></type> <name>image</name> <init>= <expr><operator>new</operator> <call><name>BufferedImage</name><argument_list>(<argument><expr><literal type="number">500</literal></expr></argument>, <argument><expr><literal type="number">300</literal></expr></argument>, 
+                <argument><expr><name><name>BufferedImage</name><operator>.</operator><name>TYPE_INT_RGB</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Graphics2D</name></type> <name>g2</name> <init>= <expr><call><name><name>image</name><operator>.</operator><name>createGraphics</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ChartRenderingInfo</name></type> <name>info</name> <init>= <expr><operator>new</operator> <call><name>ChartRenderingInfo</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>draw</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>, <argument><expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="number">500</literal></expr></argument>, <argument><expr><literal type="number">300</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>info</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>dispose</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Rectangle2D</name></type> <name>rect</name> <init>= <expr><call><name><name>info</name><operator>.</operator><name>getPlotInfo</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getDataArea</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>x</name> <init>= <expr><call><name><name>rect</name><operator>.</operator><name>getMinX</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><name>x</name></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

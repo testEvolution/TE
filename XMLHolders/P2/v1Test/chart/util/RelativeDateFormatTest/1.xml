@@ -1,0 +1,6 @@
+<unit><function><annotation>@<name>AfterEach</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>tearDown</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><call><name><name>Locale</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name><name>this</name><operator>.</operator><name>savedLocale</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

@@ -1,0 +1,19 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>CompositeTitle</name></type> <name>t1</name> <init>= <expr><operator>new</operator> <call><name>CompositeTitle</name><argument_list>(<argument><expr><operator>new</operator> <call><name>BlockContainer</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>t1</name><operator>.</operator><name>getContainer</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>add</name><argument_list>(<argument><expr><operator>new</operator> <call><name>TextTitle</name><argument_list>(<argument><expr><literal type="string">"T1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>t1</name><operator>.</operator><name>setBackgroundPaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>,
+                <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>YELLOW</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>CompositeTitle</name></type> <name>t2</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><name>t2</name> <operator>=</operator> <operator>(</operator><name>CompositeTitle</name><operator>)</operator> <call><name><name>t1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>CloneNotSupportedException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><call><name><name>e</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>t1</name> <operator>!=</operator> <name>t2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>t1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>t2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>t1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>t2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

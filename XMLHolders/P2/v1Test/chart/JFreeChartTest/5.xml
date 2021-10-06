@@ -1,0 +1,15 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization1</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultPieDataset</name></type> <name>data</name> <init>= <expr><operator>new</operator> <call><name>DefaultPieDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>data</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="string">"Type 1"</literal></expr></argument>, <argument><expr><literal type="number">54.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>data</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="string">"Type 2"</literal></expr></argument>, <argument><expr><literal type="number">23.9</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>data</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="string">"Type 3"</literal></expr></argument>, <argument><expr><literal type="number">45.8</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>c1</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createPieChart</name></name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>, <argument><expr><name>data</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>c2</name> <init>= <expr><operator>(</operator><name>JFreeChart</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>c1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>c1</name></expr></argument>, <argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>LegendTitle</name></type> <name>lt2</name> <init>= <expr><call><name><name>c2</name><operator>.</operator><name>getLegend</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><call><name><name>lt2</name><operator>.</operator><name>getSources</name></name><argument_list>()</argument_list></call><index>[<expr><literal type="number">0</literal></expr>]</index></expr></argument>, <argument><expr><call><name><name>c2</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

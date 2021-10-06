@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\block\GridArrangementTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ------------------------
+ * GridArrangementTest.java
+ * ------------------------
+ * (C) Copyright 2005-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 08-Mar-2005 : Version 1 (DG);
+ * 03-Dec-2008 : Added more tests (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>block</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>Size2D</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>Range</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link GridArrangement} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>GridArrangementTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that the equals() method can distinguish all the required fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>GridArrangement</name></type> <name>f1</name> <init>= <expr><operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">11</literal></expr></argument>, <argument><expr><literal type="number">22</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>GridArrangement</name></type> <name>f2</name> <init>= <expr><operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">11</literal></expr></argument>, <argument><expr><literal type="number">22</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>f1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>f2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>f2</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>f1</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>f1</name> <operator>=</operator> <operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">33</literal></expr></argument>, <argument><expr><literal type="number">22</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>f1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>f2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>f2</name> <operator>=</operator> <operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">33</literal></expr></argument>, <argument><expr><literal type="number">22</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>f1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>f2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>f1</name> <operator>=</operator> <operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">33</literal></expr></argument>, <argument><expr><literal type="number">44</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>f1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>f2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>f2</name> <operator>=</operator> <operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">33</literal></expr></argument>, <argument><expr><literal type="number">44</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>f1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>f2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Immutable - cloning is not necessary.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>GridArrangement</name></type> <name>f1</name> <init>= <expr><operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><name>f1</name> <operator>instanceof</operator> <name>Cloneable</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>GridArrangement</name></type> <name>f1</name> <init>= <expr><operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">33</literal></expr></argument>, <argument><expr><literal type="number">44</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>GridArrangement</name></type> <name>f2</name> <init>= <expr><operator>(</operator><name>GridArrangement</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>f1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>f1</name></expr></argument>, <argument><expr><name>f2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>double</name></type> <name>EPSILON</name> <init>= <expr><literal type="number">0.000000001</literal></expr></init></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Test arrangement with no constraints.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNN</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>BlockContainer</name></type> <name>c</name> <init>= <expr><call><name>createTestContainer1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Size2D</name></type> <name>s</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>arrange</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><name><name>RectangleConstraint</name><operator>.</operator><name>NONE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">90.0</literal></expr></argument>, <argument><expr><name><name>s</name><operator>.</operator><name>width</name></name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">33.0</literal></expr></argument>, <argument><expr><name><name>s</name><operator>.</operator><name>height</name></name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test arrangement with a fixed width and no height constraint.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFN</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>BlockContainer</name></type> <name>c</name> <init>= <expr><call><name>createTestContainer1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RectangleConstraint</name></type> <name>constraint</name> <init>= <expr><operator>new</operator> <call><name>RectangleConstraint</name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>,
+                <argument><expr><name><name>LengthConstraintType</name><operator>.</operator><name>FIXED</name></name></expr></argument>, <argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>,
+                <argument><expr><name><name>LengthConstraintType</name><operator>.</operator><name>NONE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Size2D</name></type> <name>s</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>arrange</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><name>constraint</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><name><name>s</name><operator>.</operator><name>width</name></name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">33.0</literal></expr></argument>, <argument><expr><name><name>s</name><operator>.</operator><name>height</name></name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test arrangement with a fixed height and no width constraint.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNF</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>BlockContainer</name></type> <name>c</name> <init>= <expr><call><name>createTestContainer1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RectangleConstraint</name></type> <name>constraint</name> <init>= <expr><call><name><name>RectangleConstraint</name><operator>.</operator><name>NONE</name><operator>.</operator><name>toFixedHeight</name></name><argument_list>(
+                <argument><expr><literal type="number">100.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Size2D</name></type> <name>s</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>arrange</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><name>constraint</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">90.0</literal></expr></argument>, <argument><expr><name><name>s</name><operator>.</operator><name>width</name></name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><name><name>s</name><operator>.</operator><name>height</name></name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test arrangement with a range for the width and a fixed height.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testRF</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>BlockContainer</name></type> <name>c</name> <init>= <expr><call><name>createTestContainer1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RectangleConstraint</name></type> <name>constraint</name> <init>= <expr><operator>new</operator> <call><name>RectangleConstraint</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">40.0</literal></expr></argument>,
+                <argument><expr><literal type="number">60.0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Size2D</name></type> <name>s</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>arrange</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><name>constraint</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">60.0</literal></expr></argument>, <argument><expr><name><name>s</name><operator>.</operator><name>width</name></name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><name><name>s</name><operator>.</operator><name>height</name></name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test arrangement with a range for the width and height.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testRR</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>BlockContainer</name></type> <name>c</name> <init>= <expr><call><name>createTestContainer1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RectangleConstraint</name></type> <name>constraint</name> <init>= <expr><operator>new</operator> <call><name>RectangleConstraint</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">40.0</literal></expr></argument>,
+                <argument><expr><literal type="number">60.0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">50.0</literal></expr></argument>, <argument><expr><literal type="number">70.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Size2D</name></type> <name>s</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>arrange</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><name>constraint</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">60.0</literal></expr></argument>, <argument><expr><name><name>s</name><operator>.</operator><name>width</name></name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">50.0</literal></expr></argument>, <argument><expr><name><name>s</name><operator>.</operator><name>height</name></name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test arrangement with a range for the width and no height constraint.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testRN</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>BlockContainer</name></type> <name>c</name> <init>= <expr><call><name>createTestContainer1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RectangleConstraint</name></type> <name>constraint</name> <init>= <expr><call><name><name>RectangleConstraint</name><operator>.</operator><name>NONE</name><operator>.</operator><name>toRangeWidth</name></name><argument_list>(
+                <argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">40.0</literal></expr></argument>, <argument><expr><literal type="number">60.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Size2D</name></type> <name>s</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>arrange</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><name>constraint</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">60.0</literal></expr></argument>, <argument><expr><name><name>s</name><operator>.</operator><name>width</name></name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">33.0</literal></expr></argument>, <argument><expr><name><name>s</name><operator>.</operator><name>height</name></name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test arrangement with a range for the height and no width constraint.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNR</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>BlockContainer</name></type> <name>c</name> <init>= <expr><call><name>createTestContainer1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RectangleConstraint</name></type> <name>constraint</name> <init>= <expr><call><name><name>RectangleConstraint</name><operator>.</operator><name>NONE</name><operator>.</operator><name>toRangeHeight</name></name><argument_list>(
+                <argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">40.0</literal></expr></argument>, <argument><expr><literal type="number">60.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Size2D</name></type> <name>s</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>arrange</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><name>constraint</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">90.0</literal></expr></argument>, <argument><expr><name><name>s</name><operator>.</operator><name>width</name></name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">40.0</literal></expr></argument>, <argument><expr><name><name>s</name><operator>.</operator><name>height</name></name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>private</specifier> <name>BlockContainer</name></type> <name>createTestContainer1</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Block</name></type> <name>b1</name> <init>= <expr><operator>new</operator> <call><name>EmptyBlock</name><argument_list>(<argument><expr><literal type="number">10</literal></expr></argument>, <argument><expr><literal type="number">11</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Block</name></type> <name>b2</name> <init>= <expr><operator>new</operator> <call><name>EmptyBlock</name><argument_list>(<argument><expr><literal type="number">20</literal></expr></argument>, <argument><expr><literal type="number">22</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Block</name></type> <name>b3</name> <init>= <expr><operator>new</operator> <call><name>EmptyBlock</name><argument_list>(<argument><expr><literal type="number">30</literal></expr></argument>, <argument><expr><literal type="number">33</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>BlockContainer</name></type> <name>result</name> <init>= <expr><operator>new</operator> <call><name>BlockContainer</name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>b1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>b2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>b3</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <return>return <expr><name>result</name></expr>;</return>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * The arrangement should be able to handle null blocks in the layout.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNullBlock_FF</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>BlockContainer</name></type> <name>c</name> <init>= <expr><operator>new</operator> <call><name>BlockContainer</name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Size2D</name></type> <name>s</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>arrange</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>RectangleConstraint</name><argument_list>(<argument><expr><literal type="number">20</literal></expr></argument>, <argument><expr><literal type="number">10</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getWidth</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getHeight</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * The arrangement should be able to handle null blocks in the layout.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNullBlock_FN</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>BlockContainer</name></type> <name>c</name> <init>= <expr><operator>new</operator> <call><name>BlockContainer</name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Size2D</name></type> <name>s</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>arrange</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><call><name><name>RectangleConstraint</name><operator>.</operator><name>NONE</name><operator>.</operator><name>toFixedWidth</name></name><argument_list>(<argument><expr><literal type="number">10</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getWidth</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getHeight</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * The arrangement should be able to handle null blocks in the layout.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNullBlock_FR</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>BlockContainer</name></type> <name>c</name> <init>= <expr><operator>new</operator> <call><name>BlockContainer</name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Size2D</name></type> <name>s</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>arrange</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>RectangleConstraint</name><argument_list>(<argument><expr><literal type="number">30.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>,
+                <argument><expr><literal type="number">10.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">30.0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getWidth</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getHeight</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * The arrangement should be able to handle null blocks in the layout.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNullBlock_NN</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>BlockContainer</name></type> <name>c</name> <init>= <expr><operator>new</operator> <call><name>BlockContainer</name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Size2D</name></type> <name>s</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>arrange</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><name><name>RectangleConstraint</name><operator>.</operator><name>NONE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getWidth</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getHeight</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * The arrangement should be able to handle less blocks than grid spaces.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGridNotFull_FF</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Block</name></type> <name>b1</name> <init>= <expr><operator>new</operator> <call><name>EmptyBlock</name><argument_list>(<argument><expr><literal type="number">5</literal></expr></argument>, <argument><expr><literal type="number">5</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>BlockContainer</name></type> <name>c</name> <init>= <expr><operator>new</operator> <call><name>BlockContainer</name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>b1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Size2D</name></type> <name>s</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>arrange</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>RectangleConstraint</name><argument_list>(<argument><expr><literal type="number">200</literal></expr></argument>, <argument><expr><literal type="number">100</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">200.0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getWidth</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getHeight</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * The arrangement should be able to handle less blocks than grid spaces.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGridNotFull_FN</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Block</name></type> <name>b1</name> <init>= <expr><operator>new</operator> <call><name>EmptyBlock</name><argument_list>(<argument><expr><literal type="number">5</literal></expr></argument>, <argument><expr><literal type="number">5</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>BlockContainer</name></type> <name>c</name> <init>= <expr><operator>new</operator> <call><name>BlockContainer</name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>b1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Size2D</name></type> <name>s</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>arrange</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><call><name><name>RectangleConstraint</name><operator>.</operator><name>NONE</name><operator>.</operator><name>toFixedWidth</name></name><argument_list>(<argument><expr><literal type="number">30.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">30.0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getWidth</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getHeight</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * The arrangement should be able to handle less blocks than grid spaces.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGridNotFull_FR</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Block</name></type> <name>b1</name> <init>= <expr><operator>new</operator> <call><name>EmptyBlock</name><argument_list>(<argument><expr><literal type="number">5</literal></expr></argument>, <argument><expr><literal type="number">5</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>BlockContainer</name></type> <name>c</name> <init>= <expr><operator>new</operator> <call><name>BlockContainer</name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>b1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Size2D</name></type> <name>s</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>arrange</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>RectangleConstraint</name><argument_list>(<argument><expr><literal type="number">30.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>,
+                <argument><expr><literal type="number">10.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">30.0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getWidth</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getHeight</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * The arrangement should be able to handle less blocks than grid spaces.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGridNotFull_NN</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Block</name></type> <name>b1</name> <init>= <expr><operator>new</operator> <call><name>EmptyBlock</name><argument_list>(<argument><expr><literal type="number">5</literal></expr></argument>, <argument><expr><literal type="number">5</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>BlockContainer</name></type> <name>c</name> <init>= <expr><operator>new</operator> <call><name>BlockContainer</name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridArrangement</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>c</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>b1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Size2D</name></type> <name>s</name> <init>= <expr><call><name><name>c</name><operator>.</operator><name>arrange</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><name><name>RectangleConstraint</name><operator>.</operator><name>NONE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">15.0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getWidth</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getHeight</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

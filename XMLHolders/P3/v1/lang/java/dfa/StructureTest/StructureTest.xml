@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\dfa\StructureTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>dfa</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>LanguageRegistry</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>ast</name><operator>.</operator><name>Node</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>dfa</name><operator>.</operator><name>Structure</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>JavaLanguageModule</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTMethodDeclaration</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>StructureTest</name> <block>{
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAddResultsinDFANodeContainingAddedNode</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Structure</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>Structure</name><argument_list>(<argument><expr><call><name><name>LanguageRegistry</name><operator>.</operator><name>getLanguage</name></name><argument_list>(<argument><expr><name><name>JavaLanguageModule</name><operator>.</operator><name>NAME</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>getDefaultVersion</name><argument_list>()</argument_list></call>
+                <operator>.</operator><call><name>getLanguageVersionHandler</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getDataFlowHandler</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Node</name></type> <name>n</name> <init>= <expr><operator>new</operator> <call><name>ASTMethodDeclaration</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>n</name></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>createNewNode</name></name><argument_list>(<argument><expr><name>n</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>getNode</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>public</specifier> <specifier>static</specifier> <name><name>junit</name><operator>.</operator><name>framework</name><operator>.</operator><name>Test</name></name></type> <name>suite</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><operator>new</operator> <call><name><name>junit</name><operator>.</operator><name>framework</name><operator>.</operator><name>JUnit4TestAdapter</name></name><argument_list>(<argument><expr><name><name>StructureTest</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

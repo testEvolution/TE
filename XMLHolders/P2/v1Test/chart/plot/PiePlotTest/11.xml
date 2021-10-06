@@ -1,0 +1,5 @@
+<unit><function><annotation>@<name>Override</name></annotation>
+        <type><specifier>public</specifier> <name>String</name></type> <name>generateSectionLabel</name><parameter_list>(<parameter><decl><type><name>PieDataset</name></type> <name>dataset</name></decl></parameter>, <parameter><decl><type><name>Comparable</name></type> <name>key</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <return>return <expr><literal type="null">null</literal></expr>;</return>
+        </block_content>}</block></function>
+    }</unit>

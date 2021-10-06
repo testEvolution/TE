@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\data\statistics\StatisticsTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * -------------------
+ * StatisticsTest.java
+ * -------------------
+ * (C) Copyright 2004-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 25-Mar-2004 : Version 1 (DG);
+ * 04-Oct-2004 : Eliminated NumberUtils usage (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>statistics</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>ArrayList</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Collection</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Collections</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link Statistics} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>StatisticsTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the calculateMean(Number[]) and
+     * calculateMean(Number[], boolean) methods.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCalculateMean_Array</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <comment type="line">// try null array</comment>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><operator>(</operator><name><name>Number</name><index>[]</index></name><operator>)</operator> <literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">false</literal></expr>;</expr_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><operator>(</operator><name><name>Number</name><index>[]</index></name><operator>)</operator> <literal type="null">null</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try an array containing no items</comment>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><operator>new</operator> <name><name>Number</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><operator>new</operator> <name><name>Number</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>,
+                <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try an array containing a single Number</comment>
+        <decl_stmt><decl><type><name><name>Number</name><index>[]</index></name></type> <name>values</name> <init>= <expr><operator>new</operator> <name><name>Number</name><index>[]</index></name> <block>{<expr><literal type="number">1.0</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try an array containing a single Number and a null</comment>
+        <expr_stmt><expr><name>values</name> <operator>=</operator> <operator>new</operator> <name><name>Number</name><index>[]</index></name> <block>{<expr><literal type="number">1.0</literal></expr>, <expr><literal type="null">null</literal></expr>}</block></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try an array containing a single Number and a NaN</comment>
+        <expr_stmt><expr><name>values</name> <operator>=</operator> <operator>new</operator> <name><name>Number</name><index>[]</index></name> <block>{<expr><literal type="number">1.0</literal></expr>, <expr><name><name>Double</name><operator>.</operator><name>NaN</name></name></expr>}</block></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the calculateMean(Collection) and
+     * calculateMean(Collection, boolean) methods.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCalculateMean_Collection</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <comment type="line">// try a null collection</comment>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><operator>(</operator><name>Collection</name><operator>)</operator> <literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">false</literal></expr>;</expr_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><operator>(</operator><name>Collection</name><operator>)</operator> <literal type="null">null</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try an empty collection</comment>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>Double</name></argument>&gt;</argument_list></name></type> <name>values</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try a collection with a single number</comment>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">9.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">9.0</literal></expr></argument>, <argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">9.0</literal></expr></argument>, <argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">9.0</literal></expr></argument>, <argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try a collection with a single number plus a null</comment>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">9.0</literal></expr></argument>, <argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try a collection with a single number plus a NaN</comment>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">9.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>Double</name><operator>.</operator><name>NaN</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">9.0</literal></expr></argument>, <argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try a collection with several numbers</comment>
+        <expr_stmt><expr><name>values</name> <operator>=</operator> <operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">9.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">3.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>mean</name> <init>= <expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">4.0</literal></expr></argument>, <argument><expr><name>mean</name></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// a Collection containing a NaN will return Double.NaN for the result</comment>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>Double</name><operator>.</operator><name>NaN</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMean</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>static</specifier> <specifier>final</specifier> <name>double</name></type> <name>EPSILON</name> <init>= <expr><literal type="number">0.0000000001</literal></expr></init></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the calculateMedian(List, boolean) method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCalculateMedian</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <comment type="line">// check null list</comment>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMedian</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMedian</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check empty list</comment>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>Double</name></argument>&gt;</argument_list></name></type> <name>list</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMedian</name></name><argument_list>(<argument><expr><name>list</name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMedian</name></name><argument_list>(<argument><expr><name>list</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check list containing null</comment>
+        <expr_stmt><expr><call><name><name>list</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMedian</name></name><argument_list>(<argument><expr><name>list</name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>NullPointerException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">false</literal></expr>;</expr_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMedian</name></name><argument_list>(<argument><expr><name>list</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>NullPointerException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check a list containing a non-Number object</comment>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>String</name></argument>&gt;</argument_list></name></type> <name>badList</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>badList</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="string">"Not a number"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">false</literal></expr>;</expr_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMedian</name></name><argument_list>(<argument><expr><name>badList</name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>ClassCastException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">false</literal></expr>;</expr_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMedian</name></name><argument_list>(<argument><expr><name>badList</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> 
+        <catch>catch <parameter_list>(<parameter><decl><type><name>ClassCastException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A test for the calculateMedian() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCalculateMedian1</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>Double</name></argument>&gt;</argument_list></name></type> <name>values</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>median</name> <init>= <expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMedian</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><name>median</name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A test for the calculateMedian() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCalculateMedian2</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>Double</name></argument>&gt;</argument_list></name></type> <name>values</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>median</name> <init>= <expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMedian</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.5</literal></expr></argument>, <argument><expr><name>median</name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A test for the calculateMedian() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCalculateMedian3</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>Double</name></argument>&gt;</argument_list></name></type> <name>values</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">3.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">6.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>median</name> <init>= <expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMedian</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3.5</literal></expr></argument>, <argument><expr><name>median</name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A test for the calculateMedian() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCalculateMedian4</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>Double</name></argument>&gt;</argument_list></name></type> <name>values</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">7.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">3.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">6.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>median</name> <init>= <expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMedian</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">4.0</literal></expr></argument>, <argument><expr><name>median</name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A test using some real data that caused a problem at one point.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCalculateMedian5</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>Double</name></argument>&gt;</argument_list></name></type> <name>values</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.228692993861783</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.30823353859889</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.75312904769314</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.825102897465314</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">10.184252778401783</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">12.207951828057766</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">10.68841994040566</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">12.099522004479438</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.508874945056881</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">12.052517729558513</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">12.401481645578734</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">12.185377793028543</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">10.666372951930315</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.680978041499548</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.06528277406718</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.36876492904596</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.927565516175939</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.39307785978655</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.989603679523857</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">12.009834360354864</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">10.653351822461559</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.851776254376754</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.045441544755946</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.993674040560624</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">12.898219965238944</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.97095782819647</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.73234406745488</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.649006017243991</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">12.20549704915365</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.799723639384919</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.896208658005628</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">12.164149111823424</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">12.042795103513766</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">12.114839532596426</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">12.166609097075824</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">12.183017546225935</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.622009125845342</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.289365786738633</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">12.462984323671568</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.573494921030598</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">10.862867940485804</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">12.018186939664872</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">10.418046849313018</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">11.326344465881341</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>median</name> <init>= <expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMedian</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">11.812413268425116</literal></expr></argument>, <argument><expr><name>median</name></expr></argument>, <argument><expr><literal type="number">0.000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Collections</name><operator>.</operator><name>sort</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>median2</name> <init>= <expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMedian</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">11.812413268425116</literal></expr></argument>, <argument><expr><name>median2</name></expr></argument>, <argument><expr><literal type="number">0.000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A test for the calculateMedian() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCalculateMedian6</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>Double</name></argument>&gt;</argument_list></name></type> <name>values</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">7.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">3.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">6.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>median</name> <init>= <expr><call><name><name>Statistics</name><operator>.</operator><name>calculateMedian</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><name>median</name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A simple test for the correlation calculation.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCorrelation1</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>Number</name><index>[]</index></name></type> <name>data1</name> <init>= <expr><operator>new</operator> <name><name>Number</name><index>[<expr><literal type="number">3</literal></expr>]</index></name></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">1.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">2</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.0</literal></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>Number</name><index>[]</index></name></type> <name>data2</name> <init>= <expr><operator>new</operator> <name><name>Number</name><index>[<expr><literal type="number">3</literal></expr>]</index></name></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">1.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">2</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.0</literal></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>r</name> <init>= <expr><call><name><name>Statistics</name><operator>.</operator><name>getCorrelation</name></name><argument_list>(<argument><expr><name>data1</name></expr></argument>, <argument><expr><name>data2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><name>r</name></expr></argument>, <argument><expr><literal type="number">0.00000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A simple test for the correlation calculation.
+     *
+     * http://trochim.human.cornell.edu/kb/statcorr.htm
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCorrelation2</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>Number</name><index>[]</index></name></type> <name>data1</name> <init>= <expr><operator>new</operator> <name><name>Number</name><index>[<expr><literal type="number">20</literal></expr>]</index></name></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">68.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">71.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">2</literal></expr>]</index></name> <operator>=</operator> <literal type="number">62.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">3</literal></expr>]</index></name> <operator>=</operator> <literal type="number">75.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">4</literal></expr>]</index></name> <operator>=</operator> <literal type="number">58.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">5</literal></expr>]</index></name> <operator>=</operator> <literal type="number">60.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">6</literal></expr>]</index></name> <operator>=</operator> <literal type="number">67.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">7</literal></expr>]</index></name> <operator>=</operator> <literal type="number">68.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">8</literal></expr>]</index></name> <operator>=</operator> <literal type="number">71.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">9</literal></expr>]</index></name> <operator>=</operator> <literal type="number">69.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">10</literal></expr>]</index></name> <operator>=</operator> <literal type="number">68.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">11</literal></expr>]</index></name> <operator>=</operator> <literal type="number">67.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">12</literal></expr>]</index></name> <operator>=</operator> <literal type="number">63.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">13</literal></expr>]</index></name> <operator>=</operator> <literal type="number">62.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">14</literal></expr>]</index></name> <operator>=</operator> <literal type="number">60.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">15</literal></expr>]</index></name> <operator>=</operator> <literal type="number">63.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">16</literal></expr>]</index></name> <operator>=</operator> <literal type="number">65.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">17</literal></expr>]</index></name> <operator>=</operator> <literal type="number">67.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">18</literal></expr>]</index></name> <operator>=</operator> <literal type="number">63.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">19</literal></expr>]</index></name> <operator>=</operator> <literal type="number">61.0</literal></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>Number</name><index>[]</index></name></type> <name>data2</name> <init>= <expr><operator>new</operator> <name><name>Number</name><index>[<expr><literal type="number">20</literal></expr>]</index></name></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">4.1</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">4.6</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">2</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.8</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">3</literal></expr>]</index></name> <operator>=</operator> <literal type="number">4.4</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">4</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.2</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">5</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.1</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">6</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.8</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">7</literal></expr>]</index></name> <operator>=</operator> <literal type="number">4.1</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">8</literal></expr>]</index></name> <operator>=</operator> <literal type="number">4.3</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">9</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.7</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">10</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.5</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">11</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.2</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">12</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.7</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">13</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.3</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">14</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.4</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">15</literal></expr>]</index></name> <operator>=</operator> <literal type="number">4.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">16</literal></expr>]</index></name> <operator>=</operator> <literal type="number">4.1</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">17</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.8</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">18</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.4</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">19</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.6</literal></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>r</name> <init>= <expr><call><name><name>Statistics</name><operator>.</operator><name>getCorrelation</name></name><argument_list>(<argument><expr><name>data1</name></expr></argument>, <argument><expr><name>data2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.7306356862792885</literal></expr></argument>, <argument><expr><name>r</name></expr></argument>, <argument><expr><literal type="number">0.000000000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getStdDev() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetStdDev</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <comment type="line">// try null argument</comment>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>Statistics</name><operator>.</operator><name>getStdDev</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try zero length array</comment>
+        <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">false</literal></expr>;</expr_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>Statistics</name><operator>.</operator><name>getStdDev</name></name><argument_list>(<argument><expr><operator>new</operator> <name><name>Double</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try single value</comment>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Double</name><operator>.</operator><name>isNaN</name></name><argument_list>(<argument><expr><call><name><name>Statistics</name><operator>.</operator><name>getStdDev</name></name><argument_list>(<argument><expr><operator>new</operator> <name><name>Double</name><index>[]</index></name><block>{<expr><literal type="number">1.0</literal></expr>}</block></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

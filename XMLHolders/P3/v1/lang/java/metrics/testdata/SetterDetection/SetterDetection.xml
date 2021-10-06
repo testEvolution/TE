@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\metrics\testdata\SetterDetection.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>testdata</name></name>;</package>
+
+<import>import <name><name>org</name><operator>.</operator><name>apache</name><operator>.</operator><name>commons</name><operator>.</operator><name>lang3</name><operator>.</operator><name>mutable</name><operator>.</operator><name>MutableInt</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * @author ClÃ©ment Fournier
+ */</comment>
+<class><specifier>public</specifier> class <name>SetterDetection</name> <block>{
+    <decl_stmt><decl><type><specifier>private</specifier> <name>int</name></type> <name>value</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>private</specifier> <name>double</name></type> <name>speed</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>private</specifier> <name>MutableInt</name></type> <name>mutX</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>private</specifier> <name>boolean</name></type> <name>bool</name></decl>;</decl_stmt>
+
+
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>setValue</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>x</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name>value</name> <operator>=</operator> <name>x</name></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>value</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>x</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name>value</name> <operator>=</operator> <ternary><condition><expr><name>x</name> <operator>&gt;</operator> <literal type="number">0</literal></expr> ?</condition><then> <expr><name>x</name></expr> </then><else>: <expr><operator>-</operator><name>x</name></expr></else></ternary></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>speed</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>x</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name><name>mutX</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><name>x</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>mutX</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>x</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name><name>mutX</name><operator>.</operator><name>increment</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>bool</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>value</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>value</name></name> <operator>=</operator> <name>value</name></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

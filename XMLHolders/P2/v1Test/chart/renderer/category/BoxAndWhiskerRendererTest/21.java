@@ -1,0 +1,24 @@
+@Test
+    public void testDrawWithNullMaxOutlier() {
+        boolean success;
+        try {
+            DefaultBoxAndWhiskerCategoryDataset dataset
+                    = new DefaultBoxAndWhiskerCategoryDataset();
+            dataset.add(new BoxAndWhiskerItem(1.0, 2.0, 3.0, 4.0, 0.5, 4.5, 
+                    -0.5, null, new ArrayList()), "S1", "C1");
+            CategoryPlot plot = new CategoryPlot(dataset,
+                    new CategoryAxis("Category"), new NumberAxis("Value"),
+                    new BoxAndWhiskerRenderer());
+            ChartRenderingInfo info = new ChartRenderingInfo();
+            JFreeChart chart = new JFreeChart(plot);
+            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+                    info);
+            success = true;
+        }
+        catch (Exception e) {
+            success = false;
+        }
+        assertTrue(success);
+    }
+
+}

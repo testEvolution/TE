@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\coverage\PMDCoverageTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>coverage</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>fail</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>BufferedReader</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>File</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>IOException</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>InputStream</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>InputStreamReader</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>nio</name><operator>.</operator><name>charset</name><operator>.</operator><name>StandardCharsets</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>apache</name><operator>.</operator><name>commons</name><operator>.</operator><name>io</name><operator>.</operator><name>FileUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>apache</name><operator>.</operator><name>commons</name><operator>.</operator><name>lang3</name><operator>.</operator><name>StringUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Rule</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>contrib</name><operator>.</operator><name>java</name><operator>.</operator><name>lang</name><operator>.</operator><name>system</name><operator>.</operator><name>StandardErrorStreamLog</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>contrib</name><operator>.</operator><name>java</name><operator>.</operator><name>lang</name><operator>.</operator><name>system</name><operator>.</operator><name>StandardOutputStreamLog</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>PMD</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>PMDCoverageTest</name> <block>{
+
+    <decl_stmt><decl><annotation>@<name>Rule</name></annotation>
+    <type><specifier>public</specifier> <name>StandardOutputStreamLog</name></type> <name>output</name> <init>= <expr><operator>new</operator> <call><name>StandardOutputStreamLog</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><annotation>@<name>Rule</name></annotation>
+    <type><specifier>public</specifier> <name>StandardErrorStreamLog</name></type> <name>errorStream</name> <init>= <expr><operator>new</operator> <call><name>StandardErrorStreamLog</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Test some of the PMD command line options
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPmdOptions</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>runPmd</name><argument_list>(<argument><expr><literal type="string">"-d src/main/java/net/sourceforge/pmd/lang/java/rule/design -f text -R rulesets/internal/all-java.xml -language java -stress -benchmark"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Run the PMD command line tool, i.e. call PMD.main().
+     * 
+     * @param commandLine
+     */</comment>
+    <function><type><specifier>private</specifier> <name>void</name></type> <name>runPmd</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>commandLine</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>args</name></decl>;</decl_stmt>
+        <expr_stmt><expr><name>args</name> <operator>=</operator> <call><name><name>commandLine</name><operator>.</operator><name>split</name></name><argument_list>(<argument><expr><literal type="string">"\\s"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>File</name></type> <name>f</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><name>f</name> <operator>=</operator> <call><name><name>File</name><operator>.</operator><name>createTempFile</name></name><argument_list>(<argument><expr><literal type="string">"pmd"</literal></expr></argument>, <argument><expr><literal type="string">".txt"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <decl_stmt><decl><type><name>int</name></type> <name>n</name> <init>= <expr><name><name>args</name><operator>.</operator><name>length</name></name></expr></init></decl>;</decl_stmt>
+            <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>a</name> <init>= <expr><operator>new</operator> <name><name>String</name><index>[<expr><name>n</name> <operator>+</operator> <literal type="number">2</literal> <operator>+</operator> <literal type="number">2</literal></expr>]</index></name></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>arraycopy</name></name><argument_list>(<argument><expr><name>args</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name>a</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name>n</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><name><name>a</name><index>[<expr><name>n</name></expr>]</index></name> <operator>=</operator> <literal type="string">"-reportfile"</literal></expr>;</expr_stmt>
+            <expr_stmt><expr><name><name>a</name><index>[<expr><name>n</name> <operator>+</operator> <literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <call><name><name>f</name><operator>.</operator><name>getAbsolutePath</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><name><name>a</name><index>[<expr><name>n</name> <operator>+</operator> <literal type="number">2</literal></expr>]</index></name> <operator>=</operator> <literal type="string">"-threads"</literal></expr>;</expr_stmt>
+            <expr_stmt><expr><name><name>a</name><index>[<expr><name>n</name> <operator>+</operator> <literal type="number">3</literal></expr>]</index></name> <operator>=</operator> <call><name><name>String</name><operator>.</operator><name>valueOf</name></name><argument_list>(<argument><expr><call><name><name>Runtime</name><operator>.</operator><name>getRuntime</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>availableProcessors</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><name>args</name> <operator>=</operator> <name>a</name></expr>;</expr_stmt>
+
+            <expr_stmt><expr><call><name><name>PMD</name><operator>.</operator><name>run</name></name><argument_list>(<argument><expr><name>args</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Nothing should be output to stdout"</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>output</name><operator>.</operator><name>getLog</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>length</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"No exceptions expected"</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>StringUtils</name><operator>.</operator><name>countMatches</name></name><argument_list>(<argument><expr><call><name><name>errorStream</name><operator>.</operator><name>getLog</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="string">"Exception applying rule"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Wrong configuration? Ruleset not found"</literal></expr></argument>, <argument><expr><call><name><name>errorStream</name><operator>.</operator><name>getLog</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>contains</name><argument_list>(<argument><expr><literal type="string">"Ruleset not found"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"No usage of deprecated XPath attributes expected"</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>StringUtils</name><operator>.</operator><name>countMatches</name></name><argument_list>(<argument><expr><call><name><name>errorStream</name><operator>.</operator><name>getLog</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="string">"Use of deprecated attribute"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+            <decl_stmt><decl><type><name>String</name></type> <name>report</name> <init>= <expr><call><name><name>FileUtils</name><operator>.</operator><name>readFileToString</name></name><argument_list>(<argument><expr><name>f</name></expr></argument>, <argument><expr><name><name>StandardCharsets</name><operator>.</operator><name>UTF_8</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"No processing errors expected"</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>StringUtils</name><operator>.</operator><name>countMatches</name></name><argument_list>(<argument><expr><name>report</name></expr></argument>, <argument><expr><literal type="string">"Error while processing"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+            <comment type="line">// we might have explicit examples of parsing errors, so these are maybe false positives</comment>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"No parsing error expected"</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>StringUtils</name><operator>.</operator><name>countMatches</name></name><argument_list>(<argument><expr><name>report</name></expr></argument>, <argument><expr><literal type="string">"Error while parsing"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>ioe</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Problem creating temporary file: "</literal> <operator>+</operator> <call><name><name>ioe</name><operator>.</operator><name>getLocalizedMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch> <finally>finally <block>{<block_content>
+            <if_stmt><if>if <condition>(<expr><name>f</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition> <block>{<block_content>
+                <expr_stmt><expr><call><name><name>f</name><operator>.</operator><name>delete</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+            </block_content>}</block></if></if_stmt>
+        </block_content>}</block></finally></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Name of the configuration file used by testResourceFileCommands().
+     */</comment>
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>PMD_CONFIG_FILE</name> <init>= <expr><literal type="string">"pmd_tests.conf"</literal></expr></init></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Run PMD using the command lines found in PMD_CONFIG_FILE.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testResourceFileCommands</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name>InputStream</name></type> <name>is</name> <init>= <expr><call><name>getClass</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getResourceAsStream</name><argument_list>(<argument><expr><name>PMD_CONFIG_FILE</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <if_stmt><if>if <condition>(<expr><name>is</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition> <block>{<block_content>
+            <try>try <block>{<block_content>
+                <decl_stmt><decl><type><name>BufferedReader</name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name>BufferedReader</name><argument_list>(<argument><expr><operator>new</operator> <call><name>InputStreamReader</name><argument_list>(<argument><expr><name>is</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+                <decl_stmt><decl><type><name>String</name></type> <name>l</name></decl>;</decl_stmt>
+                <while>while <condition>(<expr><operator>(</operator><name>l</name> <operator>=</operator> <call><name><name>r</name><operator>.</operator><name>readLine</name></name><argument_list>()</argument_list></call><operator>)</operator> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition> <block>{<block_content>
+                    <expr_stmt><expr><name>l</name> <operator>=</operator> <call><name><name>l</name><operator>.</operator><name>trim</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+                    <if_stmt><if>if <condition>(<expr><call><name><name>l</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call> <operator>==</operator> <literal type="number">0</literal> <operator>||</operator> <call><name><name>l</name><operator>.</operator><name>charAt</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call> <operator>==</operator> <literal type="char">'#'</literal></expr>)</condition> <block>{<block_content>
+                        <continue>continue;</continue>
+                    </block_content>}</block></if></if_stmt>
+
+                    <expr_stmt><expr><call><name>runPmd</name><argument_list>(<argument><expr><name>l</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+                </block_content>}</block></while>
+                <expr_stmt><expr><call><name><name>r</name><operator>.</operator><name>close</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+            </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>ioe</name></decl></parameter>)</parameter_list> <block>{<block_content>
+                <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Problem reading config file: "</literal> <operator>+</operator> <call><name><name>ioe</name><operator>.</operator><name>getLocalizedMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            </block_content>}</block></catch></try>
+        </block_content>}</block></if> <else>else <block>{<block_content>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Missing config file: "</literal> <operator>+</operator> <name>PMD_CONFIG_FILE</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></else></if_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

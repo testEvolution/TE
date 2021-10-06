@@ -1,0 +1,5 @@
+<unit><function><annotation>@<name>Override</name></annotation>
+        <type><specifier>public</specifier> <name>void</name></type> <name>setTreatLegendShapeAsLine</name><parameter_list>(<parameter><decl><type><name>boolean</name></type> <name>flag</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>super</name><operator>.</operator><name>setTreatLegendShapeAsLine</name></name><argument_list>(<argument><expr><name>flag</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></function>
+    }</unit>

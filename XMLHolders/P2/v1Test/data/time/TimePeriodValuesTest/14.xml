@@ -1,0 +1,5 @@
+<unit><function><type><specifier>public</specifier> <name>void</name></type> <name>clearLastEvent</name><parameter_list>()</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        </block_content>}</block></function>
+        
+        </unit>

@@ -1,0 +1,23 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFindRangeBounds</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>TableXYDataset</name></type> <name>dataset</name>
+                <init>= <expr><call><name><name>RendererXYPackageUtils</name><operator>.</operator><name>createTestTableXYDataset</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createStackedXYAreaChart</name></name><argument_list>(
+                <argument><expr><literal type="string">"Test Chart"</literal></expr></argument>, <argument><expr><literal type="string">"X"</literal></expr></argument>, <argument><expr><literal type="string">"Y"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>, <argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>,
+                <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>plot</name> <init>= <expr><operator>(</operator><name>XYPlot</name><operator>)</operator> <call><name><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>StackedXYAreaRenderer2</name></type> <name>renderer</name> <init>= <expr><operator>new</operator> <call><name>StackedXYAreaRenderer2</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setRenderer</name></name><argument_list>(<argument><expr><name>renderer</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>NumberAxis</name></type> <name>rangeAxis</name> <init>= <expr><operator>(</operator><name>NumberAxis</name><operator>)</operator> <call><name><name>plot</name><operator>.</operator><name>getRangeAxis</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Range</name></type> <name>bounds</name> <init>= <expr><call><name><name>rangeAxis</name><operator>.</operator><name>getRange</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>bounds</name><operator>.</operator><name>contains</name></name><argument_list>(<argument><expr><literal type="number">6.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>bounds</name><operator>.</operator><name>contains</name></name><argument_list>(<argument><expr><literal type="number">8.0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try null argument</comment>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>renderer</name><operator>.</operator><name>findRangeBounds</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try empty dataset</comment>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>renderer</name><operator>.</operator><name>findRangeBounds</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>DefaultTableXYDataset</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</unit>

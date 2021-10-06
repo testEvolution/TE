@@ -1,0 +1,13 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testConstructor</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>MultiplePiePlot</name></type> <name>plot</name> <init>= <expr><operator>new</operator> <call><name>MultiplePiePlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>plot</name><operator>.</operator><name>getDataset</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// the following checks that the plot registers itself as a listener</comment>
+        <comment type="line">// with the dataset passed to the constructor - see patch 1943021</comment>
+        <decl_stmt><decl><type><name>DefaultCategoryDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><name>plot</name> <operator>=</operator> <operator>new</operator> <call><name>MultiplePiePlot</name><argument_list>(<argument><expr><name>dataset</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>dataset</name><operator>.</operator><name>hasListener</name></name><argument_list>(<argument><expr><name>plot</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

@@ -1,0 +1,41 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYErrorRenderer</name></type> <name>r1</name> <init>= <expr><operator>new</operator> <call><name>XYErrorRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYErrorRenderer</name></type> <name>r2</name> <init>= <expr><operator>new</operator> <call><name>XYErrorRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>r1</name></expr></argument>, <argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// drawXError</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setDrawXError</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setDrawXError</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// drawYError</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setDrawYError</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setDrawYError</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// capLength</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setCapLength</name></name><argument_list>(<argument><expr><literal type="number">9.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setCapLength</name></name><argument_list>(<argument><expr><literal type="number">9.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// errorPaint</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setErrorPaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>, <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>,
+                <argument><expr><name><name>Color</name><operator>.</operator><name>GREEN</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setErrorPaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>, <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>,
+                <argument><expr><name><name>Color</name><operator>.</operator><name>GREEN</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// errorStroke</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setErrorStroke</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.5f</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>setErrorStroke</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.5f</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    </unit>

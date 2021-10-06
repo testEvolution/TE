@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\annotations\XYBoxAnnotationTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ------------------------
+ * XYBoxAnnotationTest.java
+ * ------------------------
+ * (C) Copyright 2005-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 19-Jan-2005 : Version 1 (DG);
+ * 26-Feb-2008 : Added testDrawWithNullInfo() method (DG);
+ * 23-Apr-2008 : Added testPublicCloneable() (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>annotations</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>fail</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>BasicStroke</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Color</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>GradientPaint</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>JFreeChart</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>axis</name><operator>.</operator><name>NumberAxis</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>plot</name><operator>.</operator><name>XYPlot</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>renderer</name><operator>.</operator><name>xy</name><operator>.</operator><name>XYLineAndShapeRenderer</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>util</name><operator>.</operator><name>PublicCloneable</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>DefaultTableXYDataset</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>xy</name><operator>.</operator><name>XYSeries</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Some tests for the {@link XYBoxAnnotation} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>XYBoxAnnotationTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that the equals method can distinguish all the required fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYBoxAnnotation</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>XYBoxAnnotation</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.2f</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYBoxAnnotation</name></type> <name>a2</name> <init>= <expr><operator>new</operator> <call><name>XYBoxAnnotation</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.2f</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a2</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a1</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// x0</comment>
+        <expr_stmt><expr><name>a1</name> <operator>=</operator> <operator>new</operator> <call><name>XYBoxAnnotation</name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.2f</literal></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>a2</name> <operator>=</operator> <operator>new</operator> <call><name>XYBoxAnnotation</name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.2f</literal></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// stroke</comment>
+        <expr_stmt><expr><name>a1</name> <operator>=</operator> <operator>new</operator> <call><name>XYBoxAnnotation</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">2.3f</literal></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>a2</name> <operator>=</operator> <operator>new</operator> <call><name>XYBoxAnnotation</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">2.3f</literal></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>GradientPaint</name></type> <name>gp1a</name> <init>= <expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>,
+                <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>GradientPaint</name></type> <name>gp1b</name> <init>= <expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>,
+                <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>GradientPaint</name></type> <name>gp2a</name> <init>= <expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">5.0f</literal></expr></argument>, <argument><expr><literal type="number">6.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>pink</name></name></expr></argument>,
+                <argument><expr><literal type="number">7.0f</literal></expr></argument>, <argument><expr><literal type="number">8.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>WHITE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>GradientPaint</name></type> <name>gp2b</name> <init>= <expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">5.0f</literal></expr></argument>, <argument><expr><literal type="number">6.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>pink</name></name></expr></argument>,
+                <argument><expr><literal type="number">7.0f</literal></expr></argument>, <argument><expr><literal type="number">8.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>WHITE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// outlinePaint</comment>
+        <expr_stmt><expr><name>a1</name> <operator>=</operator> <operator>new</operator> <call><name>XYBoxAnnotation</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">2.3f</literal></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><name>gp1a</name></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>a2</name> <operator>=</operator> <operator>new</operator> <call><name>XYBoxAnnotation</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">2.3f</literal></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><name>gp1b</name></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// fillPaint</comment>
+        <expr_stmt><expr><name>a1</name> <operator>=</operator> <operator>new</operator> <call><name>XYBoxAnnotation</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">2.3f</literal></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><name>gp1a</name></expr></argument>, <argument><expr><name>gp2a</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>a2</name> <operator>=</operator> <operator>new</operator> <call><name>XYBoxAnnotation</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">2.3f</literal></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><name>gp1b</name></expr></argument>, <argument><expr><name>gp2b</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Two objects that are equal are required to return the same hashCode.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testHashCode</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYBoxAnnotation</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>XYBoxAnnotation</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.2f</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYBoxAnnotation</name></type> <name>a2</name> <init>= <expr><operator>new</operator> <call><name>XYBoxAnnotation</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.2f</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h1</name> <init>= <expr><call><name><name>a1</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h2</name> <init>= <expr><call><name><name>a2</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>h1</name></expr></argument>, <argument><expr><name>h2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that cloning works.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYBoxAnnotation</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>XYBoxAnnotation</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.2f</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYBoxAnnotation</name></type> <name>a2</name> <init>= <expr><operator>(</operator><name>XYBoxAnnotation</name><operator>)</operator> <call><name><name>a1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>a1</name> <operator>!=</operator> <name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>a2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>a1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks that this class implements PublicCloneable.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPublicCloneable</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYBoxAnnotation</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>XYBoxAnnotation</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.2f</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>a1</name> <operator>instanceof</operator> <name>PublicCloneable</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYBoxAnnotation</name></type> <name>a1</name> <init>= <expr><operator>new</operator> <call><name>XYBoxAnnotation</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.2f</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYBoxAnnotation</name></type> <name>a2</name> <init>= <expr><operator>(</operator><name>XYBoxAnnotation</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>a1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>a1</name></expr></argument>, <argument><expr><name>a2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Draws the chart with a {@code null} info object to make sure that
+     * no exceptions are thrown.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testDrawWithNullInfo</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <try>try <block>{<block_content>
+            <decl_stmt><decl><type><name>DefaultTableXYDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultTableXYDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+            <decl_stmt><decl><type><name>XYSeries</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>, <argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">15.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">15.0</literal></expr></argument>, <argument><expr><literal type="number">9.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="number">7.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+            <decl_stmt><decl><type><name>XYSeries</name></type> <name>s2</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series 2"</literal></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name><name>s2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">5.0</literal></expr></argument>, <argument><expr><literal type="number">5.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>s2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">15.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>s2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">15.0</literal></expr></argument>, <argument><expr><literal type="number">9.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>s2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="number">3.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <decl_stmt><decl><type><name>XYPlot</name></type> <name>plot</name> <init>= <expr><operator>new</operator> <call><name>XYPlot</name><argument_list>(<argument><expr><name>dataset</name></expr></argument>,
+                    <argument><expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"X"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"Y"</literal></expr></argument>)</argument_list></call></expr></argument>,
+                    <argument><expr><operator>new</operator> <call><name>XYLineAndShapeRenderer</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>addAnnotation</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>XYBoxAnnotation</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">12.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><literal type="number">4.0</literal></expr></argument>,
+                    <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.2f</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><operator>new</operator> <call><name>JFreeChart</name><argument_list>(<argument><expr><name>plot</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <comment type="block">/* BufferedImage image = */</comment> <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>createBufferedImage</name></name><argument_list>(<argument><expr><literal type="number">300</literal></expr></argument>, <argument><expr><literal type="number">200</literal></expr></argument>,
+                    <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>NullPointerException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"No exception should be triggered."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

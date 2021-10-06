@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\data\category\CategoryToPieDatasetTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ------------------------------
+ * CategoryToPieDatasetTests.java
+ * ------------------------------
+ * (C) Copyright 2006-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 26-Jul-2006 : Version 1 (DG);
+ * 01-Aug-2006 : Added testGetIndex() method (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>category</name></name>;</package>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>util</name><operator>.</operator><name>TableOrder</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>general</name><operator>.</operator><name>DefaultPieDataset</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertNull</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>fail</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link CategoryToPieDataset} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>CategoryToPieDatasetTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Some tests for the constructor.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testConstructor</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// try a null source</comment>
+        <decl_stmt><decl><type><name>CategoryToPieDataset</name></type> <name>p1</name> <init>= <expr><operator>new</operator> <call><name>CategoryToPieDataset</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>,
+                <argument><expr><name><name>TableOrder</name><operator>.</operator><name>BY_COLUMN</name></name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>getUnderlyingDataset</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>getItemCount</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>getKeys</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>isEmpty</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>p1</name><operator>.</operator><name>getValue</name></name><argument_list>(<argument><expr><literal type="string">"R1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getValue() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetValue</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultCategoryDataset</name></type> <name>underlying</name> <init>= <expr><operator>new</operator> <call><name>DefaultCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>underlying</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>underlying</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>CategoryToPieDataset</name></type> <name>d1</name> <init>= <expr><operator>new</operator> <call><name>CategoryToPieDataset</name><argument_list>(<argument><expr><name>underlying</name></expr></argument>,
+                <argument><expr><name><name>TableOrder</name><operator>.</operator><name>BY_ROW</name></name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>getValue</name></name><argument_list>(<argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>getValue</name></name><argument_list>(<argument><expr><literal type="string">"C2"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="number">2.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check negative index throws exception</comment>
+        <try>try <block>{<block_content>
+            <comment type="block">/* Number n = */</comment> <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>getValue</name></name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected IndexOutOfBoundsException."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IndexOutOfBoundsException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// this is expected</comment>
+        </block_content>}</block></catch></try>
+
+        <comment type="line">// check index == getItemCount() throws exception</comment>
+        <try>try <block>{<block_content>
+            <comment type="block">/* Number n = */</comment> <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>getValue</name></name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>getItemCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected IndexOutOfBoundsException."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IndexOutOfBoundsException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// this is expected</comment>
+        </block_content>}</block></catch></try>
+
+        <comment type="line">// test null source</comment>
+        <decl_stmt><decl><type><name>CategoryToPieDataset</name></type> <name>p1</name> <init>= <expr><operator>new</operator> <call><name>CategoryToPieDataset</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>,
+                <argument><expr><name><name>TableOrder</name><operator>.</operator><name>BY_COLUMN</name></name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <comment type="block">/* Number n = */</comment> <expr_stmt><expr><call><name><name>p1</name><operator>.</operator><name>getValue</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected IndexOutOfBoundsException."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IndexOutOfBoundsException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// this is expected</comment>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getKey(int) method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetKey</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultCategoryDataset</name></type> <name>underlying</name> <init>= <expr><operator>new</operator> <call><name>DefaultCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>underlying</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>underlying</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>CategoryToPieDataset</name></type> <name>d1</name> <init>= <expr><operator>new</operator> <call><name>CategoryToPieDataset</name><argument_list>(<argument><expr><name>underlying</name></expr></argument>,
+                <argument><expr><name><name>TableOrder</name><operator>.</operator><name>BY_ROW</name></name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>getKey</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>getKey</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="string">"C2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check negative index throws exception</comment>
+        <try>try <block>{<block_content>
+            <comment type="block">/* Number n = */</comment> <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>getKey</name></name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected IndexOutOfBoundsException."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IndexOutOfBoundsException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// this is expected</comment>
+        </block_content>}</block></catch></try>
+
+        <comment type="line">// check index == getItemCount() throws exception</comment>
+        <try>try <block>{<block_content>
+            <comment type="block">/* Number n = */</comment> <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>getKey</name></name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>getItemCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected IndexOutOfBoundsException."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IndexOutOfBoundsException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// this is expected</comment>
+        </block_content>}</block></catch></try>
+
+        <comment type="line">// test null source</comment>
+        <decl_stmt><decl><type><name>CategoryToPieDataset</name></type> <name>p1</name> <init>= <expr><operator>new</operator> <call><name>CategoryToPieDataset</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>,
+                <argument><expr><name><name>TableOrder</name><operator>.</operator><name>BY_COLUMN</name></name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <comment type="block">/* Number n = */</comment> <expr_stmt><expr><call><name><name>p1</name><operator>.</operator><name>getKey</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected IndexOutOfBoundsException."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IndexOutOfBoundsException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// this is expected</comment>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getIndex() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetIndex</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultCategoryDataset</name></type> <name>underlying</name> <init>= <expr><operator>new</operator> <call><name>DefaultCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>underlying</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>underlying</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>CategoryToPieDataset</name></type> <name>d1</name> <init>= <expr><operator>new</operator> <call><name>CategoryToPieDataset</name><argument_list>(<argument><expr><name>underlying</name></expr></argument>,
+                <argument><expr><name><name>TableOrder</name><operator>.</operator><name>BY_ROW</name></name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getIndex</name></name><argument_list>(<argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getIndex</name></name><argument_list>(<argument><expr><literal type="string">"C2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getIndex</name></name><argument_list>(<argument><expr><literal type="string">"XX"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try null</comment>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>getIndex</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * For datasets, the equals() method just checks keys and values.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultCategoryDataset</name></type> <name>underlying</name> <init>= <expr><operator>new</operator> <call><name>DefaultCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>underlying</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>underlying</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>CategoryToPieDataset</name></type> <name>d1</name> <init>= <expr><operator>new</operator> <call><name>CategoryToPieDataset</name><argument_list>(<argument><expr><name>underlying</name></expr></argument>,
+                <argument><expr><name><name>TableOrder</name><operator>.</operator><name>BY_COLUMN</name></name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultPieDataset</name></type> <name>d2</name> <init>= <expr><operator>new</operator> <call><name>DefaultPieDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>d2</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="number">2.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>d2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultCategoryDataset</name></type> <name>underlying</name> <init>= <expr><operator>new</operator> <call><name>DefaultCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>underlying</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>underlying</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>CategoryToPieDataset</name></type> <name>d1</name> <init>= <expr><operator>new</operator> <call><name>CategoryToPieDataset</name><argument_list>(<argument><expr><name>underlying</name></expr></argument>,
+                <argument><expr><name><name>TableOrder</name><operator>.</operator><name>BY_COLUMN</name></name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CategoryToPieDataset</name></type> <name>d2</name> <init>= <expr><operator>(</operator><name>CategoryToPieDataset</name><operator>)</operator> 
+                <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>d1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>d1</name></expr></argument>, <argument><expr><name>d2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// regular equality for the datasets doesn't check the fields, just</comment>
+        <comment type="line">// the data values...so let's check some more things...</comment>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>getUnderlyingDataset</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>d2</name><operator>.</operator><name>getUnderlyingDataset</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>getExtractType</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>d2</name><operator>.</operator><name>getExtractType</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>getExtractIndex</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>d2</name><operator>.</operator><name>getExtractIndex</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

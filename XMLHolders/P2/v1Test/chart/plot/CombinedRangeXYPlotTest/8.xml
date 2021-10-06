@@ -1,0 +1,35 @@
+<unit><function><type><specifier>private</specifier> <name>CombinedRangeXYPlot</name></type> <name>createPlot</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// create subplot 1...</comment>
+        <decl_stmt><decl><type><name>XYDataset</name></type> <name>data1</name> <init>= <expr><call><name>createDataset1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYItemRenderer</name></type> <name>renderer1</name> <init>= <expr><operator>new</operator> <call><name>StandardXYItemRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>NumberAxis</name></type> <name>xAxis1</name> <init>= <expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"X1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>subplot1</name> <init>= <expr><operator>new</operator> <call><name>XYPlot</name><argument_list>(<argument><expr><name>data1</name></expr></argument>, <argument><expr><name>xAxis1</name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><name>renderer1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>subplot1</name><operator>.</operator><name>setRangeAxisLocation</name></name><argument_list>(<argument><expr><name><name>AxisLocation</name><operator>.</operator><name>BOTTOM_OR_LEFT</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>XYTextAnnotation</name></type> <name>annotation</name>
+                <init>= <expr><operator>new</operator> <call><name>XYTextAnnotation</name><argument_list>(<argument><expr><literal type="string">"Hello!"</literal></expr></argument>, <argument><expr><literal type="number">50.0</literal></expr></argument>, <argument><expr><literal type="number">10000.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>annotation</name><operator>.</operator><name>setFont</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Font</name><argument_list>(<argument><expr><literal type="string">"SansSerif"</literal></expr></argument>, <argument><expr><name><name>Font</name><operator>.</operator><name>PLAIN</name></name></expr></argument>, <argument><expr><literal type="number">9</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>annotation</name><operator>.</operator><name>setRotationAngle</name></name><argument_list>(<argument><expr><name><name>Math</name><operator>.</operator><name>PI</name></name> <operator>/</operator> <literal type="number">4.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>subplot1</name><operator>.</operator><name>addAnnotation</name></name><argument_list>(<argument><expr><name>annotation</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// create subplot 2...</comment>
+        <decl_stmt><decl><type><name>XYDataset</name></type> <name>data2</name> <init>= <expr><call><name>createDataset2</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYItemRenderer</name></type> <name>renderer2</name> <init>= <expr><operator>new</operator> <call><name>StandardXYItemRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>NumberAxis</name></type> <name>xAxis2</name> <init>= <expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"X2"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>xAxis2</name><operator>.</operator><name>setAutoRangeIncludesZero</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>subplot2</name> <init>= <expr><operator>new</operator> <call><name>XYPlot</name><argument_list>(<argument><expr><name>data2</name></expr></argument>, <argument><expr><name>xAxis2</name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><name>renderer2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>subplot2</name><operator>.</operator><name>setRangeAxisLocation</name></name><argument_list>(<argument><expr><name><name>AxisLocation</name><operator>.</operator><name>TOP_OR_LEFT</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// parent plot...</comment>
+        <decl_stmt><decl><type><name>CombinedRangeXYPlot</name></type> <name>plot</name> <init>= <expr><operator>new</operator> <call><name>CombinedRangeXYPlot</name><argument_list>(<argument><expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(
+                <argument><expr><literal type="string">"Range"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setGap</name></name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// add the subplots...</comment>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>subplot1</name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>subplot2</name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setOrientation</name></name><argument_list>(<argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>VERTICAL</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <return>return <expr><name>plot</name></expr>;</return>
+    </block_content>}</block></function>
+
+}</unit>

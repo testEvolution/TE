@@ -1,0 +1,5 @@
+<unit><function><type><specifier>public</specifier> <name>boolean</name></type> <name>getNotified</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><name><name>this</name><operator>.</operator><name>notified</name></name></expr>;</return>
+    </block_content>}</block></function>
+
+    </unit>

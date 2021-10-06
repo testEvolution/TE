@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\symboltable\STBBaseTst.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>symboltable</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>IOException</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>InputStream</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>StringReader</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>nio</name><operator>.</operator><name>charset</name><operator>.</operator><name>StandardCharsets</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>apache</name><operator>.</operator><name>commons</name><operator>.</operator><name>io</name><operator>.</operator><name>IOUtils</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>LanguageRegistry</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>LanguageVersion</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>LanguageVersionHandler</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>JavaLanguageModule</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTCompilationUnit</name></name>;</import>
+
+<class><specifier>public</specifier> <specifier>abstract</specifier> class <name>STBBaseTst</name> <block>{
+
+    <decl_stmt><decl><type><specifier>protected</specifier> <name>ASTCompilationUnit</name></type> <name>acu</name></decl>;</decl_stmt>
+
+    <function><type><specifier>protected</specifier> <name>void</name></type> <name>parseCode</name><parameter_list>(<parameter><decl><type><specifier>final</specifier> <name>String</name></type> <name>code</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseCode</name><argument_list>(<argument><expr><name>code</name></expr></argument>, <argument><expr><call><name><name>LanguageRegistry</name><operator>.</operator><name>getLanguage</name></name><argument_list>(<argument><expr><name><name>JavaLanguageModule</name><operator>.</operator><name>NAME</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>getDefaultVersion</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>protected</specifier> <name>void</name></type> <name>parseCode15</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>code</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseCode</name><argument_list>(<argument><expr><name>code</name></expr></argument>, <argument><expr><call><name><name>LanguageRegistry</name><operator>.</operator><name>getLanguage</name></name><argument_list>(<argument><expr><name><name>JavaLanguageModule</name><operator>.</operator><name>NAME</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>getVersion</name><argument_list>(<argument><expr><literal type="string">"1.5"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>protected</specifier> <name>void</name></type> <name>parseCode</name><parameter_list>(<parameter><decl><type><specifier>final</specifier> <name>String</name></type> <name>code</name></decl></parameter>, <parameter><decl><type><specifier>final</specifier> <name>LanguageVersion</name></type> <name>languageVersion</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>LanguageVersionHandler</name></type> <name>languageVersionHandler</name> <init>= <expr><call><name><name>languageVersion</name><operator>.</operator><name>getLanguageVersionHandler</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><name>acu</name> <operator>=</operator> <operator>(</operator><name>ASTCompilationUnit</name><operator>)</operator> <call><name><name>languageVersionHandler</name><operator>.</operator><name>getParser</name></name><argument_list>(<argument><expr><call><name><name>languageVersionHandler</name><operator>.</operator><name>getDefaultParserOptions</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call>
+                <operator>.</operator><call><name>parse</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>StringReader</name><argument_list>(<argument><expr><name>code</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>languageVersionHandler</name><operator>.</operator><name>getQualifiedNameResolutionFacade</name></name><argument_list>(<argument><expr><call><name><name>STBBaseTst</name><operator>.</operator><name><name>class</name><operator>.</operator><name>getClassLoader</name></name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call><operator>.</operator><call><name>start</name><argument_list>(<argument><expr><name>acu</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>languageVersionHandler</name><operator>.</operator><name>getSymbolFacade</name></name><argument_list>(<argument><expr><call><name><name>STBBaseTst</name><operator>.</operator><name><name>class</name><operator>.</operator><name>getClassLoader</name></name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call><operator>.</operator><call><name>start</name><argument_list>(<argument><expr><name>acu</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>languageVersionHandler</name><operator>.</operator><name>getTypeResolutionFacade</name></name><argument_list>(<argument><expr><call><name><name>STBBaseTst</name><operator>.</operator><name><name>class</name><operator>.</operator><name>getClassLoader</name></name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call><operator>.</operator><call><name>start</name><argument_list>(<argument><expr><name>acu</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="line">// Note: If you're using Eclipse or some other IDE to run this test, you</comment>
+    <comment type="line">// _must_ have the src/test/java folder in the classpath. Normally the IDE</comment>
+    <comment type="line">// doesn't put source directories themselves directly in the classpath, only</comment>
+    <comment type="line">// the output directories are in the classpath.</comment>
+    <function><type><specifier>protected</specifier> <name>void</name></type> <name>parseForClass</name><parameter_list>(<parameter><decl><type><specifier>final</specifier> <name><name>Class</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>clazz</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>sourceFile</name> <init>= <expr><call><name><name>clazz</name><operator>.</operator><name>getName</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>replace</name><argument_list>(<argument><expr><literal type="char">'.'</literal></expr></argument>, <argument><expr><literal type="char">'/'</literal></expr></argument>)</argument_list></call> <operator>+</operator> <literal type="string">".java"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>InputStream</name></type> <name>is</name> <init>= <expr><call><name><name>STBBaseTst</name><operator>.</operator><name><name>class</name><operator>.</operator><name>getClassLoader</name></name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getResourceAsStream</name><argument_list>(<argument><expr><name>sourceFile</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <if_stmt><if>if <condition>(<expr><name>is</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition> <block>{<block_content>
+            <throw>throw <expr><operator>new</operator> <call><name>IllegalArgumentException</name><argument_list>(<argument><expr><literal type="string">"Unable to find source file "</literal> <operator>+</operator> <name>sourceFile</name> <operator>+</operator> <literal type="string">" for "</literal> <operator>+</operator> <name>clazz</name></expr></argument>)</argument_list></call></expr>;</throw>
+        </block_content>}</block></if></if_stmt>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>source</name></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><name>source</name> <operator>=</operator> <call><name><name>IOUtils</name><operator>.</operator><name>toString</name></name><argument_list>(<argument><expr><name>is</name></expr></argument>, <argument><expr><name><name>StandardCharsets</name><operator>.</operator><name>UTF_8</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><specifier>final</specifier> <name>IOException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <throw>throw <expr><operator>new</operator> <call><name>RuntimeException</name><argument_list>(<argument><expr><name>e</name></expr></argument>)</argument_list></call></expr>;</throw>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>parseCode</name><argument_list>(<argument><expr><name>source</name></expr></argument>, <argument><expr><call><name><name>LanguageRegistry</name><operator>.</operator><name>getLanguage</name></name><argument_list>(<argument><expr><name><name>JavaLanguageModule</name><operator>.</operator><name>NAME</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>getDefaultVersion</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

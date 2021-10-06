@@ -1,0 +1,21 @@
+<unit><function><type><specifier>public</specifier> <specifier>static</specifier> <name>Object</name></type> <name>serialised</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>original</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Object</name></type> <name>result</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ByteArrayOutputStream</name></type> <name>buffer</name> <init>= <expr><operator>new</operator> <call><name>ByteArrayOutputStream</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ObjectOutput</name></type> <name>out</name></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><name>out</name> <operator>=</operator> <operator>new</operator> <call><name>ObjectOutputStream</name><argument_list>(<argument><expr><name>buffer</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>out</name><operator>.</operator><name>writeObject</name></name><argument_list>(<argument><expr><name>original</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>out</name><operator>.</operator><name>close</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+            <decl_stmt><decl><type><name>ObjectInput</name></type> <name>in</name> <init>= <expr><operator>new</operator> <call><name>ObjectInputStream</name><argument_list>(
+                    <argument><expr><operator>new</operator> <call><name>ByteArrayInputStream</name><argument_list>(<argument><expr><call><name><name>buffer</name><operator>.</operator><name>toByteArray</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><name>result</name> <operator>=</operator> <call><name><name>in</name><operator>.</operator><name>readObject</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>in</name><operator>.</operator><name>close</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <throw>throw <expr><operator>new</operator> <call><name>RuntimeException</name><argument_list>(<argument><expr><name>e</name></expr></argument>)</argument_list></call></expr>;</throw>
+        </block_content>}</block></catch> <catch>catch <parameter_list>(<parameter><decl><type><name>ClassNotFoundException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <throw>throw <expr><operator>new</operator> <call><name>RuntimeException</name><argument_list>(<argument><expr><name>e</name></expr></argument>)</argument_list></call></expr>;</throw>
+        </block_content>}</block></catch></try>
+        <return>return <expr><name>result</name></expr>;</return>
+    </block_content>}</block></function>
+    
+}</unit>

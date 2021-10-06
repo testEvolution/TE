@@ -1,0 +1,39 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test800324</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>TaskSeries</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>TaskSeries</name><argument_list>(<argument><expr><literal type="string">"S1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Task</name><argument_list>(<argument><expr><literal type="string">"Task 1"</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>SimpleTimePeriod</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Date</name><argument_list>()</argument_list></call></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>Date</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Task</name><argument_list>(<argument><expr><literal type="string">"Task 2"</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>SimpleTimePeriod</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Date</name><argument_list>()</argument_list></call></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>Date</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Task</name><argument_list>(<argument><expr><literal type="string">"Task 3"</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>SimpleTimePeriod</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Date</name><argument_list>()</argument_list></call></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>Date</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>TaskSeriesCollection</name></type> <name>tsc</name> <init>= <expr><operator>new</operator> <call><name>TaskSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>tsc</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// these methods should throw an IndexOutOfBoundsException since the</comment>
+        <comment type="line">// column is too high...</comment>
+        <try>try <block>{<block_content>
+            <comment type="block">/* Number start = */</comment> <expr_stmt><expr><call><name><name>tsc</name><operator>.</operator><name>getStartValue</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IndexOutOfBoundsException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// expected</comment>
+        </block_content>}</block></catch></try>
+        <try>try <block>{<block_content>
+            <comment type="block">/* Number end = */</comment> <expr_stmt><expr><call><name><name>tsc</name><operator>.</operator><name>getEndValue</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IndexOutOfBoundsException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// expected</comment>
+        </block_content>}</block></catch></try>
+        <try>try <block>{<block_content>
+            <comment type="block">/* int count = */</comment> <expr_stmt><expr><call><name><name>tsc</name><operator>.</operator><name>getSubIntervalCount</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IndexOutOfBoundsException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// expected</comment>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    </unit>

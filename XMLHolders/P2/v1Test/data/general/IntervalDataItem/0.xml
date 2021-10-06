@@ -1,0 +1,5 @@
+<unit><function><type><specifier>public</specifier> <name>Number</name></type> <name>getLowerBound</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><name>lowerBound</name></expr>;</return>
+    </block_content>}</block></function>
+
+    </unit>

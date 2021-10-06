@@ -1,0 +1,28 @@
+<unit><function><type><specifier>private</specifier> <name>CombinedRangeCategoryPlot</name></type> <name>createPlot</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>CategoryDataset</name></type> <name>dataset1</name> <init>= <expr><call><name>createDataset1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CategoryAxis</name></type> <name>catAxis1</name> <init>= <expr><operator>new</operator> <call><name>CategoryAxis</name><argument_list>(<argument><expr><literal type="string">"Category"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>LineAndShapeRenderer</name></type> <name>renderer1</name> <init>= <expr><operator>new</operator> <call><name>LineAndShapeRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>renderer1</name><operator>.</operator><name>setDefaultToolTipGenerator</name></name><argument_list>(
+                <argument><expr><operator>new</operator> <call><name>StandardCategoryToolTipGenerator</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>CategoryPlot</name></type> <name>subplot1</name> <init>= <expr><operator>new</operator> <call><name>CategoryPlot</name><argument_list>(<argument><expr><name>dataset1</name></expr></argument>, <argument><expr><name>catAxis1</name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>,
+                <argument><expr><name>renderer1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>subplot1</name><operator>.</operator><name>setDomainGridlinesVisible</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>CategoryDataset</name></type> <name>dataset2</name> <init>= <expr><call><name>createDataset2</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CategoryAxis</name></type> <name>catAxis2</name> <init>= <expr><operator>new</operator> <call><name>CategoryAxis</name><argument_list>(<argument><expr><literal type="string">"Category"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>BarRenderer</name></type> <name>renderer2</name> <init>= <expr><operator>new</operator> <call><name>BarRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>renderer2</name><operator>.</operator><name>setDefaultToolTipGenerator</name></name><argument_list>(
+                <argument><expr><operator>new</operator> <call><name>StandardCategoryToolTipGenerator</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>CategoryPlot</name></type> <name>subplot2</name> <init>= <expr><operator>new</operator> <call><name>CategoryPlot</name><argument_list>(<argument><expr><name>dataset2</name></expr></argument>, <argument><expr><name>catAxis2</name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>,
+                <argument><expr><name>renderer2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>subplot2</name><operator>.</operator><name>setDomainGridlinesVisible</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>NumberAxis</name></type> <name>rangeAxis</name> <init>= <expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"Value"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CombinedRangeCategoryPlot</name></type> <name>plot</name> <init>= <expr><operator>new</operator> <call><name>CombinedRangeCategoryPlot</name><argument_list>(
+                <argument><expr><name>rangeAxis</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>subplot1</name></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>subplot2</name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <return>return <expr><name>plot</name></expr>;</return>
+    </block_content>}</block></function>
+
+}</unit>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\title\ImageTitleTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * -------------------
+ * ImageTitleTest.java
+ * -------------------
+ * (C) Copyright 2004-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 17-Feb-2004 : Version 1 (DG);
+ * 21-Mar-2008 : Added tests for arrange method (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>title</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Graphics2D</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>image</name><operator>.</operator><name>BufferedImage</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>JFreeChart</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>Size2D</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link ImageTitle} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>ImageTitleTest</name> <block>{
+
+<comment type="line">//    /**</comment>
+<comment type="line">//     * Check that the equals() method distinguishes all fields.</comment>
+<comment type="line">//     */</comment>
+<comment type="line">//    @Test</comment>
+<comment type="line">//    public void testEquals() {</comment>
+<comment type="line">//        ImageTitle t1 = new ImageTitle(JFreeChart.INFO.getLogo());</comment>
+<comment type="line">//        ImageTitle t2 = new ImageTitle(JFreeChart.INFO.getLogo());</comment>
+<comment type="line">//        assertEquals(t1, t2);</comment>
+<comment type="line">//</comment>
+<comment type="line">//        t1.setImage(new BufferedImage(2, 1, BufferedImage.TYPE_INT_RGB));</comment>
+<comment type="line">//        assertFalse(t1.equals(t2));</comment>
+<comment type="line">//        t2.setImage(new BufferedImage(2, 1, BufferedImage.TYPE_INT_RGB));</comment>
+<comment type="line">//        // images considered equal only if they're the SAME object</comment>
+<comment type="line">//        // TODO: is there a way to do a better test?</comment>
+<comment type="line">//        assertFalse(t1.equals(t2));</comment>
+<comment type="line">//    }</comment>
+
+<comment type="line">//    /**</comment>
+<comment type="line">//     * Two objects that are equal are required to return the same hashCode.</comment>
+<comment type="line">//     */</comment>
+<comment type="line">//    @Test</comment>
+<comment type="line">//    public void testHashcode() {</comment>
+<comment type="line">//        ImageTitle t1 = new ImageTitle(JFreeChart.INFO.getLogo());</comment>
+<comment type="line">//        ImageTitle t2 = new ImageTitle(JFreeChart.INFO.getLogo());</comment>
+<comment type="line">//        assertTrue(t1.equals(t2));</comment>
+<comment type="line">//        int h1 = t1.hashCode();</comment>
+<comment type="line">//        int h2 = t2.hashCode();</comment>
+<comment type="line">//        assertEquals(h1, h2);</comment>
+<comment type="line">//    }</comment>
+
+<comment type="line">//    /**</comment>
+<comment type="line">//     * Confirm that cloning works.</comment>
+<comment type="line">//     */</comment>
+<comment type="line">//    @Test</comment>
+<comment type="line">//    public void testCloning() throws CloneNotSupportedException {</comment>
+<comment type="line">//        ImageTitle t1 = new ImageTitle(JFreeChart.INFO.getLogo());</comment>
+<comment type="line">//        ImageTitle t2 = (ImageTitle) t1.clone();</comment>
+<comment type="line">//        assertTrue(t1 != t2);</comment>
+<comment type="line">//        assertTrue(t1.getClass() == t2.getClass());</comment>
+<comment type="line">//        assertTrue(t1.equals(t2));</comment>
+<comment type="line">//    }</comment>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// TODO: add serialization support for images</comment>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>double</name></type> <name>EPSILON</name> <init>= <expr><literal type="number">0.00000001</literal></expr></init></decl>;</decl_stmt>
+
+<comment type="line">//    /**</comment>
+<comment type="line">//     * Check the width and height.</comment>
+<comment type="line">//     */</comment>
+<comment type="line">//    @Test</comment>
+<comment type="line">//    public void testWidthAndHeight() {</comment>
+<comment type="line">//        ImageTitle t1 = new ImageTitle(JFreeChart.INFO.getLogo());</comment>
+<comment type="line">//        assertEquals(100, t1.getWidth(), EPSILON);</comment>
+<comment type="line">//        assertEquals(100, t1.getHeight(), EPSILON);</comment>
+<comment type="line">//    }</comment>
+
+<comment type="line">//    /**</comment>
+<comment type="line">//     * Some checks for the arrange method.</comment>
+<comment type="line">//     */</comment>
+<comment type="line">//    @Test</comment>
+<comment type="line">//    public void testArrangeNN() {</comment>
+<comment type="line">//        BufferedImage image = new BufferedImage(100, 100,</comment>
+<comment type="line">//                BufferedImage.TYPE_INT_RGB);</comment>
+<comment type="line">//        Graphics2D g2 = image.createGraphics();</comment>
+<comment type="line">//        ImageTitle t = new ImageTitle(JFreeChart.INFO.getLogo());</comment>
+<comment type="line">//        Size2D s = t.arrange(g2);</comment>
+<comment type="line">//        assertEquals(102.0, s.getWidth(), EPSILON);</comment>
+<comment type="line">//        assertEquals(102.0, s.getHeight(), EPSILON);</comment>
+<comment type="line">//</comment>
+<comment type="line">//        t.setPadding(1.0, 2.0, 3.0, 4.0);</comment>
+<comment type="line">//        s = t.arrange(g2);</comment>
+<comment type="line">//        assertEquals(106.0, s.getWidth(), EPSILON);</comment>
+<comment type="line">//        assertEquals(104.0, s.getHeight(), EPSILON);</comment>
+<comment type="line">//</comment>
+<comment type="line">//        t.setMargin(5.0, 6.0, 7.0, 8.0);</comment>
+<comment type="line">//        s = t.arrange(g2);</comment>
+<comment type="line">//        assertEquals(120.0, s.getWidth(), EPSILON);</comment>
+<comment type="line">//        assertEquals(116.0, s.getHeight(), EPSILON);</comment>
+<comment type="line">//    }</comment>
+
+}</block></class>
+</unit>

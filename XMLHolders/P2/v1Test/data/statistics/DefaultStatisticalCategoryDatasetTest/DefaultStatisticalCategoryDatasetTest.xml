@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\data\statistics\DefaultStatisticalCategoryDatasetTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ------------------------------------------
+ * DefaultStatisticalCategoryDatasetTest.java
+ * ------------------------------------------
+ * (C) Copyright 2005-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 05-Feb-2005 : Version 1 (DG);
+ * 03-Aug-2006 : Added testGetRangeBounds() method (DG);
+ * 28-Sep-2007 : Enhanced testCloning() method (DG);
+ * 02-Oct-2007 : Added new bounds tests (DG);
+ * 03-Oct-2007 : Added testRemove() method (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>statistics</name></name>;</package>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertNull</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>fail</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>Range</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>UnknownKeyException</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link DefaultStatisticalCategoryDataset} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>DefaultStatisticalCategoryDatasetTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getRangeBounds() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetRangeBounds</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultStatisticalCategoryDataset</name></type> <name>d</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultStatisticalCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// an empty dataset should return null for bounds</comment>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>d</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try a dataset with a single value</comment>
+        <expr_stmt><expr><call><name><name>d</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">4.5</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">4.5</literal></expr></argument>, <argument><expr><literal type="number">4.5</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">3.5</literal></expr></argument>, <argument><expr><literal type="number">5.5</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try a dataset with two values</comment>
+        <expr_stmt><expr><call><name><name>d</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>, <argument><expr><literal type="number">4.5</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.5</literal></expr></argument>, <argument><expr><literal type="number">5.5</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try a Double.NaN</comment>
+        <expr_stmt><expr><call><name><name>d</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>Double</name><operator>.</operator><name>NaN</name></name></expr></argument>, <argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C3"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>, <argument><expr><literal type="number">4.5</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.5</literal></expr></argument>, <argument><expr><literal type="number">5.5</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try a Double.NEGATIVE_INFINITY</comment>
+        <expr_stmt><expr><call><name><name>d</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>Double</name><operator>.</operator><name>NEGATIVE_INFINITY</name></name></expr></argument>, <argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C3"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><name><name>Double</name><operator>.</operator><name>NEGATIVE_INFINITY</name></name></expr></argument>, <argument><expr><literal type="number">4.5</literal></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><call><name><name>d</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><name><name>Double</name><operator>.</operator><name>NEGATIVE_INFINITY</name></name></expr></argument>, <argument><expr><literal type="number">5.5</literal></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><call><name><name>d</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try a Double.POSITIVE_INFINITY</comment>
+        <expr_stmt><expr><call><name><name>d</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>Double</name><operator>.</operator><name>POSITIVE_INFINITY</name></name></expr></argument>, <argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C3"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>, <argument><expr><name><name>Double</name><operator>.</operator><name>POSITIVE_INFINITY</name></name></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><call><name><name>d</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.5</literal></expr></argument>, <argument><expr><name><name>Double</name><operator>.</operator><name>POSITIVE_INFINITY</name></name></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><call><name><name>d</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that the equals method can distinguish all the required fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultStatisticalCategoryDataset</name></type> <name>d1</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultStatisticalCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultStatisticalCategoryDataset</name></type> <name>d2</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultStatisticalCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>d2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>d2</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>d1</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for cloning.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultStatisticalCategoryDataset</name></type> <name>d1</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultStatisticalCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">3.3</literal></expr></argument>, <argument><expr><literal type="number">4.4</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><literal type="number">5.5</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C3"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">6.6</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><literal type="string">"R2"</literal></expr></argument>, <argument><expr><literal type="string">"C3"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>DefaultStatisticalCategoryDataset</name></type> <name>d2</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><name>d2</name> <operator>=</operator> <operator>(</operator><name>DefaultStatisticalCategoryDataset</name><operator>)</operator> <call><name><name>d1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>CloneNotSupportedException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><call><name><name>e</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>d1</name> <operator>!=</operator> <name>d2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>d2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>d2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check independence</comment>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="string">"R3"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>d2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Check serialization of a default instance.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization1</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultStatisticalCategoryDataset</name></type> <name>d1</name>
+            <init>= <expr><operator>new</operator> <call><name>DefaultStatisticalCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>, <argument><expr><literal type="number">2.2</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">3.3</literal></expr></argument>, <argument><expr><literal type="number">4.4</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><literal type="number">5.5</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C3"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">6.6</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><literal type="string">"R2"</literal></expr></argument>, <argument><expr><literal type="string">"C3"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>DefaultStatisticalCategoryDataset</name></type> <name>d2</name> <init>= 
+                <expr><operator>(</operator><name>DefaultStatisticalCategoryDataset</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>d1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>d1</name></expr></argument>, <argument><expr><name>d2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Check serialization of a more complex instance.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization2</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultStatisticalCategoryDataset</name></type> <name>d1</name>
+            <init>= <expr><operator>new</operator> <call><name>DefaultStatisticalCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.2</literal></expr></argument>, <argument><expr><literal type="number">3.4</literal></expr></argument>, <argument><expr><literal type="string">"Row 1"</literal></expr></argument>, <argument><expr><literal type="string">"Column 1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>DefaultStatisticalCategoryDataset</name></type> <name>d2</name> <init>= 
+                <expr><operator>(</operator><name>DefaultStatisticalCategoryDataset</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>d1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>d1</name></expr></argument>, <argument><expr><name>d2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>double</name></type> <name>EPSILON</name> <init>= <expr><literal type="number">0.0000000001</literal></expr></init></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the add() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAdd</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultStatisticalCategoryDataset</name></type> <name>d1</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultStatisticalCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getValue</name></name><argument_list>(<argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>doubleValue</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getStdDevValue</name></name><argument_list>(<argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>doubleValue</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// overwrite the value</comment>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getValue</name></name><argument_list>(<argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>doubleValue</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getStdDevValue</name></name><argument_list>(<argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>doubleValue</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getRangeLowerBound() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetRangeLowerBound</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultStatisticalCategoryDataset</name></type> <name>d1</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultStatisticalCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.0</literal></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getRangeUpperBound() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetRangeUpperBound</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultStatisticalCategoryDataset</name></type> <name>d1</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultStatisticalCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3.0</literal></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getRangeBounds() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetRangeBounds2</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultStatisticalCategoryDataset</name></type> <name>d1</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultStatisticalCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">3.0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">10.0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">30.0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the remove method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testRemove</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultStatisticalCategoryDataset</name></type> <name>data</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultStatisticalCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>data</name><operator>.</operator><name>remove</name></name><argument_list>(<argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"R2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>UnknownKeyException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>data</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">0.5</literal></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>data</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Range</name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>, <argument><expr><literal type="number">1.5</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>data</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>data</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.4</literal></expr></argument>, <argument><expr><literal type="number">0.2</literal></expr></argument>, <argument><expr><literal type="string">"R2"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><call><name><name>data</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.4</literal></expr></argument>, <argument><expr><call><name><name>data</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>, <argument><expr><call><name><name>data</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.6</literal></expr></argument>, <argument><expr><call><name><name>data</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>data</name><operator>.</operator><name>remove</name></name><argument_list>(<argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.4</literal></expr></argument>, <argument><expr><call><name><name>data</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.4</literal></expr></argument>, <argument><expr><call><name><name>data</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.2</literal></expr></argument>, <argument><expr><call><name><name>data</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.6</literal></expr></argument>, <argument><expr><call><name><name>data</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A test for bug 3072674.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test3072674</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultStatisticalCategoryDataset</name></type> <name>dataset</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultStatisticalCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><name><name>Double</name><operator>.</operator><name>NaN</name></name></expr></argument>, <argument><expr><literal type="string">"R1"</literal></expr></argument>, <argument><expr><literal type="string">"C1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeLowerBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><call><name><name>dataset</name><operator>.</operator><name>getRangeUpperBound</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <decl_stmt><decl><type><name>Range</name></type> <name>r</name> <init>= <expr><call><name><name>dataset</name><operator>.</operator><name>getRangeBounds</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><call><name><name>r</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><call><name><name>r</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+}</block></class>
+</unit>

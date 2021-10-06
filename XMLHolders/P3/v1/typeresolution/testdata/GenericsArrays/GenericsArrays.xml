@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\typeresolution\testdata\GenericsArrays.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Arrays</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>GenericsArrays</name> <block>{
+
+    <function><annotation>@<name>SuppressWarnings</name><argument_list>(<argument><expr><literal type="string">"unused"</literal></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test</name><parameter_list>(<parameter><decl><type><name><name>String</name><index>[]</index></name></type> <name>params</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>String</name></argument>&gt;</argument_list></name></type> <name>var</name> <init>= <expr><call><name><name>Arrays</name><operator>.</operator><name>asList</name></name><argument_list>(<argument><expr><name>params</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>String</name></argument>&gt;</argument_list></name></type> <name>var2</name> <init>= <expr><name><name>Arrays</name><operator>.</operator></name>&lt;<name>String</name><operator>&gt;</operator><call><name>asList</name><argument_list>(<argument><expr><name>params</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name><name>String</name><index>[]</index></name></argument>&gt;</argument_list></name></type> <name>var3</name> <init>= <expr><name><name>Arrays</name><operator>.</operator></name>&lt;<name><name>String</name><index>[]</index></name><operator>&gt;</operator><call><name>asList</name><argument_list>(<argument><expr><name>params</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

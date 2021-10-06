@@ -1,0 +1,7 @@
+<unit><function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>int</name></type> <name>getColumnIndex</name><parameter_list>(<parameter><decl><type><name>Comparable</name></type> <name>key</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <comment type="line">// defer null argument check</comment>
+        <return>return <expr><call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getColumnIndex</name></name><argument_list>(<argument><expr><name>key</name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    </unit>

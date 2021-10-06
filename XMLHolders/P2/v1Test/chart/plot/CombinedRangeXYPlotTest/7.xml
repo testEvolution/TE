@@ -1,0 +1,25 @@
+<unit><function><type><specifier>private</specifier> <name>XYDataset</name></type> <name>createDataset2</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <comment type="line">// create dataset 2...</comment>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series2</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Series 3"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>, <argument><expr><literal type="number">16853.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">20.0</literal></expr></argument>, <argument><expr><literal type="number">19642.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">30.0</literal></expr></argument>, <argument><expr><literal type="number">18253.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">40.0</literal></expr></argument>, <argument><expr><literal type="number">15352.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">50.0</literal></expr></argument>, <argument><expr><literal type="number">13532.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>, <argument><expr><literal type="number">12635.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">110.0</literal></expr></argument>, <argument><expr><literal type="number">13998.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">120.0</literal></expr></argument>, <argument><expr><literal type="number">11943.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">130.0</literal></expr></argument>, <argument><expr><literal type="number">16943.9</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">140.0</literal></expr></argument>, <argument><expr><literal type="number">17843.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">150.0</literal></expr></argument>, <argument><expr><literal type="number">16495.3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">160.0</literal></expr></argument>, <argument><expr><literal type="number">17943.6</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">170.0</literal></expr></argument>, <argument><expr><literal type="number">18500.7</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">180.0</literal></expr></argument>, <argument><expr><literal type="number">19595.9</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <return>return <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>(<argument><expr><name>series2</name></expr></argument>)</argument_list></call></expr>;</return>
+
+    </block_content>}</block></function>
+
+    </unit>

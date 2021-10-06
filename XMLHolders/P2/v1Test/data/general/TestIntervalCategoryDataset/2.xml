@@ -1,0 +1,11 @@
+<unit><function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>Number</name></type> <name>getValue</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>row</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>column</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>IntervalDataItem</name></type> <name>item</name> <init>= <expr><operator>(</operator><name>IntervalDataItem</name><operator>)</operator> <call><name><name>this</name><operator>.</operator><name>data</name><operator>.</operator><name>getObject</name></name><argument_list>(<argument><expr><name>row</name></expr></argument>,
+                <argument><expr><name>column</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <if_stmt><if>if <condition>(<expr><name>item</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="null">null</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <return>return <expr><call><name><name>item</name><operator>.</operator><name>getValue</name></name><argument_list>()</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    </unit>

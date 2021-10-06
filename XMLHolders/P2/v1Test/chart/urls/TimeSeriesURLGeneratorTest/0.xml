@@ -1,0 +1,11 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGenerateURL</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>TimeSeriesURLGenerator</name></type> <name>g</name> <init>= <expr><operator>new</operator> <call><name>TimeSeriesURLGenerator</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultXYDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultXYDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><literal type="string">"Series '1'"</literal></expr></argument>, <argument><expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><block>{<expr><literal type="number">1.0</literal></expr>, <expr><literal type="number">2.0</literal></expr>}</block></expr>,
+                <expr><block>{<expr><literal type="number">3.0</literal></expr>, <expr><literal type="number">4.0</literal></expr>}</block></expr>}</block></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>s</name> <init>= <expr><call><name><name>g</name><operator>.</operator><name>generateURL</name></name><argument_list>(<argument><expr><name>dataset</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>s</name><operator>.</operator><name>startsWith</name></name><argument_list>(<argument><expr><literal type="string">"index.html?series=Series+%271%27&amp;amp;item="</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

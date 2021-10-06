@@ -1,0 +1,6 @@
+<unit><function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>annotationChanged</name><parameter_list>(<parameter><decl><type><name>AnnotationChangeEvent</name></type> <name>event</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <name>event</name></expr>;</expr_stmt>  
+    </block_content>}</block></function>
+ 
+}</unit>

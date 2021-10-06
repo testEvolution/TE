@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\metrics\impl\CycloTestRule.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>impl</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Map</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>api</name><operator>.</operator><name>JavaClassMetricKey</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>api</name><operator>.</operator><name>JavaOperationMetricKey</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>impl</name><operator>.</operator><name>CycloMetric</name><operator>.</operator><name>CycloOption</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>metrics</name><operator>.</operator><name>MetricOption</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests cyclo.
+ *
+ * @author ClÃ©ment Fournier
+ */</comment>
+<class><specifier>public</specifier> class <name>CycloTestRule</name> <super_list><extends>extends <super><name>AbstractMetricTestRule</name></super></extends></super_list> <block>{
+
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>protected</specifier> <name>JavaClassMetricKey</name></type> <name>getClassKey</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><literal type="null">null</literal></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>protected</specifier> <name>JavaOperationMetricKey</name></type> <name>getOpKey</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><name><name>JavaOperationMetricKey</name><operator>.</operator><name>CYCLO</name></name></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>protected</specifier> <name><name>Map</name><argument_list type="generic">&lt;<argument><name>String</name></argument>, <argument><name>MetricOption</name></argument>&gt;</argument_list></name></type> <name>optionMappings</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>Map</name><argument_list type="generic">&lt;<argument><name>String</name></argument>, <argument><name>MetricOption</name></argument>&gt;</argument_list></name></type> <name>mappings</name> <init>= <expr><call><name><name>super</name><operator>.</operator><name>optionMappings</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>mappings</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><call><name><name>CycloOption</name><operator>.</operator><name>IGNORE_BOOLEAN_PATHS</name><operator>.</operator><name>valueName</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name><name>CycloOption</name><operator>.</operator><name>IGNORE_BOOLEAN_PATHS</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>mappings</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><call><name><name>CycloOption</name><operator>.</operator><name>CONSIDER_ASSERT</name><operator>.</operator><name>valueName</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name><name>CycloOption</name><operator>.</operator><name>CONSIDER_ASSERT</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <return>return <expr><name>mappings</name></expr>;</return>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\RuleSetFactoryTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertNull</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Test java's rulesets
+ */</comment>
+<class><specifier>public</specifier> class <name>RuleSetFactoryTest</name> <super_list><extends>extends <super><name>AbstractRuleSetFactoryTest</name></super></extends></super_list> <block>{
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testExclusionOfUselessParantheses</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>RuleSetNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>RuleSetReferenceId</name></type> <name>ref</name> <init>= <expr><call><name>createRuleSetReferenceId</name><argument_list>(
+                <argument><expr><literal type="string">"&lt;?xml version=\"1.0\"?&gt;\n"</literal> <operator>+</operator> <literal type="string">"&lt;ruleset name=\"Custom ruleset for tests\"\n"</literal>
+                        <operator>+</operator> <literal type="string">"    xmlns=\"http://pmd.sourceforge.net/ruleset/2.0.0\"\n"</literal>
+                        <operator>+</operator> <literal type="string">"    xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"</literal>
+                        <operator>+</operator> <literal type="string">"    xsi:schemaLocation=\"http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd\"&gt;\n"</literal>
+                        <operator>+</operator> <literal type="string">"  &lt;description&gt;Custom ruleset for tests&lt;/description&gt;\n"</literal>
+                        <operator>+</operator> <literal type="string">"  &lt;rule ref=\"category/java/codestyle.xml\"&gt;\n"</literal>
+                        <operator>+</operator> <literal type="string">"    &lt;exclude name=\"UselessParentheses\"/&gt;\n"</literal> <operator>+</operator> <literal type="string">"  &lt;/rule&gt;\n"</literal> <operator>+</operator> <literal type="string">"&lt;/ruleset&gt;\n"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RuleSetFactory</name></type> <name>ruleSetFactory</name> <init>= <expr><operator>new</operator> <call><name>RuleSetFactory</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RuleSet</name></type> <name>ruleset</name> <init>= <expr><call><name><name>ruleSetFactory</name><operator>.</operator><name>createRuleSet</name></name><argument_list>(<argument><expr><name>ref</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Rule</name></type> <name>rule</name> <init>= <expr><call><name><name>ruleset</name><operator>.</operator><name>getRuleByName</name></name><argument_list>(<argument><expr><literal type="string">"UselessParentheses"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><name>rule</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

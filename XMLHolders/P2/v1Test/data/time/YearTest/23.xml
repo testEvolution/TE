@@ -1,0 +1,19 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetLastMillisecondWithCalendar</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Year</name></type> <name>y</name> <init>= <expr><operator>new</operator> <call><name>Year</name><argument_list>(<argument><expr><literal type="number">2001</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>GregorianCalendar</name></type> <name>calendar</name> <init>= <expr><operator>new</operator> <call><name>GregorianCalendar</name><argument_list>(<argument><expr><name><name>Locale</name><operator>.</operator><name>GERMANY</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>calendar</name><operator>.</operator><name>setTimeZone</name></name><argument_list>(<argument><expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><literal type="string">"Europe/Frankfurt"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1009843199999L</literal></expr></argument>, <argument><expr><call><name><name>y</name><operator>.</operator><name>getLastMillisecond</name></name><argument_list>(<argument><expr><name>calendar</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try null calendar</comment>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>y</name><operator>.</operator><name>getLastMillisecond</name></name><argument_list>(<argument><expr><operator>(</operator><name>Calendar</name><operator>)</operator> <literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>NullPointerException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

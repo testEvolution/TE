@@ -1,0 +1,12 @@
+<unit><function><type><specifier>public</specifier> <specifier>static</specifier> <name>boolean</name></type> <name>containsInstanceOf</name><parameter_list>(<parameter><decl><type><name>Collection</name></type> <name>collection</name></decl></parameter>, <parameter><decl><type><name>Class</name></type> <name>c</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Iterator</name></type> <name>iterator</name> <init>= <expr><call><name><name>collection</name><operator>.</operator><name>iterator</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <while>while <condition>(<expr><call><name><name>iterator</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr>)</condition> <block>{<block_content>
+            <decl_stmt><decl><type><name>Object</name></type> <name>obj</name> <init>= <expr><call><name><name>iterator</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+            <if_stmt><if>if <condition>(<expr><name>obj</name> <operator>!=</operator> <literal type="null">null</literal> <operator>&amp;&amp;</operator> <call><name><name>obj</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><name>c</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+                <return>return <expr><literal type="boolean">true</literal></expr>;</return>
+            </block_content>}</block></if></if_stmt>
+        </block_content>}</block></while>
+        <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+    </block_content>}</block></function>
+
+    </unit>

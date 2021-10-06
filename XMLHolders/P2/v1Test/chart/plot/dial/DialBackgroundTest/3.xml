@@ -1,0 +1,19 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// test a default instance</comment>
+        <decl_stmt><decl><type><name>DialBackground</name></type> <name>b1</name> <init>= <expr><operator>new</operator> <call><name>DialBackground</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DialBackground</name></type> <name>b2</name> <init>= <expr><operator>(</operator><name>DialBackground</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>b1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>b1</name></expr></argument>, <argument><expr><name>b2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// test a customised instance</comment>
+        <expr_stmt><expr><name>b1</name> <operator>=</operator> <operator>new</operator> <call><name>DialBackground</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>b1</name><operator>.</operator><name>setPaint</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GradientPaint</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>, <argument><expr><literal type="number">2.0f</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>, <argument><expr><literal type="number">3.0f</literal></expr></argument>, <argument><expr><literal type="number">4.0f</literal></expr></argument>,
+                <argument><expr><name><name>Color</name><operator>.</operator><name>GREEN</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>b1</name><operator>.</operator><name>setGradientPaintTransformer</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>StandardGradientPaintTransformer</name><argument_list>(
+                <argument><expr><name><name>GradientPaintTransformType</name><operator>.</operator><name>CENTER_VERTICAL</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>b2</name> <operator>=</operator> <operator>(</operator><name>DialBackground</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>b1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>b1</name></expr></argument>, <argument><expr><name>b2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</unit>

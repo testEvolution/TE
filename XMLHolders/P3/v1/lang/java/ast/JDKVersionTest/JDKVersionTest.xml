@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\ast\JDKVersionTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name></name>;</package>
+
+<import>import static <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ParserTstUtil</name><operator>.</operator><name>parseJava13</name></name>;</import>
+<import>import static <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ParserTstUtil</name><operator>.</operator><name>parseJava14</name></name>;</import>
+<import>import static <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ParserTstUtil</name><operator>.</operator><name>parseJava15</name></name>;</import>
+<import>import static <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ParserTstUtil</name><operator>.</operator><name>parseJava17</name></name>;</import>
+<import>import static <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ParserTstUtil</name><operator>.</operator><name>parseJava18</name></name>;</import>
+<import>import static <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ParserTstUtil</name><operator>.</operator><name>parseJava9</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>fail</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>IOException</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>nio</name><operator>.</operator><name>charset</name><operator>.</operator><name>StandardCharsets</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>apache</name><operator>.</operator><name>commons</name><operator>.</operator><name>io</name><operator>.</operator><name>IOUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>JDKVersionTest</name> <block>{
+
+    <function><type><specifier>private</specifier> <specifier>static</specifier> <name>String</name></type> <name>loadSource</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>name</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <try>try <block>{<block_content>
+            <return>return <expr><call><name><name>IOUtils</name><operator>.</operator><name>toString</name></name><argument_list>(<argument><expr><call><name><name>JDKVersionTest</name><operator>.</operator><name><name>class</name><operator>.</operator><name>getResourceAsStream</name></name></name><argument_list>(<argument><expr><literal type="string">"jdkversiontests/"</literal> <operator>+</operator> <name>name</name></expr></argument>)</argument_list></call></expr></argument>,
+                    <argument><expr><name><name>StandardCharsets</name><operator>.</operator><name>UTF_8</name></name></expr></argument>)</argument_list></call></expr>;</return>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <throw>throw <expr><operator>new</operator> <call><name>RuntimeException</name><argument_list>(<argument><expr><name>e</name></expr></argument>)</argument_list></call></expr>;</throw>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <comment type="line">// enum keyword/identifier</comment>
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ParseException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEnumAsKeywordShouldFailWith14</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk14_enum.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEnumAsIdentifierShouldPassWith14</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava14</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk14_enum.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEnumAsKeywordShouldPassWith15</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk15_enum.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ParseException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEnumAsIdentifierShouldFailWith15</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk14_enum.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+    <comment type="line">// enum keyword/identifier</comment>
+
+    <comment type="line">// assert keyword/identifier</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAssertAsKeywordVariantsSucceedWith14</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava14</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"assert_test1.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>parseJava14</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"assert_test2.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>parseJava14</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"assert_test3.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>parseJava14</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"assert_test4.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ParseException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAssertAsVariableDeclIdentifierFailsWith14</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava14</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"assert_test5.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ParseException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAssertAsMethodNameIdentifierFailsWith14</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava14</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"assert_test7.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAssertAsIdentifierSucceedsWith13</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava13</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"assert_test5.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ParseException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAssertAsKeywordFailsWith13</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava13</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"assert_test6.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+    <comment type="line">// assert keyword/identifier</comment>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testVarargsShouldPassWith15</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk15_varargs.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ParseException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testVarargsShouldFailWith14</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava14</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk15_varargs.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testJDK15ForLoopSyntaxShouldPassWith15</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk15_forloop.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testJDK15ForLoopSyntaxWithModifiers</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk15_forloop_with_modifier.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ParseException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testJDK15ForLoopShouldFailWith14</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava14</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk15_forloop.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testJDK15GenericsSyntaxShouldPassWith15</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk15_generics.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testVariousParserBugs</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"fields_bug.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"gt_bug.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"annotations_bug.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"constant_field_in_annotation_bug.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"generic_in_field.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNestedClassInMethodBug</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"inner_bug.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"inner_bug2.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGenericsInMethodCall</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"generic_in_method_call.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGenericINAnnotation</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"generic_in_annotation.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGenericReturnType</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"generic_return_type.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testMultipleGenerics</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// See java/lang/concurrent/CopyOnWriteArraySet</comment>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"funky_generics.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <comment type="line">// See java/lang/concurrent/ConcurrentHashMap</comment>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"multiple_generics.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAnnotatedParams</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"annotated_params.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAnnotatedLocals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"annotated_locals.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAssertAsIdentifierSucceedsWith13Test2</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava13</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"assert_test5_a.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>testBinaryAndUnderscoresInNumericalLiterals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava17</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk17_numerical_literals.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>testStringInSwitch</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava17</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk17_string_in_switch.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>testGenericDiamond</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava17</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk17_generic_diamond.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>testTryWithResources</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava17</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk17_try_with_resources.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>testTryWithResourcesSemi</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava17</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk17_try_with_resources_semi.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>testTryWithResourcesMulti</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava17</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk17_try_with_resources_multi.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>testTryWithResourcesWithAnnotations</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava17</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk17_try_with_resources_with_annotations.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>testMulticatch</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava17</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk17_multicatch.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>testMulticatchWithAnnotations</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava17</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk17_multicatch_with_annotations.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ParseException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>jdk9PrivateInterfaceMethodsInJava18</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava18</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk9_private_interface_methods.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>testPrivateMethods</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava18</name><argument_list>(<argument><expr><literal type="string">"public class Foo { private void bar() { } }"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>testNestedPrivateMethods</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava18</name><argument_list>(<argument><expr><literal type="string">"public interface Baz { public static class Foo { private void bar() { } } }"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>jdk9PrivateInterfaceMethods</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava9</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk9_private_interface_methods.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>jdk9InvalidIdentifierInJava18</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava18</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk9_invalid_identifier.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ParseException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>jdk9InvalidIdentifier</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava9</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk9_invalid_identifier.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ParseException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>jdk9AnonymousDiamondInJava8</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava18</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk9_anonymous_diamond.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>jdk9AnonymousDiamond</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava9</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk9_anonymous_diamond.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ParseException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>jdk9ModuleInfoInJava8</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava18</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk9_module_info.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>jdk9ModuleInfo</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava9</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk9_module_info.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAnnotatedModule</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava9</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk9_module_info_with_annot.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ParseException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>jdk9TryWithResourcesInJava8</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava18</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk9_try_with_resources.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>jdk9TryWithResources</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava9</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"jdk9_try_with_resources.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>jdk7PrivateMethodInnerClassInterface1</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>acu</name> <init>= <expr><call><name>parseJava17</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"private_method_in_inner_class_interface1.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTMethodDeclaration</name></argument>&gt;</argument_list></name></type> <name>methods</name> <init>= <expr><call><name><name>acu</name><operator>.</operator><name>findDescendantsOfType</name></name><argument_list>(<argument><expr><name><name>ASTMethodDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><call><name><name>methods</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <for>for <control>(<init><decl><type><name>ASTMethodDeclaration</name></type> <name>method</name> <range>: <expr><name>methods</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>method</name><operator>.</operator><name>isInterfaceMember</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>jdk7PrivateMethodInnerClassInterface2</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <try>try <block>{<block_content>
+            <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>acu</name> <init>= <expr><call><name>parseJava17</name><argument_list>(<argument><expr><call><name>loadSource</name><argument_list>(<argument><expr><literal type="string">"private_method_in_inner_class_interface2.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected exception"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>ParseException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>e</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>startsWith</name><argument_list>(<argument><expr><literal type="string">"Line 19"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

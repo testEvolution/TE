@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\ast\ASTClassOrInterfaceDeclarationTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ParserTstUtil</name></name>;</import>
+
+
+<comment type="block" format="javadoc">/**
+ * @author ClÃ©ment Fournier
+ * @since 6.1.0
+ */</comment>
+<class><specifier>public</specifier> class <name>ASTClassOrInterfaceDeclarationTest</name> <block>{
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>LOCAL_CLASS_IN_METHOD</name>
+            <init>= <expr><literal type="string">"class Foo { void bar() { class Local {}}}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>NESTED_CLASS_IS_NOT_LOCAL</name>
+            <init>= <expr><literal type="string">"class Foo { class Nested {} void bar() {}}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>LOCAL_CLASS_IN_INITIALIZER</name>
+            <init>= <expr><literal type="string">"class Foo { { class Local {} } }"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>LOCAL_CLASS_WITH_MODIFIERS</name>
+            <init>= <expr><literal type="string">"class Foo { { abstract class Local {} } }"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>LOCAL_CLASS_WITH_MIXED_MODIFIER_ANNOTATIONS</name>
+            <init>= <expr><literal type="string">"class Foo { { final @F class Local {} } }"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>LOCAL_CHILDREN_ARE_NOT_ALWAYS_LOCAL</name>
+            <init>= <expr><literal type="string">"class Foo { { class Local { class Nested {} void bar() {class Local2 {}}}}}"</literal></expr></init></decl>;</decl_stmt>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLocalInMethod</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>classes</name> <init>= <expr><call><name><name>ParserTstUtil</name><operator>.</operator><name>getOrderedNodes</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>LOCAL_CLASS_IN_METHOD</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>classes</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call> <operator>==</operator> <literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Local class false-positive"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Local class false-negative"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLocalInInitializer</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>classes</name> <init>= <expr><call><name><name>ParserTstUtil</name><operator>.</operator><name>getOrderedNodes</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>LOCAL_CLASS_IN_INITIALIZER</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>classes</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call> <operator>==</operator> <literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Local class false-positive"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Local class false-negative"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLocalAbstractClass</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>classes</name> <init>= <expr><call><name><name>ParserTstUtil</name><operator>.</operator><name>getOrderedNodes</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>LOCAL_CLASS_WITH_MODIFIERS</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>classes</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call> <operator>==</operator> <literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Local class false-positive"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Local class false-negative"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Local class should preserve its modifiers"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isAbstract</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLocalClassWithMixedModifiers</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>classes</name> <init>= <expr><call><name><name>ParserTstUtil</name><operator>.</operator><name>getOrderedNodes</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>LOCAL_CLASS_WITH_MIXED_MODIFIER_ANNOTATIONS</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>classes</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call> <operator>==</operator> <literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Local class false-positive"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Local class false-negative"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Local class should preserve its modifiers"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isFinal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLocalClassVisibility</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>classes</name> <init>= <expr><call><name><name>ParserTstUtil</name><operator>.</operator><name>getOrderedNodes</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>LOCAL_CLASS_WITH_MODIFIERS</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>classes</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call> <operator>==</operator> <literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Local class false-positive"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Local class false-negative"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Local class is not public"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isPublic</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Local class is not private"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isPrivate</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Local class is not protected"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isProtected</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Local class is not package-private"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isPackagePrivate</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNestedClassIsNotLocal</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>classes</name> <init>= <expr><call><name><name>ParserTstUtil</name><operator>.</operator><name>getOrderedNodes</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>NESTED_CLASS_IS_NOT_LOCAL</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>classes</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call> <operator>==</operator> <literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Local class false-positive"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Local class false-positive"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLocalChildrenAreNotAlwaysLocal</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>classes</name> <init>= <expr><call><name><name>ParserTstUtil</name><operator>.</operator><name>getOrderedNodes</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>LOCAL_CHILDREN_ARE_NOT_ALWAYS_LOCAL</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>classes</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call> <operator>==</operator> <literal type="number">4</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Local class false-positive"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt> <comment type="line">// class Foo</comment>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Local class false-negative"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>  <comment type="line">// class Local</comment>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Local class false-positive"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt> <comment type="line">// class Nested</comment>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Local class false-negative"</literal></expr></argument>, <argument><expr><call><name><name>classes</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isLocal</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>  <comment type="line">// class Local2</comment>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

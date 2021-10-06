@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\ast\AccessNodeTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>ast</name><operator>.</operator><name>Node</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>JavaParsingHelper</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>AccessNodeTest</name> <super_list><extends>extends <super><name>BaseParserTest</name></super></extends></super_list> <block>{
+
+    <class><specifier>public</specifier> <specifier>static</specifier> class <name>MyAccessNode</name> <super_list><extends>extends <super><name>AbstractJavaAccessNode</name></super></extends></super_list> <block>{
+        <constructor><specifier>public</specifier> <name>MyAccessNode</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>i</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>i</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></constructor>
+
+        <constructor><specifier>public</specifier> <name>MyAccessNode</name><parameter_list>(<parameter><decl><type><name>JavaParser</name></type> <name>parser</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>i</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>parser</name></expr></argument>, <argument><expr><name>i</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></constructor>
+    }</block></class>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testModifiersOnClassDecl</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTClassOrInterfaceDeclaration</name></argument>&gt;</argument_list></name></type> <name>ops</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>ops</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>isPublic</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST1</name> <init>= <expr><literal type="string">"public class Foo {}"</literal></expr></init></decl>;</decl_stmt>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testStatic</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>AccessNode</name></type> <name>node</name> <init>= <expr><operator>new</operator> <call><name>MyAccessNode</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Node should default to not static."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isStatic</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>node</name><operator>.</operator><name>setStatic</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Node set to static, not static."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isStatic</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPublic</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>AccessNode</name></type> <name>node</name> <init>= <expr><operator>new</operator> <call><name>MyAccessNode</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Node should default to not public."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isPublic</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>node</name><operator>.</operator><name>setPublic</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Node set to public, not public."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isPublic</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testProtected</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>AccessNode</name></type> <name>node</name> <init>= <expr><operator>new</operator> <call><name>MyAccessNode</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Node should default to not protected."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isProtected</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>node</name><operator>.</operator><name>setProtected</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Node set to protected, not protected."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isProtected</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPrivate</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>AccessNode</name></type> <name>node</name> <init>= <expr><operator>new</operator> <call><name>MyAccessNode</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Node should default to not private."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isPrivate</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>node</name><operator>.</operator><name>setPrivate</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Node set to private, not private."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isPrivate</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFinal</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>AccessNode</name></type> <name>node</name> <init>= <expr><operator>new</operator> <call><name>MyAccessNode</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Node should default to not final."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isFinal</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>node</name><operator>.</operator><name>setFinal</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Node set to final, not final."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isFinal</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSynchronized</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>AccessNode</name></type> <name>node</name> <init>= <expr><operator>new</operator> <call><name>MyAccessNode</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Node should default to not synchronized."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isSynchronized</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>node</name><operator>.</operator><name>setSynchronized</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Node set to synchronized, not synchronized."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isSynchronized</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testVolatile</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>AccessNode</name></type> <name>node</name> <init>= <expr><operator>new</operator> <call><name>MyAccessNode</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Node should default to not volatile."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isVolatile</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>node</name><operator>.</operator><name>setVolatile</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Node set to volatile, not volatile."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isVolatile</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testTransient</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>AccessNode</name></type> <name>node</name> <init>= <expr><operator>new</operator> <call><name>MyAccessNode</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Node should default to not transient."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isTransient</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>node</name><operator>.</operator><name>setTransient</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Node set to transient, not transient."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isTransient</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNative</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>AccessNode</name></type> <name>node</name> <init>= <expr><operator>new</operator> <call><name>MyAccessNode</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Node should default to not native."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isNative</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>node</name><operator>.</operator><name>setNative</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Node set to native, not native."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isNative</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAbstract</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>AccessNode</name></type> <name>node</name> <init>= <expr><operator>new</operator> <call><name>MyAccessNode</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Node should default to not abstract."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isAbstract</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>node</name><operator>.</operator><name>setAbstract</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Node set to abstract, not abstract."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isAbstract</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testStrict</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>AccessNode</name></type> <name>node</name> <init>= <expr><operator>new</operator> <call><name>MyAccessNode</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Node should default to not strict."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isStrictfp</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>node</name><operator>.</operator><name>setStrictfp</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Node set to strict, not strict."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isStrictfp</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPackagePrivate</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>AccessNode</name></type> <name>node</name> <init>= <expr><operator>new</operator> <call><name>MyAccessNode</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Node should default to package private."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isPackagePrivate</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>node</name><operator>.</operator><name>setPrivate</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Node set to private, still package private."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isPackagePrivate</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>node</name> <operator>=</operator> <operator>new</operator> <call><name>MyAccessNode</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>node</name><operator>.</operator><name>setPublic</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Node set to public, still package private."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isPackagePrivate</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>node</name> <operator>=</operator> <operator>new</operator> <call><name>MyAccessNode</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>node</name><operator>.</operator><name>setProtected</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><literal type="string">"Node set to protected, still package private."</literal></expr></argument>, <argument><expr><call><name><name>node</name><operator>.</operator><name>isPackagePrivate</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><type><specifier>private</specifier> <specifier>static</specifier> <name>String</name></type> <name>makeAccessJavaCode</name><parameter_list>(<parameter><decl><type><name><name>String</name><index>[]</index></name></type> <name>access</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>declRest</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>result</name> <init>= <expr><literal type="string">"public class Test { "</literal></expr></init></decl>;</decl_stmt>
+        <for>for <control>(<init><decl><type><name>String</name></type> <name>s</name> <range>: <expr><name>access</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <expr_stmt><expr><name>result</name> <operator>+=</operator> <name>s</name> <operator>+</operator> <literal type="string">" "</literal></expr>;</expr_stmt>
+        </block_content>}</block></for>
+        <return>return <expr><name>result</name> <operator>+</operator> <literal type="string">" "</literal> <operator>+</operator> <name>declRest</name> <operator>+</operator> <literal type="string">" }"</literal></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function><type><specifier>public</specifier> <specifier>static</specifier> <parameter_list type="generic">&lt;<parameter><name>T</name> <extends>extends <name>Node</name></extends></parameter>&gt;</parameter_list> <name>T</name></type> <name>getDeclWithModifiers</name><parameter_list>(<parameter><decl><type><name><name>String</name><index>[]</index></name></type> <name>access</name></decl></parameter>, <parameter><decl><type><name><name>Class</name><argument_list type="generic">&lt;<argument><name>T</name></argument>&gt;</argument_list></name></type> <name>target</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>declRest</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>acu</name> <init>= <expr><call><name><name>JavaParsingHelper</name><operator>.</operator><name>JUST_PARSE</name><operator>.</operator><name>parse</name></name><argument_list>(<argument><expr><call><name>makeAccessJavaCode</name><argument_list>(<argument><expr><name>access</name></expr></argument>, <argument><expr><name>declRest</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>T</name></argument>&gt;</argument_list></name></type> <name>declarations</name> <init>= <expr><call><name><name>acu</name><operator>.</operator><name>getFirstDescendantOfType</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call>
+                            <operator>.</operator><call><name>findDescendantsOfType</name><argument_list>(<argument><expr><name>target</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Wrong number of declarations"</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>declarations</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <return>return <expr><call><name><name>declarations</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

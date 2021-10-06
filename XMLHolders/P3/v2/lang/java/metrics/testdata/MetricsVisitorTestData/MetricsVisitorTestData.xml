@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\metrics\testdata\MetricsVisitorTestData.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>testdata</name></name>;</package>
+
+<comment type="block" format="javadoc">/**
+ * Test data for the metrics visitor
+ *
+ * @author ClÃ©ment Fournier
+ */</comment>
+<class><specifier>public</specifier> class <name>MetricsVisitorTestData</name> <block>{
+
+    <decl_stmt><decl><type><specifier>public</specifier> <name>String</name></type> <name>x</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>private</specifier> <name>String</name></type> <name>y</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>protected</specifier> <name>String</name></type> <name>z</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>String</name></type> <name>t</name></decl>;</decl_stmt>
+
+    <constructor><specifier>public</specifier> <name>MetricsVisitorTestData</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+    </block_content>}</block></constructor>
+
+    <constructor><specifier>private</specifier> <name>MetricsVisitorTestData</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>x</name></decl></parameter>)</parameter_list> <block>{<block_content>
+
+    </block_content>}</block></constructor>
+
+    <function><type><specifier>public</specifier> <name>String</name></type> <name>getX</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><name>x</name></expr>;</return>
+    </block_content>}</block></function>
+
+    <function><type><specifier>public</specifier> <name>String</name></type> <name>getY</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><name>y</name></expr>;</return>
+    </block_content>}</block></function>
+
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>setX</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>n</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name>x</name> <operator>=</operator> <name>n</name></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>setY</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>n</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name>y</name> <operator>=</operator> <name>n</name></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <class><specifier>public</specifier> <specifier>static</specifier> class <name>NestedClass</name> <block>{
+
+        <constructor><specifier>public</specifier> <name>NestedClass</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        </block_content>}</block></constructor>
+
+        <function><type><specifier>public</specifier> <name>void</name></type> <name>nestedMethod1</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        </block_content>}</block></function>
+    }</block></class>
+
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>mymethod1</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+    </block_content>}</block></function>
+
+    <function><type><specifier>private</specifier> <name>void</name></type> <name>mymethod2</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+    </block_content>}</block></function>
+
+    <function><type><specifier>protected</specifier> <specifier>static</specifier> <name>void</name></type> <name>mystatic1</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+    </block_content>}</block></function>
+
+    <function><type><specifier>private</specifier> <specifier>static</specifier> <name>void</name></type> <name>mystatic2</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>k</name></decl></parameter>)</parameter_list> <block>{<block_content>
+
+    </block_content>}</block></function>
+
+    <function><type><specifier>private</specifier> <specifier>static</specifier> <name>void</name></type> <name>mystatic2</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>k</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>l</name></decl></parameter>)</parameter_list> <block>{<block_content>
+
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

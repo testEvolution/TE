@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\symboltable\TypeSetTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>symboltable</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>File</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>HashSet</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Set</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>PMD</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>PMDASMClassLoader</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>TypeSetTest</name> <block>{
+    <decl_stmt><decl><type><specifier>private</specifier> <name>PMDASMClassLoader</name></type> <name>pmdClassLoader</name> <init>= <expr><call><name><name>PMDASMClassLoader</name><operator>.</operator><name>getInstance</name></name><argument_list>(<argument><expr><call><name><name>TypeSetTest</name><operator>.</operator><name><name>class</name><operator>.</operator><name>getClassLoader</name></name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testASTCompilationUnitPackage</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>TypeSet</name></type> <name>t</name> <init>= <expr><operator>new</operator> <call><name>TypeSet</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>t</name><operator>.</operator><name>setASTCompilationUnitPackage</name></name><argument_list>(<argument><expr><literal type="string">"java.lang."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"java.lang."</literal></expr></argument>, <argument><expr><call><name><name>t</name><operator>.</operator><name>getASTCompilationUnitPackage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAddImport</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>TypeSet</name></type> <name>t</name> <init>= <expr><operator>new</operator> <call><name>TypeSet</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>t</name><operator>.</operator><name>addImport</name></name><argument_list>(<argument><expr><literal type="string">"java.io.File"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>t</name><operator>.</operator><name>getImportsCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFindClassImplicitImport</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>TypeSet</name></type> <name>t</name> <init>= <expr><operator>new</operator> <call><name>TypeSet</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Class</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>clazz</name> <init>= <expr><call><name><name>t</name><operator>.</operator><name>findClass</name></name><argument_list>(<argument><expr><literal type="string">"String"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>String</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>clazz</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFindClassSamePackage</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>TypeSet</name></type> <name>t</name> <init>= <expr><operator>new</operator> <call><name>TypeSet</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>t</name><operator>.</operator><name>setASTCompilationUnitPackage</name></name><argument_list>(<argument><expr><literal type="string">"net.sourceforge.pmd"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>Class</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>clazz</name> <init>= <expr><call><name><name>t</name><operator>.</operator><name>findClass</name></name><argument_list>(<argument><expr><literal type="string">"PMD"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>PMD</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>clazz</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFindClassExplicitImport</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>TypeSet</name></type> <name>t</name> <init>= <expr><operator>new</operator> <call><name>TypeSet</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>t</name><operator>.</operator><name>addImport</name></name><argument_list>(<argument><expr><literal type="string">"java.io.File"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>Class</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>clazz</name> <init>= <expr><call><name><name>t</name><operator>.</operator><name>findClass</name></name><argument_list>(<argument><expr><literal type="string">"File"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>File</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>clazz</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFindClassImportOnDemand</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>TypeSet</name></type> <name>t</name> <init>= <expr><operator>new</operator> <call><name>TypeSet</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>t</name><operator>.</operator><name>addImport</name></name><argument_list>(<argument><expr><literal type="string">"java.io.*"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>Class</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>clazz</name> <init>= <expr><call><name><name>t</name><operator>.</operator><name>findClass</name></name><argument_list>(<argument><expr><literal type="string">"File"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>File</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>clazz</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFindClassPrimitive</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>TypeSet</name></type> <name>t</name> <init>= <expr><operator>new</operator> <call><name>TypeSet</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>int</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>t</name><operator>.</operator><name>findClass</name></name><argument_list>(<argument><expr><literal type="string">"int"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFindClassVoid</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>TypeSet</name></type> <name>t</name> <init>= <expr><operator>new</operator> <call><name>TypeSet</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>void</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>t</name><operator>.</operator><name>findClass</name></name><argument_list>(<argument><expr><literal type="string">"void"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFindFullyQualified</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>TypeSet</name></type> <name>t</name> <init>= <expr><operator>new</operator> <call><name>TypeSet</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>String</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>t</name><operator>.</operator><name>findClass</name></name><argument_list>(<argument><expr><literal type="string">"java.lang.String"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Set</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>t</name><operator>.</operator><name>findClass</name></name><argument_list>(<argument><expr><literal type="string">"java.util.Set"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="line">// inner class tests</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPrimitiveTypeResolver</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name><name>TypeSet</name><operator>.</operator><name>PrimitiveTypeResolver</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>int</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="string">"int"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>byte</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="string">"byte"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>long</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="string">"long"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ClassNotFoundException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testPrimitiveTypeResolverWithNull</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name><name>TypeSet</name><operator>.</operator><name>PrimitiveTypeResolver</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testVoidTypeResolver</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name><name>TypeSet</name><operator>.</operator><name>VoidResolver</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>void</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="string">"void"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ClassNotFoundException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testVoidTypeResolverWithNull</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name><name>TypeSet</name><operator>.</operator><name>VoidResolver</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testExplicitImportResolver</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>Set</name><argument_list type="generic">&lt;<argument><name>String</name></argument>&gt;</argument_list></name></type> <name>imports</name> <init>= <expr><operator>new</operator> <call><name><name>HashSet</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>imports</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="string">"java.io.File"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name><name>TypeSet</name><operator>.</operator><name>ExplicitImportResolver</name></name><argument_list>(<argument><expr><name>pmdClassLoader</name></expr></argument>, <argument><expr><name>imports</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>File</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="string">"File"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ClassNotFoundException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testExplicitImportResolverWithNull</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>Set</name><argument_list type="generic">&lt;<argument><name>String</name></argument>&gt;</argument_list></name></type> <name>imports</name> <init>= <expr><operator>new</operator> <call><name><name>HashSet</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>imports</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="string">"java.io.File"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name><name>TypeSet</name><operator>.</operator><name>ExplicitImportResolver</name></name><argument_list>(<argument><expr><name>pmdClassLoader</name></expr></argument>, <argument><expr><name>imports</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ClassNotFoundException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testExplicitImportResolverWithNullAndEmptyImports</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name><name>TypeSet</name><operator>.</operator><name>ExplicitImportResolver</name></name><argument_list>(<argument><expr><name>pmdClassLoader</name></expr></argument>, <argument><expr><operator>new</operator> <call><name><name>HashSet</name><argument_list type="generic">&lt;<argument><name>String</name></argument>&gt;</argument_list></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testImplicitImportResolverPass</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name><name>TypeSet</name><operator>.</operator><name>ImplicitImportResolver</name></name><argument_list>(<argument><expr><name>pmdClassLoader</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>String</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="string">"String"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ClassNotFoundException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testImplicitImportResolverPassFail</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name><name>TypeSet</name><operator>.</operator><name>ImplicitImportResolver</name></name><argument_list>(<argument><expr><name>pmdClassLoader</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="string">"PMD"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ClassNotFoundException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testImplicitImportResolverWithNull</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name><name>TypeSet</name><operator>.</operator><name>ImplicitImportResolver</name></name><argument_list>(<argument><expr><name>pmdClassLoader</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCurrentPackageResolverPass</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name><name>TypeSet</name><operator>.</operator><name>CurrentPackageResolver</name></name><argument_list>(<argument><expr><name>pmdClassLoader</name></expr></argument>, <argument><expr><literal type="string">"net.sourceforge.pmd"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>PMD</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="string">"PMD"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ClassNotFoundException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCurrentPackageResolverWithNull</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name><name>TypeSet</name><operator>.</operator><name>CurrentPackageResolver</name></name><argument_list>(<argument><expr><name>pmdClassLoader</name></expr></argument>, <argument><expr><literal type="string">"net.sourceforge.pmd"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testImportOnDemandResolverPass</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><call><name>getResolver</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Set</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="string">"Set"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>File</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="string">"File"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ClassNotFoundException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testImportOnDemandResolverWithNull</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><call><name>getResolver</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ClassNotFoundException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>importOnDemandResolverFail1</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><call><name>getResolver</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="string">"foo"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ClassNotFoundException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>importOnDemandResolverFail2</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><call><name>getResolver</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="string">"String"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>private</specifier> <name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>getResolver</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>Set</name><argument_list type="generic">&lt;<argument><name>String</name></argument>&gt;</argument_list></name></type> <name>imports</name> <init>= <expr><operator>new</operator> <call><name><name>HashSet</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>imports</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="string">"java.io.*"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>imports</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="string">"java.util.*"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name><name>TypeSet</name><operator>.</operator><name>ImportOnDemandResolver</name></name><argument_list>(<argument><expr><name>pmdClassLoader</name></expr></argument>, <argument><expr><name>imports</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <return>return <expr><name>r</name></expr>;</return>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name><argument_list>(<argument><expr><name>expected</name> <operator>=</operator> <name><name>ClassNotFoundException</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFullyQualifiedNameResolverWithNull</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>TypeSet</name><operator>.</operator><name>Resolver</name></name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name><name>TypeSet</name><operator>.</operator><name>FullyQualifiedNameResolver</name></name><argument_list>(<argument><expr><name>pmdClassLoader</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>r</name><operator>.</operator><name>resolve</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

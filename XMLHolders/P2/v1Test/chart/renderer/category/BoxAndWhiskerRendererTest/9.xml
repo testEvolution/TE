@@ -1,0 +1,44 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testBug1572478Horizontal</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultBoxAndWhiskerCategoryDataset</name></type> <name>dataset</name>
+                <init>= <expr><operator>new</operator> <class><super><name>DefaultBoxAndWhiskerCategoryDataset</name></super><argument_list>()</argument_list> <block>{
+
+            <function><annotation>@<name>Override</name></annotation>
+            <type><specifier>public</specifier> <name>Number</name></type> <name>getQ1Value</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>row</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>column</name></decl></parameter>)</parameter_list> <block>{<block_content>
+                <return>return <expr><literal type="null">null</literal></expr>;</return>
+            </block_content>}</block></function>
+
+            <function><annotation>@<name>Override</name></annotation>
+            <type><specifier>public</specifier> <name>Number</name></type> <name>getQ1Value</name><parameter_list>(<parameter><decl><type><name>Comparable</name></type> <name>rowKey</name></decl></parameter>, <parameter><decl><type><name>Comparable</name></type> <name>columnKey</name></decl></parameter>)</parameter_list> <block>{<block_content>
+                <return>return <expr><literal type="null">null</literal></expr>;</return>
+            </block_content>}</block></function>
+        }</block></class></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>Double</name></argument>&gt;</argument_list></name></type> <name>values</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">10.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>values</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>values</name></expr></argument>, <argument><expr><literal type="string">"row"</literal></expr></argument>, <argument><expr><literal type="string">"column"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>CategoryPlot</name></type> <name>plot</name> <init>= <expr><operator>new</operator> <call><name>CategoryPlot</name><argument_list>(<argument><expr><name>dataset</name></expr></argument>, <argument><expr><operator>new</operator> <call><name>CategoryAxis</name><argument_list>(<argument><expr><literal type="string">"x"</literal></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><operator>new</operator> <call><name>NumberAxis</name><argument_list>(<argument><expr><literal type="string">"y"</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><operator>new</operator> <call><name>BoxAndWhiskerRenderer</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setOrientation</name></name><argument_list>(<argument><expr><name><name>PlotOrientation</name><operator>.</operator><name>HORIZONTAL</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><operator>new</operator> <call><name>JFreeChart</name><argument_list>(<argument><expr><name>plot</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>success</name></decl>;</decl_stmt>
+
+        <try>try <block>{<block_content>
+            <decl_stmt><decl><type><name>BufferedImage</name></type> <name>image</name> <init>= <expr><operator>new</operator> <call><name>BufferedImage</name><argument_list>(<argument><expr><literal type="number">200</literal></expr></argument> , <argument><expr><literal type="number">100</literal></expr></argument>,
+                    <argument><expr><name><name>BufferedImage</name><operator>.</operator><name>TYPE_INT_RGB</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <decl_stmt><decl><type><name>Graphics2D</name></type> <name>g2</name> <init>= <expr><call><name><name>image</name><operator>.</operator><name>createGraphics</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>draw</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>, <argument><expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="number">200</literal></expr></argument>, <argument><expr><literal type="number">100</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>,
+                    <argument><expr><operator>new</operator> <call><name>ChartRenderingInfo</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>dispose</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><name>success</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>Exception</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>success</name> <operator>=</operator> <literal type="boolean">false</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>success</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    </unit>

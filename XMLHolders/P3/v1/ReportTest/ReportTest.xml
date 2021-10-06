@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\ReportTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>LanguageRegistry</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>LanguageVersion</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>JavaLanguageModule</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>testframework</name><operator>.</operator><name>RuleTst</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>ReportTest</name> <super_list><extends>extends <super><name>RuleTst</name></super></extends></super_list> <block>{
+
+    <decl_stmt><decl><type><specifier>private</specifier> <name>LanguageVersion</name></type> <name>defaultLanguage</name> <init>= <expr><call><name><name>LanguageRegistry</name><operator>.</operator><name>getLanguage</name></name><argument_list>(<argument><expr><name><name>JavaLanguageModule</name><operator>.</operator><name>NAME</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>getDefaultVersion</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testBasic</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Report</name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name>Report</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>runTestFromString</name><argument_list>(<argument><expr><name>TEST1</name></expr></argument>, <argument><expr><operator>new</operator> <call><name>FooRule</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>r</name></expr></argument>, <argument><expr><name>defaultLanguage</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r</name><operator>.</operator><name>isEmpty</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testExclusionsInReportWithRuleViolationSuppressRegex</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Report</name></type> <name>rpt</name> <init>= <expr><operator>new</operator> <call><name>Report</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Rule</name></type> <name>rule</name> <init>= <expr><operator>new</operator> <call><name>FooRule</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>rule</name><operator>.</operator><name>setProperty</name></name><argument_list>(<argument><expr><name><name>Rule</name><operator>.</operator><name>VIOLATION_SUPPRESS_REGEX_DESCRIPTOR</name></name></expr></argument>, <argument><expr><literal type="string">".*No Foo.*"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>runTestFromString</name><argument_list>(<argument><expr><name>TEST1</name></expr></argument>, <argument><expr><name>rule</name></expr></argument>, <argument><expr><name>rpt</name></expr></argument>, <argument><expr><name>defaultLanguage</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>rpt</name><operator>.</operator><name>isEmpty</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>rpt</name><operator>.</operator><name>getSuppressedRuleViolations</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testExclusionsInReportWithRuleViolationSuppressXPath</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Report</name></type> <name>rpt</name> <init>= <expr><operator>new</operator> <call><name>Report</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Rule</name></type> <name>rule</name> <init>= <expr><operator>new</operator> <call><name>FooRule</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>rule</name><operator>.</operator><name>setProperty</name></name><argument_list>(<argument><expr><name><name>Rule</name><operator>.</operator><name>VIOLATION_SUPPRESS_XPATH_DESCRIPTOR</name></name></expr></argument>, <argument><expr><literal type="string">".[@Image = 'Foo']"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>runTestFromString</name><argument_list>(<argument><expr><name>TEST1</name></expr></argument>, <argument><expr><name>rule</name></expr></argument>, <argument><expr><name>rpt</name></expr></argument>, <argument><expr><name>defaultLanguage</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>rpt</name><operator>.</operator><name>isEmpty</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>rpt</name><operator>.</operator><name>getSuppressedRuleViolations</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testExclusionsInReportWithAnnotations</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Report</name></type> <name>rpt</name> <init>= <expr><operator>new</operator> <call><name>Report</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>runTestFromString</name><argument_list>(<argument><expr><name>TEST2</name></expr></argument>, <argument><expr><operator>new</operator> <call><name>FooRule</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>rpt</name></expr></argument>,
+                <argument><expr><call><name><name>LanguageRegistry</name><operator>.</operator><name>getLanguage</name></name><argument_list>(<argument><expr><name><name>JavaLanguageModule</name><operator>.</operator><name>NAME</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>getVersion</name><argument_list>(<argument><expr><literal type="string">"1.5"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>rpt</name><operator>.</operator><name>isEmpty</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>rpt</name><operator>.</operator><name>getSuppressedRuleViolations</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testExclusionsInReportWithAnnotationsFullName</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Report</name></type> <name>rpt</name> <init>= <expr><operator>new</operator> <call><name>Report</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>runTestFromString</name><argument_list>(<argument><expr><name>TEST2_FULL</name></expr></argument>, <argument><expr><operator>new</operator> <call><name>FooRule</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>rpt</name></expr></argument>,
+                <argument><expr><call><name><name>LanguageRegistry</name><operator>.</operator><name>getLanguage</name></name><argument_list>(<argument><expr><name><name>JavaLanguageModule</name><operator>.</operator><name>NAME</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>getVersion</name><argument_list>(<argument><expr><literal type="string">"1.5"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>rpt</name><operator>.</operator><name>isEmpty</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>rpt</name><operator>.</operator><name>getSuppressedRuleViolations</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testExclusionsInReportWithNOPMD</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Report</name></type> <name>rpt</name> <init>= <expr><operator>new</operator> <call><name>Report</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>runTestFromString</name><argument_list>(<argument><expr><name>TEST3</name></expr></argument>, <argument><expr><operator>new</operator> <call><name>FooRule</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>rpt</name></expr></argument>, <argument><expr><name>defaultLanguage</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>rpt</name><operator>.</operator><name>isEmpty</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>rpt</name><operator>.</operator><name>getSuppressedRuleViolations</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST1</name> <init>= <expr><literal type="string">"public class Foo {}"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST2</name> <init>= <expr><literal type="string">"@SuppressWarnings(\"PMD\")"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"public class Foo {}"</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST2_FULL</name> <init>= <expr><literal type="string">"@java.lang.SuppressWarnings(\"PMD\")"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"public class Foo {}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST3</name> <init>= <expr><literal type="string">"public class Foo {} // NOPMD"</literal></expr></init></decl>;</decl_stmt>
+}</block></class>
+</unit>

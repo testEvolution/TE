@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\ExcludeLinesTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>File</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>StringReader</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Before</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>LanguageRegistry</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>JavaLanguageModule</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>testframework</name><operator>.</operator><name>RuleTst</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>testframework</name><operator>.</operator><name>TestDescriptor</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>ExcludeLinesTest</name> <super_list><extends>extends <super><name>RuleTst</name></super></extends></super_list> <block>{
+    <decl_stmt><decl><type><specifier>private</specifier> <name>Rule</name></type> <name>rule</name></decl>;</decl_stmt>
+
+    <function><annotation>@<name>Before</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>setUp</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name>rule</name> <operator>=</operator> <call><name>findRule</name><argument_list>(<argument><expr><literal type="string">"java-unusedcode"</literal></expr></argument>, <argument><expr><literal type="string">"UnusedLocalVariable"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAcceptance</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>runTest</name><argument_list>(<argument><expr><operator>new</operator> <call><name>TestDescriptor</name><argument_list>(<argument><expr><name>TEST1</name></expr></argument>, <argument><expr><literal type="string">"NOPMD should work"</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name>rule</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>runTest</name><argument_list>(<argument><expr><operator>new</operator> <call><name>TestDescriptor</name><argument_list>(<argument><expr><name>TEST2</name></expr></argument>, <argument><expr><literal type="string">"Should fail without exclude marker"</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><name>rule</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAlternateMarker</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>PMD</name></type> <name>p</name> <init>= <expr><operator>new</operator> <call><name>PMD</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>p</name><operator>.</operator><name>getConfiguration</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>setSuppressMarker</name><argument_list>(<argument><expr><literal type="string">"FOOBAR"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>RuleContext</name></type> <name>ctx</name> <init>= <expr><operator>new</operator> <call><name>RuleContext</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Report</name></type> <name>r</name> <init>= <expr><operator>new</operator> <call><name>Report</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>ctx</name><operator>.</operator><name>setReport</name></name><argument_list>(<argument><expr><name>r</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>ctx</name><operator>.</operator><name>setSourceCodeFile</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>File</name><argument_list>(<argument><expr><literal type="string">"n/a"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>ctx</name><operator>.</operator><name>setLanguageVersion</name></name><argument_list>(<argument><expr><call><name><name>LanguageRegistry</name><operator>.</operator><name>getLanguage</name></name><argument_list>(<argument><expr><name><name>JavaLanguageModule</name><operator>.</operator><name>NAME</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>getDefaultVersion</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>RuleSet</name></type> <name>rules</name> <init>= <expr><call><name><name>RulesetsFactoryUtils</name><operator>.</operator><name>defaultFactory</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>createSingleRuleRuleSet</name><argument_list>(<argument><expr><name>rule</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>p</name><operator>.</operator><name>getSourceCodeProcessor</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>processSourceCode</name><argument_list>(<argument><expr><operator>new</operator> <call><name>StringReader</name><argument_list>(<argument><expr><name>TEST3</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><operator>new</operator> <call><name>RuleSets</name><argument_list>(<argument><expr><name>rules</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>ctx</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r</name><operator>.</operator><name>isEmpty</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>r</name><operator>.</operator><name>getSuppressedRuleViolations</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST1</name> <init>= <expr><literal type="string">"public class Foo {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">" void foo() {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"  int x; //NOPMD "</literal>
+            <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">" } "</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST2</name> <init>= <expr><literal type="string">"public class Foo {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">" void foo() {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"  int x;"</literal>
+            <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">" } "</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST3</name> <init>= <expr><literal type="string">"public class Foo {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">" void foo() {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+            <operator>+</operator> <literal type="string">"  int x; // FOOBAR"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">" } "</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+}</block></class>
+</unit>

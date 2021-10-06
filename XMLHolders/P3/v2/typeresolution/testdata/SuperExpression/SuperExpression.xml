@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\typeresolution\testdata\SuperExpression.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name></name>;</package>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name><operator>.</operator><name>dummytypes</name><operator>.</operator><name>SuperClassA</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>SuperExpression</name> <super_list><extends>extends <super><name>SuperClassA</name></super></extends></super_list> <block>{
+    <constructor><specifier>public</specifier> <name>SuperExpression</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>SuperClassA</name></type> <name>a</name> <init>= <expr><name><name>super</name><operator>.</operator><name>s</name></name></expr></init></decl>;</decl_stmt>
+    </block_content>}</block></constructor>
+
+    <decl_stmt><decl><type><specifier>protected</specifier> <name>SuperExpression</name></type> <name>b</name></decl>;</decl_stmt>
+
+    <block>{<block_content> <decl_stmt><decl><type><name>SuperClassA</name></type> <name>s</name> <init>= <expr><name><name>super</name><operator>.</operator><name>s</name></name></expr></init></decl>;</decl_stmt> </block_content>}</block>
+
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>foo</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>SuperClassA</name></type> <name>a</name> <init>= <expr><name><name>super</name><operator>.</operator><name>s</name></name></expr></init></decl>;</decl_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><name>SuperClassA</name></type> <name>a</name> <init>= <expr><name><name>super</name><operator>.</operator><name>s</name></name></expr></init></decl>;</decl_stmt>
+
+    <class><specifier>public</specifier> class <name>SuperExprNested</name> <super_list><extends>extends <super><name>SuperExpression</name></super></extends></super_list> <block>{
+        <decl_stmt><decl><type><name>SuperClassA</name></type> <name>a</name> <init>= <expr><name><name>SuperExpression</name><operator>.</operator><name>super</name><operator>.</operator><name>s</name></name></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>SuperExpression</name></type> <name>b</name> <init>= <expr><name><name>super</name><operator>.</operator><name>b</name></name></expr></init></decl>;</decl_stmt>
+    }</block></class>
+
+    <class><specifier>public</specifier> <specifier>static</specifier> class <name>ThisExprStaticNested</name> <super_list><extends>extends <super><name>SuperExpression</name></super></extends></super_list> <block>{
+        <decl_stmt><decl><type><name>SuperExpression</name></type> <name>a</name> <init>= <expr><name><name>super</name><operator>.</operator><name>b</name></name></expr></init></decl>;</decl_stmt>
+    }</block></class>
+}</block></class>
+
+</unit>

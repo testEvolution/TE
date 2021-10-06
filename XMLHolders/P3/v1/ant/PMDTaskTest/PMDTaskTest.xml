@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\ant\PMDTaskTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>ant</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>lang</name><operator>.</operator><name>reflect</name><operator>.</operator><name>Field</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>nio</name><operator>.</operator><name>charset</name><operator>.</operator><name>Charset</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Locale</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Objects</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>apache</name><operator>.</operator><name>commons</name><operator>.</operator><name>io</name><operator>.</operator><name>FileUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Rule</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>contrib</name><operator>.</operator><name>java</name><operator>.</operator><name>lang</name><operator>.</operator><name>system</name><operator>.</operator><name>RestoreSystemProperties</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>rules</name><operator>.</operator><name>ExternalResource</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>rules</name><operator>.</operator><name>TestRule</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>PMDTaskTest</name> <super_list><extends>extends <super><name>AbstractAntTestHelper</name></super></extends></super_list> <block>{
+
+    <constructor><specifier>public</specifier> <name>PMDTaskTest</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>super</name><operator>.</operator><name>antTestScriptFilename</name></name> <operator>=</operator> <literal type="string">"pmdtasktest.xml"</literal></expr>;</expr_stmt>
+    </block_content>}</block></constructor>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNoFormattersValidation</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>executeTarget</name><argument_list>(<argument><expr><literal type="string">"testNoFormattersValidation"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Fields should be declared at the top of the class"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNestedRuleset</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>executeTarget</name><argument_list>(<argument><expr><literal type="string">"testNestedRuleset"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Avoid really long methods"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Fields should be declared at the"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFormatterWithProperties</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>executeTarget</name><argument_list>(<argument><expr><literal type="string">"testFormatterWithProperties"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Avoid really long methods"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Fields should be declared at the"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"link_prefix"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"line_prefix"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAbstractNames</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>executeTarget</name><argument_list>(<argument><expr><literal type="string">"testAbstractNames"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Avoid really long methods"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Fields should be declared at the"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAbstractNamesInNestedRuleset</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>executeTarget</name><argument_list>(<argument><expr><literal type="string">"testAbstractNamesInNestedRuleset"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Avoid really long methods"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Fields should be declared at the"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCommaInRulesetfiles</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>executeTarget</name><argument_list>(<argument><expr><literal type="string">"testCommaInRulesetfiles"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Avoid really long methods"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Fields should be declared at the"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testRelativeRulesets</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>executeTarget</name><argument_list>(<argument><expr><literal type="string">"testRelativeRulesets"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Avoid really long methods"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Fields should be declared at the"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testRelativeRulesetsInRulesetfiles</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>executeTarget</name><argument_list>(<argument><expr><literal type="string">"testRelativeRulesetsInRulesetfiles"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Avoid really long methods"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Fields should be declared at"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testExplicitRuleInRuleSet</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>executeTarget</name><argument_list>(<argument><expr><literal type="string">"testExplicitRuleInRuleSet"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Avoid really long methods"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testClasspath</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>executeTarget</name><argument_list>(<argument><expr><literal type="string">"testClasspath"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><annotation>@<name>Rule</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>TestRule</name></type> <name>restoreSystemProperties</name> <init>= <expr><operator>new</operator> <call><name>RestoreSystemProperties</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><annotation>@<name>Rule</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>TestRule</name></type> <name>restoreLocale</name> <init>= <expr><operator>new</operator> <class><super><name>ExternalResource</name></super><argument_list>()</argument_list> <block>{
+        <decl_stmt><decl><type><specifier>private</specifier> <name>Locale</name></type> <name>originalLocale</name></decl>;</decl_stmt>
+
+        <function><annotation>@<name>Override</name></annotation>
+        <type><specifier>protected</specifier> <name>void</name></type> <name>before</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Throwable</name></expr></argument></throws> <block>{<block_content>
+            <expr_stmt><expr><name>originalLocale</name> <operator>=</operator> <call><name><name>Locale</name><operator>.</operator><name>getDefault</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></function>
+
+        <function><annotation>@<name>Override</name></annotation>
+        <type><specifier>protected</specifier> <name>void</name></type> <name>after</name><parameter_list>()</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>Locale</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name>originalLocale</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></function>
+    }</block></class></expr></init></decl>;</decl_stmt>
+
+    <comment type="line">// See http://stackoverflow.com/questions/361975/setting-the-default-java-character-encoding and http://stackoverflow.com/a/14987992/1169968</comment>
+    <function><type><specifier>private</specifier> <specifier>static</specifier> <name>void</name></type> <name>setDefaultCharset</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>charsetName</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>setProperty</name></name><argument_list>(<argument><expr><literal type="string">"file.encoding"</literal></expr></argument>, <argument><expr><name>charsetName</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <decl_stmt><decl><type><name>Field</name></type> <name>charset</name> <init>= <expr><call><name><name>Charset</name><operator>.</operator><name><name>class</name><operator>.</operator><name>getDeclaredField</name></name></name><argument_list>(<argument><expr><literal type="string">"defaultCharset"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name><name>charset</name><operator>.</operator><name>setAccessible</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>charset</name><operator>.</operator><name>set</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>Objects</name><operator>.</operator><name>requireNonNull</name></name><argument_list>(<argument><expr><call><name><name>Charset</name><operator>.</operator><name>defaultCharset</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>Exception</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <throw>throw <expr><operator>new</operator> <call><name>RuntimeException</name><argument_list>(<argument><expr><name>e</name></expr></argument>)</argument_list></call></expr>;</throw>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><annotation>@<name>Rule</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>TestRule</name></type> <name>restoreDefaultCharset</name> <init>= <expr><operator>new</operator> <class><super><name>ExternalResource</name></super><argument_list>()</argument_list> <block>{
+        <decl_stmt><decl><type><specifier>private</specifier> <name>Charset</name></type> <name>defaultCharset</name></decl>;</decl_stmt>
+
+        <function><annotation>@<name>Override</name></annotation>
+        <type><specifier>protected</specifier> <name>void</name></type> <name>before</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Throwable</name></expr></argument></throws> <block>{<block_content>
+            <expr_stmt><expr><name>defaultCharset</name> <operator>=</operator> <call><name><name>Charset</name><operator>.</operator><name>defaultCharset</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></function>
+
+        <function><annotation>@<name>Override</name></annotation>
+        <type><specifier>protected</specifier> <name>void</name></type> <name>after</name><parameter_list>()</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>setDefaultCharset</name><argument_list>(<argument><expr><call><name><name>defaultCharset</name><operator>.</operator><name>name</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></function>
+    }</block></class></expr></init></decl>;</decl_stmt>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFormatterEncodingWithXML</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><call><name><name>Locale</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name><name>Locale</name><operator>.</operator><name>FRENCH</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>setDefaultCharset</name><argument_list>(<argument><expr><literal type="string">"cp1252"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>executeTarget</name><argument_list>(<argument><expr><literal type="string">"testFormatterEncodingWithXML"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>report</name> <init>= <expr><call><name><name>FileUtils</name><operator>.</operator><name>readFileToString</name></name><argument_list>(<argument><expr><call><name>currentTempFile</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="string">"UTF-8"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>report</name><operator>.</operator><name>contains</name></name><argument_list>(<argument><expr><literal type="string">"unusedVariableWithÃmlaut"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFormatterEncodingWithXMLConsole</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>setDefaultCharset</name><argument_list>(<argument><expr><literal type="string">"cp1252"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>executeTarget</name><argument_list>(<argument><expr><literal type="string">"testFormatterEncodingWithXMLConsole"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>report</name> <init>= <expr><call><name><name>buildRule</name><operator>.</operator><name>getOutput</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>report</name><operator>.</operator><name>startsWith</name></name><argument_list>(<argument><expr><literal type="string">"&lt;?xml version=\"1.0\" encoding=\"windows-1252\"?&gt;"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>report</name><operator>.</operator><name>contains</name></name><argument_list>(<argument><expr><literal type="string">"unusedVariableWith&amp;#xdc;mlaut"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testMissingCacheLocation</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>executeTarget</name><argument_list>(<argument><expr><literal type="string">"testMissingCacheLocation"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Avoid really long methods"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertContains</name><argument_list>(<argument><expr><call><name><name>buildRule</name><operator>.</operator><name>getLog</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="string">"This analysis could be faster"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAnalysisCache</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>executeTarget</name><argument_list>(<argument><expr><literal type="string">"testAnalysisCache"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Avoid really long methods"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertDoesntContain</name><argument_list>(<argument><expr><call><name><name>buildRule</name><operator>.</operator><name>getLog</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="string">"This analysis could be faster"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name>currentTempFile</name><argument_list>()</argument_list></call><operator>.</operator><call><name>exists</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testDisableIncrementalAnalysis</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>executeTarget</name><argument_list>(<argument><expr><literal type="string">"testDisableIncrementalAnalysis"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertOutputContaining</name><argument_list>(<argument><expr><literal type="string">"Avoid really long methods"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertDoesntContain</name><argument_list>(<argument><expr><call><name><name>buildRule</name><operator>.</operator><name>getLog</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="string">"This analysis could be faster"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name>currentTempFile</name><argument_list>()</argument_list></call><operator>.</operator><call><name>exists</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

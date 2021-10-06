@@ -1,0 +1,16 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetLegendItems</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// check the case where there is a secondary dataset that doesn't</comment>
+        <comment type="line">// have a renderer (i.e. falls back to renderer 0)</comment>
+        <decl_stmt><decl><type><name>XYDataset</name></type> <name>d0</name> <init>= <expr><call><name>createDataset1</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYDataset</name></type> <name>d1</name> <init>= <expr><call><name>createDataset2</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYItemRenderer</name></type> <name>r0</name> <init>= <expr><operator>new</operator> <call><name>XYLineAndShapeRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>plot</name> <init>= <expr><operator>new</operator> <call><name>XYPlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setDataset</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name>d0</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setDataset</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><name>d1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setRenderer</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name>r0</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>LegendItemCollection</name></type> <name>items</name> <init>= <expr><call><name><name>plot</name><operator>.</operator><name>getLegendItems</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>items</name><operator>.</operator><name>getItemCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\cli\CLITest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>cli</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>File</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>IOException</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>regex</name><operator>.</operator><name>Pattern</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>util</name><operator>.</operator><name>FileUtil</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * @author Romain Pelisse &amp;lt;belaran@gmail.com&amp;gt;
+ *
+ */</comment>
+<class><specifier>public</specifier> class <name>CLITest</name> <super_list><extends>extends <super><name>BaseCLITest</name></super></extends></super_list> <block>{
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>minimalArgs</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>args</name> <init>= <expr><block>{ <expr><literal type="string">"-d"</literal></expr>, <expr><name>SOURCE_FOLDER</name></expr>, <expr><literal type="string">"-f"</literal></expr>, <expr><literal type="string">"text"</literal></expr>, <expr><literal type="string">"-R"</literal></expr>, <expr><literal type="string">"category/java/bestpractices.xml,category/java/design.xml"</literal></expr>, }</block></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>runTest</name><argument_list>(<argument><expr><name>args</name></expr></argument>, <argument><expr><literal type="string">"minimalArgs"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>minimumPriority</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>args</name> <init>= <expr><block>{ <expr><literal type="string">"-d"</literal></expr>, <expr><name>SOURCE_FOLDER</name></expr>, <expr><literal type="string">"-f"</literal></expr>, <expr><literal type="string">"text"</literal></expr>, <expr><literal type="string">"-R"</literal></expr>, <expr><literal type="string">"category/java/design.xml"</literal></expr>, <expr><literal type="string">"-min"</literal></expr>, <expr><literal type="string">"1"</literal></expr>, }</block></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>runTest</name><argument_list>(<argument><expr><name>args</name></expr></argument>, <argument><expr><literal type="string">"minimumPriority"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>usingDebug</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>args</name> <init>= <expr><block>{ <expr><literal type="string">"-d"</literal></expr>, <expr><name>SOURCE_FOLDER</name></expr>, <expr><literal type="string">"-f"</literal></expr>, <expr><literal type="string">"text"</literal></expr>, <expr><literal type="string">"-R"</literal></expr>, <expr><literal type="string">"category/java/design.xml"</literal></expr>, <expr><literal type="string">"-debug"</literal></expr>, }</block></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>runTest</name><argument_list>(<argument><expr><name>args</name></expr></argument>, <argument><expr><literal type="string">"minimalArgsWithDebug"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>changeJavaVersion</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>IOException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>args</name> <init>= <expr><block>{ <expr><literal type="string">"-d"</literal></expr>, <expr><name>SOURCE_FOLDER</name></expr>, <expr><literal type="string">"-f"</literal></expr>, <expr><literal type="string">"text"</literal></expr>, <expr><literal type="string">"-R"</literal></expr>, <expr><literal type="string">"category/java/design.xml"</literal></expr>, <expr><literal type="string">"-version"</literal></expr>, <expr><literal type="string">"1.5"</literal></expr>, <expr><literal type="string">"-language"</literal></expr>,
+            <expr><literal type="string">"java"</literal></expr>, <expr><literal type="string">"-debug"</literal></expr>, }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>resultFilename</name> <init>= <expr><call><name>runTest</name><argument_list>(<argument><expr><name>args</name></expr></argument>, <argument><expr><literal type="string">"chgJavaVersion"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="string">"Invalid Java version"</literal></expr></argument>,
+                <argument><expr><call><name><name>FileUtil</name><operator>.</operator><name>findPatternInFile</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>File</name><argument_list>(<argument><expr><name>resultFilename</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="string">"Using Java version: Java 1.5"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>exitStatusNoViolations</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>args</name> <init>= <expr><block>{ <expr><literal type="string">"-d"</literal></expr>, <expr><name>SOURCE_FOLDER</name></expr>, <expr><literal type="string">"-f"</literal></expr>, <expr><literal type="string">"text"</literal></expr>, <expr><literal type="string">"-R"</literal></expr>, <expr><literal type="string">"category/java/design.xml"</literal></expr>, }</block></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>runTest</name><argument_list>(<argument><expr><name>args</name></expr></argument>, <argument><expr><literal type="string">"exitStatusNoViolations"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>exitStatusWithViolations</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>IOException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>args</name> <init>= <expr><block>{ <expr><literal type="string">"-d"</literal></expr>, <expr><name>SOURCE_FOLDER</name></expr>, <expr><literal type="string">"-f"</literal></expr>, <expr><literal type="string">"text"</literal></expr>, <expr><literal type="string">"-R"</literal></expr>, <expr><literal type="string">"category/java/errorprone.xml"</literal></expr>, }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>resultFilename</name> <init>= <expr><call><name>runTest</name><argument_list>(<argument><expr><name>args</name></expr></argument>, <argument><expr><literal type="string">"exitStatusWithViolations"</literal></expr></argument>, <argument><expr><literal type="number">4</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>FileUtil</name><operator>.</operator><name>findPatternInFile</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>File</name><argument_list>(<argument><expr><name>resultFilename</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="string">"Avoid empty if"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>exitStatusWithViolationsAndWithoutFailOnViolations</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>IOException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>args</name> <init>= <expr><block>{ <expr><literal type="string">"-d"</literal></expr>, <expr><name>SOURCE_FOLDER</name></expr>, <expr><literal type="string">"-f"</literal></expr>, <expr><literal type="string">"text"</literal></expr>, <expr><literal type="string">"-R"</literal></expr>, <expr><literal type="string">"category/java/errorprone.xml"</literal></expr>, <expr><literal type="string">"-failOnViolation"</literal></expr>, <expr><literal type="string">"false"</literal></expr>, }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>resultFilename</name> <init>= <expr><call><name>runTest</name><argument_list>(<argument><expr><name>args</name></expr></argument>, <argument><expr><literal type="string">"exitStatusWithViolationsAndWithoutFailOnViolations"</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>FileUtil</name><operator>.</operator><name>findPatternInFile</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>File</name><argument_list>(<argument><expr><name>resultFilename</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="string">"Avoid empty if"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * See https://sourceforge.net/p/pmd/bugs/1231/
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testWrongRuleset</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>args</name> <init>= <expr><block>{ <expr><literal type="string">"-d"</literal></expr>, <expr><name>SOURCE_FOLDER</name></expr>, <expr><literal type="string">"-f"</literal></expr>, <expr><literal type="string">"text"</literal></expr>, <expr><literal type="string">"-R"</literal></expr>, <expr><literal type="string">"category/java/designn.xml"</literal></expr>, }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>filename</name> <init>= <expr><name>TEST_OUPUT_DIRECTORY</name> <operator>+</operator> <literal type="string">"testWrongRuleset.txt"</literal></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>createTestOutputFile</name><argument_list>(<argument><expr><name>filename</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>runPMDWith</name><argument_list>(<argument><expr><name>args</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name>getStatusCode</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>FileUtil</name><operator>.</operator><name>findPatternInFile</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>File</name><argument_list>(<argument><expr><name>filename</name></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><literal type="string">"Can't find resource 'category/java/designn.xml' for rule 'null'."</literal> <operator>+</operator> <literal type="string">"  Make sure the resource is a valid file"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * See https://sourceforge.net/p/pmd/bugs/1231/
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testWrongRulesetWithRulename</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>args</name> <init>= <expr><block>{ <expr><literal type="string">"-d"</literal></expr>, <expr><name>SOURCE_FOLDER</name></expr>, <expr><literal type="string">"-f"</literal></expr>, <expr><literal type="string">"text"</literal></expr>, <expr><literal type="string">"-R"</literal></expr>, <expr><literal type="string">"category/java/designn.xml/UseCollectionIsEmpty"</literal></expr>, }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>filename</name> <init>= <expr><name>TEST_OUPUT_DIRECTORY</name> <operator>+</operator> <literal type="string">"testWrongRuleset.txt"</literal></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>createTestOutputFile</name><argument_list>(<argument><expr><name>filename</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>runPMDWith</name><argument_list>(<argument><expr><name>args</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name>getStatusCode</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>FileUtil</name><operator>.</operator><name>findPatternInFile</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>File</name><argument_list>(<argument><expr><name>filename</name></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><literal type="string">"Can't find resource 'category/java/designn.xml' for rule "</literal> <operator>+</operator> <literal type="string">"'UseCollectionIsEmpty'."</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * See https://sourceforge.net/p/pmd/bugs/1231/
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testWrongRulename</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>args</name> <init>= <expr><block>{ <expr><literal type="string">"-d"</literal></expr>, <expr><name>SOURCE_FOLDER</name></expr>, <expr><literal type="string">"-f"</literal></expr>, <expr><literal type="string">"text"</literal></expr>, <expr><literal type="string">"-R"</literal></expr>, <expr><literal type="string">"category/java/design.xml/ThisRuleDoesNotExist"</literal></expr>, }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>filename</name> <init>= <expr><name>TEST_OUPUT_DIRECTORY</name> <operator>+</operator> <literal type="string">"testWrongRuleset.txt"</literal></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>createTestOutputFile</name><argument_list>(<argument><expr><name>filename</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>runPMDWith</name><argument_list>(<argument><expr><name>args</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name>getStatusCode</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>FileUtil</name><operator>.</operator><name>findPatternInFile</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>File</name><argument_list>(<argument><expr><name>filename</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>Pattern</name>
+                <operator>.</operator><name>quote</name></name><argument_list>(<argument><expr><literal type="string">"No rules found. Maybe you mispelled a rule name?"</literal> <operator>+</operator> <literal type="string">" (category/java/design.xml/ThisRuleDoesNotExist)"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

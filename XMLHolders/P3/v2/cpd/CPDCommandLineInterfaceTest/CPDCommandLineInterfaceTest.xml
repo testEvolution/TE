@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\cpd\CPDCommandLineInterfaceTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>cpd</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>IOException</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>regex</name><operator>.</operator><name>Pattern</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>cli</name><operator>.</operator><name>BaseCPDCLITest</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Unit test for {@link CPDCommandLineInterface}.
+ *
+ */</comment>
+<class><specifier>public</specifier> class <name>CPDCommandLineInterfaceTest</name> <super_list><extends>extends <super><name>BaseCPDCLITest</name></super></extends></super_list> <block>{
+    <comment type="block" format="javadoc">/**
+     * Test ignore identifiers argument.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testIgnoreIdentifiers</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><call><name>runCPD</name><argument_list>(<argument><expr><literal type="string">"--minimum-tokens"</literal></expr></argument>, <argument><expr><literal type="string">"34"</literal></expr></argument>, <argument><expr><literal type="string">"--language"</literal></expr></argument>, <argument><expr><literal type="string">"java"</literal></expr></argument>, <argument><expr><literal type="string">"--files"</literal></expr></argument>,
+                <argument><expr><literal type="string">"src/test/resources/net/sourceforge/pmd/cpd/clitest/"</literal></expr></argument>, <argument><expr><literal type="string">"--ignore-identifiers"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>String</name></type> <name>out</name> <init>= <expr><call><name>getOutput</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertTrue</name></name><argument_list>(<argument><expr><call><name><name>out</name><operator>.</operator><name>contains</name></name><argument_list>(<argument><expr><literal type="string">"Found a 7 line (36 tokens) duplication"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><call><name><name>Integer</name><operator>.</operator><name>parseInt</name></name><argument_list>(<argument><expr><call><name><name>System</name><operator>.</operator><name>getProperty</name></name><argument_list>(<argument><expr><name><name>CPDCommandLineInterface</name><operator>.</operator><name>STATUS_CODE_PROPERTY</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test ignore identifiers argument with failOnViolation=false
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testIgnoreIdentifiersFailOnViolationFalse</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><call><name>runCPD</name><argument_list>(<argument><expr><literal type="string">"--minimum-tokens"</literal></expr></argument>, <argument><expr><literal type="string">"34"</literal></expr></argument>, <argument><expr><literal type="string">"--language"</literal></expr></argument>, <argument><expr><literal type="string">"java"</literal></expr></argument>, <argument><expr><literal type="string">"--files"</literal></expr></argument>,
+                <argument><expr><literal type="string">"src/test/resources/net/sourceforge/pmd/cpd/clitest/"</literal></expr></argument>, <argument><expr><literal type="string">"--ignore-identifiers"</literal></expr></argument>, <argument><expr><literal type="string">"--failOnViolation"</literal></expr></argument>,
+                <argument><expr><literal type="string">"false"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>String</name></type> <name>out</name> <init>= <expr><call><name>getOutput</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertTrue</name></name><argument_list>(<argument><expr><call><name><name>out</name><operator>.</operator><name>contains</name></name><argument_list>(<argument><expr><literal type="string">"Found a 7 line (36 tokens) duplication"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>Integer</name><operator>.</operator><name>parseInt</name></name><argument_list>(<argument><expr><call><name><name>System</name><operator>.</operator><name>getProperty</name></name><argument_list>(<argument><expr><name><name>CPDCommandLineInterface</name><operator>.</operator><name>STATUS_CODE_PROPERTY</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test excludes option.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testExcludes</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><call><name>runCPD</name><argument_list>(<argument><expr><literal type="string">"--minimum-tokens"</literal></expr></argument>, <argument><expr><literal type="string">"34"</literal></expr></argument>, <argument><expr><literal type="string">"--language"</literal></expr></argument>, <argument><expr><literal type="string">"java"</literal></expr></argument>, <argument><expr><literal type="string">"--ignore-identifiers"</literal></expr></argument>, <argument><expr><literal type="string">"--files"</literal></expr></argument>,
+                <argument><expr><literal type="string">"src/test/resources/net/sourceforge/pmd/cpd/clitest/"</literal></expr></argument>, <argument><expr><literal type="string">"--exclude"</literal></expr></argument>,
+                <argument><expr><literal type="string">"src/test/resources/net/sourceforge/pmd/cpd/clitest/File2.java"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>String</name></type> <name>out</name> <init>= <expr><call><name>getOutput</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertFalse</name></name><argument_list>(<argument><expr><call><name><name>out</name><operator>.</operator><name>contains</name></name><argument_list>(<argument><expr><literal type="string">"Found a 7 line (34 tokens) duplication"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>Integer</name><operator>.</operator><name>parseInt</name></name><argument_list>(<argument><expr><call><name><name>System</name><operator>.</operator><name>getProperty</name></name><argument_list>(<argument><expr><name><name>CPDCommandLineInterface</name><operator>.</operator><name>STATUS_CODE_PROPERTY</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * #1144 CPD encoding argument has no effect
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEncodingOption</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>origEncoding</name> <init>= <expr><call><name><name>System</name><operator>.</operator><name>getProperty</name></name><argument_list>(<argument><expr><literal type="string">"file.encoding"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// set the default encoding under Windows</comment>
+        <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>setProperty</name></name><argument_list>(<argument><expr><literal type="string">"file.encoding"</literal></expr></argument>, <argument><expr><literal type="string">"Cp1252"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>runCPD</name><argument_list>(<argument><expr><literal type="string">"--minimum-tokens"</literal></expr></argument>, <argument><expr><literal type="string">"34"</literal></expr></argument>, <argument><expr><literal type="string">"--language"</literal></expr></argument>, <argument><expr><literal type="string">"java"</literal></expr></argument>, <argument><expr><literal type="string">"--files"</literal></expr></argument>,
+                <argument><expr><literal type="string">"src/test/resources/net/sourceforge/pmd/cpd/clitest/"</literal></expr></argument>, <argument><expr><literal type="string">"--ignore-identifiers"</literal></expr></argument>, <argument><expr><literal type="string">"--format"</literal></expr></argument>, <argument><expr><literal type="string">"xml"</literal></expr></argument>,
+                <comment type="line">// request UTF-8 for CPD</comment>
+                <argument><expr><literal type="string">"--encoding"</literal></expr></argument>, <argument><expr><literal type="string">"UTF-8"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <comment type="line">// reset default encoding</comment>
+        <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>setProperty</name></name><argument_list>(<argument><expr><literal type="string">"file.encoding"</literal></expr></argument>, <argument><expr><name>origEncoding</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>String</name></type> <name>out</name> <init>= <expr><call><name>getOutput</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertTrue</name></name><argument_list>(<argument><expr><call><name><name>out</name><operator>.</operator><name>startsWith</name></name><argument_list>(<argument><expr><literal type="string">"&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertTrue</name></name><argument_list>(<argument><expr><call><name><name>Pattern</name><operator>.</operator><name>compile</name></name><argument_list>(<argument><expr><literal type="string">"System\\.out\\.println\\([ij] \\+ \"Ã¤\"\\);"</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>matcher</name><argument_list>(<argument><expr><name>out</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>find</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><call><name><name>Integer</name><operator>.</operator><name>parseInt</name></name><argument_list>(<argument><expr><call><name><name>System</name><operator>.</operator><name>getProperty</name></name><argument_list>(<argument><expr><name><name>CPDCommandLineInterface</name><operator>.</operator><name>STATUS_CODE_PROPERTY</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * See: https://sourceforge.net/p/pmd/bugs/1178/
+     * 
+     * @throws IOException
+     *             any error
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testBrokenAndValidFile</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>IOException</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><call><name>runCPD</name><argument_list>(<argument><expr><literal type="string">"--minimum-tokens"</literal></expr></argument>, <argument><expr><literal type="string">"10"</literal></expr></argument>, <argument><expr><literal type="string">"--language"</literal></expr></argument>, <argument><expr><literal type="string">"java"</literal></expr></argument>, <argument><expr><literal type="string">"--files"</literal></expr></argument>,
+                <argument><expr><literal type="string">"src/test/resources/net/sourceforge/pmd/cpd/badandgood/"</literal></expr></argument>, <argument><expr><literal type="string">"--format"</literal></expr></argument>, <argument><expr><literal type="string">"text"</literal></expr></argument>, <argument><expr><literal type="string">"--skip-lexical-errors"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>out</name> <init>= <expr><call><name>getOutput</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertTrue</name></name><argument_list>(
+                <argument><expr><call><name><name>Pattern</name><operator>.</operator><name>compile</name></name><argument_list>(<argument><expr><literal type="string">"Skipping .*?BadFile\\.java\\. Reason: Lexical error in file"</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>matcher</name><argument_list>(<argument><expr><name>out</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>find</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertTrue</name></name><argument_list>(<argument><expr><call><name><name>out</name><operator>.</operator><name>contains</name></name><argument_list>(<argument><expr><literal type="string">"Found a 5 line (13 tokens) duplication"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><call><name><name>Integer</name><operator>.</operator><name>parseInt</name></name><argument_list>(<argument><expr><call><name><name>System</name><operator>.</operator><name>getProperty</name></name><argument_list>(<argument><expr><name><name>CPDCommandLineInterface</name><operator>.</operator><name>STATUS_CODE_PROPERTY</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFormatXmlWithoutEncoding</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><call><name>runCPD</name><argument_list>(<argument><expr><literal type="string">"--minimum-tokens"</literal></expr></argument>, <argument><expr><literal type="string">"10"</literal></expr></argument>, <argument><expr><literal type="string">"--language"</literal></expr></argument>, <argument><expr><literal type="string">"java"</literal></expr></argument>, <argument><expr><literal type="string">"--files"</literal></expr></argument>,
+                <argument><expr><literal type="string">"src/test/resources/net/sourceforge/pmd/cpd/clitest/"</literal></expr></argument>, <argument><expr><literal type="string">"--format"</literal></expr></argument>, <argument><expr><literal type="string">"xml"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>out</name> <init>= <expr><call><name>getOutput</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertTrue</name></name><argument_list>(<argument><expr><call><name><name>out</name><operator>.</operator><name>contains</name></name><argument_list>(<argument><expr><literal type="string">"&lt;duplication lines=\"3\" tokens=\"10\"&gt;"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><call><name><name>Integer</name><operator>.</operator><name>parseInt</name></name><argument_list>(<argument><expr><call><name><name>System</name><operator>.</operator><name>getProperty</name></name><argument_list>(<argument><expr><name><name>CPDCommandLineInterface</name><operator>.</operator><name>STATUS_CODE_PROPERTY</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCSVFormat</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><call><name>runCPD</name><argument_list>(<argument><expr><literal type="string">"--minimum-tokens"</literal></expr></argument>, <argument><expr><literal type="string">"100"</literal></expr></argument>, <argument><expr><literal type="string">"--files"</literal></expr></argument>, <argument><expr><literal type="string">"src/test/resources/net/sourceforge/pmd/cpd/badandgood/"</literal></expr></argument>,
+                <argument><expr><literal type="string">"--language"</literal></expr></argument>, <argument><expr><literal type="string">"c"</literal></expr></argument>, <argument><expr><literal type="string">"--format"</literal></expr></argument>, <argument><expr><literal type="string">"csv"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>out</name> <init>= <expr><call><name>getOutput</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertFalse</name></name><argument_list>(<argument><expr><call><name><name>out</name><operator>.</operator><name>contains</name></name><argument_list>(<argument><expr><literal type="string">"Couldn't instantiate renderer"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>Integer</name><operator>.</operator><name>parseInt</name></name><argument_list>(<argument><expr><call><name><name>System</name><operator>.</operator><name>getProperty</name></name><argument_list>(<argument><expr><name><name>CPDCommandLineInterface</name><operator>.</operator><name>STATUS_CODE_PROPERTY</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

@@ -1,0 +1,20 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DialPointer</name></type> <name>i1</name> <init>= <expr><operator>new</operator> <call><name><name>DialPointer</name><operator>.</operator><name>Pin</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DialPointer</name></type> <name>i2</name> <init>= <expr><operator>new</operator> <call><name><name>DialPointer</name><operator>.</operator><name>Pin</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>i1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// dataset index</comment>
+        <expr_stmt><expr><name>i1</name> <operator>=</operator> <operator>new</operator> <call><name><name>DialPointer</name><operator>.</operator><name>Pin</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>i1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>i2</name> <operator>=</operator> <operator>new</operator> <call><name><name>DialPointer</name><operator>.</operator><name>Pin</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>i1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check an inherited attribute</comment>
+        <expr_stmt><expr><call><name><name>i1</name><operator>.</operator><name>setVisible</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>i1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>i2</name><operator>.</operator><name>setVisible</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>i1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>i2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

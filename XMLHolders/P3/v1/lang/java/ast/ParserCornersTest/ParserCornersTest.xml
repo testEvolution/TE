@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\ast\ParserCornersTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name></name>;</package>
+
+<import>import static <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ParserTstUtil</name><operator>.</operator><name>parseJava14</name></name>;</import>
+<import>import static <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ParserTstUtil</name><operator>.</operator><name>parseJava15</name></name>;</import>
+<import>import static <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ParserTstUtil</name><operator>.</operator><name>parseJava17</name></name>;</import>
+<import>import static <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ParserTstUtil</name><operator>.</operator><name>parseJava18</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertNotNull</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>fail</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>IOException</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>InputStream</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>nio</name><operator>.</operator><name>charset</name><operator>.</operator><name>StandardCharsets</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Map</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>apache</name><operator>.</operator><name>commons</name><operator>.</operator><name>io</name><operator>.</operator><name>IOUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>PMD</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ParserTstUtil</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>symboltable</name><operator>.</operator><name>NameDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>symboltable</name><operator>.</operator><name>NameOccurrence</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>ParserCornersTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * #1107 PMD 5.0.4 couldn't parse call of parent outer java class method
+     * from inner class.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testInnerOuterClass</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava17</name><argument_list>(<argument><expr><literal type="string">"/**\n"</literal> <operator>+</operator> <literal type="string">" * @author azagorulko\n"</literal> <operator>+</operator> <literal type="string">" *\n"</literal> <operator>+</operator> <literal type="string">" */\n"</literal>
+                <operator>+</operator> <literal type="string">"public class TestInnerClassCallsOuterParent {\n"</literal> <operator>+</operator> <literal type="string">"\n"</literal> <operator>+</operator> <literal type="string">"    public void test() {\n"</literal>
+                <operator>+</operator> <literal type="string">"        new Runnable() {\n"</literal> <operator>+</operator> <literal type="string">"            @Override\n"</literal> <operator>+</operator> <literal type="string">"            public void run() {\n"</literal>
+                <operator>+</operator> <literal type="string">"                TestInnerClassCallsOuterParent.super.toString();\n"</literal> <operator>+</operator> <literal type="string">"            }\n"</literal>
+                <operator>+</operator> <literal type="string">"        };\n"</literal> <operator>+</operator> <literal type="string">"    }\n"</literal> <operator>+</operator> <literal type="string">"}\n"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+    
+    <comment type="block" format="javadoc">/**
+     * #888 PMD 6.0.0 can't parse valid &lt;&gt; under 1.8.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testDiamondUsageJava8</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava18</name><argument_list>(<argument><expr><literal type="string">"public class PMDExceptionTest {\n"</literal>
+                <operator>+</operator> <literal type="string">"  private Component makeUI() {\n"</literal>
+                <operator>+</operator> <literal type="string">"    String[] model = {\"123456\", \"7890\"};\n"</literal>
+                <operator>+</operator> <literal type="string">"    JComboBox&lt;String&gt; comboBox = new JComboBox&lt;&gt;(model);\n"</literal>
+                <operator>+</operator> <literal type="string">"    comboBox.setEditable(true);\n"</literal>
+                <operator>+</operator> <literal type="string">"    comboBox.setEditor(new BasicComboBoxEditor() {\n"</literal>
+                <operator>+</operator> <literal type="string">"      private Component editorComponent;\n"</literal>
+                <operator>+</operator> <literal type="string">"      @Override public Component getEditorComponent() {\n"</literal>
+                <operator>+</operator> <literal type="string">"        if (editorComponent == null) {\n"</literal>
+                <operator>+</operator> <literal type="string">"          JTextField tc = (JTextField) super.getEditorComponent();\n"</literal>
+                <operator>+</operator> <literal type="string">"          editorComponent = new JLayer&lt;&gt;(tc, new ValidationLayerUI&lt;&gt;());\n"</literal>
+                <operator>+</operator> <literal type="string">"        }\n"</literal>
+                <operator>+</operator> <literal type="string">"        return editorComponent;\n"</literal>
+                <operator>+</operator> <literal type="string">"      }\n"</literal>
+                <operator>+</operator> <literal type="string">"    });\n"</literal>
+                <operator>+</operator> <literal type="string">"    JPanel p = new JPanel();\n"</literal>
+                <operator>+</operator> <literal type="string">"    p.add(comboBox);\n"</literal>
+                <operator>+</operator> <literal type="string">"    return p;\n"</literal>
+                <operator>+</operator> <literal type="string">"  }\n"</literal>
+                <operator>+</operator> <literal type="string">"}"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>testGetFirstASTNameImageNull</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava14</name><argument_list>(<argument><expr><name>ABSTRACT_METHOD_LEVEL_CLASS_DECL</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <specifier>final</specifier> <name>void</name></type> <name>testCastLookaheadProblem</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava14</name><argument_list>(<argument><expr><name>CAST_LOOKAHEAD_PROBLEM</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Tests a specific generic notation for calling methods. See:
+     * https://jira.codehaus.org/browse/MPMD-139
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGenericsProblem</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><name>GENERICS_PROBLEM</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>parseJava17</name><argument_list>(<argument><expr><name>GENERICS_PROBLEM</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testParsersCases15</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>test15</name> <init>= <expr><call><name>readAsString</name><argument_list>(<argument><expr><literal type="string">"/net/sourceforge/pmd/ast/ParserCornerCases.java"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><name>test15</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testParsersCases17</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>test17</name> <init>= <expr><call><name>readAsString</name><argument_list>(<argument><expr><literal type="string">"/net/sourceforge/pmd/ast/ParserCornerCases17.java"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>parseJava17</name><argument_list>(<argument><expr><name>test17</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testParsersCases18</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>test18</name> <init>= <expr><call><name>readAsString</name><argument_list>(<argument><expr><literal type="string">"/net/sourceforge/pmd/ast/ParserCornerCases18.java"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>cu</name> <init>= <expr><call><name>parseJava18</name><argument_list>(<argument><expr><name>test18</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">21</literal></expr></argument>, <argument><expr><call><name><name>cu</name><operator>.</operator><name>findChildNodesWithXPath</name></name><argument_list>(<argument><expr><literal type="string">"//FormalParameter"</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>,
+                <argument><expr><call><name><name>cu</name><operator>.</operator><name>findChildNodesWithXPath</name></name><argument_list>(<argument><expr><literal type="string">"//FormalParameter[@ExplicitReceiverParameter='true']"</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">17</literal></expr></argument>,
+                <argument><expr><call><name><name>cu</name><operator>.</operator><name>findChildNodesWithXPath</name></name><argument_list>(<argument><expr><literal type="string">"//FormalParameter[@ExplicitReceiverParameter='false']"</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test for https://sourceforge.net/p/pmd/bugs/1333/
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLambdaBug1333</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava18</name><argument_list>(<argument><expr><literal type="string">"final class Bug1333 {\n"</literal>
+                <operator>+</operator> <literal type="string">"    private static final Logger LOG = LoggerFactory.getLogger(Foo.class);\n"</literal> <operator>+</operator> <literal type="string">"\n"</literal>
+                <operator>+</operator> <literal type="string">"    public void deleteDirectoriesByNamePattern() {\n"</literal>
+                <operator>+</operator> <literal type="string">"        delete(path -&gt; deleteDirectory(path));\n"</literal> <operator>+</operator> <literal type="string">"    }\n"</literal> <operator>+</operator> <literal type="string">"\n"</literal>
+                <operator>+</operator> <literal type="string">"    private void delete(Consumer&lt;? super String&gt; consumer) {\n"</literal>
+                <operator>+</operator> <literal type="string">"        LOG.debug(consumer.toString());\n"</literal> <operator>+</operator> <literal type="string">"    }\n"</literal> <operator>+</operator> <literal type="string">"\n"</literal>
+                <operator>+</operator> <literal type="string">"    private void deleteDirectory(String path) {\n"</literal> <operator>+</operator> <literal type="string">"        LOG.debug(path);\n"</literal> <operator>+</operator> <literal type="string">"    }\n"</literal> <operator>+</operator> <literal type="string">"}"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLambdaBug1470</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>code</name> <init>= <expr><call><name>readAsString</name><argument_list>(<argument><expr><literal type="string">"LambdaBug1470.java"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>parseJava18</name><argument_list>(<argument><expr><name>code</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test for https://sourceforge.net/p/pmd/bugs/1355/
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>emptyFileJustComment</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>parseJava18</name><argument_list>(<argument><expr><literal type="string">"// just a comment"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testMultipleExceptionCatching</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>code</name> <init>= <expr><literal type="string">"public class Foo { public void bar() { "</literal>
+                <operator>+</operator> <literal type="string">"try { System.out.println(); } catch (RuntimeException | IOException e) {} } }"</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><name>code</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected exception"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>ParseException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(
+                    <argument><expr><literal type="string">"Line 1, Column 94: Cannot catch multiple exceptions when running in JDK inferior to 1.7 mode!"</literal></expr></argument>,
+                    <argument><expr><call><name><name>e</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name>parseJava17</name><argument_list>(<argument><expr><name>code</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <comment type="line">// no exception expected</comment>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>ParseException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>fail</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testBug1429ParseError</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>c</name> <init>= <expr><call><name>readAsString</name><argument_list>(<argument><expr><literal type="string">"Bug1429.java"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>parseJava18</name><argument_list>(<argument><expr><name>c</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testBug1530ParseError</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>c</name> <init>= <expr><call><name>readAsString</name><argument_list>(<argument><expr><literal type="string">"Bug1530.java"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>parseJava18</name><argument_list>(<argument><expr><name>c</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+    
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGitHubBug207</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>c</name> <init>= <expr><call><name>readAsString</name><argument_list>(<argument><expr><literal type="string">"GitHubBug207.java"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>parseJava18</name><argument_list>(<argument><expr><name>c</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testBug206</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>code</name> <init>= <expr><literal type="string">"public @interface Foo {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+            <operator>+</operator> <literal type="string">"static final ThreadLocal&lt;Interner&lt;Integer&gt;&gt; interner ="</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+            <operator>+</operator> <literal type="string">"    ThreadLocal.withInitial(Interners::newStrongInterner);"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+            <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>parseJava18</name><argument_list>(<argument><expr><name>code</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGitHubBug208ParseError</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>c</name> <init>= <expr><call><name>readAsString</name><argument_list>(<argument><expr><literal type="string">"GitHubBug208.java"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>parseJava15</name><argument_list>(<argument><expr><name>c</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+    
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGitHubBug257NonExistingCast</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>code</name> <init>= <expr><literal type="string">"public class Test {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+                <operator>+</operator> <literal type="string">"     public static void main(String[] args) {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+                <operator>+</operator> <literal type="string">"         double a = 4.0;"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+                <operator>+</operator> <literal type="string">"         double b = 2.0;"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+                <operator>+</operator> <literal type="string">"         double result = Math.sqrt((a)   - b);"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+                <operator>+</operator> <literal type="string">"         System.out.println(result);"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+                <operator>+</operator> <literal type="string">"     }"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+                <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>compilationUnit</name> <init>= <expr><call><name>parseJava15</name><argument_list>(<argument><expr><name>code</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"A cast was found when none expected"</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>compilationUnit</name><operator>.</operator><name>findDescendantsOfType</name></name><argument_list>(<argument><expr><name><name>ASTCastExpression</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGitHubBug309</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>code</name> <init>= <expr><call><name>readAsString</name><argument_list>(<argument><expr><literal type="string">"GitHubBug309.java"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>compilationUnit</name> <init>= <expr><call><name>parseJava18</name><argument_list>(<argument><expr><name>code</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name>compilationUnit</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * This triggered bug #1484 UnusedLocalVariable - false positive -
+     * parenthesis
+     * 
+     * @throws Exception
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>stringConcatentationShouldNotBeCast</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>code</name> <init>= <expr><literal type="string">"public class Test {\n"</literal> <operator>+</operator> <literal type="string">"    public static void main(String[] args) {\n"</literal>
+                <operator>+</operator> <literal type="string">"        System.out.println(\"X\" + (args) + \"Y\");\n"</literal> <operator>+</operator> <literal type="string">"    }\n"</literal> <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>cu</name> <init>= <expr><call><name>parseJava18</name><argument_list>(<argument><expr><name>code</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>cu</name><operator>.</operator><name>findDescendantsOfType</name></name><argument_list>(<argument><expr><name><name>ASTCastExpression</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Empty statements should be allowed.
+     * @throws Exception
+     * @see &lt;a href="https://github.com/pmd/pmd/issues/378"&gt;github issue 378&lt;/a&gt;
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testParseEmptyStatements</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>code</name> <init>= <expr><literal type="string">"import a;;import b; public class Foo {}"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>cu</name> <init>= <expr><call><name>parseJava18</name><argument_list>(<argument><expr><name>code</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name>cu</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><name><name>ASTEmptyStatement</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>cu</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getClass</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>String</name></type> <name>code2</name> <init>= <expr><literal type="string">"package c;; import a; import b; public class Foo {}"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>cu2</name> <init>= <expr><call><name>parseJava18</name><argument_list>(<argument><expr><name>code2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name>cu2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><name><name>ASTEmptyStatement</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>cu2</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getClass</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>String</name></type> <name>code3</name> <init>= <expr><literal type="string">"package c; import a; import b; public class Foo {};"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>cu3</name> <init>= <expr><call><name>parseJava18</name><argument_list>(<argument><expr><name>code3</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name>cu3</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><name><name>ASTEmptyStatement</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>cu3</name><operator>.</operator><name>jjtGetChild</name></name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getClass</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testMethodReferenceConfused</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>code</name> <init>= <expr><call><name>readAsString</name><argument_list>(<argument><expr><literal type="string">"MethodReferenceConfused.java"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>compilationUnit</name> <init>= <expr><call><name><name>ParserTstUtil</name><operator>.</operator><name>parseAndTypeResolveJava</name></name><argument_list>(<argument><expr><literal type="string">"10"</literal></expr></argument>, <argument><expr><name>code</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertNotNull</name></name><argument_list>(<argument><expr><name>compilationUnit</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>ASTBlock</name></type> <name>firstBlock</name> <init>= <expr><call><name><name>compilationUnit</name><operator>.</operator><name>getFirstDescendantOfType</name></name><argument_list>(<argument><expr><name><name>ASTBlock</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Map</name><argument_list type="generic">&lt;<argument><name>NameDeclaration</name></argument>, <argument><name><name>List</name><argument_list type="generic">&lt;<argument><name>NameOccurrence</name></argument>&gt;</argument_list></name></argument>&gt;</argument_list></name></type> <name>declarations</name> <init>= <expr><call><name><name>firstBlock</name><operator>.</operator><name>getScope</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getDeclarations</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>foundVariable</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <for>for <control>(<init><decl><type><name><name>Map</name><operator>.</operator><name><name>Entry</name><argument_list type="generic">&lt;<argument><name>NameDeclaration</name></argument>, <argument><name><name>List</name><argument_list type="generic">&lt;<argument><name>NameOccurrence</name></argument>&gt;</argument_list></name></argument>&gt;</argument_list></name></name></type> <name>declaration</name> <range>: <expr><call><name><name>declarations</name><operator>.</operator><name>entrySet</name></name><argument_list>()</argument_list></call></expr></range></decl></init>)</control> <block>{<block_content>
+            <decl_stmt><decl><type><name>String</name></type> <name>varName</name> <init>= <expr><call><name><name>declaration</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getImage</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+            <if_stmt><if>if <condition>(<expr><literal type="string">"someVarNameSameAsMethodReference"</literal><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><name>varName</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+                <expr_stmt><expr><name>foundVariable</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+                <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertTrue</name></name><argument_list>(<argument><expr><literal type="string">"no usages expected"</literal></expr></argument>, <argument><expr><call><name><name>declaration</name><operator>.</operator><name>getValue</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>isEmpty</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            </block_content>}</block></if> <if type="elseif">else if <condition>(<expr><literal type="string">"someObject"</literal><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><name>varName</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+                <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="string">"1 usage expected"</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>declaration</name><operator>.</operator><name>getValue</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+                <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">6</literal></expr></argument>, <argument><expr><call><name><name>declaration</name><operator>.</operator><name>getValue</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getLocation</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getBeginLine</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            </block_content>}</block></if></if_stmt>
+        </block_content>}</block></for>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertTrue</name></name><argument_list>(<argument><expr><literal type="string">"Test setup wrong - variable 'someVarNameSameAsMethodReference' not found anymore!"</literal></expr></argument>, <argument><expr><name>foundVariable</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSwitchWithFallthrough</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>compilationUnit</name> <init>= <expr><call><name><name>ParserTstUtil</name><operator>.</operator><name>parseAndTypeResolveJava</name></name><argument_list>(<argument><expr><literal type="string">"11"</literal></expr></argument>, <argument><expr><call><name>readAsString</name><argument_list>(<argument><expr><literal type="string">"SwitchWithFallthrough.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertNotNull</name></name><argument_list>(<argument><expr><name>compilationUnit</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>ASTSwitchStatement</name></type> <name>switchStatement</name> <init>= <expr><call><name><name>compilationUnit</name><operator>.</operator><name>getFirstDescendantOfType</name></name><argument_list>(<argument><expr><name><name>ASTSwitchStatement</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>switchStatement</name><operator>.</operator><name>findChildrenOfType</name></name><argument_list>(<argument><expr><name><name>ASTSwitchLabel</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSwitchStatements</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>compilationUnit</name> <init>= <expr><call><name><name>ParserTstUtil</name><operator>.</operator><name>parseAndTypeResolveJava</name></name><argument_list>(<argument><expr><literal type="string">"11"</literal></expr></argument>, <argument><expr><call><name>readAsString</name><argument_list>(<argument><expr><literal type="string">"SwitchStatements.java"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertNotNull</name></name><argument_list>(<argument><expr><name>compilationUnit</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>ASTSwitchStatement</name></type> <name>switchStatement</name> <init>= <expr><call><name><name>compilationUnit</name><operator>.</operator><name>getFirstDescendantOfType</name></name><argument_list>(<argument><expr><name><name>ASTSwitchStatement</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>switchStatement</name><operator>.</operator><name>findChildrenOfType</name></name><argument_list>(<argument><expr><name><name>ASTSwitchLabel</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>size</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><type><specifier>private</specifier> <name>String</name></type> <name>readAsString</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>resource</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <try>try <init>(<decl><type><name>InputStream</name></type> <name>in</name> <init>= <expr><call><name><name>ParserCornersTest</name><operator>.</operator><name><name>class</name><operator>.</operator><name>getResourceAsStream</name></name></name><argument_list>(<argument><expr><name>resource</name></expr></argument>)</argument_list></call></expr></init></decl>)</init> <block>{<block_content>
+            <return>return <expr><call><name><name>IOUtils</name><operator>.</operator><name>toString</name></name><argument_list>(<argument><expr><name>in</name></expr></argument>, <argument><expr><name><name>StandardCharsets</name><operator>.</operator><name>UTF_8</name></name></expr></argument>)</argument_list></call></expr>;</return>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <throw>throw <expr><operator>new</operator> <call><name>RuntimeException</name><argument_list>(<argument><expr><name>e</name></expr></argument>)</argument_list></call></expr>;</throw>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>GENERICS_PROBLEM</name> <init>= <expr><literal type="string">"public class Test {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">" public void test() {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+            <operator>+</operator> <literal type="string">"   String o = super.&lt;String&gt; doStuff(\"\");"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">" }"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>ABSTRACT_METHOD_LEVEL_CLASS_DECL</name> <init>= <expr><literal type="string">"public class Test {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"  void bar() {"</literal>
+            <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"   abstract class X { public abstract void f(); }"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+            <operator>+</operator> <literal type="string">"   class Y extends X { public void f() {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"    new Y().f();"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"   }}"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+            <operator>+</operator> <literal type="string">"  }"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>CAST_LOOKAHEAD_PROBLEM</name> <init>= <expr><literal type="string">"public class BadClass {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"  public Class foo() {"</literal>
+            <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"    return (byte[].class);"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"  }"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+}</block></class>
+</unit>

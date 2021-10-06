@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\util\RelativeDateFormatTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ---------------------------
+ * RelativeDateFormatTest.java
+ * ---------------------------
+ * (C) Copyright 2006-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 23-Nov-2006 : Version 1 (DG);
+ * 15-Feb-2008 : Added tests for negative dates (DG);
+ * 01-Sep-2008 : Added a test for hours and minutes with leading zeroes (DG);
+ * 06-Oct-2011 : Fixed bug 3418287 (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>util</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>text</name><operator>.</operator><name>DecimalFormat</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>text</name><operator>.</operator><name>NumberFormat</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Date</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Locale</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>AfterEach</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>BeforeEach</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link RelativeDateFormat} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>RelativeDateFormatTest</name> <block>{
+
+    <decl_stmt><decl><type><specifier>private</specifier> <name>Locale</name></type> <name>savedLocale</name></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Set a known locale for the tests.
+     */</comment>
+    <function><annotation>@<name>BeforeEach</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>setUp</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>savedLocale</name></name> <operator>=</operator> <call><name><name>Locale</name><operator>.</operator><name>getDefault</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Locale</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name><name>Locale</name><operator>.</operator><name>UK</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Restore the default locale after the tests complete.
+     */</comment>
+    <function><annotation>@<name>AfterEach</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>tearDown</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><call><name><name>Locale</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name><name>this</name><operator>.</operator><name>savedLocale</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the formatting.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFormat</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>RelativeDateFormat</name></type> <name>rdf</name> <init>= <expr><operator>new</operator> <call><name>RelativeDateFormat</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>s</name> <init>= <expr><call><name><name>rdf</name><operator>.</operator><name>format</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Date</name><argument_list>(<argument><expr><literal type="number">2</literal> <operator>*</operator> <literal type="number">60L</literal> <operator>*</operator> <literal type="number">60L</literal> <operator>*</operator> <literal type="number">1000L</literal> <operator>+</operator> <literal type="number">122500L</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"2h2m2.500s"</literal></expr></argument>, <argument><expr><name>s</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Test that we can configure the RelativeDateFormat to show
+     * hh:mm:ss.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test2033092</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>RelativeDateFormat</name></type> <name>rdf</name> <init>= <expr><operator>new</operator> <call><name>RelativeDateFormat</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>rdf</name><operator>.</operator><name>setShowZeroDays</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>rdf</name><operator>.</operator><name>setShowZeroHours</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>rdf</name><operator>.</operator><name>setMinuteSuffix</name></name><argument_list>(<argument><expr><literal type="string">":"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>rdf</name><operator>.</operator><name>setHourSuffix</name></name><argument_list>(<argument><expr><literal type="string">":"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>rdf</name><operator>.</operator><name>setSecondSuffix</name></name><argument_list>(<argument><expr><literal type="string">""</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>DecimalFormat</name></type> <name>hoursFormatter</name> <init>= <expr><operator>new</operator> <call><name>DecimalFormat</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>hoursFormatter</name><operator>.</operator><name>setMaximumFractionDigits</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>hoursFormatter</name><operator>.</operator><name>setMaximumIntegerDigits</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>hoursFormatter</name><operator>.</operator><name>setMinimumIntegerDigits</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>rdf</name><operator>.</operator><name>setHourFormatter</name></name><argument_list>(<argument><expr><name>hoursFormatter</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>DecimalFormat</name></type> <name>minsFormatter</name> <init>= <expr><operator>new</operator> <call><name>DecimalFormat</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>minsFormatter</name><operator>.</operator><name>setMaximumFractionDigits</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>minsFormatter</name><operator>.</operator><name>setMaximumIntegerDigits</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>minsFormatter</name><operator>.</operator><name>setMinimumIntegerDigits</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>rdf</name><operator>.</operator><name>setMinuteFormatter</name></name><argument_list>(<argument><expr><name>minsFormatter</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>DecimalFormat</name></type> <name>secondsFormatter</name> <init>= <expr><operator>new</operator> <call><name>DecimalFormat</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>secondsFormatter</name><operator>.</operator><name>setMaximumFractionDigits</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>secondsFormatter</name><operator>.</operator><name>setMaximumIntegerDigits</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>secondsFormatter</name><operator>.</operator><name>setMinimumIntegerDigits</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>rdf</name><operator>.</operator><name>setSecondFormatter</name></name><argument_list>(<argument><expr><name>secondsFormatter</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>s</name> <init>= <expr><call><name><name>rdf</name><operator>.</operator><name>format</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Date</name><argument_list>(<argument><expr><literal type="number">2</literal> <operator>*</operator> <literal type="number">60L</literal> <operator>*</operator> <literal type="number">60L</literal> <operator>*</operator> <literal type="number">1000L</literal> <operator>+</operator> <literal type="number">122500L</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"02:02:02"</literal></expr></argument>, <argument><expr><name>s</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Check that the equals() method can distinguish all fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>RelativeDateFormat</name></type> <name>df1</name> <init>= <expr><operator>new</operator> <call><name>RelativeDateFormat</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RelativeDateFormat</name></type> <name>df2</name> <init>= <expr><operator>new</operator> <call><name>RelativeDateFormat</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>df1</name></expr></argument>, <argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>df1</name><operator>.</operator><name>setBaseMillis</name></name><argument_list>(<argument><expr><literal type="number">123L</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>df2</name><operator>.</operator><name>setBaseMillis</name></name><argument_list>(<argument><expr><literal type="number">123L</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>df1</name><operator>.</operator><name>setDayFormatter</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>DecimalFormat</name><argument_list>(<argument><expr><literal type="string">"0%"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>df2</name><operator>.</operator><name>setDayFormatter</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>DecimalFormat</name><argument_list>(<argument><expr><literal type="string">"0%"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>df1</name><operator>.</operator><name>setDaySuffix</name></name><argument_list>(<argument><expr><literal type="string">"D"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>df2</name><operator>.</operator><name>setDaySuffix</name></name><argument_list>(<argument><expr><literal type="string">"D"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>df1</name><operator>.</operator><name>setHourFormatter</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>DecimalFormat</name><argument_list>(<argument><expr><literal type="string">"0%"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>df2</name><operator>.</operator><name>setHourFormatter</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>DecimalFormat</name><argument_list>(<argument><expr><literal type="string">"0%"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>df1</name><operator>.</operator><name>setHourSuffix</name></name><argument_list>(<argument><expr><literal type="string">"H"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>df2</name><operator>.</operator><name>setHourSuffix</name></name><argument_list>(<argument><expr><literal type="string">"H"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>df1</name><operator>.</operator><name>setMinuteFormatter</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>DecimalFormat</name><argument_list>(<argument><expr><literal type="string">"0%"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>df2</name><operator>.</operator><name>setMinuteFormatter</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>DecimalFormat</name><argument_list>(<argument><expr><literal type="string">"0%"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>df1</name><operator>.</operator><name>setMinuteSuffix</name></name><argument_list>(<argument><expr><literal type="string">"M"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>df2</name><operator>.</operator><name>setMinuteSuffix</name></name><argument_list>(<argument><expr><literal type="string">"M"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>df1</name><operator>.</operator><name>setSecondSuffix</name></name><argument_list>(<argument><expr><literal type="string">"S"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>df2</name><operator>.</operator><name>setSecondSuffix</name></name><argument_list>(<argument><expr><literal type="string">"S"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>df1</name><operator>.</operator><name>setShowZeroDays</name></name><argument_list>(<argument><expr><operator>!</operator><call><name><name>df1</name><operator>.</operator><name>getShowZeroDays</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>df2</name><operator>.</operator><name>setShowZeroDays</name></name><argument_list>(<argument><expr><operator>!</operator><call><name><name>df2</name><operator>.</operator><name>getShowZeroDays</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>df1</name><operator>.</operator><name>setSecondFormatter</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>DecimalFormat</name><argument_list>(<argument><expr><literal type="string">"0.0"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>df2</name><operator>.</operator><name>setSecondFormatter</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>DecimalFormat</name><argument_list>(<argument><expr><literal type="string">"0.0"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Two objects that are equal are required to return the same hashCode.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testHashCode</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>RelativeDateFormat</name></type> <name>df1</name> <init>= <expr><operator>new</operator> <call><name>RelativeDateFormat</name><argument_list>(<argument><expr><literal type="number">123L</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RelativeDateFormat</name></type> <name>df2</name> <init>= <expr><operator>new</operator> <call><name>RelativeDateFormat</name><argument_list>(<argument><expr><literal type="number">123L</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h1</name> <init>= <expr><call><name><name>df1</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h2</name> <init>= <expr><call><name><name>df2</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>h1</name></expr></argument>, <argument><expr><name>h2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that cloning works.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>NumberFormat</name></type> <name>nf</name> <init>= <expr><operator>new</operator> <call><name>DecimalFormat</name><argument_list>(<argument><expr><literal type="string">"0"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RelativeDateFormat</name></type> <name>df1</name> <init>= <expr><operator>new</operator> <call><name>RelativeDateFormat</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>df1</name><operator>.</operator><name>setSecondFormatter</name></name><argument_list>(<argument><expr><name>nf</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>RelativeDateFormat</name></type> <name>df2</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><name>df2</name> <operator>=</operator> <operator>(</operator><name>RelativeDateFormat</name><operator>)</operator> <call><name><name>df1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>df1</name> <operator>!=</operator> <name>df2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>df2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// is the clone independent</comment>
+        <expr_stmt><expr><call><name><name>nf</name><operator>.</operator><name>setMinimumFractionDigits</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some tests for negative dates.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNegative</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>NumberFormat</name></type> <name>nf</name> <init>= <expr><operator>new</operator> <call><name>DecimalFormat</name><argument_list>(<argument><expr><literal type="string">"0"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RelativeDateFormat</name></type> <name>df1</name> <init>= <expr><operator>new</operator> <call><name>RelativeDateFormat</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>df1</name><operator>.</operator><name>setSecondFormatter</name></name><argument_list>(<argument><expr><name>nf</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"-0h0m1s"</literal></expr></argument>, <argument><expr><call><name><name>df1</name><operator>.</operator><name>format</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Date</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1000L</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</block></class>
+
+</unit>

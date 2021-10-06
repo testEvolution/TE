@@ -1,0 +1,5 @@
+<unit><function><annotation>@<name>Override</name></annotation>
+        <type><specifier>public</specifier> <name>Date</name></type> <name>previousStandardDate</name><parameter_list>(<parameter><decl><type><name>Date</name></type> <name>d</name></decl></parameter>, <parameter><decl><type><name>DateTickUnit</name></type> <name>unit</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <return>return <expr><call><name><name>super</name><operator>.</operator><name>previousStandardDate</name></name><argument_list>(<argument><expr><name>d</name></expr></argument>, <argument><expr><name>unit</name></expr></argument>)</argument_list></call></expr>;</return>
+        </block_content>}</block></function>
+    }</unit>

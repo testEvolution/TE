@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\typeresolution\testdata\MethodStaticAccess.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name></name>;</package>
+
+<import>import static <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name><operator>.</operator><name>dummytypes</name><operator>.</operator><name>StaticMembers</name><operator>.</operator><name>*</name></name>;</import>
+<import>import static <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name><operator>.</operator><name>dummytypes</name><operator>.</operator><name>StaticMembers</name><operator>.</operator><name>primitiveStaticMethod</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name><operator>.</operator><name>dummytypes</name><operator>.</operator><name>StaticMembers</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name><operator>.</operator><name>dummytypes</name><operator>.</operator><name>StaticSuper</name></name>;</import>
+
+
+<class><specifier>public</specifier> class <name>MethodStaticAccess</name> <block>{
+    <decl_stmt><decl><type><specifier>public</specifier> <specifier>static</specifier> <name>double</name></type> <name>staticChar</name></decl>;</decl_stmt>
+
+    <function><type><name>void</name></type> <name>foo</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// static field import by explicit import</comment>
+        <decl_stmt><decl><type><name>int</name></type> <name>a</name> <init>= <expr><call><name>primitiveStaticMethod</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// static field import by on-demand import</comment>
+        <decl_stmt><decl><type><name>StaticMembers</name></type> <name>b</name> <init>= <expr><call><name>staticInstanceMethod</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// Fully qualified static field access</comment>
+        <decl_stmt><decl><type><name>int</name></type> <name>c</name> <init>= <expr><call><name><name>StaticMembers</name><operator>.</operator><name>primitiveStaticMethod</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+    </block_content>}</block></function>
+
+    <class><specifier>public</specifier> class <name>Nested</name> <super_list><extends>extends <super><name>StaticSuper</name></super></extends></super_list> <block>{
+        <function><type><name>void</name></type> <name>bar</name><parameter_list>()</parameter_list> <block>{<block_content>
+            <comment type="line">// qualified access</comment>
+            <decl_stmt><decl><type><name>String</name></type> <name>c</name> <init>= <expr><call><name><name>MethodStaticAccess</name><operator>.</operator><name>Nested</name><operator>.</operator><name>primitiveStaticMethod</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        </block_content>}</block></function>
+    }</block></class>
+}</block></class>
+</unit>

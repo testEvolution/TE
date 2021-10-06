@@ -1,0 +1,5 @@
+<unit><function><type><specifier>private</specifier> <specifier>static</specifier> <name>JFreeChart</name></type> <name>createPieChart3D</name><parameter_list>(<parameter><decl><type><name>PieDataset</name></type> <name>dataset</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createPieChart3D</name></name><argument_list>(<argument><expr><literal type="string">"Pie Chart"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    </unit>

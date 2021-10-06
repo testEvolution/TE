@@ -1,0 +1,41 @@
+<unit><function><type><specifier>public</specifier> <name>CategoryDataset</name></type> <name>createDataset2</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name>DefaultCategoryDataset</name></type> <name>result</name> <init>= <expr><operator>new</operator> <call><name>DefaultCategoryDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// row keys...</comment>
+        <decl_stmt><decl><type><name>String</name></type> <name>series1</name> <init>= <expr><literal type="string">"Third"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>series2</name> <init>= <expr><literal type="string">"Fourth"</literal></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// column keys...</comment>
+        <decl_stmt><decl><type><name>String</name></type> <name>type1</name> <init>= <expr><literal type="string">"Type 1"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>type2</name> <init>= <expr><literal type="string">"Type 2"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>type3</name> <init>= <expr><literal type="string">"Type 3"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>type4</name> <init>= <expr><literal type="string">"Type 4"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>type5</name> <init>= <expr><literal type="string">"Type 5"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>type6</name> <init>= <expr><literal type="string">"Type 6"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>type7</name> <init>= <expr><literal type="string">"Type 7"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>type8</name> <init>= <expr><literal type="string">"Type 8"</literal></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">11.0</literal></expr></argument>, <argument><expr><name>series1</name></expr></argument>, <argument><expr><name>type1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">14.0</literal></expr></argument>, <argument><expr><name>series1</name></expr></argument>, <argument><expr><name>type2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">13.0</literal></expr></argument>, <argument><expr><name>series1</name></expr></argument>, <argument><expr><name>type3</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">15.0</literal></expr></argument>, <argument><expr><name>series1</name></expr></argument>, <argument><expr><name>type4</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">15.0</literal></expr></argument>, <argument><expr><name>series1</name></expr></argument>, <argument><expr><name>type5</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">17.0</literal></expr></argument>, <argument><expr><name>series1</name></expr></argument>, <argument><expr><name>type6</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">17.0</literal></expr></argument>, <argument><expr><name>series1</name></expr></argument>, <argument><expr><name>type7</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">18.0</literal></expr></argument>, <argument><expr><name>series1</name></expr></argument>, <argument><expr><name>type8</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">15.0</literal></expr></argument>, <argument><expr><name>series2</name></expr></argument>, <argument><expr><name>type1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">17.0</literal></expr></argument>, <argument><expr><name>series2</name></expr></argument>, <argument><expr><name>type2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">16.0</literal></expr></argument>, <argument><expr><name>series2</name></expr></argument>, <argument><expr><name>type3</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">18.0</literal></expr></argument>, <argument><expr><name>series2</name></expr></argument>, <argument><expr><name>type4</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">14.0</literal></expr></argument>, <argument><expr><name>series2</name></expr></argument>, <argument><expr><name>type5</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">14.0</literal></expr></argument>, <argument><expr><name>series2</name></expr></argument>, <argument><expr><name>type6</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">12.0</literal></expr></argument>, <argument><expr><name>series2</name></expr></argument>, <argument><expr><name>type7</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>addValue</name></name><argument_list>(<argument><expr><literal type="number">11.0</literal></expr></argument>, <argument><expr><name>series2</name></expr></argument>, <argument><expr><name>type8</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <return>return <expr><name>result</name></expr>;</return>
+
+    </block_content>}</block></function>
+
+    </unit>

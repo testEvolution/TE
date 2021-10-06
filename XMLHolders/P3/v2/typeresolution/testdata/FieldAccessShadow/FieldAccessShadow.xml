@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\typeresolution\testdata\FieldAccessShadow.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name></name>;</package>
+
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name><operator>.</operator><name>dummytypes</name><operator>.</operator><name>SuperClassB</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name><operator>.</operator><name>dummytypes</name><operator>.</operator><name>SuperClassB2</name></name>;</import>
+
+
+<comment type="block">/*
+ * Note: inherited fields of a nested class shadow outer scope variables
+ *      Note: only if they are accessible!
+ */</comment>
+<class><specifier>public</specifier> class <name>FieldAccessShadow</name> <block>{
+    <decl_stmt><decl><type><name>Integer</name></type> <name>field</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>String</name></type> <name>s2</name></decl>;</decl_stmt>
+
+    <function><type><specifier>public</specifier> <name>void</name></type> <name>foo</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>field</name></decl>;</decl_stmt>
+
+        <comment type="line">// example of simple field access with shadowed scope</comment>
+        <comment type="line">// Primary[Prefix["field"]]</comment>
+        <expr_stmt><expr><name>field</name> <operator>=</operator> <literal type="string">"shadow"</literal></expr>;</expr_stmt>
+
+        <comment type="line">// field access through this</comment>
+        <comment type="line">// Primary[Prefix["this"], Suffix["field"]]</comment>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>field</name></name> <operator>=</operator> <operator>new</operator> <call><name>Integer</name><argument_list>(<argument><expr><literal type="number">10</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// example of field access on an arbitrary PrimaryExpression[(this)]</comment>
+        <comment type="line">// Primary[ Prefix[Primary[(this)]], Suffix[field] ]</comment>
+        <expr_stmt><expr><operator>(</operator><name>this</name><operator>)</operator><operator>.</operator><name>field</name> <operator>=</operator> <operator>new</operator> <call><name>Integer</name><argument_list>(<argument><expr><literal type="number">10</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><name>Number</name></type> <name>privateShadow</name></decl>;</decl_stmt>
+
+    <class><specifier>public</specifier> class <name>NestedShadow</name> <super_list><extends>extends <super><name>SuperClassB</name></super></extends></super_list> <block>{
+        <function><type><specifier>public</specifier> <name>void</name></type> <name>foo</name><parameter_list>()</parameter_list> <block>{<block_content>
+            <comment type="line">// SuperClassB's "s2" field shadows enclosing scope's inherited field</comment>
+            <comment type="line">// Primary[Prefix[Name[s2]]]</comment>
+            <expr_stmt><expr><name>s2</name> <operator>=</operator> <operator>new</operator> <call><name>SuperClassB2</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+
+            <comment type="line">// SuperClassB has an inaccessible field "privateShadow", it should not</comment>
+            <comment type="line">// shadow enclosing scope's privateShadow member field</comment>
+            <comment type="line">// Primary[Prefix[Name[privateShadow]]]</comment>
+            <expr_stmt><expr><name>privateShadow</name> <operator>=</operator> <literal type="number">10</literal></expr>;</expr_stmt>
+        </block_content>}</block></function>
+    }</block></class>
+}</block></class>
+</unit>

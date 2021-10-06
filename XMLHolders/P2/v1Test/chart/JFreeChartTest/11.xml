@@ -1,0 +1,12 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLegendEvents</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultPieDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultPieDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JFreeChart</name></type> <name>chart</name> <init>= <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createPieChart</name></name><argument_list>(<argument><expr><literal type="string">"title"</literal></expr></argument>, <argument><expr><name>dataset</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>chart</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastChartChangeEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>LegendTitle</name></type> <name>legend</name> <init>= <expr><call><name><name>chart</name><operator>.</operator><name>getLegend</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>legend</name><operator>.</operator><name>setPosition</name></name><argument_list>(<argument><expr><name><name>RectangleEdge</name><operator>.</operator><name>TOP</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name><name>this</name><operator>.</operator><name>lastChartChangeEvent</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

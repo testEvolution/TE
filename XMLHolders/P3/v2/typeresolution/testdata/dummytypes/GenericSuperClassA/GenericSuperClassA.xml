@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\typeresolution\testdata\dummytypes\GenericSuperClassA.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name><operator>.</operator><name>dummytypes</name></name>;</package>
+
+<class><specifier>public</specifier> class <name><name>GenericSuperClassA</name><parameter_list>&lt;<parameter><name>T</name></parameter>&gt;</parameter_list></name> <super_list><extends>extends <super><name><name>GenericSuperClassB</name><argument_list type="generic">&lt;<argument><name>T</name></argument>, <argument><name><name>GenericClass</name><argument_list type="generic">&lt;<argument><name>String</name></argument>, <argument><name>T</name></argument>&gt;</argument_list></name></argument>&gt;</argument_list></name></super></extends></super_list> <block>{
+    <decl_stmt><decl><type><specifier>public</specifier> <name>T</name></type> <name>fieldA</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>public</specifier> <name>GenericClass2</name></type> <name>inheritedRawGeneric</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>public</specifier> <name><name>GenericClass</name><argument_list type="generic">&lt;<argument><name>?</name> <super>super <name>String</name></super></argument>, <argument><name>?</name></argument>&gt;</argument_list></name></type> <name>inheritedSuperGeneric</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>public</specifier> <name><name>GenericClass</name><argument_list type="generic">&lt;<argument><name>?</name> <extends>extends <name>String</name></extends></argument>, <argument><name>Object</name></argument>&gt;</argument_list></name></type> <name>inheritedUpperBound</name></decl>;</decl_stmt>
+}</block></class>
+</unit>

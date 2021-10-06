@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\JavaParsingHelper.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name></name>;</package>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>ast</name><operator>.</operator><name>test</name><operator>.</operator><name>BaseParsingHelper</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTCompilationUnit</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>JavaParsingHelper</name> <super_list><extends>extends <super><name><name>BaseParsingHelper</name><argument_list type="generic">&lt;<argument><name>JavaParsingHelper</name></argument>, <argument><name>ASTCompilationUnit</name></argument>&gt;</argument_list></name></super></extends></super_list> <block>{
+
+    <comment type="block" format="javadoc">/** This just runs the parser and no processing stages. */</comment>
+    <decl_stmt><decl><type><specifier>public</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>JavaParsingHelper</name></type> <name>JUST_PARSE</name> <init>= <expr><operator>new</operator> <call><name>JavaParsingHelper</name><argument_list>(<argument><expr><call><name><name>Params</name><operator>.</operator><name>getDefaultNoProcess</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+    <comment type="block" format="javadoc">/** This runs all processing stages when parsing. */</comment>
+    <decl_stmt><decl><type><specifier>public</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>JavaParsingHelper</name></type> <name>WITH_PROCESSING</name> <init>= <expr><operator>new</operator> <call><name>JavaParsingHelper</name><argument_list>(<argument><expr><call><name><name>Params</name><operator>.</operator><name>getDefaultProcess</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+    <constructor><specifier>private</specifier> <name>JavaParsingHelper</name><parameter_list>(<parameter><decl><type><name>Params</name></type> <name>params</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name><name>JavaLanguageModule</name><operator>.</operator><name>NAME</name></name></expr></argument>, <argument><expr><name><name>ASTCompilationUnit</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>params</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></constructor>
+
+
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>protected</specifier> <name>JavaParsingHelper</name></type> <name>clone</name><parameter_list>(<parameter><decl><type><name>Params</name></type> <name>params</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><operator>new</operator> <call><name>JavaParsingHelper</name><argument_list>(<argument><expr><name>params</name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

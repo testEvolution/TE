@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\ast\ASTFormalParameterTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>ASTFormalParameterTest</name> <super_list><extends>extends <super><name>BaseParserTest</name></super></extends></super_list> <block>{
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testVarargs</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>int</name></type> <name>nrOfVarArgs</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>nrOfNoVarArgs</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTFormalParameter</name></argument>&gt;</argument_list></name></type> <name>ops</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>getNodes</name></name><argument_list>(<argument><expr><name><name>ASTFormalParameter</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST1</name></expr></argument>, <argument><expr><literal type="string">"1.5"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <for>for <control>(<init><decl><type><name>ASTFormalParameter</name></type> <name>b</name> <range>: <expr><name>ops</name></expr></range></decl></init>)</control> <block>{<block_content>
+            <decl_stmt><decl><type><name>ASTVariableDeclaratorId</name></type> <name>variableDeclId</name> <init>= <expr><call><name><name>b</name><operator>.</operator><name>getFirstDescendantOfType</name></name><argument_list>(<argument><expr><name><name>ASTVariableDeclaratorId</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <if_stmt><if>if <condition>(<expr><operator>!</operator><literal type="string">"x"</literal><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><call><name><name>variableDeclId</name><operator>.</operator><name>getImage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+                <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>b</name><operator>.</operator><name>isVarargs</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+                <expr_stmt><expr><name>nrOfVarArgs</name><operator>++</operator></expr>;</expr_stmt>
+            </block_content>}</block></if> <else>else <block>{<block_content>
+                <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>b</name><operator>.</operator><name>isVarargs</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+                <expr_stmt><expr><name>nrOfNoVarArgs</name><operator>++</operator></expr>;</expr_stmt>
+            </block_content>}</block></else></if_stmt>
+        </block_content>}</block></for>
+
+        <comment type="line">// Ensure that both possibilities are tested</comment>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><name>nrOfVarArgs</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><name>nrOfNoVarArgs</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST1</name> <init>= <expr><literal type="string">"class Foo {\n void bar(int x, int... others) {}\n}"</literal></expr></init></decl>;</decl_stmt>
+}</block></class>
+</unit>

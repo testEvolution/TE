@@ -1,0 +1,5 @@
+<unit><function><annotation>@<name>Override</name></annotation>
+        <type><specifier>public</specifier> <name>ComparableObjectItem</name></type> <name>remove</name><parameter_list>(<parameter><decl><type><name>Comparable</name></type> <name>x</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <return>return <expr><call><name><name>super</name><operator>.</operator><name>remove</name></name><argument_list>(<argument><expr><name>x</name></expr></argument>)</argument_list></call></expr>;</return>
+        </block_content>}</block></function>
+    }</unit>

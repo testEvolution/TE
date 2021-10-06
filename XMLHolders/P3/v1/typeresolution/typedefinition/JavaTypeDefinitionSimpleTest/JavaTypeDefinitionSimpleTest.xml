@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\typeresolution\typedefinition\JavaTypeDefinitionSimpleTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>typedefinition</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>ArrayList</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>typedefinition</name><operator>.</operator><name>JavaTypeDefinition</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>JavaTypeDefinitionSimpleTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Tests the raw type {@code ArrayList}.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>arrayListWithoutBoundGenerics</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>JavaTypeDefinition</name></type> <name>typeDef</name> <init>= <expr><call><name><name>JavaTypeDefinition</name><operator>.</operator><name>forClass</name></name><argument_list>(<argument><expr><name><name>ArrayList</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertTrue</name></name><argument_list>(<argument><expr><call><name><name>typeDef</name><operator>.</operator><name>isGeneric</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertTrue</name></name><argument_list>(<argument><expr><call><name><name>typeDef</name><operator>.</operator><name>isRawType</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>typeDef</name><operator>.</operator><name>getTypeParameterCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>JavaTypeDefinition</name></type> <name>genericType</name> <init>= <expr><call><name><name>typeDef</name><operator>.</operator><name>getGenericType</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertFalse</name></name><argument_list>(<argument><expr><call><name><name>genericType</name><operator>.</operator><name>isGeneric</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><name><name>Object</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>genericType</name><operator>.</operator><name>getType</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Tests the type {@code ArrayList&lt;String&gt;}.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>arrayListOfString</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>JavaTypeDefinition</name></type> <name>typeDef</name> <init>= <expr><call><name><name>JavaTypeDefinition</name><operator>.</operator><name>forClass</name></name><argument_list>(<argument><expr><name><name>ArrayList</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>JavaTypeDefinition</name><operator>.</operator><name>forClass</name></name><argument_list>(<argument><expr><name><name>String</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertTrue</name></name><argument_list>(<argument><expr><call><name><name>typeDef</name><operator>.</operator><name>isGeneric</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>typeDef</name><operator>.</operator><name>getTypeParameterCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertTrue</name></name><argument_list>(<argument><expr><call><name><name>typeDef</name><operator>.</operator><name>isClassOrInterface</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertFalse</name></name><argument_list>(<argument><expr><call><name><name>typeDef</name><operator>.</operator><name>isArrayType</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>JavaTypeDefinition</name></type> <name>genericType</name> <init>= <expr><call><name><name>typeDef</name><operator>.</operator><name>getGenericType</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertFalse</name></name><argument_list>(<argument><expr><call><name><name>genericType</name><operator>.</operator><name>isGeneric</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><name><name>String</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>genericType</name><operator>.</operator><name>getType</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>JavaTypeDefinition</name></type> <name>genericTypeByName</name> <init>= <expr><call><name><name>typeDef</name><operator>.</operator><name>getGenericType</name></name><argument_list>(<argument><expr><literal type="string">"E"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><name><name>String</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>genericTypeByName</name><operator>.</operator><name>getType</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>array</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>JavaTypeDefinition</name></type> <name>typeDef</name> <init>= <expr><call><name><name>JavaTypeDefinition</name><operator>.</operator><name>forClass</name></name><argument_list>(<argument><expr><name><name>String</name><index>[]</index></name><operator>.</operator>class</expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertFalse</name></name><argument_list>(<argument><expr><call><name><name>typeDef</name><operator>.</operator><name>isGeneric</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertTrue</name></name><argument_list>(<argument><expr><call><name><name>typeDef</name><operator>.</operator><name>isArrayType</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertFalse</name></name><argument_list>(<argument><expr><call><name><name>typeDef</name><operator>.</operator><name>isClassOrInterface</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><name><name>String</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>typeDef</name><operator>.</operator><name>getElementType</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getType</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertFalse</name></name><argument_list>(<argument><expr><call><name><name>typeDef</name><operator>.</operator><name>isPrimitive</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>primitive</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>JavaTypeDefinition</name></type> <name>typeDef</name> <init>= <expr><call><name><name>JavaTypeDefinition</name><operator>.</operator><name>forClass</name></name><argument_list>(<argument><expr><name><name>int</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertTrue</name></name><argument_list>(<argument><expr><call><name><name>typeDef</name><operator>.</operator><name>isPrimitive</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertFalse</name></name><argument_list>(<argument><expr><call><name><name>typeDef</name><operator>.</operator><name>isClassOrInterface</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\typeresolution\testdata\Literals.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>testdata</name></name>;</package>
+
+<class><specifier>public</specifier> class <name>Literals</name> <block>{
+    <decl_stmt><decl><type><name>String</name></type> <name>s</name> <init>= <expr><literal type="string">"s"</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>boolean</name></type> <name>boolean1</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>boolean</name></type> <name>boolean2</name> <init>= <expr><literal type="boolean">true</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>Object</name></type> <name>obj</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>byte</name></type> <name>byte1</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>byte</name></type> <name>byte2</name> <init>= <expr><literal type="number">0x0F</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>byte</name></type> <name>byte3</name> <init>= <expr><operator>-</operator><literal type="number">007</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>short</name></type> <name>short1</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>short</name></type> <name>short2</name> <init>= <expr><literal type="number">0x0F</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>short</name></type> <name>short3</name> <init>= <expr><operator>-</operator><literal type="number">007</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>char</name></type> <name>char1</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>char</name></type> <name>char2</name> <init>= <expr><literal type="number">0x0F</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>char</name></type> <name>char3</name> <init>= <expr><literal type="number">007</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>char</name></type> <name>char4</name> <init>= <expr><literal type="char">'a'</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>int</name></type> <name>int1</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>int</name></type> <name>int2</name> <init>= <expr><literal type="number">0x0F</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>int</name></type> <name>int3</name> <init>= <expr><operator>-</operator><literal type="number">007</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>int</name></type> <name>int4</name> <init>= <expr><literal type="char">'a'</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>long</name></type> <name>long1</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>long</name></type> <name>long2</name> <init>= <expr><literal type="number">0x0F</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>long</name></type> <name>long3</name> <init>= <expr><operator>-</operator><literal type="number">007</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>long</name></type> <name>long4</name> <init>= <expr><literal type="number">0L</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>long</name></type> <name>long5</name> <init>= <expr><literal type="number">0x0Fl</literal></expr></init></decl>;</decl_stmt> <comment type="line">// SUPPRESS CHECKSTYLE this explicitly tests lowercase l</comment>
+    <decl_stmt><decl><type><name>long</name></type> <name>long6</name> <init>= <expr><operator>-</operator><literal type="number">007L</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>long</name></type> <name>long7</name> <init>= <expr><literal type="char">'a'</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>float</name></type> <name>float1</name> <init>= <expr><literal type="number">0.0f</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>float</name></type> <name>float2</name> <init>= <expr><operator>-</operator><literal type="number">10e+01f</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>float</name></type> <name>float3</name> <init>= <expr><literal type="number">0x08</literal><literal type="number">.08p3f</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>float</name></type> <name>float4</name> <init>= <expr><literal type="number">0xFF</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>float</name></type> <name>float5</name> <init>= <expr><literal type="char">'a'</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>double</name></type> <name>double1</name> <init>= <expr><literal type="number">0.0</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>double</name></type> <name>double2</name> <init>= <expr><operator>-</operator><literal type="number">10e+01</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>double</name></type> <name>double3</name> <init>= <expr><literal type="number">0x08</literal><literal type="number">.08p3</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>double</name></type> <name>double4</name> <init>= <expr><literal type="number">0xFF</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>double</name></type> <name>double5</name> <init>= <expr><literal type="char">'a'</literal></expr></init></decl>;</decl_stmt>
+}</block></class>
+</unit>

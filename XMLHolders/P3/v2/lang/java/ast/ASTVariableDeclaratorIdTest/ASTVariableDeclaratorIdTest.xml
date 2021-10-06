@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\ast\ASTVariableDeclaratorIdTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertNull</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>ASTVariableDeclaratorIdTest</name> <super_list><extends>extends <super><name>BaseParserTest</name></super></extends></super_list> <block>{
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testIsExceptionBlockParameter</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>acu</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>parse</name></name><argument_list>(<argument><expr><name>EXCEPTION_PARAMETER</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTVariableDeclaratorId</name></type> <name>id</name> <init>= <expr><call><name><name>acu</name><operator>.</operator><name>getFirstDescendantOfType</name></name><argument_list>(<argument><expr><name><name>ASTVariableDeclaratorId</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>id</name><operator>.</operator><name>isExceptionBlockParameter</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testTypeNameNode</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>acu</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>parse</name></name><argument_list>(<argument><expr><name>TYPE_NAME_NODE</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTVariableDeclaratorId</name></type> <name>id</name> <init>= <expr><call><name><name>acu</name><operator>.</operator><name>findDescendantsOfType</name></name><argument_list>(<argument><expr><name><name>ASTVariableDeclaratorId</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>ASTClassOrInterfaceType</name></type> <name>name</name> <init>= <expr><operator>(</operator><name>ASTClassOrInterfaceType</name><operator>)</operator> <call><name><name>id</name><operator>.</operator><name>getTypeNameNode</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getChild</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"String"</literal></expr></argument>, <argument><expr><call><name><name>name</name><operator>.</operator><name>getImage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAnnotations</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>acu</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>parse</name></name><argument_list>(<argument><expr><name>TEST_ANNOTATIONS</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTVariableDeclaratorId</name></type> <name>id</name> <init>= <expr><call><name><name>acu</name><operator>.</operator><name>findDescendantsOfType</name></name><argument_list>(<argument><expr><name><name>ASTVariableDeclaratorId</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>ASTClassOrInterfaceType</name></type> <name>name</name> <init>= <expr><operator>(</operator><name>ASTClassOrInterfaceType</name><operator>)</operator> <call><name><name>id</name><operator>.</operator><name>getTypeNameNode</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getChild</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"String"</literal></expr></argument>, <argument><expr><call><name><name>name</name><operator>.</operator><name>getImage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLambdaWithType</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>acu</name> <init>= <expr><call><name><name>java8</name><operator>.</operator><name>parse</name></name><argument_list>(<argument><expr><name>TEST_LAMBDA_WITH_TYPE</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTLambdaExpression</name></type> <name>lambda</name> <init>= <expr><call><name><name>acu</name><operator>.</operator><name>getFirstDescendantOfType</name></name><argument_list>(<argument><expr><name><name>ASTLambdaExpression</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTVariableDeclaratorId</name></type> <name>f</name> <init>= <expr><call><name><name>lambda</name><operator>.</operator><name>getFirstDescendantOfType</name></name><argument_list>(<argument><expr><name><name>ASTVariableDeclaratorId</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"File"</literal></expr></argument>, <argument><expr><call><name><name>f</name><operator>.</operator><name>getTypeNode</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getTypeImage</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"File"</literal></expr></argument>, <argument><expr><call><name><name>f</name><operator>.</operator><name>getTypeNameNode</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getChild</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getImage</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLambdaWithoutType</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>acu</name> <init>= <expr><call><name><name>java8</name><operator>.</operator><name>parse</name></name><argument_list>(<argument><expr><name>TEST_LAMBDA_WITHOUT_TYPE</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTLambdaExpression</name></type> <name>lambda</name> <init>= <expr><call><name><name>acu</name><operator>.</operator><name>getFirstDescendantOfType</name></name><argument_list>(<argument><expr><name><name>ASTLambdaExpression</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ASTVariableDeclaratorId</name></type> <name>f</name> <init>= <expr><call><name><name>lambda</name><operator>.</operator><name>getFirstDescendantOfType</name></name><argument_list>(<argument><expr><name><name>ASTVariableDeclaratorId</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>f</name><operator>.</operator><name>getTypeNode</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>f</name><operator>.</operator><name>getTypeNameNode</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TYPE_NAME_NODE</name> <init>= <expr><literal type="string">"public class Test {\n  private String bar;\n}"</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>EXCEPTION_PARAMETER</name> <init>= <expr><literal type="string">"public class Test { { try {} catch(Exception ie) {} } }"</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST_ANNOTATIONS</name> <init>= <expr><literal type="string">"public class Foo {\n    public void bar(@A1 @A2 String s) {}\n}"</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST_LAMBDA_WITH_TYPE</name> <init>=
+        <expr><literal type="string">"public class Foo {\n    public void bar() {\n        FileFilter java = (File f) -&gt; f.getName().endsWith(\".java\");\n    }\n}\n"</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>TEST_LAMBDA_WITHOUT_TYPE</name> <init>=
+        <expr><literal type="string">"public class Foo {\n    public void bar() {\n        FileFilter java2 = f -&gt; f.getName().endsWith(\".java\");\n    }\n}\n"</literal></expr></init></decl>;</decl_stmt>
+
+    <function><type><specifier>public</specifier> <specifier>static</specifier> <name><name>junit</name><operator>.</operator><name>framework</name><operator>.</operator><name>Test</name></name></type> <name>suite</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><operator>new</operator> <call><name><name>junit</name><operator>.</operator><name>framework</name><operator>.</operator><name>JUnit4TestAdapter</name></name><argument_list>(<argument><expr><name><name>ASTVariableDeclaratorIdTest</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

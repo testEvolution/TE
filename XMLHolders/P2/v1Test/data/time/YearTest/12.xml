@@ -1,0 +1,8 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test9999Previous</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Year</name></type> <name>current</name> <init>= <expr><operator>new</operator> <call><name>Year</name><argument_list>(<argument><expr><literal type="number">9999</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Year</name></type> <name>previous</name> <init>= <expr><operator>(</operator><name>Year</name><operator>)</operator> <call><name><name>current</name><operator>.</operator><name>previous</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">9998</literal></expr></argument>, <argument><expr><call><name><name>previous</name><operator>.</operator><name>getYear</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\LineChartTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ------------------
+ * LineChartTest.java
+ * ------------------
+ * (C) Copyright 2005-2020, by Object Refinery Limited.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes:
+ * --------
+ * 12-Apr-2005 : Version 1 (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name></name>;</package>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>axis</name><operator>.</operator><name>ValueAxis</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>event</name><operator>.</operator><name>ChartChangeEvent</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>event</name><operator>.</operator><name>ChartChangeListener</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>labels</name><operator>.</operator><name>CategoryToolTipGenerator</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>labels</name><operator>.</operator><name>StandardCategoryToolTipGenerator</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>plot</name><operator>.</operator><name>CategoryPlot</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>renderer</name><operator>.</operator><name>category</name><operator>.</operator><name>CategoryItemRenderer</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>urls</name><operator>.</operator><name>CategoryURLGenerator</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>urls</name><operator>.</operator><name>StandardCategoryURLGenerator</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>Range</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>category</name><operator>.</operator><name>CategoryDataset</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>general</name><operator>.</operator><name>DatasetUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Graphics2D</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>geom</name><operator>.</operator><name>Rectangle2D</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>image</name><operator>.</operator><name>BufferedImage</name></name>;</import>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertSame</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>BeforeEach</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Some tests for a line chart.
+ */</comment>
+<class><specifier>public</specifier> class <name>LineChartTest</name>  <block>{
+
+    <comment type="block" format="javadoc">/** A chart. */</comment>
+    <decl_stmt><decl><type><specifier>private</specifier> <name>JFreeChart</name></type> <name>chart</name></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Common test setup.
+     */</comment>
+    <function><annotation>@<name>BeforeEach</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>setUp</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>chart</name></name> <operator>=</operator> <call><name>createLineChart</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Draws the chart with a null info object to make sure that no exceptions
+     * are thrown (a problem that was occurring at one point).
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testDrawWithNullInfo</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>BufferedImage</name></type> <name>image</name> <init>= <expr><operator>new</operator> <call><name>BufferedImage</name><argument_list>(<argument><expr><literal type="number">200</literal></expr></argument> , <argument><expr><literal type="number">100</literal></expr></argument>,
+                <argument><expr><name><name>BufferedImage</name><operator>.</operator><name>TYPE_INT_RGB</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Graphics2D</name></type> <name>g2</name> <init>= <expr><call><name><name>image</name><operator>.</operator><name>createGraphics</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>chart</name><operator>.</operator><name>draw</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>, <argument><expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="number">200</literal></expr></argument>, <argument><expr><literal type="number">100</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>,
+                 <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>g2</name><operator>.</operator><name>dispose</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <comment type="line">//FIXME we should really assert a value here</comment>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Replaces the chart's dataset and then checks that the new dataset is OK.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testReplaceDataset</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <comment type="line">// create a dataset...</comment>
+        <decl_stmt><decl><type><name><name>Number</name><index>[]</index><index>[]</index></name></type> <name>data</name> <init>= <expr><operator>new</operator> <name><name>Integer</name><index>[]</index><index>[]</index></name> <block>{<expr><block>{<expr><operator>-</operator><literal type="number">30</literal></expr>, <expr><operator>-</operator><literal type="number">20</literal></expr>}</block></expr>, <expr><block>{<expr><operator>-</operator><literal type="number">10</literal></expr>, <expr><literal type="number">10</literal></expr>}</block></expr>, <expr><block>{<expr><literal type="number">20</literal></expr>, <expr><literal type="number">30</literal></expr>}</block></expr>}</block></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>CategoryDataset</name></type> <name>newData</name> <init>= <expr><call><name><name>DatasetUtils</name><operator>.</operator><name>createCategoryDataset</name></name><argument_list>(<argument><expr><literal type="string">"S"</literal></expr></argument>,
+                <argument><expr><literal type="string">"C"</literal></expr></argument>, <argument><expr><name>data</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>LocalListener</name></type> <name>l</name> <init>= <expr><operator>new</operator> <call><name>LocalListener</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>chart</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>l</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>CategoryPlot</name></type> <name>plot</name> <init>= <expr><operator>(</operator><name>CategoryPlot</name><operator>)</operator> <call><name><name>this</name><operator>.</operator><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setDataset</name></name><argument_list>(<argument><expr><name>newData</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><name><name>l</name><operator>.</operator><name>flag</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>ValueAxis</name></type> <name>axis</name> <init>= <expr><call><name><name>plot</name><operator>.</operator><name>getRangeAxis</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Range</name></type> <name>range</name> <init>= <expr><call><name><name>axis</name><operator>.</operator><name>getRange</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>range</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call> <operator>&lt;=</operator> <operator>-</operator><literal type="number">30</literal></expr></argument>,
+                <argument><expr><literal type="string">"Expecting the lower bound of the range to be around -30: "</literal>
+                <operator>+</operator> <call><name><name>range</name><operator>.</operator><name>getLowerBound</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>range</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call> <operator>&gt;=</operator> <literal type="number">30</literal></expr></argument>, 
+                <argument><expr><literal type="string">"Expecting the upper bound of the range to be around 30: "</literal>
+                <operator>+</operator> <call><name><name>range</name><operator>.</operator><name>getUpperBound</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Check that setting a tool tip generator for a series does override the
+     * default generator.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSetSeriesToolTipGenerator</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>CategoryPlot</name></type> <name>plot</name> <init>= <expr><operator>(</operator><name>CategoryPlot</name><operator>)</operator> <call><name><name>this</name><operator>.</operator><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CategoryItemRenderer</name></type> <name>renderer</name> <init>= <expr><call><name><name>plot</name><operator>.</operator><name>getRenderer</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>StandardCategoryToolTipGenerator</name></type> <name>tt</name>
+                <init>= <expr><operator>new</operator> <call><name>StandardCategoryToolTipGenerator</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>renderer</name><operator>.</operator><name>setSeriesToolTipGenerator</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name>tt</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>CategoryToolTipGenerator</name></type> <name>tt2</name> <init>= <expr><call><name><name>renderer</name><operator>.</operator><name>getToolTipGenerator</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><name>tt2</name></expr></argument>, <argument><expr><name>tt</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Check that setting a URL generator for a series does override the
+     * default generator.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSetSeriesURLGenerator</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>CategoryPlot</name></type> <name>plot</name> <init>= <expr><operator>(</operator><name>CategoryPlot</name><operator>)</operator> <call><name><name>this</name><operator>.</operator><name>chart</name><operator>.</operator><name>getPlot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CategoryItemRenderer</name></type> <name>renderer</name> <init>= <expr><call><name><name>plot</name><operator>.</operator><name>getRenderer</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>StandardCategoryURLGenerator</name></type> <name>url1</name>
+                <init>= <expr><operator>new</operator> <call><name>StandardCategoryURLGenerator</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>renderer</name><operator>.</operator><name>setSeriesItemURLGenerator</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name>url1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>CategoryURLGenerator</name></type> <name>url2</name> <init>= <expr><call><name><name>renderer</name><operator>.</operator><name>getItemURLGenerator</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertSame</name><argument_list>(<argument><expr><name>url2</name></expr></argument>, <argument><expr><name>url1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Create a line chart with sample data in the range -3 to +3.
+     *
+     * @return The chart.
+     */</comment>
+    <function><type><specifier>private</specifier> <specifier>static</specifier> <name>JFreeChart</name></type> <name>createLineChart</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name><name>Number</name><index>[]</index><index>[]</index></name></type> <name>data</name> <init>= <expr><operator>new</operator> <name><name>Integer</name><index>[]</index><index>[]</index></name> <block>{<expr><block>{<expr><operator>-</operator><literal type="number">3</literal></expr>, <expr><operator>-</operator><literal type="number">2</literal></expr>}</block></expr>, <expr><block>{<expr><operator>-</operator><literal type="number">1</literal></expr>, <expr><literal type="number">1</literal></expr>}</block></expr>, <expr><block>{<expr><literal type="number">2</literal></expr>, <expr><literal type="number">3</literal></expr>}</block></expr>}</block></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>CategoryDataset</name></type> <name>dataset</name> <init>= <expr><call><name><name>DatasetUtils</name><operator>.</operator><name>createCategoryDataset</name></name><argument_list>(<argument><expr><literal type="string">"S"</literal></expr></argument>,
+                <argument><expr><literal type="string">"C"</literal></expr></argument>, <argument><expr><name>data</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <return>return <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createLineChart</name></name><argument_list>(<argument><expr><literal type="string">"Line Chart"</literal></expr></argument>, <argument><expr><literal type="string">"Domain"</literal></expr></argument>, <argument><expr><literal type="string">"Range"</literal></expr></argument>,
+                <argument><expr><name>dataset</name></expr></argument>)</argument_list></call></expr>;</return>
+
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A chart change listener.
+     *
+     */</comment>
+    <class><specifier>static</specifier> class <name>LocalListener</name> <super_list><implements>implements <super><name>ChartChangeListener</name></super></implements></super_list> <block>{
+
+        <comment type="block" format="javadoc">/** A flag. */</comment>
+        <decl_stmt><decl><type><specifier>private</specifier> <name>boolean</name></type> <name>flag</name></decl>;</decl_stmt>
+
+        <comment type="block" format="javadoc">/**
+         * Event handler.
+         *
+         * @param event  the event.
+         */</comment>
+        <function><annotation>@<name>Override</name></annotation>
+        <type><specifier>public</specifier> <name>void</name></type> <name>chartChanged</name><parameter_list>(<parameter><decl><type><name>ChartChangeEvent</name></type> <name>event</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name><name>this</name><operator>.</operator><name>flag</name></name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></function>
+
+    }</block></class>
+
+}</block></class>
+</unit>

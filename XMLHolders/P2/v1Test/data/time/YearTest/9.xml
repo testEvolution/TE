@@ -1,0 +1,15 @@
+<unit><function><type><specifier>private</specifier> <name>void</name></type> <name>testYearConstructorWithCustomCalendar</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>hoursOffset</name></decl></parameter>, <parameter><decl><type><name><name>Consumer</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>calendarSetup</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>calendarSetup</name><operator>.</operator><name>accept</name></name><argument_list>(<argument><expr><name>hoursOffset</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <decl_stmt><decl><type><name>long</name></type> <name>ms</name> <init>= <expr><operator>-</operator><literal type="number">3_600_000L</literal> <operator>*</operator> <name>hoursOffset</name></expr></init></decl>;</decl_stmt>
+            <decl_stmt><decl><type><name>Year</name></type> <name>y</name> <init>= <expr><operator>new</operator> <call><name>Year</name><argument_list>(<argument><expr><literal type="number">1970</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1970</literal></expr></argument>, <argument><expr><call><name><name>y</name><operator>.</operator><name>getYear</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>ms</name></expr></argument>, <argument><expr><call><name><name>y</name><operator>.</operator><name>getFirstMillisecond</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <finally>finally <block>{<block_content>
+            <comment type="line">// reset everything, to avoid affecting other tests</comment>
+            <expr_stmt><expr><call><name><name>RegularTimePeriod</name><operator>.</operator><name>setThreadLocalCalendarInstance</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>RegularTimePeriod</name><operator>.</operator><name>setCalendarInstancePrototype</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></finally></try>
+    </block_content>}</block></function>
+
+    </unit>

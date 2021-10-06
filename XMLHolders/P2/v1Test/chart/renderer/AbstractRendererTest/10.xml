@@ -1,0 +1,105 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEventNotification</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name>RendererChangeDetector</name></type> <name>detector</name> <init>= <expr><operator>new</operator> <call><name>RendererChangeDetector</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>BarRenderer</name></type> <name>r1</name> <init>= <expr><operator>new</operator> <call><name>BarRenderer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>  <comment type="line">// have to use a subclass of</comment>
+                                             <comment type="line">// AbstractRenderer</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>detector</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// PAINT</comment>
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setSeriesPaint</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setDefaultPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// OUTLINE PAINT</comment>
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setSeriesOutlinePaint</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setDefaultOutlinePaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// STROKE</comment>
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setSeriesStroke</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setDefaultStroke</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// OUTLINE STROKE</comment>
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setSeriesOutlineStroke</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setDefaultOutlineStroke</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.0f</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// SHAPE</comment>
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setSeriesShape</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Float</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setDefaultShape</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Float</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// ITEM_LABELS_VISIBLE</comment>
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setSeriesItemLabelsVisible</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name><name>Boolean</name><operator>.</operator><name>TRUE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setDefaultItemLabelsVisible</name></name><argument_list>(<argument><expr><name><name>Boolean</name><operator>.</operator><name>TRUE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// ITEM_LABEL_FONT</comment>
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setSeriesItemLabelFont</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>Font</name><argument_list>(<argument><expr><literal type="string">"Serif"</literal></expr></argument>, <argument><expr><name><name>Font</name><operator>.</operator><name>PLAIN</name></name></expr></argument>, <argument><expr><literal type="number">12</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setDefaultItemLabelFont</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Font</name><argument_list>(<argument><expr><literal type="string">"Serif"</literal></expr></argument>, <argument><expr><name><name>Font</name><operator>.</operator><name>PLAIN</name></name></expr></argument>, <argument><expr><literal type="number">12</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// ITEM_LABEL_PAINT</comment>
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setSeriesItemLabelPaint</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setDefaultItemLabelPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// POSITIVE ITEM LABEL POSITION</comment>
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setSeriesPositiveItemLabelPosition</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>ItemLabelPosition</name><argument_list>(
+                <argument><expr><name><name>ItemLabelAnchor</name><operator>.</operator><name>CENTER</name></name></expr></argument>, <argument><expr><name><name>TextAnchor</name><operator>.</operator><name>CENTER</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setDefaultPositiveItemLabelPosition</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>ItemLabelPosition</name><argument_list>(
+                <argument><expr><name><name>ItemLabelAnchor</name><operator>.</operator><name>CENTER</name></name></expr></argument>, <argument><expr><name><name>TextAnchor</name><operator>.</operator><name>CENTER</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// NEGATIVE ITEM LABEL ANCHOR</comment>
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setSeriesNegativeItemLabelPosition</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>ItemLabelPosition</name><argument_list>(
+                <argument><expr><name><name>ItemLabelAnchor</name><operator>.</operator><name>CENTER</name></name></expr></argument>, <argument><expr><name><name>TextAnchor</name><operator>.</operator><name>CENTER</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>detector</name><operator>.</operator><name>setNotified</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>setDefaultNegativeItemLabelPosition</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>ItemLabelPosition</name><argument_list>(
+                <argument><expr><name><name>ItemLabelAnchor</name><operator>.</operator><name>CENTER</name></name></expr></argument>, <argument><expr><name><name>TextAnchor</name><operator>.</operator><name>CENTER</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>detector</name><operator>.</operator><name>getNotified</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    </unit>

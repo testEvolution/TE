@@ -1,0 +1,6 @@
+<unit><function><annotation>@<name>Override</name></annotation>
+        <type><specifier>protected</specifier> <name>double</name></type> <name>switchedLog10</name><parameter_list>(<parameter><decl><type><name>double</name></type> <name>val</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <return>return <expr><call><name><name>super</name><operator>.</operator><name>switchedLog10</name></name><argument_list>(<argument><expr><name>val</name></expr></argument>)</argument_list></call></expr>;</return>
+        </block_content>}</block></function>
+
+    }</unit>

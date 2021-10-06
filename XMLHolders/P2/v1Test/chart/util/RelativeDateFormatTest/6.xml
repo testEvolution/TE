@@ -1,0 +1,17 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>NumberFormat</name></type> <name>nf</name> <init>= <expr><operator>new</operator> <call><name>DecimalFormat</name><argument_list>(<argument><expr><literal type="string">"0"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RelativeDateFormat</name></type> <name>df1</name> <init>= <expr><operator>new</operator> <call><name>RelativeDateFormat</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>df1</name><operator>.</operator><name>setSecondFormatter</name></name><argument_list>(<argument><expr><name>nf</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>RelativeDateFormat</name></type> <name>df2</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><name>df2</name> <operator>=</operator> <operator>(</operator><name>RelativeDateFormat</name><operator>)</operator> <call><name><name>df1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>df1</name> <operator>!=</operator> <name>df2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>df2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// is the clone independent</comment>
+        <expr_stmt><expr><call><name><name>nf</name><operator>.</operator><name>setMinimumFractionDigits</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>df1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>df2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

@@ -1,0 +1,36 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>TimeSeriesCollection</name></type> <name>c1</name> <init>= <expr><operator>new</operator> <call><name>TimeSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>TimeSeriesCollection</name></type> <name>c2</name> <init>= <expr><operator>new</operator> <call><name>TimeSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>TimeSeries</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>TimeSeries</name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>TimeSeries</name></type> <name>s2</name> <init>= <expr><operator>new</operator> <call><name>TimeSeries</name><argument_list>(<argument><expr><literal type="string">"Series 2"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// newly created collections should be equal</comment>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>b1</name> <init>= <expr><call><name><name>c1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>b1</name></expr></argument>, <argument><expr><literal type="string">"b1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// add series to collection 1, should be not equal</comment>
+        <expr_stmt><expr><call><name><name>c1</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>c1</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>b2</name> <init>= <expr><call><name><name>c1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><name>b2</name></expr></argument>, <argument><expr><literal type="string">"b2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// now add the same series to collection 2 to make them equal again...</comment>
+        <expr_stmt><expr><call><name><name>c2</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>c2</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>b3</name> <init>= <expr><call><name><name>c1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>b3</name></expr></argument>, <argument><expr><literal type="string">"b3"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// now remove series 2 from collection 2</comment>
+        <expr_stmt><expr><call><name><name>c2</name><operator>.</operator><name>removeSeries</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>b4</name> <init>= <expr><call><name><name>c1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><name>b4</name></expr></argument>, <argument><expr><literal type="string">"b4"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// now remove series 2 from collection 1 to make them equal again</comment>
+        <expr_stmt><expr><call><name><name>c1</name><operator>.</operator><name>removeSeries</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>b5</name> <init>= <expr><call><name><name>c1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>c2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>b5</name></expr></argument>, <argument><expr><literal type="string">"b5"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

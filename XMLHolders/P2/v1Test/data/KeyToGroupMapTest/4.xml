@@ -1,0 +1,26 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetGroup</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>KeyToGroupMap</name></type> <name>m1</name> <init>= <expr><operator>new</operator> <call><name>KeyToGroupMap</name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// a key that hasn't been mapped should return the default group</comment>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"G1"</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>, <argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"G2"</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// a null argument should throw an exception</comment>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <decl_stmt><decl><type><name>Comparable</name></type> <name>g</name> <init>= <expr><call><name><name>m1</name><operator>.</operator><name>getGroup</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

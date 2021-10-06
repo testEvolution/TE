@@ -1,0 +1,35 @@
+<unit><function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>boolean</name></type> <name>equals</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>obj</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <if_stmt><if>if <condition>(<expr><name>obj</name> <operator>==</operator> <name>this</name></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">true</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <if_stmt><if>if <condition>(<expr><operator>!</operator><operator>(</operator><name>obj</name> <operator>instanceof</operator> <name>TestIntervalCategoryDataset</name><operator>)</operator></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <decl_stmt><decl><type><name>TestIntervalCategoryDataset</name></type> <name>that</name> <init>= <expr><operator>(</operator><name>TestIntervalCategoryDataset</name><operator>)</operator> <name>obj</name></expr></init></decl>;</decl_stmt>
+        <if_stmt><if>if <condition>(<expr><operator>!</operator><call><name>getRowKeys</name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><call><name><name>that</name><operator>.</operator><name>getRowKeys</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <if_stmt><if>if <condition>(<expr><operator>!</operator><call><name>getColumnKeys</name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><call><name><name>that</name><operator>.</operator><name>getColumnKeys</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+        </block_content>}</block></if></if_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>rowCount</name> <init>= <expr><call><name>getRowCount</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>colCount</name> <init>= <expr><call><name>getColumnCount</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <for>for <control>(<init><decl><type><name>int</name></type> <name>r</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>r</name> <operator>&lt;</operator> <name>rowCount</name></expr>;</condition> <incr><expr><name>r</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+            <for>for <control>(<init><decl><type><name>int</name></type> <name>c</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>c</name> <operator>&lt;</operator> <name>colCount</name></expr>;</condition> <incr><expr><name>c</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+                <decl_stmt><decl><type><name>Number</name></type> <name>v1</name> <init>= <expr><call><name>getValue</name><argument_list>(<argument><expr><name>r</name></expr></argument>, <argument><expr><name>c</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+                <decl_stmt><decl><type><name>Number</name></type> <name>v2</name> <init>= <expr><call><name><name>that</name><operator>.</operator><name>getValue</name></name><argument_list>(<argument><expr><name>r</name></expr></argument>, <argument><expr><name>c</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+                <if_stmt><if>if <condition>(<expr><name>v1</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition> <block>{<block_content>
+                    <if_stmt><if>if <condition>(<expr><name>v2</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition> <block>{<block_content>
+                        <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+                    </block_content>}</block></if></if_stmt>
+                </block_content>}</block></if>
+                <if type="elseif">else if <condition>(<expr><operator>!</operator><call><name><name>v1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>v2</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+                    <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+                </block_content>}</block></if></if_stmt>
+            </block_content>}</block></for>
+        </block_content>}</block></for>
+        <return>return <expr><literal type="boolean">true</literal></expr>;</return>
+    </block_content>}</block></function>
+
+    </unit>

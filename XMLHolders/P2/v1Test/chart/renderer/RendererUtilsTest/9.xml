@@ -1,0 +1,7 @@
+<unit><function><annotation>@<name>Override</name></annotation>
+            <type><specifier>public</specifier> <name>DomainOrder</name></type> <name>getDomainOrder</name><parameter_list>()</parameter_list> <block>{<block_content>
+                <comment type="line">// we're doing this for testing only, and make sure that we</comment>
+                <comment type="line">// only add data in descending order by x-value</comment>
+                <return>return <expr><name><name>DomainOrder</name><operator>.</operator><name>DESCENDING</name></name></expr>;</return>
+            </block_content>}</block></function>
+        }</unit>

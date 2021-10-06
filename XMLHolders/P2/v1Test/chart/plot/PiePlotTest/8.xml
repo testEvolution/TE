@@ -1,0 +1,31 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetLegendItems</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultPieDataset</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>DefaultPieDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="string">"Item 1"</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="string">"Item 2"</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="string">"Item 3"</literal></expr></argument>, <argument><expr><literal type="number">0.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="string">"Item 4"</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>PiePlot</name></type> <name>plot</name> <init>= <expr><operator>new</operator> <call><name>PiePlot</name><argument_list>(<argument><expr><name>dataset</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setIgnoreNullValues</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setIgnoreZeroValues</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>LegendItemCollection</name></type> <name>items</name> <init>= <expr><call><name><name>plot</name><operator>.</operator><name>getLegendItems</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><call><name><name>items</name><operator>.</operator><name>getItemCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check that null items are ignored if requested</comment>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setIgnoreNullValues</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>items</name> <operator>=</operator> <call><name><name>plot</name><operator>.</operator><name>getLegendItems</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><call><name><name>items</name><operator>.</operator><name>getItemCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check that zero items are ignored if requested</comment>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>setIgnoreZeroValues</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>items</name> <operator>=</operator> <call><name><name>plot</name><operator>.</operator><name>getLegendItems</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>items</name><operator>.</operator><name>getItemCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check that negative items are always ignored</comment>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="string">"Item 5"</literal></expr></argument>, <argument><expr><operator>-</operator><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>items</name> <operator>=</operator> <call><name><name>plot</name><operator>.</operator><name>getLegendItems</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>items</name><operator>.</operator><name>getItemCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

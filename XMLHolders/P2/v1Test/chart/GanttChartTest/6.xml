@@ -1,0 +1,13 @@
+<unit><function><type><specifier>private</specifier> <specifier>static</specifier> <name>JFreeChart</name></type> <name>createGanttChart</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <return>return <expr><call><name><name>ChartFactory</name><operator>.</operator><name>createGanttChart</name></name><argument_list>(
+            <argument><expr><literal type="string">"Gantt Chart"</literal></expr></argument>,
+            <argument><expr><literal type="string">"Domain"</literal></expr></argument>, <argument><expr><literal type="string">"Range"</literal></expr></argument>,
+            <argument><expr><literal type="null">null</literal></expr></argument>,
+            <argument><expr><literal type="boolean">true</literal></expr></argument>,     <comment type="line">// include legend</comment>
+            <argument><expr><literal type="boolean">true</literal></expr></argument>,
+            <argument><expr><literal type="boolean">true</literal></expr></argument>
+        )</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+    </unit>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\rule\documentation\AbstractCommentRuleTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>rule</name><operator>.</operator><name>documentation</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>Reader</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>StringReader</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>LanguageRegistry</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>LanguageVersionHandler</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>ast</name><operator>.</operator><name>Node</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>JavaLanguageModule</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTCompilationUnit</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTMethodDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>FormalComment</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>MultiLineComment</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>Token</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>AbstractCommentRuleTest</name> <block>{
+
+    <decl_stmt><decl><type><specifier>private</specifier> <name>AbstractCommentRule</name></type> <name>testSubject</name> <init>= <expr><operator>new</operator> <class><super><name>AbstractCommentRule</name></super><argument_list>()</argument_list> <block>{
+    }</block></class></expr></init></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Blank lines in comments should not raise an exception. See bug #1048.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testFilteredCommentIn</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Token</name></type> <name>token</name> <init>= <expr><operator>new</operator> <call><name>Token</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><name><name>token</name><operator>.</operator><name>image</name></name> <operator>=</operator> <literal type="string">"/* multi line comment with blank lines\n\n\n */"</literal></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>String</name></type> <name>filtered</name> <init>= <expr><call><name><name>testSubject</name><operator>.</operator><name>filteredCommentIn</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>MultiLineComment</name><argument_list>(<argument><expr><name>token</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"multi line comment with blank lines"</literal></expr></argument>, <argument><expr><name>filtered</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name><name>token</name><operator>.</operator><name>image</name></name> <operator>=</operator> <literal type="string">"/** a formal comment with blank lines\n\n\n */"</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name>filtered</name> <operator>=</operator> <call><name><name>testSubject</name><operator>.</operator><name>filteredCommentIn</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>FormalComment</name><argument_list>(<argument><expr><name>token</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"a formal comment with blank lines"</literal></expr></argument>, <argument><expr><name>filtered</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testTagsIndicesIn</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>comment</name> <init>= <expr><literal type="string">"    /**\n"</literal>
+                <operator>+</operator> <literal type="string">"     * Checks if the metric can be computed on the node.\n"</literal>
+                <operator>+</operator> <literal type="string">"     *\n"</literal>
+                <operator>+</operator> <literal type="string">"     * @param node The node to check\n"</literal>
+                <operator>+</operator> <literal type="string">"     *\n"</literal>
+                <operator>+</operator> <literal type="string">"     * @return True if the metric can be computed\n"</literal>
+                <operator>+</operator> <literal type="string">"     */\n"</literal>
+                <operator>+</operator> <literal type="string">"    boolean supports(N node);\n"</literal>
+                <operator>+</operator> <literal type="string">""</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>indices</name> <init>= <expr><call><name><name>testSubject</name><operator>.</operator><name>tagsIndicesIn</name></name><argument_list>(<argument><expr><name>comment</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>indices</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">79</literal></expr></argument>, <argument><expr><call><name><name>indices</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>intValue</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="number">123</literal></expr></argument>, <argument><expr><call><name><name>indices</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>intValue</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCommentAssignments</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>LanguageVersionHandler</name></type> <name>handler</name> <init>= <expr><call><name><name>LanguageRegistry</name><operator>.</operator><name>getLanguage</name></name><argument_list>(<argument><expr><name><name>JavaLanguageModule</name><operator>.</operator><name>NAME</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>getVersion</name><argument_list>(<argument><expr><literal type="string">"1.8"</literal></expr></argument>)</argument_list></call>
+                <operator>.</operator><call><name>getLanguageVersionHandler</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Reader</name></type> <name>source</name> <init>= <expr><operator>new</operator> <call><name>StringReader</name><argument_list>(<argument><expr><literal type="string">"public class Foo {"</literal> <operator>+</operator> <literal type="string">"     /** Comment 1 */\n"</literal>
+                <operator>+</operator> <literal type="string">"        public void method1() {}\n"</literal> <operator>+</operator> <literal type="string">"    \n"</literal> <operator>+</operator> <literal type="string">"        /** Comment 2 */\n"</literal> <operator>+</operator> <literal type="string">"    \n"</literal>
+                <operator>+</operator> <literal type="string">"        /** Comment 3 */\n"</literal> <operator>+</operator> <literal type="string">"        public void method2() {}"</literal> <operator>+</operator> <literal type="string">"}"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Node</name></type> <name>node</name> <init>= <expr><call><name><name>handler</name><operator>.</operator><name>getParser</name></name><argument_list>(<argument><expr><call><name><name>handler</name><operator>.</operator><name>getDefaultParserOptions</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call><operator>.</operator><call><name>parse</name><argument_list>(<argument><expr><literal type="string">"test"</literal></expr></argument>, <argument><expr><name>source</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name><name>testSubject</name><operator>.</operator><name>assignCommentsToDeclarations</name></name><argument_list>(<argument><expr><operator>(</operator><name>ASTCompilationUnit</name><operator>)</operator> <name>node</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>ASTMethodDeclaration</name></argument>&gt;</argument_list></name></type> <name>methods</name> <init>= <expr><call><name><name>node</name><operator>.</operator><name>findDescendantsOfType</name></name><argument_list>(<argument><expr><name><name>ASTMethodDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="string">"/** Comment 1 */"</literal></expr></argument>, <argument><expr><call><name><name>methods</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>comment</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getImage</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Assert</name><operator>.</operator><name>assertEquals</name></name><argument_list>(<argument><expr><literal type="string">"/** Comment 3 */"</literal></expr></argument>, <argument><expr><call><name><name>methods</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>comment</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getImage</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

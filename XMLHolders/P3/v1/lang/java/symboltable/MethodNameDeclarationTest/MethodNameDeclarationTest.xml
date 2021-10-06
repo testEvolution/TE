@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\symboltable\MethodNameDeclarationTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>symboltable</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Map</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Set</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>PMD</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTClassOrInterfaceDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>symboltable</name><operator>.</operator><name>NameDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>symboltable</name><operator>.</operator><name>NameOccurrence</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MethodNameDeclarationTest</name> <super_list><extends>extends <super><name>STBBaseTst</name></super></extends></super_list> <block>{
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquality</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// Verify proper number of nodes are not equal</comment>
+        <expr_stmt><expr><call><name>parseCode15</name><argument_list>(<argument><expr><name>SIMILAR</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>ASTClassOrInterfaceDeclaration</name></type> <name>n</name> <init>= <expr><call><name><name>acu</name><operator>.</operator><name>findDescendantsOfType</name></name><argument_list>(<argument><expr><name><name>ASTClassOrInterfaceDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Map</name><argument_list type="generic">&lt;<argument><name>NameDeclaration</name></argument>, <argument><name><name>List</name><argument_list type="generic">&lt;<argument><name>NameOccurrence</name></argument>&gt;</argument_list></name></argument>&gt;</argument_list></name></type> <name>m</name> <init>= <expr><operator>(</operator><operator>(</operator><name>ClassScope</name><operator>)</operator> <call><name><name>n</name><operator>.</operator><name>getScope</name></name><argument_list>()</argument_list></call><operator>)</operator><operator>.</operator><call><name>getDeclarations</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Set</name><argument_list type="generic">&lt;<argument><name>NameDeclaration</name></argument>&gt;</argument_list></name></type> <name>methodNameDeclarations</name> <init>= <expr><call><name><name>m</name><operator>.</operator><name>keySet</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Wrong number of method name declarations"</literal></expr></argument>, <argument><expr><call><name><name>methodNameDeclarations</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>String</name></type> <name>SIMILAR</name> <init>= <expr><literal type="string">"public class Foo {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">" public void bar() {"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+            <operator>+</operator> <literal type="string">"  bar(x, y);"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">" }"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">" private void bar(int x, int y) {}"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name>
+            <operator>+</operator> <literal type="string">" private void bar(int x, int... y) {}"</literal> <operator>+</operator> <name><name>PMD</name><operator>.</operator><name>EOL</name></name> <operator>+</operator> <literal type="string">"}"</literal></expr></init></decl>;</decl_stmt>
+}</block></class>
+</unit>

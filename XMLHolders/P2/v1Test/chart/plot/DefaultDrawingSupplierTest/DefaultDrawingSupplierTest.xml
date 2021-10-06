@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\plot\DefaultDrawingSupplierTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * -------------------------------
+ * DefaultDrawingSupplierTest.java
+ * -------------------------------
+ * (C) Copyright 2003-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 25-Mar-2003 : Version 1 (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>plot</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>BasicStroke</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Color</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Paint</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Shape</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Stroke</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>geom</name><operator>.</operator><name>Rectangle2D</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link DefaultDrawingSupplier} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>DefaultDrawingSupplierTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Check that the equals() method can distinguish all required fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultDrawingSupplier</name></type> <name>r1</name> <init>= <expr><operator>new</operator> <call><name>DefaultDrawingSupplier</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultDrawingSupplier</name></type> <name>r2</name> <init>= <expr><operator>new</operator> <call><name>DefaultDrawingSupplier</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r2</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r1</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// set up some objects...</comment>
+        <decl_stmt><decl><type><name><name>Paint</name><index>[]</index></name></type> <name>ps1A</name> <init>= <expr><operator>new</operator> <name><name>Paint</name><index>[]</index></name> <block>{<expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr>, <expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Paint</name><index>[]</index></name></type> <name>ps2A</name> <init>= <expr><operator>new</operator> <name><name>Paint</name><index>[]</index></name> <block>{<expr><name><name>Color</name><operator>.</operator><name>GREEN</name></name></expr>, <expr><name><name>Color</name><operator>.</operator><name>YELLOW</name></name></expr>, <expr><name><name>Color</name><operator>.</operator><name>WHITE</name></name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Paint</name><index>[]</index></name></type> <name>ops1A</name> <init>= <expr><operator>new</operator> <name><name>Paint</name><index>[]</index></name> <block>{<expr><name><name>Color</name><operator>.</operator><name>LIGHT_GRAY</name></name></expr>, <expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Paint</name><index>[]</index></name></type> <name>ops2A</name> <init>= <expr><operator>new</operator> <name><name>Paint</name><index>[]</index></name> <block>{<expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr>, <expr><name><name>Color</name><operator>.</operator><name>YELLOW</name></name></expr>, <expr><name><name>Color</name><operator>.</operator><name>CYAN</name></name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Stroke</name><index>[]</index></name></type> <name>ss1A</name> <init>= <expr><operator>new</operator> <name><name>Stroke</name><index>[]</index></name> <block>{<expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.1f</literal></expr></argument>)</argument_list></call></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Stroke</name><index>[]</index></name></type> <name>ss2A</name>
+            <init>= <expr><operator>new</operator> <name><name>Stroke</name><index>[]</index></name> <block>{<expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">2.2f</literal></expr></argument>)</argument_list></call></expr>, <expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">3.3f</literal></expr></argument>)</argument_list></call></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Stroke</name><index>[]</index></name></type> <name>oss1A</name> <init>= <expr><operator>new</operator> <name><name>Stroke</name><index>[]</index></name> <block>{<expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">4.4f</literal></expr></argument>)</argument_list></call></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Stroke</name><index>[]</index></name></type> <name>oss2A</name>
+            <init>= <expr><operator>new</operator> <name><name>Stroke</name><index>[]</index></name> <block>{<expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">5.5f</literal></expr></argument>)</argument_list></call></expr>, <expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">6.6f</literal></expr></argument>)</argument_list></call></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Shape</name><index>[]</index></name></type> <name>shapes1A</name> <init>= <expr><operator>new</operator> <name><name>Shape</name><index>[]</index></name> <block>{
+            <expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr>
+        }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Shape</name><index>[]</index></name></type> <name>shapes2A</name> <init>= <expr><operator>new</operator> <name><name>Shape</name><index>[]</index></name> <block>{
+            <expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>,
+            <expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>
+        }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Paint</name><index>[]</index></name></type> <name>ps1B</name> <init>= <expr><operator>new</operator> <name><name>Paint</name><index>[]</index></name> <block>{<expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr>, <expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Paint</name><index>[]</index></name></type> <name>ps2B</name> <init>= <expr><operator>new</operator> <name><name>Paint</name><index>[]</index></name> <block>{<expr><name><name>Color</name><operator>.</operator><name>GREEN</name></name></expr>, <expr><name><name>Color</name><operator>.</operator><name>YELLOW</name></name></expr>, <expr><name><name>Color</name><operator>.</operator><name>WHITE</name></name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Paint</name><index>[]</index></name></type> <name>ops1B</name> <init>= <expr><operator>new</operator> <name><name>Paint</name><index>[]</index></name> <block>{<expr><name><name>Color</name><operator>.</operator><name>LIGHT_GRAY</name></name></expr>, <expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Paint</name><index>[]</index></name></type> <name>ops2B</name> <init>= <expr><operator>new</operator> <name><name>Paint</name><index>[]</index></name> <block>{<expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr>, <expr><name><name>Color</name><operator>.</operator><name>YELLOW</name></name></expr>, <expr><name><name>Color</name><operator>.</operator><name>CYAN</name></name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Stroke</name><index>[]</index></name></type> <name>ss1B</name> <init>= <expr><operator>new</operator> <name><name>Stroke</name><index>[]</index></name> <block>{<expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.1f</literal></expr></argument>)</argument_list></call></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Stroke</name><index>[]</index></name></type> <name>ss2B</name>
+            <init>= <expr><operator>new</operator> <name><name>Stroke</name><index>[]</index></name> <block>{<expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">2.2f</literal></expr></argument>)</argument_list></call></expr>, <expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">3.3f</literal></expr></argument>)</argument_list></call></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Stroke</name><index>[]</index></name></type> <name>oss1B</name> <init>= <expr><operator>new</operator> <name><name>Stroke</name><index>[]</index></name> <block>{<expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">4.4f</literal></expr></argument>)</argument_list></call></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Stroke</name><index>[]</index></name></type> <name>oss2B</name>
+            <init>= <expr><operator>new</operator> <name><name>Stroke</name><index>[]</index></name> <block>{<expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">5.5f</literal></expr></argument>)</argument_list></call></expr>, <expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">6.6f</literal></expr></argument>)</argument_list></call></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Shape</name><index>[]</index></name></type> <name>shapes1B</name> <init>= <expr><operator>new</operator> <name><name>Shape</name><index>[]</index></name> <block>{
+            <expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr>
+        }</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Shape</name><index>[]</index></name></type> <name>shapes2B</name> <init>= <expr><operator>new</operator> <name><name>Shape</name><index>[]</index></name> <block>{
+            <expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>,
+            <expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>, <argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr>
+        }</block></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><name>r1</name> <operator>=</operator> <operator>new</operator> <call><name>DefaultDrawingSupplier</name><argument_list>(<argument><expr><name>ps1A</name></expr></argument>, <argument><expr><name>ops1A</name></expr></argument>, <argument><expr><name>ss1A</name></expr></argument>, <argument><expr><name>oss1A</name></expr></argument>, <argument><expr><name>shapes1A</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>r2</name> <operator>=</operator> <operator>new</operator> <call><name>DefaultDrawingSupplier</name><argument_list>(<argument><expr><name>ps1B</name></expr></argument>, <argument><expr><name>ops1B</name></expr></argument>, <argument><expr><name>ss1B</name></expr></argument>, <argument><expr><name>oss1B</name></expr></argument>, <argument><expr><name>shapes1B</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// paint sequence</comment>
+        <expr_stmt><expr><name>r1</name> <operator>=</operator> <operator>new</operator> <call><name>DefaultDrawingSupplier</name><argument_list>(<argument><expr><name>ps2A</name></expr></argument>, <argument><expr><name>ops1A</name></expr></argument>, <argument><expr><name>ss1A</name></expr></argument>, <argument><expr><name>oss1A</name></expr></argument>, <argument><expr><name>shapes1A</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>r2</name> <operator>=</operator> <operator>new</operator> <call><name>DefaultDrawingSupplier</name><argument_list>(<argument><expr><name>ps2B</name></expr></argument>, <argument><expr><name>ops1B</name></expr></argument>, <argument><expr><name>ss1B</name></expr></argument>, <argument><expr><name>oss1B</name></expr></argument>, <argument><expr><name>shapes1B</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <comment type="line">// outline paint sequence</comment>
+        <expr_stmt><expr><name>r1</name> <operator>=</operator> <operator>new</operator> <call><name>DefaultDrawingSupplier</name><argument_list>(<argument><expr><name>ps2A</name></expr></argument>, <argument><expr><name>ops2A</name></expr></argument>, <argument><expr><name>ss1A</name></expr></argument>, <argument><expr><name>oss1A</name></expr></argument>, <argument><expr><name>shapes1A</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>r2</name> <operator>=</operator> <operator>new</operator> <call><name>DefaultDrawingSupplier</name><argument_list>(<argument><expr><name>ps2B</name></expr></argument>, <argument><expr><name>ops2B</name></expr></argument>, <argument><expr><name>ss1B</name></expr></argument>, <argument><expr><name>oss1B</name></expr></argument>, <argument><expr><name>shapes1B</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <comment type="line">// stroke sequence</comment>
+        <expr_stmt><expr><name>r1</name> <operator>=</operator> <operator>new</operator> <call><name>DefaultDrawingSupplier</name><argument_list>(<argument><expr><name>ps2A</name></expr></argument>, <argument><expr><name>ops2A</name></expr></argument>, <argument><expr><name>ss2A</name></expr></argument>, <argument><expr><name>oss1A</name></expr></argument>, <argument><expr><name>shapes1A</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>r2</name> <operator>=</operator> <operator>new</operator> <call><name>DefaultDrawingSupplier</name><argument_list>(<argument><expr><name>ps2B</name></expr></argument>, <argument><expr><name>ops2B</name></expr></argument>, <argument><expr><name>ss2B</name></expr></argument>, <argument><expr><name>oss1B</name></expr></argument>, <argument><expr><name>shapes1B</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <comment type="line">// outline stroke sequence</comment>
+        <expr_stmt><expr><name>r1</name> <operator>=</operator> <operator>new</operator> <call><name>DefaultDrawingSupplier</name><argument_list>(<argument><expr><name>ps2A</name></expr></argument>, <argument><expr><name>ops2A</name></expr></argument>, <argument><expr><name>ss2A</name></expr></argument>, <argument><expr><name>oss2A</name></expr></argument>, <argument><expr><name>shapes1A</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>r2</name> <operator>=</operator> <operator>new</operator> <call><name>DefaultDrawingSupplier</name><argument_list>(<argument><expr><name>ps2B</name></expr></argument>, <argument><expr><name>ops2B</name></expr></argument>, <argument><expr><name>ss2B</name></expr></argument>, <argument><expr><name>oss2B</name></expr></argument>, <argument><expr><name>shapes1B</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <comment type="line">// shape sequence</comment>
+        <expr_stmt><expr><name>r1</name> <operator>=</operator> <operator>new</operator> <call><name>DefaultDrawingSupplier</name><argument_list>(<argument><expr><name>ps2A</name></expr></argument>, <argument><expr><name>ops2A</name></expr></argument>, <argument><expr><name>ss2A</name></expr></argument>, <argument><expr><name>oss2A</name></expr></argument>, <argument><expr><name>shapes2A</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>r2</name> <operator>=</operator> <operator>new</operator> <call><name>DefaultDrawingSupplier</name><argument_list>(<argument><expr><name>ps2B</name></expr></argument>, <argument><expr><name>ops2B</name></expr></argument>, <argument><expr><name>ss2B</name></expr></argument>, <argument><expr><name>oss2B</name></expr></argument>, <argument><expr><name>shapes2B</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// paint index</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>getNextPaint</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>getNextPaint</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// outline paint index</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>getNextOutlinePaint</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>getNextOutlinePaint</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// stroke index</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>getNextStroke</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>getNextStroke</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// outline stroke index</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>getNextOutlineStroke</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>getNextOutlineStroke</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// shape index</comment>
+        <expr_stmt><expr><call><name><name>r1</name><operator>.</operator><name>getNextShape</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>r2</name><operator>.</operator><name>getNextShape</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some basic checks for the clone() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultDrawingSupplier</name></type> <name>r1</name> <init>= <expr><operator>new</operator> <call><name>DefaultDrawingSupplier</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultDrawingSupplier</name></type> <name>r2</name> <init>= <expr><operator>(</operator><name>DefaultDrawingSupplier</name><operator>)</operator> <call><name><name>r1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>r1</name> <operator>!=</operator> <name>r2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>r2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>r1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultDrawingSupplier</name></type> <name>r1</name> <init>= <expr><operator>new</operator> <call><name>DefaultDrawingSupplier</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultDrawingSupplier</name></type> <name>r2</name> <init>= <expr><operator>(</operator><name>DefaultDrawingSupplier</name><operator>)</operator> 
+                <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>r1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>r1</name></expr></argument>, <argument><expr><name>r2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

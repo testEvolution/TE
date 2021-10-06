@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\data\KeyToGroupMapTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * -----------------------
+ * KeyToGroupMapTests.java
+ * -----------------------
+ * (C) Copyright 2004-2008, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 29-Apr-2004 : Version 1 (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name></name>;</package>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link KeyToGroupMap} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>KeyToGroupMapTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Tests the mapKeyToGroup() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testMapKeyToGroup</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>KeyToGroupMap</name></type> <name>m1</name> <init>= <expr><operator>new</operator> <call><name>KeyToGroupMap</name><argument_list>(<argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// map a key to the default group</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"G1"</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// map a key to a new group</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K2"</literal></expr></argument>, <argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"G2"</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroup</name></name><argument_list>(<argument><expr><literal type="string">"K2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// clear a mapping</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K2"</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"G1"</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroup</name></name><argument_list>(<argument><expr><literal type="string">"K2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>  <comment type="line">// after clearing, reverts to</comment>
+                                                <comment type="line">// default group</comment>
+
+        <comment type="line">// check handling of null key</comment>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Tests that the getGroupCount() method returns the correct values under
+     * various circumstances.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGroupCount</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>KeyToGroupMap</name></type> <name>m1</name> <init>= <expr><operator>new</operator> <call><name>KeyToGroupMap</name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// a new map always has 1 group (the default group)</comment>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// if the default group is not mapped to, it should still count towards</comment>
+        <comment type="line">// the group count...</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"C1"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// now when the default group is mapped to, it shouldn't increase the</comment>
+        <comment type="line">// group count...</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"C2"</literal></expr></argument>, <argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// complicate things a little...</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"C3"</literal></expr></argument>, <argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"C4"</literal></expr></argument>, <argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"C5"</literal></expr></argument>, <argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"C6"</literal></expr></argument>, <argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// now overwrite group "G2"...</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"C4"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"C5"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Tests that the getKeyCount() method returns the correct values under
+     * various circumstances.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testKeyCount</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>KeyToGroupMap</name></type> <name>m1</name> <init>= <expr><operator>new</operator> <call><name>KeyToGroupMap</name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// a new map always has 1 group (the default group)</comment>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getKeyCount</name></name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// simple case</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getKeyCount</name></name><argument_list>(<argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getKeyCount</name></name><argument_list>(<argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// if there is an explicit mapping to the default group, it is counted</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K2"</literal></expr></argument>, <argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getKeyCount</name></name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// complicate things a little...</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K3"</literal></expr></argument>, <argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K4"</literal></expr></argument>, <argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K5"</literal></expr></argument>, <argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K6"</literal></expr></argument>, <argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getKeyCount</name></name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getKeyCount</name></name><argument_list>(<argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// now overwrite group "G2"...</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K4"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K5"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getKeyCount</name></name><argument_list>(<argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getKeyCount</name></name><argument_list>(<argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Tests the getGroupIndex() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetGroupIndex</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>KeyToGroupMap</name></type> <name>m1</name> <init>= <expr><operator>new</operator> <call><name>KeyToGroupMap</name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// the default group is always at index 0</comment>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupIndex</name></name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// a non-existent group should return -1</comment>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupIndex</name></name><argument_list>(<argument><expr><literal type="string">"G3"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// indices are assigned in the order that groups are originally mapped</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K3"</literal></expr></argument>, <argument><expr><literal type="string">"G3"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K2"</literal></expr></argument>, <argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupIndex</name></name><argument_list>(<argument><expr><literal type="string">"G3"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupIndex</name></name><argument_list>(<argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroupIndex</name></name><argument_list>(<argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Tests the getGroup() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetGroup</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>KeyToGroupMap</name></type> <name>m1</name> <init>= <expr><operator>new</operator> <call><name>KeyToGroupMap</name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// a key that hasn't been mapped should return the default group</comment>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"G1"</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>, <argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"G2"</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>, <argument><expr><call><name><name>m1</name><operator>.</operator><name>getGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// a null argument should throw an exception</comment>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <decl_stmt><decl><type><name>Comparable</name></type> <name>g</name> <init>= <expr><call><name><name>m1</name><operator>.</operator><name>getGroup</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that the equals method can distinguish all the required fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>KeyToGroupMap</name></type> <name>m1</name> <init>= <expr><operator>new</operator> <call><name>KeyToGroupMap</name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>KeyToGroupMap</name></type> <name>m2</name> <init>= <expr><operator>new</operator> <call><name>KeyToGroupMap</name><argument_list>(<argument><expr><literal type="string">"Default Group"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>m1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>m2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>m2</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>m1</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>m1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>m2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m2</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>m1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>m2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that cloning works.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>KeyToGroupMap</name></type> <name>m1</name> <init>= <expr><operator>new</operator> <call><name>KeyToGroupMap</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>, <argument><expr><literal type="string">"G1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>KeyToGroupMap</name></type> <name>m2</name> <init>= <expr><operator>(</operator><name>KeyToGroupMap</name><operator>)</operator> <call><name><name>m1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>m1</name> <operator>!=</operator> <name>m2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>m1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>m2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>m1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>m2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// a small check for independence</comment>
+        <expr_stmt><expr><call><name><name>m1</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>, <argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>m1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>m2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m2</name><operator>.</operator><name>mapKeyToGroup</name></name><argument_list>(<argument><expr><literal type="string">"K1"</literal></expr></argument>, <argument><expr><literal type="string">"G2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>m1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>m2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>KeyToGroupMap</name></type> <name>m1</name> <init>= <expr><operator>new</operator> <call><name>KeyToGroupMap</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>KeyToGroupMap</name></type> <name>m2</name> <init>= <expr><operator>(</operator><name>KeyToGroupMap</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>m1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>m1</name></expr></argument>, <argument><expr><name>m2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

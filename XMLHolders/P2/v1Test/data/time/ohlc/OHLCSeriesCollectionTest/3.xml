@@ -1,0 +1,17 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test1170825</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>OHLCSeries</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>OHLCSeries</name><argument_list>(<argument><expr><literal type="string">"Series1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>OHLCSeriesCollection</name></type> <name>dataset</name> <init>= <expr><operator>new</operator> <call><name>OHLCSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <try>try <block>{<block_content>
+            <comment type="block">/* XYSeries s = */</comment> <expr_stmt><expr><call><name><name>dataset</name><operator>.</operator><name>getSeries</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// correct outcome</comment>
+        </block_content>}</block></catch>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IndexOutOfBoundsException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>  <comment type="line">// wrong outcome</comment>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    </unit>

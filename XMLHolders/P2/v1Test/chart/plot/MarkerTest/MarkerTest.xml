@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\plot\MarkerTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ---------------
+ * MarkerTest.java
+ * ---------------
+ * (C) Copyright 2006-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 05-Sep-2006 : Version 1 (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>plot</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>fail</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>BasicStroke</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Color</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Font</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Arrays</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>EventListener</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>event</name><operator>.</operator><name>MarkerChangeEvent</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>event</name><operator>.</operator><name>MarkerChangeListener</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>LengthAdjustmentType</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>RectangleAnchor</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>RectangleInsets</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>TextAnchor</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link Marker} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>MarkerTest</name> <super_list><implements>implements <super><name>MarkerChangeListener</name></super></implements></super_list> <block>{
+
+    <decl_stmt><decl><type><name>MarkerChangeEvent</name></type> <name>lastEvent</name></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getPaint() and setPaint() methods.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSetPaint</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// we use ValueMarker for the tests, because we need a concrete</comment>
+        <comment type="line">// subclass...</comment>
+        <decl_stmt><decl><type><name>ValueMarker</name></type> <name>m</name> <init>= <expr><operator>new</operator> <call><name>ValueMarker</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>GRAY</name></name></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getPaint</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>BLUE</name></name></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getPaint</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>m</name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>lastEvent</name><operator>.</operator><name>getMarker</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check null argument...</comment>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setPaint</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected an IllegalArgumentException for null."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getStroke() and setStroke() methods.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSetStroke</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// we use ValueMarker for the tests, because we need a concrete</comment>
+        <comment type="line">// subclass...</comment>
+        <decl_stmt><decl><type><name>ValueMarker</name></type> <name>m</name> <init>= <expr><operator>new</operator> <call><name>ValueMarker</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">0.5f</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getStroke</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setStroke</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.1f</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.1f</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getStroke</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>m</name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>lastEvent</name><operator>.</operator><name>getMarker</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check null argument...</comment>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setStroke</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected an IllegalArgumentException for null."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getOutlinePaint() and setOutlinePaint() methods.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSetOutlinePaint</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// we use ValueMarker for the tests, because we need a concrete</comment>
+        <comment type="line">// subclass...</comment>
+        <decl_stmt><decl><type><name>ValueMarker</name></type> <name>m</name> <init>= <expr><operator>new</operator> <call><name>ValueMarker</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>GRAY</name></name></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getOutlinePaint</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setOutlinePaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>YELLOW</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>YELLOW</name></name></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getOutlinePaint</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>m</name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>lastEvent</name><operator>.</operator><name>getMarker</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check null argument...</comment>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setOutlinePaint</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getOutlinePaint</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getOutlineStroke() and setOutlineStroke() methods.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSetOutlineStroke</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// we use ValueMarker for the tests, because we need a concrete</comment>
+        <comment type="line">// subclass...</comment>
+        <decl_stmt><decl><type><name>ValueMarker</name></type> <name>m</name> <init>= <expr><operator>new</operator> <call><name>ValueMarker</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">0.5f</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getOutlineStroke</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setOutlineStroke</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.1f</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>BasicStroke</name><argument_list>(<argument><expr><literal type="number">1.1f</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getOutlineStroke</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>m</name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>lastEvent</name><operator>.</operator><name>getMarker</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check null argument...</comment>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setOutlineStroke</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getOutlineStroke</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>float</name></type> <name>EPSILON</name> <init>= <expr><literal type="number">0.000000001f</literal></expr></init></decl>;</decl_stmt>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getAlpha() and setAlpha() methods.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSetAlpha</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// we use ValueMarker for the tests, because we need a concrete</comment>
+        <comment type="line">// subclass...</comment>
+        <decl_stmt><decl><type><name>ValueMarker</name></type> <name>m</name> <init>= <expr><operator>new</operator> <call><name>ValueMarker</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.8f</literal></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getAlpha</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setAlpha</name></name><argument_list>(<argument><expr><literal type="number">0.5f</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.5f</literal></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getAlpha</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>EPSILON</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>m</name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>lastEvent</name><operator>.</operator><name>getMarker</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getLabel() and setLabel() methods.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSetLabel</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// we use ValueMarker for the tests, because we need a concrete</comment>
+        <comment type="line">// subclass...</comment>
+        <decl_stmt><decl><type><name>ValueMarker</name></type> <name>m</name> <init>= <expr><operator>new</operator> <call><name>ValueMarker</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getLabel</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setLabel</name></name><argument_list>(<argument><expr><literal type="string">"XYZ"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"XYZ"</literal></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getLabel</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>m</name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>lastEvent</name><operator>.</operator><name>getMarker</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check null argument...</comment>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setLabel</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getLabel</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getLabelFont() and setLabelFont() methods.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSetLabelFont</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// we use ValueMarker for the tests, because we need a concrete</comment>
+        <comment type="line">// subclass...</comment>
+        <decl_stmt><decl><type><name>ValueMarker</name></type> <name>m</name> <init>= <expr><operator>new</operator> <call><name>ValueMarker</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Font</name><argument_list>(<argument><expr><literal type="string">"SansSerif"</literal></expr></argument>, <argument><expr><name><name>Font</name><operator>.</operator><name>PLAIN</name></name></expr></argument>, <argument><expr><literal type="number">9</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getLabelFont</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setLabelFont</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Font</name><argument_list>(<argument><expr><literal type="string">"SansSerif"</literal></expr></argument>, <argument><expr><name><name>Font</name><operator>.</operator><name>BOLD</name></name></expr></argument>, <argument><expr><literal type="number">10</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Font</name><argument_list>(<argument><expr><literal type="string">"SansSerif"</literal></expr></argument>, <argument><expr><name><name>Font</name><operator>.</operator><name>BOLD</name></name></expr></argument>, <argument><expr><literal type="number">10</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getLabelFont</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>m</name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>lastEvent</name><operator>.</operator><name>getMarker</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check null argument...</comment>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setLabelFont</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected an IllegalArgumentException for null."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getLabelPaint() and setLabelPaint() methods.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSetLabelPaint</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// we use ValueMarker for the tests, because we need a concrete</comment>
+        <comment type="line">// subclass...</comment>
+        <decl_stmt><decl><type><name>ValueMarker</name></type> <name>m</name> <init>= <expr><operator>new</operator> <call><name>ValueMarker</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>BLACK</name></name></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getLabelPaint</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setLabelPaint</name></name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>Color</name><operator>.</operator><name>RED</name></name></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getLabelPaint</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>m</name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>lastEvent</name><operator>.</operator><name>getMarker</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check null argument...</comment>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setLabelPaint</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected an IllegalArgumentException for null."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getLabelAnchor() and setLabelAnchor() methods.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSetLabelAnchor</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// we use ValueMarker for the tests, because we need a concrete</comment>
+        <comment type="line">// subclass...</comment>
+        <decl_stmt><decl><type><name>ValueMarker</name></type> <name>m</name> <init>= <expr><operator>new</operator> <call><name>ValueMarker</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>RectangleAnchor</name><operator>.</operator><name>TOP_LEFT</name></name></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getLabelAnchor</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setLabelAnchor</name></name><argument_list>(<argument><expr><name><name>RectangleAnchor</name><operator>.</operator><name>TOP</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>RectangleAnchor</name><operator>.</operator><name>TOP</name></name></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getLabelAnchor</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>m</name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>lastEvent</name><operator>.</operator><name>getMarker</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check null argument...</comment>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setLabelAnchor</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected an IllegalArgumentException for null."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getLabelOffset() and setLabelOffset() methods.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSetLabelOffset</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// we use ValueMarker for the tests, because we need a concrete</comment>
+        <comment type="line">// subclass...</comment>
+        <decl_stmt><decl><type><name>ValueMarker</name></type> <name>m</name> <init>= <expr><operator>new</operator> <call><name>ValueMarker</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>RectangleInsets</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getLabelOffset</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setLabelOffset</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>RectangleInsets</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><literal type="number">4</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>new</operator> <call><name>RectangleInsets</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><literal type="number">4</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getLabelOffset</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>m</name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>lastEvent</name><operator>.</operator><name>getMarker</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check null argument...</comment>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setLabelOffset</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected an IllegalArgumentException for null."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getLabelOffsetType() and setLabelOffsetType()
+     * methods.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSetLabelOffsetType</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// we use ValueMarker for the tests, because we need a concrete</comment>
+        <comment type="line">// subclass...</comment>
+        <decl_stmt><decl><type><name>ValueMarker</name></type> <name>m</name> <init>= <expr><operator>new</operator> <call><name>ValueMarker</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>LengthAdjustmentType</name><operator>.</operator><name>CONTRACT</name></name></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getLabelOffsetType</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setLabelOffsetType</name></name><argument_list>(<argument><expr><name><name>LengthAdjustmentType</name><operator>.</operator><name>EXPAND</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>LengthAdjustmentType</name><operator>.</operator><name>EXPAND</name></name></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getLabelOffsetType</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>m</name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>lastEvent</name><operator>.</operator><name>getMarker</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check null argument...</comment>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setLabelOffsetType</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected an IllegalArgumentException for null."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getLabelTextAnchor() and setLabelTextAnchor()
+     * methods.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSetLabelTextAnchor</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// we use ValueMarker for the tests, because we need a concrete</comment>
+        <comment type="line">// subclass...</comment>
+        <decl_stmt><decl><type><name>ValueMarker</name></type> <name>m</name> <init>= <expr><operator>new</operator> <call><name>ValueMarker</name><argument_list>(<argument><expr><literal type="number">1.1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>TextAnchor</name><operator>.</operator><name>CENTER</name></name></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getLabelTextAnchor</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setLabelTextAnchor</name></name><argument_list>(<argument><expr><name><name>TextAnchor</name><operator>.</operator><name>BASELINE_LEFT</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name><name>TextAnchor</name><operator>.</operator><name>BASELINE_LEFT</name></name></expr></argument>, <argument><expr><call><name><name>m</name><operator>.</operator><name>getLabelTextAnchor</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>m</name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>lastEvent</name><operator>.</operator><name>getMarker</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check null argument...</comment>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>m</name><operator>.</operator><name>setLabelTextAnchor</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected an IllegalArgumentException for null."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks that a CategoryPlot deregisters listeners when clearing markers.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testListenersWithCategoryPlot</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>CategoryPlot</name></type> <name>plot</name> <init>= <expr><operator>new</operator> <call><name>CategoryPlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>CategoryMarker</name></type> <name>marker1</name> <init>= <expr><operator>new</operator> <call><name>CategoryMarker</name><argument_list>(<argument><expr><literal type="string">"X"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ValueMarker</name></type> <name>marker2</name> <init>= <expr><operator>new</operator> <call><name>ValueMarker</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>addDomainMarker</name></name><argument_list>(<argument><expr><name>marker1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>addRangeMarker</name></name><argument_list>(<argument><expr><name>marker2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>EventListener</name><index>[]</index></name></type> <name>listeners1</name> <init>= <expr><call><name><name>marker1</name><operator>.</operator><name>getListeners</name></name><argument_list>(
+                <argument><expr><name><name>MarkerChangeListener</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Arrays</name><operator>.</operator><name>asList</name></name><argument_list>(<argument><expr><name>listeners1</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>contains</name><argument_list>(<argument><expr><name>plot</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>EventListener</name><index>[]</index></name></type> <name>listeners2</name> <init>= <expr><call><name><name>marker1</name><operator>.</operator><name>getListeners</name></name><argument_list>(
+                <argument><expr><name><name>MarkerChangeListener</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Arrays</name><operator>.</operator><name>asList</name></name><argument_list>(<argument><expr><name>listeners2</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>contains</name><argument_list>(<argument><expr><name>plot</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>clearDomainMarkers</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>clearRangeMarkers</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>listeners1</name> <operator>=</operator> <call><name><name>marker1</name><operator>.</operator><name>getListeners</name></name><argument_list>(<argument><expr><name><name>MarkerChangeListener</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>Arrays</name><operator>.</operator><name>asList</name></name><argument_list>(<argument><expr><name>listeners1</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>contains</name><argument_list>(<argument><expr><name>plot</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>listeners2</name> <operator>=</operator> <call><name><name>marker1</name><operator>.</operator><name>getListeners</name></name><argument_list>(<argument><expr><name><name>MarkerChangeListener</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>Arrays</name><operator>.</operator><name>asList</name></name><argument_list>(<argument><expr><name>listeners2</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>contains</name><argument_list>(<argument><expr><name>plot</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Checks that an XYPlot deregisters listeners when clearing markers.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testListenersWithXYPlot</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>XYPlot</name></type> <name>plot</name> <init>= <expr><operator>new</operator> <call><name>XYPlot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ValueMarker</name></type> <name>marker1</name> <init>= <expr><operator>new</operator> <call><name>ValueMarker</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>ValueMarker</name></type> <name>marker2</name> <init>= <expr><operator>new</operator> <call><name>ValueMarker</name><argument_list>(<argument><expr><literal type="number">2.0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>addDomainMarker</name></name><argument_list>(<argument><expr><name>marker1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>addRangeMarker</name></name><argument_list>(<argument><expr><name>marker2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>EventListener</name><index>[]</index></name></type> <name>listeners1</name> <init>= <expr><call><name><name>marker1</name><operator>.</operator><name>getListeners</name></name><argument_list>(
+                <argument><expr><name><name>MarkerChangeListener</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Arrays</name><operator>.</operator><name>asList</name></name><argument_list>(<argument><expr><name>listeners1</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>contains</name><argument_list>(<argument><expr><name>plot</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>EventListener</name><index>[]</index></name></type> <name>listeners2</name> <init>= <expr><call><name><name>marker1</name><operator>.</operator><name>getListeners</name></name><argument_list>(
+                <argument><expr><name><name>MarkerChangeListener</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>Arrays</name><operator>.</operator><name>asList</name></name><argument_list>(<argument><expr><name>listeners2</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>contains</name><argument_list>(<argument><expr><name>plot</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>clearDomainMarkers</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>plot</name><operator>.</operator><name>clearRangeMarkers</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>listeners1</name> <operator>=</operator> <call><name><name>marker1</name><operator>.</operator><name>getListeners</name></name><argument_list>(<argument><expr><name><name>MarkerChangeListener</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>Arrays</name><operator>.</operator><name>asList</name></name><argument_list>(<argument><expr><name>listeners1</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>contains</name><argument_list>(<argument><expr><name>plot</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>listeners2</name> <operator>=</operator> <call><name><name>marker1</name><operator>.</operator><name>getListeners</name></name><argument_list>(<argument><expr><name><name>MarkerChangeListener</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>Arrays</name><operator>.</operator><name>asList</name></name><argument_list>(<argument><expr><name>listeners2</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>contains</name><argument_list>(<argument><expr><name>plot</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Records the last event.
+     *
+     * @param event  the event.
+     */</comment>
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>markerChanged</name><parameter_list>(<parameter><decl><type><name>MarkerChangeEvent</name></type> <name>event</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <name>event</name></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

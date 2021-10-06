@@ -1,0 +1,4 @@
+<unit><function><type><specifier>private</specifier> <name><name>Object</name><index>[]</index></name></type> <name>createItem</name><parameter_list>(<parameter><decl><type><name>RegularTimePeriod</name></type> <name>t</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>dir</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>force</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><operator>new</operator> <name><name>Object</name><index>[]</index></name> <block>{<expr><call><name><name>t</name><operator>.</operator><name>getMiddleMillisecond</name></name><argument_list>()</argument_list></call></expr>, <expr><name>dir</name></expr>, <expr><name>force</name></expr>}</block></expr>;</return>
+    </block_content>}</block></function>
+}</unit>

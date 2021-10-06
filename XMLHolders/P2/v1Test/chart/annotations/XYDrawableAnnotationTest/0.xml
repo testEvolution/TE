@@ -1,0 +1,5 @@
+<unit><function><annotation>@<name>Override</name></annotation>
+        <type><specifier>public</specifier> <name>void</name></type> <name>draw</name><parameter_list>(<parameter><decl><type><name>Graphics2D</name></type> <name>g2</name></decl></parameter>, <parameter><decl><type><name>Rectangle2D</name></type> <name>area</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// do nothing</comment>
+        </block_content>}</block></function>
+        </unit>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\ast\testdata\InterfaceWithNestedClass.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>testdata</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Collections</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>HashMap</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Map</name></name>;</import>
+
+<interface><specifier>public</specifier> interface <name>InterfaceWithNestedClass</name> <block>{
+    <decl_stmt><decl><type><name><name>Map</name><argument_list type="generic">&lt;<argument><name>String</name></argument>, <argument><name>String</name></argument>&gt;</argument_list></name></type> <name>MAPPING</name> <init>= <expr><call><name><name>Collections</name><operator>.</operator><name>unmodifiableMap</name></name><argument_list>(<argument><expr><operator>new</operator> <class><super><name><name>HashMap</name><argument_list type="generic">&lt;<argument><name>String</name></argument>, <argument><name>String</name></argument>&gt;</argument_list></name></super><argument_list>()</argument_list> <block>{
+        <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>long</name></type> <name>serialVersionUID</name> <init>= <expr><literal type="number">3855526803226948630L</literal></expr></init></decl>;</decl_stmt>
+        <block>{<block_content>
+            <expr_stmt><expr><call><name>put</name><argument_list>(<argument><expr><literal type="string">"X"</literal></expr></argument>, <argument><expr><literal type="string">"10"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>put</name><argument_list>(<argument><expr><literal type="string">"L"</literal></expr></argument>, <argument><expr><literal type="string">"50"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>put</name><argument_list>(<argument><expr><literal type="string">"C"</literal></expr></argument>, <argument><expr><literal type="string">"100"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>put</name><argument_list>(<argument><expr><literal type="string">"M"</literal></expr></argument>, <argument><expr><literal type="string">"1000"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+    }</block></class></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+}</block></interface>
+</unit>

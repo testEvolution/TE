@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\rule\bestpractices\unusedprivatemethod\ClassWithPublicEnum.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>rule</name><operator>.</operator><name>bestpractices</name><operator>.</operator><name>unusedprivatemethod</name></name>;</package>
+
+<comment type="block" format="javadoc">/**
+ *
+ * ClassWithPublicEnum.java
+ *
+ * Copyright 2014 Expedia, Inc. All rights reserved.
+ * EXPEDIA PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */</comment>
+<comment type="block" format="javadoc">/**
+ * Sample class with public enum to be used by tests for "UnusedPrivateMethod".
+ * 
+ * @author &lt;a href="mailto:svenz@expedia.com"&gt;Sven Zethelius&lt;/a&gt;
+ *
+ */</comment>
+<class><specifier>public</specifier> class <name>ClassWithPublicEnum</name> <block>{
+    <enum><specifier>public</specifier> enum <name>PublicEnum</name> <block>{
+        <decl><name>VALUE1</name></decl>, <decl><name>VALUE2</name></decl>
+    }</block></enum>
+}</block></class>
+</unit>

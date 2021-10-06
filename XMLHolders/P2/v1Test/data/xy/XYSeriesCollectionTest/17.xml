@@ -1,0 +1,24 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSeriesRename</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// first check that a valid renaming works</comment>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series1</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"A"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series2</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"B"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>XYSeriesCollection</name></type> <name>collection</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>collection</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series1</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>collection</name><operator>.</operator><name>addSeries</name></name><argument_list>(<argument><expr><name>series2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>series1</name><operator>.</operator><name>setKey</name></name><argument_list>(<argument><expr><literal type="string">"C"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"C"</literal></expr></argument>, <argument><expr><call><name><name>collection</name><operator>.</operator><name>getSeries</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>getKey</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <comment type="line">// next, check that setting a duplicate key fails</comment>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>series2</name><operator>.</operator><name>setKey</name></name><argument_list>(<argument><expr><literal type="string">"C"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>(<argument><expr><literal type="string">"Expected an IllegalArgumentException."</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// expected</comment>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"B"</literal></expr></argument>, <argument><expr><call><name><name>series2</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>  <comment type="line">// the series name should not </comment>
+        <comment type="line">// change because "C" is already the key for the other series in the</comment>
+        <comment type="line">// collection</comment>
+    </block_content>}</block></function>
+}</unit>

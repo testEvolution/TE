@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\typeresolution\PMDASMClassLoaderTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>typeresolution</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertNotNull</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>fail</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Map</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Before</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Ignore</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>typeresolution</name><operator>.</operator><name>PMDASMClassLoader</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>PMDASMClassLoaderTest</name> <block>{
+
+    <decl_stmt><decl><type><specifier>private</specifier> <name>PMDASMClassLoader</name></type> <name>cl</name></decl>;</decl_stmt>
+
+    <function><annotation>@<name>Before</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>setUp</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><name>cl</name> <operator>=</operator> <call><name><name>PMDASMClassLoader</name><operator>.</operator><name>getInstance</name></name><argument_list>(<argument><expr><call><name>getClass</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getClassLoader</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testLoadClassWithImportOnDemand</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>className</name> <init>= <expr><literal type="string">"net.sourceforge.pmd.typeresolution.ClassWithImportOnDemand"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Class</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>clazz</name> <init>= <expr><call><name><name>cl</name><operator>.</operator><name>loadClass</name></name><argument_list>(<argument><expr><name>className</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name>clazz</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>Map</name><argument_list type="generic">&lt;<argument><name>String</name></argument>, <argument><name>String</name></argument>&gt;</argument_list></name></type> <name>imports</name> <init>= <expr><call><name><name>cl</name><operator>.</operator><name>getImportedClasses</name></name><argument_list>(<argument><expr><name>className</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name>imports</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"java.util.List"</literal></expr></argument>, <argument><expr><call><name><name>imports</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="string">"List"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"java.util.ArrayList"</literal></expr></argument>, <argument><expr><call><name><name>imports</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="string">"ArrayList"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"java.lang.Object"</literal></expr></argument>, <argument><expr><call><name><name>imports</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="string">"Object"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"net.sourceforge.pmd.typeresolution.ClassWithImportOnDemand"</literal></expr></argument>,
+                <argument><expr><call><name><name>imports</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="string">"ClassWithImportOnDemand"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testClassWithImportInnerOnDemand</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>String</name></type> <name>className</name> <init>= <expr><literal type="string">"net.sourceforge.pmd.typeresolution.ClassWithImportInnerOnDemand"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>Class</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>clazz</name> <init>= <expr><call><name><name>cl</name><operator>.</operator><name>loadClass</name></name><argument_list>(<argument><expr><name>className</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name>clazz</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>Map</name><argument_list type="generic">&lt;<argument><name>String</name></argument>, <argument><name>String</name></argument>&gt;</argument_list></name></type> <name>imports</name> <init>= <expr><call><name><name>cl</name><operator>.</operator><name>getImportedClasses</name></name><argument_list>(<argument><expr><name>className</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><name>imports</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"java.util.Iterator"</literal></expr></argument>, <argument><expr><call><name><name>imports</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="string">"Iterator"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"java.util.Map"</literal></expr></argument>, <argument><expr><call><name><name>imports</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="string">"Map"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"java.util.Set"</literal></expr></argument>, <argument><expr><call><name><name>imports</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="string">"Set"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"java.util.Map$Entry"</literal></expr></argument>, <argument><expr><call><name><name>imports</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="string">"Entry"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"java.util.Map$Entry"</literal></expr></argument>, <argument><expr><call><name><name>imports</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="string">"Map$Entry"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"java.lang.Object"</literal></expr></argument>, <argument><expr><call><name><name>imports</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="string">"Object"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"java.util.StringTokenizer"</literal></expr></argument>, <argument><expr><call><name><name>imports</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="string">"StringTokenizer"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="string">"net.sourceforge.pmd.typeresolution.ClassWithImportInnerOnDemand"</literal></expr></argument>,
+                <argument><expr><call><name><name>imports</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><literal type="string">"ClassWithImportInnerOnDemand"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Unit test for bug 3546093.
+     *
+     * @throws Exception
+     *             any error
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCachingOfNotFoundClasses</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>MockedClassLoader</name></type> <name>mockedClassloader</name> <init>= <expr><operator>new</operator> <call><name>MockedClassLoader</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>PMDASMClassLoader</name></type> <name>cl</name> <init>= <expr><call><name><name>PMDASMClassLoader</name><operator>.</operator><name>getInstance</name></name><argument_list>(<argument><expr><name>mockedClassloader</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>notExistingClassname</name> <init>= <expr><literal type="string">"that.clazz.doesnot.Exist"</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>cl</name><operator>.</operator><name>loadClass</name></name><argument_list>(<argument><expr><name>notExistingClassname</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>ClassNotFoundException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// expected</comment>
+        </block_content>}</block></catch></try>
+
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>cl</name><operator>.</operator><name>loadClass</name></name><argument_list>(<argument><expr><name>notExistingClassname</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>fail</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>ClassNotFoundException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <comment type="line">// expected</comment>
+        </block_content>}</block></catch></try>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><name><name>mockedClassloader</name><operator>.</operator><name>findClassCalls</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <class><specifier>private</specifier> <specifier>static</specifier> class <name>MockedClassLoader</name> <super_list><extends>extends <super><name>ClassLoader</name></super></extends></super_list> <block>{
+        <decl_stmt><decl><type><name>int</name></type> <name>findClassCalls</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+
+        <function><annotation>@<name>Override</name></annotation>
+        <type><specifier>protected</specifier> <name><name>Class</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>findClass</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>name</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>ClassNotFoundException</name></expr></argument></throws> <block>{<block_content>
+            <expr_stmt><expr><name>findClassCalls</name><operator>++</operator></expr>;</expr_stmt>
+            <return>return <expr><call><name><name>super</name><operator>.</operator><name>findClass</name></name><argument_list>(<argument><expr><name>name</name></expr></argument>)</argument_list></call></expr>;</return>
+        </block_content>}</block></function>
+    }</block></class>
+
+    <comment type="block" format="javadoc">/**
+     * With this test you can verify, how much memory could be consumed by the
+     * dontBother cache.
+     * 
+     * @throws Exception
+     *             any error
+     */</comment>
+    <function><annotation>@<name>Ignore</name></annotation>
+    <annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCachingMemoryConsumption</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>MockedClassLoader</name></type> <name>mockedClassLoader</name> <init>= <expr><operator>new</operator> <call><name>MockedClassLoader</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>PMDASMClassLoader</name></type> <name>cl</name> <init>= <expr><call><name><name>PMDASMClassLoader</name><operator>.</operator><name>getInstance</name></name><argument_list>(<argument><expr><name>mockedClassLoader</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>Runtime</name></type> <name>runtime</name> <init>= <expr><call><name><name>Runtime</name><operator>.</operator><name>getRuntime</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>gc</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>long</name></type> <name>usedBytesBefore</name> <init>= <expr><call><name><name>runtime</name><operator>.</operator><name>totalMemory</name></name><argument_list>()</argument_list></call> <operator>-</operator> <call><name><name>runtime</name><operator>.</operator><name>freeMemory</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <for>for <control>(<init><decl><type><name>long</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <literal type="number">3000</literal></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+            <try>try <block>{<block_content>
+                <expr_stmt><expr><call><name><name>cl</name><operator>.</operator><name>loadClass</name></name><argument_list>(<argument><expr><literal type="string">"com.very.long.package.name.and.structure.MyClass"</literal> <operator>+</operator> <name>i</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            </block_content>}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>ClassNotFoundException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+                <comment type="line">// expected</comment>
+            </block_content>}</block></catch></try>
+        </block_content>}</block></for>
+
+        <decl_stmt><decl><type><name>long</name></type> <name>usedBytesAfter</name> <init>= <expr><call><name><name>runtime</name><operator>.</operator><name>totalMemory</name></name><argument_list>()</argument_list></call> <operator>-</operator> <call><name><name>runtime</name><operator>.</operator><name>freeMemory</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>println</name></name><argument_list>(<argument><expr><operator>(</operator><name>usedBytesAfter</name> <operator>-</operator> <name>usedBytesBefore</name><operator>)</operator> <operator>/</operator> <operator>(</operator><literal type="number">1024.0</literal> <operator>*</operator> <literal type="number">1024.0</literal><operator>)</operator> <operator>+</operator> <literal type="string">" mb needed"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

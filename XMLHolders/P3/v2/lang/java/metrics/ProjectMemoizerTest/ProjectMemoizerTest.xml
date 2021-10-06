@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\metrics\ProjectMemoizerTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name></name>;</package>
+
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertNotEquals</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>ArrayList</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Random</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTAnyTypeDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTCompilationUnit</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTMethodOrConstructorDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>JavaParserVisitorReducedAdapter</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>MethodLikeNode</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>impl</name><operator>.</operator><name>AbstractJavaClassMetric</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>impl</name><operator>.</operator><name>AbstractJavaOperationMetric</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>testdata</name><operator>.</operator><name>MetricsVisitorTestData</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>symboltable</name><operator>.</operator><name>BaseNonParserTest</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>metrics</name><operator>.</operator><name>MetricKey</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>metrics</name><operator>.</operator><name>MetricKeyUtil</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>metrics</name><operator>.</operator><name>MetricMemoizer</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>metrics</name><operator>.</operator><name>MetricOptions</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * @author ClÃ©ment Fournier
+ */</comment>
+<class><specifier>public</specifier> class <name>ProjectMemoizerTest</name> <super_list><extends>extends <super><name>BaseNonParserTest</name></super></extends></super_list> <block>{
+
+    <decl_stmt><decl><type><specifier>private</specifier> <name><name>MetricKey</name><argument_list type="generic">&lt;<argument><name>ASTAnyTypeDeclaration</name></argument>&gt;</argument_list></name></type> <name>classMetricKey</name> <init>= <expr><call><name><name>MetricKeyUtil</name><operator>.</operator><name>of</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>RandomClassMetric</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>private</specifier> <name><name>MetricKey</name><argument_list type="generic">&lt;<argument><name>MethodLikeNode</name></argument>&gt;</argument_list></name></type> <name>opMetricKey</name> <init>= <expr><call><name><name>MetricKeyUtil</name><operator>.</operator><name>of</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>RandomOperationMetric</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>memoizationTest</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>acu</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>parseClass</name></name><argument_list>(<argument><expr><name><name>MetricsVisitorTestData</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>expected</name> <init>= <expr><call><name>visitWith</name><argument_list>(<argument><expr><name>acu</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>real</name> <init>= <expr><call><name>visitWith</name><argument_list>(<argument><expr><name>acu</name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>expected</name></expr></argument>, <argument><expr><name>real</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>forceMemoizationTest</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name>ASTCompilationUnit</name></type> <name>acu</name> <init>= <expr><call><name><name>java</name><operator>.</operator><name>parseClass</name></name><argument_list>(<argument><expr><name><name>MetricsVisitorTestData</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>reference</name> <init>= <expr><call><name>visitWith</name><argument_list>(<argument><expr><name>acu</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>real</name> <init>= <expr><call><name>visitWith</name><argument_list>(<argument><expr><name>acu</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>reference</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>real</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// we force recomputation so each result should be different</comment>
+        <for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <call><name><name>reference</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name>assertNotEquals</name><argument_list>(<argument><expr><call><name><name>reference</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>i</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>real</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>i</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+    </block_content>}</block></function>
+
+
+    <function><type><specifier>private</specifier> <name><name>List</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>visitWith</name><parameter_list>(<parameter><decl><type><name>ASTCompilationUnit</name></type> <name>acu</name></decl></parameter>, <parameter><decl><type><specifier>final</specifier> <name>boolean</name></type> <name>force</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>JavaProjectMemoizer</name></type> <name>toplevel</name> <init>= <expr><call><name><name>JavaMetrics</name><operator>.</operator><name>getFacade</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getLanguageSpecificProjectMemoizer</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><specifier>final</specifier> <name><name>List</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>result</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name><name>acu</name><operator>.</operator><name>jjtAccept</name></name><argument_list>(<argument><expr><operator>new</operator> <class><super><name>JavaParserVisitorReducedAdapter</name></super><argument_list>()</argument_list> <block>{
+            <function><annotation>@<name>Override</name></annotation>
+            <type><specifier>public</specifier> <name>Object</name></type> <name>visit</name><parameter_list>(<parameter><decl><type><name>ASTMethodOrConstructorDeclaration</name></type> <name>node</name></decl></parameter>, <parameter><decl><type><name>Object</name></type> <name>data</name></decl></parameter>)</parameter_list> <block>{<block_content>
+                <decl_stmt><decl><type><name><name>MetricMemoizer</name><argument_list type="generic">&lt;<argument><name>MethodLikeNode</name></argument>&gt;</argument_list></name></type> <name>op</name> <init>= <expr><call><name><name>toplevel</name><operator>.</operator><name>getOperationMemoizer</name></name><argument_list>(<argument><expr><call><name><name>node</name><operator>.</operator><name>getQualifiedName</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+                <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><operator>(</operator><name>int</name><operator>)</operator> <call><name><name>JavaMetricsComputer</name><operator>.</operator><name>getInstance</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>computeForOperation</name><argument_list>(<argument><expr><name>opMetricKey</name></expr></argument>, <argument><expr><name>node</name></expr></argument>, <argument><expr><name>force</name></expr></argument>,
+                                                                                  <argument><expr><call><name><name>MetricOptions</name><operator>.</operator><name>emptyOptions</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>op</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+                <return>return <expr><call><name><name>super</name><operator>.</operator><name>visit</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>, <argument><expr><name>data</name></expr></argument>)</argument_list></call></expr>;</return>
+            </block_content>}</block></function>
+
+
+            <function><annotation>@<name>Override</name></annotation>
+            <type><specifier>public</specifier> <name>Object</name></type> <name>visit</name><parameter_list>(<parameter><decl><type><name>ASTAnyTypeDeclaration</name></type> <name>node</name></decl></parameter>, <parameter><decl><type><name>Object</name></type> <name>data</name></decl></parameter>)</parameter_list> <block>{<block_content>
+                <decl_stmt><decl><type><name><name>MetricMemoizer</name><argument_list type="generic">&lt;<argument><name>ASTAnyTypeDeclaration</name></argument>&gt;</argument_list></name></type> <name>clazz</name> <init>= <expr><call><name><name>toplevel</name><operator>.</operator><name>getClassMemoizer</name></name><argument_list>(<argument><expr><call><name><name>node</name><operator>.</operator><name>getQualifiedName</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+                <expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><operator>(</operator><name>int</name><operator>)</operator> <call><name><name>JavaMetricsComputer</name><operator>.</operator><name>getInstance</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>computeForType</name><argument_list>(<argument><expr><name>classMetricKey</name></expr></argument>, <argument><expr><name>node</name></expr></argument>, <argument><expr><name>force</name></expr></argument>,
+                                                                             <argument><expr><call><name><name>MetricOptions</name><operator>.</operator><name>emptyOptions</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>clazz</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+                <return>return <expr><call><name><name>super</name><operator>.</operator><name>visit</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>, <argument><expr><name>data</name></expr></argument>)</argument_list></call></expr>;</return>
+            </block_content>}</block></function>
+        }</block></class></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <return>return <expr><name>result</name></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <class><specifier>private</specifier> class <name>RandomOperationMetric</name> <super_list><extends>extends <super><name>AbstractJavaOperationMetric</name></super></extends></super_list> <block>{
+
+        <decl_stmt><decl><type><specifier>private</specifier> <name>Random</name></type> <name>random</name> <init>= <expr><operator>new</operator> <call><name>Random</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+
+        <function><annotation>@<name>Override</name></annotation>
+        <type><specifier>public</specifier> <name>double</name></type> <name>computeFor</name><parameter_list>(<parameter><decl><type><name>MethodLikeNode</name></type> <name>node</name></decl></parameter>, <parameter><decl><type><name>MetricOptions</name></type> <name>options</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <return>return <expr><call><name><name>random</name><operator>.</operator><name>nextInt</name></name><argument_list>()</argument_list></call></expr>;</return>
+        </block_content>}</block></function>
+    }</block></class>
+
+    <class><specifier>private</specifier> class <name>RandomClassMetric</name> <super_list><extends>extends <super><name>AbstractJavaClassMetric</name></super></extends></super_list> <block>{
+
+        <decl_stmt><decl><type><specifier>private</specifier> <name>Random</name></type> <name>random</name> <init>= <expr><operator>new</operator> <call><name>Random</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+
+        <function><annotation>@<name>Override</name></annotation>
+        <type><specifier>public</specifier> <name>double</name></type> <name>computeFor</name><parameter_list>(<parameter><decl><type><name>ASTAnyTypeDeclaration</name></type> <name>node</name></decl></parameter>, <parameter><decl><type><name>MetricOptions</name></type> <name>options</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <return>return <expr><call><name><name>random</name><operator>.</operator><name>nextInt</name></name><argument_list>()</argument_list></call></expr>;</return>
+        </block_content>}</block></function>
+    }</block></class>
+
+}</block></class>
+</unit>

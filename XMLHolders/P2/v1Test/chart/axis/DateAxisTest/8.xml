@@ -1,0 +1,5 @@
+<unit><function><type><specifier>private</specifier> <name>boolean</name></type> <name>same</name><parameter_list>(<parameter><decl><type><name>double</name></type> <name>d1</name></decl></parameter>, <parameter><decl><type><name>double</name></type> <name>d2</name></decl></parameter>, <parameter><decl><type><name>double</name></type> <name>tolerance</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><operator>(</operator><call><name><name>Math</name><operator>.</operator><name>abs</name></name><argument_list>(<argument><expr><name>d1</name> <operator>-</operator> <name>d2</name></expr></argument>)</argument_list></call> <operator>&lt;</operator> <name>tolerance</name><operator>)</operator></expr>;</return>
+    </block_content>}</block></function>
+
+    </unit>

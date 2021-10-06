@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.21.0\pmd-pmd_releases-6.21.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\metrics\impl\AbstractMetricTestRule.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>impl</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>HashMap</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Locale</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Map</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTAnyTypeDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTCompilationUnit</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>MethodLikeNode</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>JavaMetrics</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>api</name><operator>.</operator><name>JavaClassMetricKey</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>metrics</name><operator>.</operator><name>api</name><operator>.</operator><name>JavaOperationMetricKey</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>rule</name><operator>.</operator><name>AbstractJavaMetricsRule</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>metrics</name><operator>.</operator><name>MetricOption</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>metrics</name><operator>.</operator><name>MetricOptions</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>metrics</name><operator>.</operator><name>ResultOption</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>properties</name><operator>.</operator><name>PropertyDescriptor</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>properties</name><operator>.</operator><name>PropertyFactory</name></name>;</import>
+
+
+<comment type="block" format="javadoc">/**
+ * Abstract test rule for a metric. Tests of metrics use the standard framework for rule testing, using one dummy rule
+ * per metric. Default parameters can be overriden by overriding the protected methods of this class.
+ *
+ * @author ClÃ©ment Fournier
+ */</comment>
+<class><specifier>public</specifier> <specifier>abstract</specifier> class <name>AbstractMetricTestRule</name> <super_list><extends>extends <super><name>AbstractJavaMetricsRule</name></super></extends></super_list> <block>{
+
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>final</specifier> <name><name>PropertyDescriptor</name><argument_list type="generic">&lt;<argument><name><name>List</name><argument_list type="generic">&lt;<argument><name>MetricOption</name></argument>&gt;</argument_list></name></argument>&gt;</argument_list></name></type> <name>optionsDescriptor</name> <init>=
+            <expr><call><name><name>PropertyFactory</name><operator>.</operator><name>enumListProperty</name></name><argument_list>(<argument><expr><literal type="string">"metricOptions"</literal></expr></argument>, <argument><expr><call><name>optionMappings</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call>
+                           <operator>.</operator><call><name>desc</name><argument_list>(<argument><expr><literal type="string">"Choose a variant of the metric or the standard"</literal></expr></argument>)</argument_list></call>
+                           <operator>.</operator><call><name>emptyDefaultValue</name><argument_list>()</argument_list></call><operator>.</operator><call><name>build</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>final</specifier> <name><name>PropertyDescriptor</name><argument_list type="generic">&lt;<argument><name>Boolean</name></argument>&gt;</argument_list></name></type> <name>reportClassesDescriptor</name> <init>=
+            <expr><call><name><name>PropertyFactory</name><operator>.</operator><name>booleanProperty</name></name><argument_list>(<argument><expr><literal type="string">"reportClasses"</literal></expr></argument>)</argument_list></call>
+                           <operator>.</operator><call><name>desc</name><argument_list>(<argument><expr><literal type="string">"Add class violations to the report"</literal></expr></argument>)</argument_list></call>
+                           <operator>.</operator><call><name>defaultValue</name><argument_list>(<argument><expr><call><name>isReportClasses</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call><operator>.</operator><call><name>build</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>final</specifier> <name><name>PropertyDescriptor</name><argument_list type="generic">&lt;<argument><name>Boolean</name></argument>&gt;</argument_list></name></type> <name>reportMethodsDescriptor</name> <init>=
+            <expr><call><name><name>PropertyFactory</name><operator>.</operator><name>booleanProperty</name></name><argument_list>(<argument><expr><literal type="string">"reportMethods"</literal></expr></argument>)</argument_list></call>
+                           <operator>.</operator><call><name>desc</name><argument_list>(<argument><expr><literal type="string">"Add method violations to the report"</literal></expr></argument>)</argument_list></call>
+                           <operator>.</operator><call><name>defaultValue</name><argument_list>(<argument><expr><call><name>isReportMethods</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call><operator>.</operator><call><name>build</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>final</specifier> <name><name>PropertyDescriptor</name><argument_list type="generic">&lt;<argument><name>Double</name></argument>&gt;</argument_list></name></type> <name>reportLevelDescriptor</name> <init>=
+            <expr><call><name><name>PropertyFactory</name><operator>.</operator><name>doubleProperty</name></name><argument_list>(<argument><expr><literal type="string">"reportLevel"</literal></expr></argument>)</argument_list></call>
+                           <operator>.</operator><call><name>desc</name><argument_list>(<argument><expr><literal type="string">"Minimum value required to report"</literal></expr></argument>)</argument_list></call>
+                           <operator>.</operator><call><name>defaultValue</name><argument_list>(<argument><expr><call><name>defaultReportLevel</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call><operator>.</operator><call><name>build</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+    <decl_stmt><decl><type><specifier>private</specifier> <name>MetricOptions</name></type> <name>metricOptions</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>private</specifier> <name>boolean</name></type> <name>reportClasses</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>private</specifier> <name>boolean</name></type> <name>reportMethods</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>private</specifier> <name>double</name></type> <name>reportLevel</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>private</specifier> <name>JavaClassMetricKey</name></type> <name>classKey</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>private</specifier> <name>JavaOperationMetricKey</name></type> <name>opKey</name></decl>;</decl_stmt>
+
+
+    <constructor><specifier>public</specifier> <name>AbstractMetricTestRule</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name>classKey</name> <operator>=</operator> <call><name>getClassKey</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>opKey</name> <operator>=</operator> <call><name>getOpKey</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>definePropertyDescriptor</name><argument_list>(<argument><expr><name>reportClassesDescriptor</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>definePropertyDescriptor</name><argument_list>(<argument><expr><name>reportMethodsDescriptor</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>definePropertyDescriptor</name><argument_list>(<argument><expr><name>reportLevelDescriptor</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>definePropertyDescriptor</name><argument_list>(<argument><expr><name>optionsDescriptor</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></constructor>
+
+
+    <comment type="block" format="javadoc">/**
+     * Returns the class metric key to test, or null if we shouldn't test classes.
+     *
+     * @return The class metric key to test.
+     */</comment>
+    <function_decl><type><specifier>protected</specifier> <specifier>abstract</specifier> <name>JavaClassMetricKey</name></type> <name>getClassKey</name><parameter_list>()</parameter_list>;</function_decl>
+
+
+    <comment type="block" format="javadoc">/**
+     * Returns the class metric key to test, or null if we shouldn't test classes.
+     *
+     * @return The class metric key to test.
+     */</comment>
+    <function_decl><type><specifier>protected</specifier> <specifier>abstract</specifier> <name>JavaOperationMetricKey</name></type> <name>getOpKey</name><parameter_list>()</parameter_list>;</function_decl>
+
+
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>Object</name></type> <name>visit</name><parameter_list>(<parameter><decl><type><name>ASTCompilationUnit</name></type> <name>node</name></decl></parameter>, <parameter><decl><type><name>Object</name></type> <name>data</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name>reportClasses</name> <operator>=</operator> <call><name>getProperty</name><argument_list>(<argument><expr><name>reportClassesDescriptor</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>reportMethods</name> <operator>=</operator> <call><name>getProperty</name><argument_list>(<argument><expr><name>reportMethodsDescriptor</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>reportLevel</name> <operator>=</operator> <call><name>getProperty</name><argument_list>(<argument><expr><name>reportLevelDescriptor</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>metricOptions</name> <operator>=</operator> <call><name><name>MetricOptions</name><operator>.</operator><name>ofOptions</name></name><argument_list>(<argument><expr><call><name>getProperty</name><argument_list>(<argument><expr><name>optionsDescriptor</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <return>return <expr><call><name><name>super</name><operator>.</operator><name>visit</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>, <argument><expr><name>data</name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <comment type="block" format="javadoc">/**
+     * Sets the default for reportClasses descriptor.
+     *
+     * @return The default for reportClasses descriptor
+     */</comment>
+    <function><type><specifier>protected</specifier> <name>boolean</name></type> <name>isReportClasses</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><literal type="boolean">true</literal></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <comment type="block" format="javadoc">/**
+     * Sets the default for reportMethods descriptor.
+     *
+     * @return The default for reportMethods descriptor
+     */</comment>
+    <function><type><specifier>protected</specifier> <name>boolean</name></type> <name>isReportMethods</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><literal type="boolean">true</literal></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <comment type="block" format="javadoc">/**
+     * Mappings of labels to versions for use in the options property.
+     *
+     * @return A map of labels to versions
+     */</comment>
+    <function><type><specifier>protected</specifier> <name><name>Map</name><argument_list type="generic">&lt;<argument><name>String</name></argument>, <argument><name>MetricOption</name></argument>&gt;</argument_list></name></type> <name>optionMappings</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><operator>new</operator> <call><name><name>HashMap</name><argument_list type="generic">&lt;&gt;</argument_list></name><argument_list>()</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <comment type="block" format="javadoc">/**
+     * Default report level, which is 0.
+     *
+     * @return The default report level.
+     */</comment>
+    <function><type><specifier>protected</specifier> <name>double</name></type> <name>defaultReportLevel</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><literal type="number">0.</literal></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <comment type="block" format="javadoc">/** Gets a nice string representation of a double. */</comment>
+    <function><type><specifier>private</specifier> <name>String</name></type> <name>niceDoubleString</name><parameter_list>(<parameter><decl><type><name>double</name></type> <name>val</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <if_stmt><if>if <condition>(<expr><name>val</name> <operator>==</operator> <operator>(</operator><name>int</name><operator>)</operator> <name>val</name></expr>)</condition> <block>{<block_content>
+            <return>return <expr><call><name><name>String</name><operator>.</operator><name>valueOf</name></name><argument_list>(<argument><expr><operator>(</operator><name>int</name><operator>)</operator> <name>val</name></expr></argument>)</argument_list></call></expr>;</return>
+        </block_content>}</block></if> <else>else <block>{<block_content>
+            <return>return <expr><call><name><name>String</name><operator>.</operator><name>format</name></name><argument_list>(<argument><expr><name><name>Locale</name><operator>.</operator><name>ROOT</name></name></expr></argument>, <argument><expr><literal type="string">"%.4f"</literal></expr></argument>, <argument><expr><name>val</name></expr></argument>)</argument_list></call></expr>;</return>
+        </block_content>}</block></else></if_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>Object</name></type> <name>visit</name><parameter_list>(<parameter><decl><type><name>ASTAnyTypeDeclaration</name></type> <name>node</name></decl></parameter>, <parameter><decl><type><name>Object</name></type> <name>data</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <if_stmt><if>if <condition>(<expr><name>classKey</name> <operator>!=</operator> <literal type="null">null</literal> <operator>&amp;&amp;</operator> <name>reportClasses</name> <operator>&amp;&amp;</operator> <call><name><name>classKey</name><operator>.</operator><name>supports</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <decl_stmt><decl><type><name>double</name></type> <name>classValue</name> <init>= <expr><call><name><name>JavaMetrics</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>classKey</name></expr></argument>, <argument><expr><name>node</name></expr></argument>, <argument><expr><name>metricOptions</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+            <decl_stmt><decl><type><name>String</name></type> <name>valueReport</name> <init>= <expr><call><name>niceDoubleString</name><argument_list>(<argument><expr><name>classValue</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+            <if_stmt><if>if <condition>(<expr><name>opKey</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition> <block>{<block_content>
+                <decl_stmt><decl><type><name>double</name></type> <name>highest</name> <init>= <expr><call><name><name>JavaMetrics</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>opKey</name></expr></argument>, <argument><expr><name>node</name></expr></argument>, <argument><expr><name>metricOptions</name></expr></argument>, <argument><expr><name><name>ResultOption</name><operator>.</operator><name>HIGHEST</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+                <expr_stmt><expr><name>valueReport</name> <operator>+=</operator> <literal type="string">" highest "</literal> <operator>+</operator> <call><name>niceDoubleString</name><argument_list>(<argument><expr><name>highest</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            </block_content>}</block></if></if_stmt>
+            <if_stmt><if>if <condition>(<expr><name>classValue</name> <operator>&gt;=</operator> <name>reportLevel</name></expr>)</condition> <block>{<block_content>
+                <expr_stmt><expr><call><name>addViolation</name><argument_list>(<argument><expr><name>data</name></expr></argument>, <argument><expr><name>node</name></expr></argument>, <argument><expr><operator>new</operator> <name><name>String</name><index>[]</index></name> <block>{<expr><call><name><name>node</name><operator>.</operator><name>getQualifiedName</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>toString</name><argument_list>()</argument_list></call></expr>, <expr><name>valueReport</name></expr>, }</block></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            </block_content>}</block></if></if_stmt>
+        </block_content>}</block></if></if_stmt>
+        <return>return <expr><call><name><name>super</name><operator>.</operator><name>visit</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>, <argument><expr><name>data</name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Override</name></annotation>
+    <type><specifier>public</specifier> <name>Object</name></type> <name>visit</name><parameter_list>(<parameter><decl><type><name>MethodLikeNode</name></type> <name>node</name></decl></parameter>, <parameter><decl><type><name>Object</name></type> <name>data</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <if_stmt><if>if <condition>(<expr><name>opKey</name> <operator>!=</operator> <literal type="null">null</literal> <operator>&amp;&amp;</operator> <name>reportMethods</name> <operator>&amp;&amp;</operator> <call><name><name>opKey</name><operator>.</operator><name>supports</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>)</argument_list></call></expr>)</condition> <block>{<block_content>
+            <decl_stmt><decl><type><name>double</name></type> <name>methodValue</name> <init>= <expr><call><name><name>JavaMetrics</name><operator>.</operator><name>get</name></name><argument_list>(<argument><expr><name>opKey</name></expr></argument>, <argument><expr><name>node</name></expr></argument>, <argument><expr><name>metricOptions</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <if_stmt><if>if <condition>(<expr><name>methodValue</name> <operator>&gt;=</operator> <name>reportLevel</name></expr>)</condition> <block>{<block_content>
+                <expr_stmt><expr><call><name>addViolation</name><argument_list>(<argument><expr><name>data</name></expr></argument>, <argument><expr><name>node</name></expr></argument>, <argument><expr><operator>new</operator> <name><name>String</name><index>[]</index></name> <block>{<expr><call><name><name>node</name><operator>.</operator><name>getQualifiedName</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>toString</name><argument_list>()</argument_list></call></expr>,
+                                                       <expr><literal type="string">""</literal> <operator>+</operator> <call><name>niceDoubleString</name><argument_list>(<argument><expr><name>methodValue</name></expr></argument>)</argument_list></call></expr>, }</block></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            </block_content>}</block></if></if_stmt>
+        </block_content>}</block></if></if_stmt>
+        <return>return <expr><call><name><name>super</name><operator>.</operator><name>visit</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>, <argument><expr><name>data</name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+}</block></class>
+</unit>

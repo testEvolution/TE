@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\data\time\SecondTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ----------------
+ * SecondTest.java
+ * ----------------
+ * (C) Copyright 2002-2020, by Object Refinery Limited.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 29-Jan-2002 : Version 1 (DG);
+ * 17-Oct-2002 : Fixed errors reported by Checkstyle (DG);
+ * 13-Oct-2003 : Added serialization test (DG);
+ * 11-Jan-2005 : Added test for non-clonability (DG);
+ * 06-Oct-2006 : Added some new tests (DG);
+ * 11-Jul-2007 : Fixed bad time zone assumption (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>time</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertNull</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>time</name><operator>.</operator><name>ZoneOffset</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Calendar</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Date</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>GregorianCalendar</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Locale</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>TimeZone</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>function</name><operator>.</operator><name>Consumer</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>date</name><operator>.</operator><name>MonthConstants</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link Second} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>SecondTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Test that a Second instance is equal to itself.
+     *
+     * SourceForge Bug ID: 558850.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEqualsSelf</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Second</name></type> <name>second</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>second</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>second</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Tests the equals method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Day</name></type> <name>day1</name> <init>= <expr><operator>new</operator> <call><name>Day</name><argument_list>(<argument><expr><literal type="number">29</literal></expr></argument>, <argument><expr><name><name>MonthConstants</name><operator>.</operator><name>MARCH</name></name></expr></argument>, <argument><expr><literal type="number">2002</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Hour</name></type> <name>hour1</name> <init>= <expr><operator>new</operator> <call><name>Hour</name><argument_list>(<argument><expr><literal type="number">15</literal></expr></argument>, <argument><expr><name>day1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Minute</name></type> <name>minute1</name> <init>= <expr><operator>new</operator> <call><name>Minute</name><argument_list>(<argument><expr><literal type="number">15</literal></expr></argument>, <argument><expr><name>hour1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Second</name></type> <name>second1</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">34</literal></expr></argument>, <argument><expr><name>minute1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Day</name></type> <name>day2</name> <init>= <expr><operator>new</operator> <call><name>Day</name><argument_list>(<argument><expr><literal type="number">29</literal></expr></argument>, <argument><expr><name><name>MonthConstants</name><operator>.</operator><name>MARCH</name></name></expr></argument>, <argument><expr><literal type="number">2002</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Hour</name></type> <name>hour2</name> <init>= <expr><operator>new</operator> <call><name>Hour</name><argument_list>(<argument><expr><literal type="number">15</literal></expr></argument>, <argument><expr><name>day2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Minute</name></type> <name>minute2</name> <init>= <expr><operator>new</operator> <call><name>Minute</name><argument_list>(<argument><expr><literal type="number">15</literal></expr></argument>, <argument><expr><name>hour2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Second</name></type> <name>second2</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">34</literal></expr></argument>, <argument><expr><name>minute2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>second1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>second2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * In GMT, the 4.55:59pm on 21 Mar 2002 is java.util.Date(1016729759000L).
+     * Use this to check the Second constructor.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testDateConstructor1</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>TimeZone</name></type> <name>zone</name> <init>= <expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><literal type="string">"GMT"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Calendar</name></type> <name>cal</name> <init>= <expr><call><name><name>Calendar</name><operator>.</operator><name>getInstance</name></name><argument_list>(<argument><expr><name>zone</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Locale</name></type> <name>locale</name> <init>= <expr><call><name><name>Locale</name><operator>.</operator><name>getDefault</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>  <comment type="line">// locale shouldn't matter here</comment>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Date</name><argument_list>(<argument><expr><literal type="number">1016729758999L</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>zone</name></expr></argument>, <argument><expr><name>locale</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s2</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Date</name><argument_list>(<argument><expr><literal type="number">1016729759000L</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>zone</name></expr></argument>, <argument><expr><name>locale</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">58</literal></expr></argument>, <argument><expr><call><name><name>s1</name><operator>.</operator><name>getSecond</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1016729758999L</literal></expr></argument>, <argument><expr><call><name><name>s1</name><operator>.</operator><name>getLastMillisecond</name></name><argument_list>(<argument><expr><name>cal</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">59</literal></expr></argument>, <argument><expr><call><name><name>s2</name><operator>.</operator><name>getSecond</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1016729759000L</literal></expr></argument>, <argument><expr><call><name><name>s2</name><operator>.</operator><name>getFirstMillisecond</name></name><argument_list>(<argument><expr><name>cal</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * In Chicago, the 4.55:59pm on 21 Mar 2002 is
+     * java.util.Date(1016751359000L). Use this to check the Second constructor.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testDateConstructor2</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>TimeZone</name></type> <name>zone</name> <init>= <expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><literal type="string">"America/Chicago"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Calendar</name></type> <name>cal</name> <init>= <expr><call><name><name>Calendar</name><operator>.</operator><name>getInstance</name></name><argument_list>(<argument><expr><name>zone</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Locale</name></type> <name>locale</name> <init>= <expr><call><name><name>Locale</name><operator>.</operator><name>getDefault</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>  <comment type="line">// locale shouldn't matter here</comment>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Date</name><argument_list>(<argument><expr><literal type="number">1016751358999L</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>zone</name></expr></argument>, <argument><expr><name>locale</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s2</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Date</name><argument_list>(<argument><expr><literal type="number">1016751359000L</literal></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>zone</name></expr></argument>, <argument><expr><name>locale</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">58</literal></expr></argument>, <argument><expr><call><name><name>s1</name><operator>.</operator><name>getSecond</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1016751358999L</literal></expr></argument>, <argument><expr><call><name><name>s1</name><operator>.</operator><name>getLastMillisecond</name></name><argument_list>(<argument><expr><name>cal</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">59</literal></expr></argument>, <argument><expr><call><name><name>s2</name><operator>.</operator><name>getSecond</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1016751359000L</literal></expr></argument>, <argument><expr><call><name><name>s2</name><operator>.</operator><name>getFirstMillisecond</name></name><argument_list>(<argument><expr><name>cal</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * If a thread-local calendar was set, the Date constructor should use it.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testDateConstructorWithThreadLocalCalendar</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>Consumer</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>calendarSetup</name> <init>= <expr><lambda><parameter_list type="pseudo"><parameter><decl><name>hours</name></decl></parameter></parameter_list> -&gt;<block type="pseudo"><block_content> <expr><call><name><name>RegularTimePeriod</name><operator>.</operator><name>setThreadLocalCalendarInstance</name></name><argument_list>(
+                <argument><expr><call><name><name>Calendar</name><operator>.</operator><name>getInstance</name></name><argument_list>(<argument><expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><call><name><name>ZoneOffset</name><operator>.</operator><name>ofHours</name></name><argument_list>(<argument><expr><name>hours</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>
+        )</argument_list></call></expr></block_content></block></lambda></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>testDateConstructorWithCustomCalendar</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><name>calendarSetup</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>testDateConstructorWithCustomCalendar</name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><name>calendarSetup</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * If a calendar prototype was set, the Date constructor should use it.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testDateConstructorWithCalendarPrototype</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>Consumer</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>calendarSetup</name> <init>= <expr><lambda><parameter_list type="pseudo"><parameter><decl><name>hours</name></decl></parameter></parameter_list> -&gt;<block type="pseudo"><block_content> <expr><call><name><name>RegularTimePeriod</name><operator>.</operator><name>setCalendarInstancePrototype</name></name><argument_list>(
+                <argument><expr><call><name><name>Calendar</name><operator>.</operator><name>getInstance</name></name><argument_list>(<argument><expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><call><name><name>ZoneOffset</name><operator>.</operator><name>ofHours</name></name><argument_list>(<argument><expr><name>hours</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>
+        )</argument_list></call></expr></block_content></block></lambda></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>testDateConstructorWithCustomCalendar</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><name>calendarSetup</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>testDateConstructorWithCustomCalendar</name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><name>calendarSetup</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>private</specifier> <name>void</name></type> <name>testDateConstructorWithCustomCalendar</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>hoursOffset</name></decl></parameter>, <parameter><decl><type><name><name>Consumer</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>calendarSetup</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>calendarSetup</name><operator>.</operator><name>accept</name></name><argument_list>(<argument><expr><name>hoursOffset</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <decl_stmt><decl><type><name>Second</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Date</name><argument_list>(<argument><expr><literal type="number">0L</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1970</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getYear</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getMonth</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getDayOfMonth</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>hoursOffset</name></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getMinute</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getSecond</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0L</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getFirstMillisecond</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <finally>finally <block>{<block_content>
+            <comment type="line">// reset everything, to avoid affecting other tests</comment>
+            <expr_stmt><expr><call><name><name>RegularTimePeriod</name><operator>.</operator><name>setThreadLocalCalendarInstance</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>RegularTimePeriod</name><operator>.</operator><name>setCalendarInstancePrototype</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></finally></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * If a thread-local calendar was set, the second-minute constructor should use it.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSecondMinuteConstructorWithThreadLocalCalendar</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>Consumer</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>calendarSetup</name> <init>= <expr><lambda><parameter_list type="pseudo"><parameter><decl><name>hours</name></decl></parameter></parameter_list> -&gt;<block type="pseudo"><block_content> <expr><call><name><name>RegularTimePeriod</name><operator>.</operator><name>setThreadLocalCalendarInstance</name></name><argument_list>(
+                <argument><expr><call><name><name>Calendar</name><operator>.</operator><name>getInstance</name></name><argument_list>(<argument><expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><call><name><name>ZoneOffset</name><operator>.</operator><name>ofHours</name></name><argument_list>(<argument><expr><name>hours</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>
+        )</argument_list></call></expr></block_content></block></lambda></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>testSecondMinuteConstructorWithCustomCalendar</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><name>calendarSetup</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>testSecondMinuteConstructorWithCustomCalendar</name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><name>calendarSetup</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * If a calendar prototype was set, the second-minute constructor should use it.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSecondMinuteConstructorWithCalendarPrototype</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>Consumer</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>calendarSetup</name> <init>= <expr><lambda><parameter_list type="pseudo"><parameter><decl><name>hours</name></decl></parameter></parameter_list> -&gt;<block type="pseudo"><block_content> <expr><call><name><name>RegularTimePeriod</name><operator>.</operator><name>setCalendarInstancePrototype</name></name><argument_list>(
+                <argument><expr><call><name><name>Calendar</name><operator>.</operator><name>getInstance</name></name><argument_list>(<argument><expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><call><name><name>ZoneOffset</name><operator>.</operator><name>ofHours</name></name><argument_list>(<argument><expr><name>hours</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>
+        )</argument_list></call></expr></block_content></block></lambda></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>testSecondMinuteConstructorWithCustomCalendar</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><name>calendarSetup</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>testSecondMinuteConstructorWithCustomCalendar</name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><name>calendarSetup</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>private</specifier> <name>void</name></type> <name>testSecondMinuteConstructorWithCustomCalendar</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>hoursOffset</name></decl></parameter>, <parameter><decl><type><name><name>Consumer</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>calendarSetup</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>calendarSetup</name><operator>.</operator><name>accept</name></name><argument_list>(<argument><expr><name>hoursOffset</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <decl_stmt><decl><type><name>Second</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><operator>new</operator> <call><name>Minute</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Date</name><argument_list>(<argument><expr><literal type="number">0L</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1970</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getYear</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getMonth</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getDayOfMonth</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>hoursOffset</name></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getMinute</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getSecond</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0L</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getFirstMillisecond</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <finally>finally <block>{<block_content>
+            <comment type="line">// reset everything, to avoid affecting other tests</comment>
+            <expr_stmt><expr><call><name><name>RegularTimePeriod</name><operator>.</operator><name>setThreadLocalCalendarInstance</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>RegularTimePeriod</name><operator>.</operator><name>setCalendarInstancePrototype</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></finally></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s2</name> <init>= <expr><operator>(</operator><name>Second</name><operator>)</operator> <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>s1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>s1</name></expr></argument>, <argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Two objects that are equal are required to return the same hashCode.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testHashcode</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">13</literal></expr></argument>, <argument><expr><literal type="number">45</literal></expr></argument>, <argument><expr><literal type="number">5</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">2003</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s2</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">13</literal></expr></argument>, <argument><expr><literal type="number">45</literal></expr></argument>, <argument><expr><literal type="number">5</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">2003</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>s1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h1</name> <init>= <expr><call><name><name>s1</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>int</name></type> <name>h2</name> <init>= <expr><call><name><name>s2</name><operator>.</operator><name>hashCode</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>h1</name></expr></argument>, <argument><expr><name>h2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * The {@link Second} class is immutable, so should not be
+     * {@link Cloneable}.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNotCloneable</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">13</literal></expr></argument>, <argument><expr><literal type="number">45</literal></expr></argument>, <argument><expr><literal type="number">5</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">2003</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><name>s</name> <operator>instanceof</operator> <name>Cloneable</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getFirstMillisecond() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetFirstMillisecond</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Locale</name></type> <name>saved</name> <init>= <expr><call><name><name>Locale</name><operator>.</operator><name>getDefault</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Locale</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name><name>Locale</name><operator>.</operator><name>UK</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>TimeZone</name></type> <name>savedZone</name> <init>= <expr><call><name><name>TimeZone</name><operator>.</operator><name>getDefault</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>TimeZone</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><literal type="string">"Europe/London"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">15</literal></expr></argument>, <argument><expr><literal type="number">43</literal></expr></argument>, <argument><expr><literal type="number">15</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><literal type="number">2006</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1143902595000L</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getFirstMillisecond</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Locale</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name>saved</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>TimeZone</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name>savedZone</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getFirstMillisecond(TimeZone) method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetFirstMillisecondWithTimeZone</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">50</literal></expr></argument>, <argument><expr><literal type="number">59</literal></expr></argument>, <argument><expr><literal type="number">15</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><literal type="number">1950</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>TimeZone</name></type> <name>zone</name> <init>= <expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><literal type="string">"America/Los_Angeles"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Calendar</name></type> <name>cal</name> <init>= <expr><call><name><name>Calendar</name><operator>.</operator><name>getInstance</name></name><argument_list>(<argument><expr><name>zone</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">623289610000L</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getFirstMillisecond</name></name><argument_list>(<argument><expr><name>cal</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try null calendar</comment>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>s</name><operator>.</operator><name>getFirstMillisecond</name></name><argument_list>(<argument><expr><operator>(</operator><name>Calendar</name><operator>)</operator> <literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>NullPointerException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getFirstMillisecond(TimeZone) method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetFirstMillisecondWithCalendar</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">55</literal></expr></argument>, <argument><expr><literal type="number">40</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">15</literal></expr></argument>, <argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><literal type="number">2000</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>GregorianCalendar</name></type> <name>calendar</name> <init>= <expr><operator>new</operator> <call><name>GregorianCalendar</name><argument_list>(<argument><expr><name><name>Locale</name><operator>.</operator><name>GERMANY</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>calendar</name><operator>.</operator><name>setTimeZone</name></name><argument_list>(<argument><expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><literal type="string">"Europe/Frankfurt"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">955766455000L</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getFirstMillisecond</name></name><argument_list>(<argument><expr><name>calendar</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try null calendar</comment>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>s</name><operator>.</operator><name>getFirstMillisecond</name></name><argument_list>(<argument><expr><operator>(</operator><name>Calendar</name><operator>)</operator> <literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>NullPointerException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getLastMillisecond() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetLastMillisecond</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Locale</name></type> <name>saved</name> <init>= <expr><call><name><name>Locale</name><operator>.</operator><name>getDefault</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Locale</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name><name>Locale</name><operator>.</operator><name>UK</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>TimeZone</name></type> <name>savedZone</name> <init>= <expr><call><name><name>TimeZone</name><operator>.</operator><name>getDefault</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>TimeZone</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><literal type="string">"Europe/London"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1970</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">61999L</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getLastMillisecond</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Locale</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name>saved</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>TimeZone</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name>savedZone</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getLastMillisecond(TimeZone) method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetLastMillisecondWithTimeZone</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">55</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="number">7</literal></expr></argument>, <argument><expr><literal type="number">7</literal></expr></argument>, <argument><expr><literal type="number">1950</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>TimeZone</name></type> <name>zone</name> <init>= <expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><literal type="string">"America/Los_Angeles"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Calendar</name></type> <name>cal</name> <init>= <expr><call><name><name>Calendar</name><operator>.</operator><name>getInstance</name></name><argument_list>(<argument><expr><name>zone</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">614962684001L</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getLastMillisecond</name></name><argument_list>(<argument><expr><name>cal</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try null calendar</comment>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>s</name><operator>.</operator><name>getLastMillisecond</name></name><argument_list>(<argument><expr><operator>(</operator><name>Calendar</name><operator>)</operator> <literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>NullPointerException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getLastMillisecond(TimeZone) method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetLastMillisecondWithCalendar</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">50</literal></expr></argument>, <argument><expr><literal type="number">45</literal></expr></argument>, <argument><expr><literal type="number">21</literal></expr></argument>, <argument><expr><literal type="number">21</literal></expr></argument>, <argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><literal type="number">2001</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>GregorianCalendar</name></type> <name>calendar</name> <init>= <expr><operator>new</operator> <call><name>GregorianCalendar</name><argument_list>(<argument><expr><name><name>Locale</name><operator>.</operator><name>GERMANY</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>calendar</name><operator>.</operator><name>setTimeZone</name></name><argument_list>(<argument><expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><literal type="string">"Europe/Frankfurt"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">987889550999L</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getLastMillisecond</name></name><argument_list>(<argument><expr><name>calendar</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// try null calendar</comment>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>s</name><operator>.</operator><name>getLastMillisecond</name></name><argument_list>(<argument><expr><operator>(</operator><name>Calendar</name><operator>)</operator> <literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>NullPointerException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getSerialIndex() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSerialIndex</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">2000</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3155850061L</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getSerialIndex</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>s</name> <operator>=</operator> <operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1900</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">176461L</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getSerialIndex</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the testNext() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNext</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">55</literal></expr></argument>, <argument><expr><literal type="number">30</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">12</literal></expr></argument>, <argument><expr><literal type="number">12</literal></expr></argument>, <argument><expr><literal type="number">2000</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><name>s</name> <operator>=</operator> <operator>(</operator><name>Second</name><operator>)</operator> <call><name><name>s</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2000</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getYear</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">12</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getMonth</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">12</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getDayOfMonth</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">30</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getMinute</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">56</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getSecond</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name>s</name> <operator>=</operator> <operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">59</literal></expr></argument>, <argument><expr><literal type="number">59</literal></expr></argument>, <argument><expr><literal type="number">23</literal></expr></argument>, <argument><expr><literal type="number">31</literal></expr></argument>, <argument><expr><literal type="number">12</literal></expr></argument>, <argument><expr><literal type="number">9999</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>s</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * If a thread-local calendar was set, next() should use its time zone.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNextWithThreadLocalCalendar</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>Consumer</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>calendarSetup</name> <init>= <expr><lambda><parameter_list type="pseudo"><parameter><decl><name>hours</name></decl></parameter></parameter_list> -&gt;<block type="pseudo"><block_content> <expr><call><name><name>RegularTimePeriod</name><operator>.</operator><name>setThreadLocalCalendarInstance</name></name><argument_list>(
+                <argument><expr><call><name><name>Calendar</name><operator>.</operator><name>getInstance</name></name><argument_list>(<argument><expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><call><name><name>ZoneOffset</name><operator>.</operator><name>ofHours</name></name><argument_list>(<argument><expr><name>hours</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>
+        )</argument_list></call></expr></block_content></block></lambda></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>testNextWithCustomCalendar</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><name>calendarSetup</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>testNextWithCustomCalendar</name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><name>calendarSetup</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * If a calendar prototype was set, next() should use its time zone.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testNextWithCalendarPrototype</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>Consumer</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>calendarSetup</name> <init>= <expr><lambda><parameter_list type="pseudo"><parameter><decl><name>hours</name></decl></parameter></parameter_list> -&gt;<block type="pseudo"><block_content> <expr><call><name><name>RegularTimePeriod</name><operator>.</operator><name>setCalendarInstancePrototype</name></name><argument_list>(
+                <argument><expr><call><name><name>Calendar</name><operator>.</operator><name>getInstance</name></name><argument_list>(<argument><expr><call><name><name>TimeZone</name><operator>.</operator><name>getTimeZone</name></name><argument_list>(<argument><expr><call><name><name>ZoneOffset</name><operator>.</operator><name>ofHours</name></name><argument_list>(<argument><expr><name>hours</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>
+        )</argument_list></call></expr></block_content></block></lambda></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>testNextWithCustomCalendar</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><name>calendarSetup</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>testNextWithCustomCalendar</name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>, <argument><expr><name>calendarSetup</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <function><type><specifier>private</specifier> <name>void</name></type> <name>testNextWithCustomCalendar</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>hoursOffset</name></decl></parameter>, <parameter><decl><type><name><name>Consumer</name><argument_list type="generic">&lt;<argument><name>Integer</name></argument>&gt;</argument_list></name></type> <name>calendarSetup</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>calendarSetup</name><operator>.</operator><name>accept</name></name><argument_list>(<argument><expr><name>hoursOffset</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <decl_stmt><decl><type><name>Second</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Date</name><argument_list>(<argument><expr><literal type="number">0L</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><name>s</name> <operator>=</operator> <operator>(</operator><name>Second</name><operator>)</operator> <call><name><name>s</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1970</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getYear</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getMonth</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getDayOfMonth</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>hoursOffset</name></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHour</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getMinute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getMinute</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getSecond</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1000L</literal></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getFirstMillisecond</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block> <finally>finally <block>{<block_content>
+            <comment type="line">// reset everything, to avoid affecting other tests</comment>
+            <expr_stmt><expr><call><name><name>RegularTimePeriod</name><operator>.</operator><name>setThreadLocalCalendarInstance</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+            <expr_stmt><expr><call><name><name>RegularTimePeriod</name><operator>.</operator><name>setCalendarInstancePrototype</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></finally></try>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getStart() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetStart</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Locale</name></type> <name>saved</name> <init>= <expr><call><name><name>Locale</name><operator>.</operator><name>getDefault</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Locale</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name><name>Locale</name><operator>.</operator><name>ITALY</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Calendar</name></type> <name>cal</name> <init>= <expr><call><name><name>Calendar</name><operator>.</operator><name>getInstance</name></name><argument_list>(<argument><expr><name><name>Locale</name><operator>.</operator><name>ITALY</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>cal</name><operator>.</operator><name>set</name></name><argument_list>(<argument><expr><literal type="number">2006</literal></expr></argument>, <argument><expr><name><name>Calendar</name><operator>.</operator><name>JANUARY</name></name></expr></argument>, <argument><expr><literal type="number">16</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><literal type="number">47</literal></expr></argument>, <argument><expr><literal type="number">55</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>cal</name><operator>.</operator><name>set</name></name><argument_list>(<argument><expr><name><name>Calendar</name><operator>.</operator><name>MILLISECOND</name></name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">55</literal></expr></argument>, <argument><expr><literal type="number">47</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><literal type="number">16</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">2006</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>cal</name><operator>.</operator><name>getTime</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getStart</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Locale</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name>saved</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getEnd() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetEnd</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Locale</name></type> <name>saved</name> <init>= <expr><call><name><name>Locale</name><operator>.</operator><name>getDefault</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Locale</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name><name>Locale</name><operator>.</operator><name>ITALY</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Calendar</name></type> <name>cal</name> <init>= <expr><call><name><name>Calendar</name><operator>.</operator><name>getInstance</name></name><argument_list>(<argument><expr><name><name>Locale</name><operator>.</operator><name>ITALY</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>cal</name><operator>.</operator><name>set</name></name><argument_list>(<argument><expr><literal type="number">2006</literal></expr></argument>, <argument><expr><name><name>Calendar</name><operator>.</operator><name>JANUARY</name></name></expr></argument>, <argument><expr><literal type="number">16</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><literal type="number">47</literal></expr></argument>, <argument><expr><literal type="number">55</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>cal</name><operator>.</operator><name>set</name></name><argument_list>(<argument><expr><name><name>Calendar</name><operator>.</operator><name>MILLISECOND</name></name></expr></argument>, <argument><expr><literal type="number">999</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>Second</name></type> <name>s</name> <init>= <expr><operator>new</operator> <call><name>Second</name><argument_list>(<argument><expr><literal type="number">55</literal></expr></argument>, <argument><expr><literal type="number">47</literal></expr></argument>, <argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><literal type="number">16</literal></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">2006</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><call><name><name>cal</name><operator>.</operator><name>getTime</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>s</name><operator>.</operator><name>getEnd</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>Locale</name><operator>.</operator><name>setDefault</name></name><argument_list>(<argument><expr><name>saved</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

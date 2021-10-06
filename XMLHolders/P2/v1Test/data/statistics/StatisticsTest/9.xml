@@ -1,0 +1,15 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCorrelation1</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>Number</name><index>[]</index></name></type> <name>data1</name> <init>= <expr><operator>new</operator> <name><name>Number</name><index>[<expr><literal type="number">3</literal></expr>]</index></name></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">1.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data1</name><index>[<expr><literal type="number">2</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.0</literal></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name><name>Number</name><index>[]</index></name></type> <name>data2</name> <init>= <expr><operator>new</operator> <name><name>Number</name><index>[<expr><literal type="number">3</literal></expr>]</index></name></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <literal type="number">1.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">1</literal></expr>]</index></name> <operator>=</operator> <literal type="number">2.0</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>data2</name><index>[<expr><literal type="number">2</literal></expr>]</index></name> <operator>=</operator> <literal type="number">3.0</literal></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>double</name></type> <name>r</name> <init>= <expr><call><name><name>Statistics</name><operator>.</operator><name>getCorrelation</name></name><argument_list>(<argument><expr><name>data1</name></expr></argument>, <argument><expr><name>data2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1.0</literal></expr></argument>, <argument><expr><name>r</name></expr></argument>, <argument><expr><literal type="number">0.00000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

@@ -1,0 +1,10 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>test1932146</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>PeriodAxis</name></type> <name>axis</name> <init>= <expr><operator>new</operator> <call><name>PeriodAxis</name><argument_list>(<argument><expr><literal type="string">"TestAxis"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>axis</name><operator>.</operator><name>addChangeListener</name></name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>axis</name><operator>.</operator><name>setRange</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>DateRange</name><argument_list>(<argument><expr><literal type="number">0L</literal></expr></argument>, <argument><expr><literal type="number">1000L</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name><name>this</name><operator>.</operator><name>lastEvent</name></name> <operator>!=</operator> <literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

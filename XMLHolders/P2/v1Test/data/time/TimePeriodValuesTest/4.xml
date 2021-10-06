@@ -1,0 +1,50 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>TimePeriodValues</name></type> <name>s1</name> <init>= <expr><operator>new</operator> <call><name>TimePeriodValues</name><argument_list>(<argument><expr><literal type="string">"Time Series 1"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>TimePeriodValues</name></type> <name>s2</name> <init>= <expr><operator>new</operator> <call><name>TimePeriodValues</name><argument_list>(<argument><expr><literal type="string">"Time Series 2"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>b1</name> <init>= <expr><call><name><name>s1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><name>b1</name></expr></argument>, <argument><expr><literal type="string">"b1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>s2</name><operator>.</operator><name>setKey</name></name><argument_list>(<argument><expr><literal type="string">"Time Series 1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>b2</name> <init>= <expr><call><name><name>s1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>b2</name></expr></argument>, <argument><expr><literal type="string">"b2"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// domain description</comment>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>setDomainDescription</name></name><argument_list>(<argument><expr><literal type="string">"XYZ"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>s1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>s2</name><operator>.</operator><name>setDomainDescription</name></name><argument_list>(<argument><expr><literal type="string">"XYZ"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>s1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <comment type="line">// domain description - null</comment>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>setDomainDescription</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>s1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>s2</name><operator>.</operator><name>setDomainDescription</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>s1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <comment type="line">// range description</comment>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>setRangeDescription</name></name><argument_list>(<argument><expr><literal type="string">"XYZ"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>s1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>s2</name><operator>.</operator><name>setRangeDescription</name></name><argument_list>(<argument><expr><literal type="string">"XYZ"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>s1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        
+        <comment type="line">// range description - null</comment>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>setRangeDescription</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>s1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>s2</name><operator>.</operator><name>setRangeDescription</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>s1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>RegularTimePeriod</name></type> <name>p1</name> <init>= <expr><operator>new</operator> <call><name>Day</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>RegularTimePeriod</name></type> <name>p2</name> <init>= <expr><call><name><name>p1</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>p1</name></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>s1</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>, <argument><expr><literal type="number">200.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>b3</name> <init>= <expr><call><name><name>s1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><name>b3</name></expr></argument>, <argument><expr><literal type="string">"b3"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>s2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>p1</name></expr></argument>, <argument><expr><literal type="number">100.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>s2</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>p2</name></expr></argument>, <argument><expr><literal type="number">200.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>b4</name> <init>= <expr><call><name><name>s1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>s2</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>b4</name></expr></argument>, <argument><expr><literal type="string">"b4"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+    
+    </unit>

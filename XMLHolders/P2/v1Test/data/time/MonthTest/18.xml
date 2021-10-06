@@ -1,0 +1,38 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testParseMonth</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Month</name></type> <name>month</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// test 1...</comment>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><name>month</name> <operator>=</operator> <call><name><name>Month</name><operator>.</operator><name>parseMonth</name></name><argument_list>(<argument><expr><literal type="string">"1990-01"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>TimePeriodFormatException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>month</name> <operator>=</operator> <operator>new</operator> <call><name>Month</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1900</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>month</name><operator>.</operator><name>getMonth</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1990</literal></expr></argument>, <argument><expr><call><name><name>month</name><operator>.</operator><name>getYear</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getYear</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// test 2...</comment>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><name>month</name> <operator>=</operator> <call><name><name>Month</name><operator>.</operator><name>parseMonth</name></name><argument_list>(<argument><expr><literal type="string">"02-1991"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>TimePeriodFormatException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>month</name> <operator>=</operator> <operator>new</operator> <call><name>Month</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1900</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>month</name><operator>.</operator><name>getMonth</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1991</literal></expr></argument>, <argument><expr><call><name><name>month</name><operator>.</operator><name>getYear</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getYear</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// test 3...</comment>
+        <try>try <block>{<block_content>
+            <decl_stmt><decl><type><name>String</name></type> <name>monthName</name> <init>= <expr><call><name><name>SerialDate</name><operator>.</operator><name>DATE_FORMAT_SYMBOLS</name><operator>.</operator><name>getMonths</name></name><argument_list>()</argument_list></call><index>[<expr><literal type="number">2</literal></expr>]</index></expr></init></decl>;</decl_stmt>
+            <expr_stmt><expr><name>month</name> <operator>=</operator> <call><name><name>Month</name><operator>.</operator><name>parseMonth</name></name><argument_list>(<argument><expr><name>monthName</name> <operator>+</operator> <literal type="string">" 1993"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>TimePeriodFormatException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>month</name> <operator>=</operator> <operator>new</operator> <call><name>Month</name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="number">1900</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><call><name><name>month</name><operator>.</operator><name>getMonth</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">1993</literal></expr></argument>, <argument><expr><call><name><name>month</name><operator>.</operator><name>getYear</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getYear</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    </unit>

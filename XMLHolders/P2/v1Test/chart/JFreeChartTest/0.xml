@@ -1,0 +1,10 @@
+<unit><function><annotation>@<name>BeforeEach</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>setUp</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultPieDataset</name></type> <name>data</name> <init>= <expr><operator>new</operator> <call><name>DefaultPieDataset</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>data</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="string">"Java"</literal></expr></argument>, <argument><expr><literal type="number">43.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>data</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="string">"Visual Basic"</literal></expr></argument>, <argument><expr><literal type="number">0.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>data</name><operator>.</operator><name>setValue</name></name><argument_list>(<argument><expr><literal type="string">"C/C++"</literal></expr></argument>, <argument><expr><literal type="number">17.5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>pieChart</name></name> <operator>=</operator> <call><name><name>ChartFactory</name><operator>.</operator><name>createPieChart</name></name><argument_list>(<argument><expr><literal type="string">"Pie Chart"</literal></expr></argument>, <argument><expr><name>data</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

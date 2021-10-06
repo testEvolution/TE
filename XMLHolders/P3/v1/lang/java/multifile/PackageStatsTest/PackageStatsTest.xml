@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\multifile\PackageStatsTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>multifile</name></name>;</package>
+
+<import>import static <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ParserTstUtil</name><operator>.</operator><name>getOrderedNodes</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertFalse</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertNotNull</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertNull</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Assert</name><operator>.</operator><name>assertTrue</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Before</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>Test</name></name>;</import>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTFieldDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTMethodDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>ast</name><operator>.</operator><name>ASTMethodOrConstructorDeclaration</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>multifile</name><operator>.</operator><name>signature</name><operator>.</operator><name>JavaFieldSigMask</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>multifile</name><operator>.</operator><name>signature</name><operator>.</operator><name>JavaFieldSignature</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>multifile</name><operator>.</operator><name>signature</name><operator>.</operator><name>JavaOperationSigMask</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>multifile</name><operator>.</operator><name>signature</name><operator>.</operator><name>JavaOperationSignature</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>qname</name><operator>.</operator><name>JavaOperationQualifiedName</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>qname</name><operator>.</operator><name>JavaTypeQualifiedName</name></name>;</import>
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>qname</name><operator>.</operator><name>QualifiedNameFactory</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests functionality of PackageStats
+ *
+ * @author ClÃ©ment Fournier
+ */</comment>
+<class><specifier>public</specifier> class <name>PackageStatsTest</name> <block>{
+
+    <decl_stmt><decl><type><specifier>private</specifier> <name>PackageStats</name></type> <name>pack</name></decl>;</decl_stmt>
+
+
+    <function><annotation>@<name>Before</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>setUp</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name>pack</name> <operator>=</operator> <name><name>PackageStats</name><operator>.</operator><name>INSTANCE</name></name></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>pack</name><operator>.</operator><name>reset</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAddClass</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>JavaTypeQualifiedName</name></type> <name>qname</name> <init>= <expr><operator>(</operator><name>JavaTypeQualifiedName</name><operator>)</operator> <call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"org.foo.Boo"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertNull</name><argument_list>(<argument><expr><call><name><name>pack</name><operator>.</operator><name>getClassStats</name></name><argument_list>(<argument><expr><name>qname</name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><call><name><name>pack</name><operator>.</operator><name>getClassStats</name></name><argument_list>(<argument><expr><name>qname</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// now it's added, this shouldn't return null</comment>
+        <expr_stmt><expr><call><name>assertNotNull</name><argument_list>(<argument><expr><call><name><name>pack</name><operator>.</operator><name>getClassStats</name></name><argument_list>(<argument><expr><name>qname</name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAddOperation</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"package org.foo; class Boo{ "</literal>
+            <operator>+</operator> <literal type="string">"public void foo(){}}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>ASTMethodOrConstructorDeclaration</name></type> <name>node</name> <init>= <expr><call><name>getOrderedNodes</name><argument_list>(<argument><expr><name><name>ASTMethodDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>JavaOperationQualifiedName</name></type> <name>qname</name> <init>= <expr><call><name><name>node</name><operator>.</operator><name>getQualifiedName</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JavaOperationSignature</name></type> <name>signature</name> <init>= <expr><call><name><name>JavaOperationSignature</name><operator>.</operator><name>buildFor</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>pack</name><operator>.</operator><name>hasMatchingSig</name></name><argument_list>(<argument><expr><name>qname</name></expr></argument>, <argument><expr><operator>new</operator> <call><name>JavaOperationSigMask</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>ClassStats</name></type> <name>clazz</name> <init>= <expr><call><name><name>pack</name><operator>.</operator><name>getClassStats</name></name><argument_list>(<argument><expr><call><name><name>qname</name><operator>.</operator><name>getClassName</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>clazz</name><operator>.</operator><name>addOperation</name></name><argument_list>(<argument><expr><literal type="string">"foo()"</literal></expr></argument>, <argument><expr><name>signature</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>pack</name><operator>.</operator><name>hasMatchingSig</name></name><argument_list>(<argument><expr><name>qname</name></expr></argument>, <argument><expr><operator>new</operator> <call><name>JavaOperationSigMask</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testAddField</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>TEST</name> <init>= <expr><literal type="string">"package org.foo; class Boo{ "</literal>
+            <operator>+</operator> <literal type="string">"public String bar;}"</literal></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>ASTFieldDeclaration</name></type> <name>node</name> <init>= <expr><call><name>getOrderedNodes</name><argument_list>(<argument><expr><name><name>ASTFieldDeclaration</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name>TEST</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>get</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>JavaTypeQualifiedName</name></type> <name>qname</name> <init>= <expr><operator>(</operator><name>JavaTypeQualifiedName</name><operator>)</operator> <call><name><name>QualifiedNameFactory</name><operator>.</operator><name>ofString</name></name><argument_list>(<argument><expr><literal type="string">"org.foo.Boo"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>String</name></type> <name>fieldName</name> <init>= <expr><literal type="string">"bar"</literal></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>JavaFieldSignature</name></type> <name>signature</name> <init>= <expr><call><name><name>JavaFieldSignature</name><operator>.</operator><name>buildFor</name></name><argument_list>(<argument><expr><name>node</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>pack</name><operator>.</operator><name>hasMatchingSig</name></name><argument_list>(<argument><expr><name>qname</name></expr></argument>, <argument><expr><name>fieldName</name></expr></argument>, <argument><expr><operator>new</operator> <call><name>JavaFieldSigMask</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>ClassStats</name></type> <name>clazz</name> <init>= <expr><call><name><name>pack</name><operator>.</operator><name>getClassStats</name></name><argument_list>(<argument><expr><name>qname</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>clazz</name><operator>.</operator><name>addField</name></name><argument_list>(<argument><expr><name>fieldName</name></expr></argument>, <argument><expr><name>signature</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>pack</name><operator>.</operator><name>hasMatchingSig</name></name><argument_list>(<argument><expr><name>qname</name></expr></argument>, <argument><expr><name>fieldName</name></expr></argument>, <argument><expr><operator>new</operator> <call><name>JavaFieldSigMask</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+}</block></class>
+</unit>

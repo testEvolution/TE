@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\data\category\DefaultIntervalCategoryDatasetTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * ---------------------------------------
+ * DefaultIntervalCategoryDatasetTest.java
+ * ---------------------------------------
+ * (C) Copyright 2007-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 08-Mar-2007 : Version 1 (DG);
+ * 25-Feb-2008 : Added new tests to check behaviour of an empty dataset (DG);
+ * 11-Feb-2009 : Fixed locale-sensitive failures (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>category</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>TestUtils</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>DataUtils</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>data</name><operator>.</operator><name>UnknownKeyException</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link DefaultIntervalCategoryDataset} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>DefaultIntervalCategoryDatasetTest</name> <block>{
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getValue() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetValue</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S1</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.1</literal></expr>, <expr><literal type="number">0.2</literal></expr>, <expr><literal type="number">0.3</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S2</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.3</literal></expr>, <expr><literal type="number">0.4</literal></expr>, <expr><literal type="number">0.5</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S1</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.5</literal></expr>, <expr><literal type="number">0.6</literal></expr>, <expr><literal type="number">0.7</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S2</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.7</literal></expr>, <expr><literal type="number">0.8</literal></expr>, <expr><literal type="number">0.9</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>starts</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>starts_S1</name></expr>, <expr><name>starts_S2</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>ends</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>ends_S1</name></expr>, <expr><name>ends_S2</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>d</name> <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(
+                <argument><expr><operator>new</operator> <name><name>Comparable</name><index>[]</index></name> <block>{<expr><literal type="string">"Series 1"</literal></expr>, <expr><literal type="string">"Series 2"</literal></expr>}</block></expr></argument>,
+                <argument><expr><operator>new</operator> <name><name>Comparable</name><index>[]</index></name> <block>{<expr><literal type="string">"Category 1"</literal></expr>, <expr><literal type="string">"Category 2"</literal></expr>, <expr><literal type="string">"Category 3"</literal></expr>}</block></expr></argument>,
+                <argument><expr><call><name><name>DataUtils</name><operator>.</operator><name>createNumberArray2D</name></name><argument_list>(<argument><expr><name>starts</name></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><call><name><name>DataUtils</name><operator>.</operator><name>createNumberArray2D</name></name><argument_list>(<argument><expr><name>ends</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.1</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getStartValue</name></name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>, <argument><expr><literal type="string">"Category 1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.2</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getStartValue</name></name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>, <argument><expr><literal type="string">"Category 2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.3</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getStartValue</name></name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>, <argument><expr><literal type="string">"Category 3"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.3</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getStartValue</name></name><argument_list>(<argument><expr><literal type="string">"Series 2"</literal></expr></argument>, <argument><expr><literal type="string">"Category 1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.4</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getStartValue</name></name><argument_list>(<argument><expr><literal type="string">"Series 2"</literal></expr></argument>, <argument><expr><literal type="string">"Category 2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getStartValue</name></name><argument_list>(<argument><expr><literal type="string">"Series 2"</literal></expr></argument>, <argument><expr><literal type="string">"Category 3"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.5</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getEndValue</name></name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>, <argument><expr><literal type="string">"Category 1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.6</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getEndValue</name></name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>, <argument><expr><literal type="string">"Category 2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.7</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getEndValue</name></name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>, <argument><expr><literal type="string">"Category 3"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.7</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getEndValue</name></name><argument_list>(<argument><expr><literal type="string">"Series 2"</literal></expr></argument>, <argument><expr><literal type="string">"Category 1"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.8</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getEndValue</name></name><argument_list>(<argument><expr><literal type="string">"Series 2"</literal></expr></argument>, <argument><expr><literal type="string">"Category 2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0.9</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getEndValue</name></name><argument_list>(<argument><expr><literal type="string">"Series 2"</literal></expr></argument>, <argument><expr><literal type="string">"Category 3"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>d</name><operator>.</operator><name>getValue</name></name><argument_list>(<argument><expr><literal type="string">"XX"</literal></expr></argument>, <argument><expr><literal type="string">"Category 1"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>UnknownKeyException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">false</literal></expr>;</expr_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>d</name><operator>.</operator><name>getValue</name></name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>, <argument><expr><literal type="string">"XX"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>UnknownKeyException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <comment type="block" format="javadoc">/**
+     * Some tests for the getRowCount() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetRowAndColumnCount</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S1</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.1</literal></expr>, <expr><literal type="number">0.2</literal></expr>, <expr><literal type="number">0.3</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S2</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.3</literal></expr>, <expr><literal type="number">0.4</literal></expr>, <expr><literal type="number">0.5</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S1</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.5</literal></expr>, <expr><literal type="number">0.6</literal></expr>, <expr><literal type="number">0.7</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S2</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.7</literal></expr>, <expr><literal type="number">0.8</literal></expr>, <expr><literal type="number">0.9</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>starts</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>starts_S1</name></expr>, <expr><name>starts_S2</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>ends</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>ends_S1</name></expr>, <expr><name>ends_S2</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>d</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><name>starts</name></expr></argument>, <argument><expr><name>ends</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getRowCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">3</literal></expr></argument>, <argument><expr><call><name><name>d</name><operator>.</operator><name>getColumnCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that the equals method can distinguish all the required fields.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S1A</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.1</literal></expr>, <expr><literal type="number">0.2</literal></expr>, <expr><literal type="number">0.3</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S2A</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.3</literal></expr>, <expr><literal type="number">0.4</literal></expr>, <expr><literal type="number">0.5</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S1A</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.5</literal></expr>, <expr><literal type="number">0.6</literal></expr>, <expr><literal type="number">0.7</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S2A</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.7</literal></expr>, <expr><literal type="number">0.8</literal></expr>, <expr><literal type="number">0.9</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>startsA</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>starts_S1A</name></expr>, <expr><name>starts_S2A</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>endsA</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>ends_S1A</name></expr>, <expr><name>ends_S2A</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>dA</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><name>startsA</name></expr></argument>, <argument><expr><name>endsA</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S1B</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.1</literal></expr>, <expr><literal type="number">0.2</literal></expr>, <expr><literal type="number">0.3</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S2B</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.3</literal></expr>, <expr><literal type="number">0.4</literal></expr>, <expr><literal type="number">0.5</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S1B</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.5</literal></expr>, <expr><literal type="number">0.6</literal></expr>, <expr><literal type="number">0.7</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S2B</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.7</literal></expr>, <expr><literal type="number">0.8</literal></expr>, <expr><literal type="number">0.9</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>startsB</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>starts_S1B</name></expr>, <expr><name>starts_S2B</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>endsB</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>ends_S1B</name></expr>, <expr><name>ends_S2B</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>dB</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><name>startsB</name></expr></argument>, <argument><expr><name>endsB</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>dA</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>dB</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>dB</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>dA</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check that two empty datasets are equal</comment>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>empty1</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>,
+                        <argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>empty2</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>,
+                        <argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>empty1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>empty2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Serialize an instance, restore it, and check for equality.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSerialization</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S1</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.1</literal></expr>, <expr><literal type="number">0.2</literal></expr>, <expr><literal type="number">0.3</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S2</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.3</literal></expr>, <expr><literal type="number">0.4</literal></expr>, <expr><literal type="number">0.5</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S1</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.5</literal></expr>, <expr><literal type="number">0.6</literal></expr>, <expr><literal type="number">0.7</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S2</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.7</literal></expr>, <expr><literal type="number">0.8</literal></expr>, <expr><literal type="number">0.9</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>starts</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>starts_S1</name></expr>, <expr><name>starts_S2</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>ends</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>ends_S1</name></expr>, <expr><name>ends_S2</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>d1</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><name>starts</name></expr></argument>, <argument><expr><name>ends</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>d2</name> <init>= <expr><operator>(</operator><name>DefaultIntervalCategoryDataset</name><operator>)</operator> 
+                <call><name><name>TestUtils</name><operator>.</operator><name>serialised</name></name><argument_list>(<argument><expr><name>d1</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><name>d1</name></expr></argument>, <argument><expr><name>d2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Confirm that cloning works.
+     * @throws java.lang.CloneNotSupportedException
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S1</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.1</literal></expr>, <expr><literal type="number">0.2</literal></expr>, <expr><literal type="number">0.3</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S2</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.3</literal></expr>, <expr><literal type="number">0.4</literal></expr>, <expr><literal type="number">0.5</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S1</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.5</literal></expr>, <expr><literal type="number">0.6</literal></expr>, <expr><literal type="number">0.7</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S2</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.7</literal></expr>, <expr><literal type="number">0.8</literal></expr>, <expr><literal type="number">0.9</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>starts</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>starts_S1</name></expr>, <expr><name>starts_S2</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>ends</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>ends_S1</name></expr>, <expr><name>ends_S2</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>d1</name> <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(
+                <argument><expr><operator>new</operator> <name><name>Comparable</name><index>[]</index></name> <block>{<expr><literal type="string">"Series 1"</literal></expr>, <expr><literal type="string">"Series 2"</literal></expr>}</block></expr></argument>,
+                <argument><expr><operator>new</operator> <name><name>Comparable</name><index>[]</index></name> <block>{<expr><literal type="string">"Category 1"</literal></expr>, <expr><literal type="string">"Category 2"</literal></expr>, <expr><literal type="string">"Category 3"</literal></expr>}</block></expr></argument>,
+                <argument><expr><call><name><name>DataUtils</name><operator>.</operator><name>createNumberArray2D</name></name><argument_list>(<argument><expr><name>starts</name></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><call><name><name>DataUtils</name><operator>.</operator><name>createNumberArray2D</name></name><argument_list>(<argument><expr><name>ends</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>d2</name> <init>= 
+                <expr><operator>(</operator><name>DefaultIntervalCategoryDataset</name><operator>)</operator> <call><name><name>d1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>d1</name> <operator>!=</operator> <name>d2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>d2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>d2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <comment type="line">// check that the clone doesn't share the same underlying arrays.</comment>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>setStartValue</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="string">"Category 1"</literal></expr></argument>, <argument><expr><literal type="number">0.99</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertFalse</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>d2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>d2</name><operator>.</operator><name>setStartValue</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="string">"Category 1"</literal></expr></argument>, <argument><expr><literal type="number">0.99</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>d2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * A check to ensure that an empty dataset can be cloned.
+     * @throws java.lang.CloneNotSupportedException
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testCloning2</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>CloneNotSupportedException</name></expr></argument></throws> <block>{<block_content>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>d1</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>,
+                    <argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>d2</name> <init>= 
+                <expr><operator>(</operator><name>DefaultIntervalCategoryDataset</name><operator>)</operator> <call><name><name>d1</name><operator>.</operator><name>clone</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>d1</name> <operator>!=</operator> <name>d2</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call> <operator>==</operator> <call><name><name>d2</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>d1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>d2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some basic checks for the setStartValue() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSetStartValue</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S1</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.1</literal></expr>, <expr><literal type="number">0.2</literal></expr>, <expr><literal type="number">0.3</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S2</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.3</literal></expr>, <expr><literal type="number">0.4</literal></expr>, <expr><literal type="number">0.5</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S1</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.5</literal></expr>, <expr><literal type="number">0.6</literal></expr>, <expr><literal type="number">0.7</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S2</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.7</literal></expr>, <expr><literal type="number">0.8</literal></expr>, <expr><literal type="number">0.9</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>starts</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>starts_S1</name></expr>, <expr><name>starts_S2</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>ends</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>ends_S1</name></expr>, <expr><name>ends_S2</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>d1</name> <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(
+                <argument><expr><operator>new</operator> <name><name>Comparable</name><index>[]</index></name> <block>{<expr><literal type="string">"Series 1"</literal></expr>, <expr><literal type="string">"Series 2"</literal></expr>}</block></expr></argument>,
+                <argument><expr><operator>new</operator> <name><name>Comparable</name><index>[]</index></name> <block>{<expr><literal type="string">"Category 1"</literal></expr>, <expr><literal type="string">"Category 2"</literal></expr>, <expr><literal type="string">"Category 3"</literal></expr>}</block></expr></argument>,
+                <argument><expr><call><name><name>DataUtils</name><operator>.</operator><name>createNumberArray2D</name></name><argument_list>(<argument><expr><name>starts</name></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><call><name><name>DataUtils</name><operator>.</operator><name>createNumberArray2D</name></name><argument_list>(<argument><expr><name>ends</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>setStartValue</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="string">"Category 2"</literal></expr></argument>, <argument><expr><literal type="number">99.9</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">99.9</literal></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getStartValue</name></name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>, <argument><expr><literal type="string">"Category 2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>setStartValue</name></name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="string">"Category 2"</literal></expr></argument>, <argument><expr><literal type="number">99.9</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">false</literal></expr>;</expr_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>setStartValue</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="string">"Category 2"</literal></expr></argument>, <argument><expr><literal type="number">99.9</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some basic checks for the setEndValue() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSetEndValue</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S1</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.1</literal></expr>, <expr><literal type="number">0.2</literal></expr>, <expr><literal type="number">0.3</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S2</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.3</literal></expr>, <expr><literal type="number">0.4</literal></expr>, <expr><literal type="number">0.5</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S1</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.5</literal></expr>, <expr><literal type="number">0.6</literal></expr>, <expr><literal type="number">0.7</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S2</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.7</literal></expr>, <expr><literal type="number">0.8</literal></expr>, <expr><literal type="number">0.9</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>starts</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>starts_S1</name></expr>, <expr><name>starts_S2</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>ends</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>ends_S1</name></expr>, <expr><name>ends_S2</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>d1</name> <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(
+                <argument><expr><operator>new</operator> <name><name>Comparable</name><index>[]</index></name> <block>{<expr><literal type="string">"Series 1"</literal></expr>, <expr><literal type="string">"Series 2"</literal></expr>}</block></expr></argument>,
+                <argument><expr><operator>new</operator> <name><name>Comparable</name><index>[]</index></name> <block>{<expr><literal type="string">"Category 1"</literal></expr>, <expr><literal type="string">"Category 2"</literal></expr>, <expr><literal type="string">"Category 3"</literal></expr>}</block></expr></argument>,
+                <argument><expr><call><name><name>DataUtils</name><operator>.</operator><name>createNumberArray2D</name></name><argument_list>(<argument><expr><name>starts</name></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><call><name><name>DataUtils</name><operator>.</operator><name>createNumberArray2D</name></name><argument_list>(<argument><expr><name>ends</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>setEndValue</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="string">"Category 2"</literal></expr></argument>, <argument><expr><literal type="number">99.9</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">99.9</literal></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getEndValue</name></name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>, <argument><expr><literal type="string">"Category 2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>setEndValue</name></name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="string">"Category 2"</literal></expr></argument>, <argument><expr><literal type="number">99.9</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">false</literal></expr>;</expr_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>setEndValue</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="string">"Category 2"</literal></expr></argument>, <argument><expr><literal type="number">99.9</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getSeriesCount() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSeriesCount</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// check an empty dataset</comment>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>empty</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>,
+                        <argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>empty</name><operator>.</operator><name>getSeriesCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getCategoryCount() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetCategoryCount</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// check an empty dataset</comment>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>empty</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>,
+                        <argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>empty</name><operator>.</operator><name>getCategoryCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getSeriesIndex() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetSeriesIndex</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// check an empty dataset</comment>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>empty</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>,
+                        <argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>empty</name><operator>.</operator><name>getSeriesIndex</name></name><argument_list>(<argument><expr><literal type="string">"ABC"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getRowIndex() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetRowIndex</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// check an empty dataset</comment>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>empty</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>,
+                        <argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>empty</name><operator>.</operator><name>getRowIndex</name></name><argument_list>(<argument><expr><literal type="string">"ABC"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the setSeriesKeys() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSetSeriesKeys</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// check an empty dataset</comment>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>empty</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>,
+                        <argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">true</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>empty</name><operator>.</operator><name>setSeriesKeys</name></name><argument_list>(<argument><expr><operator>new</operator> <name><name>String</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>RuntimeException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">false</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getCategoryIndex() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetCategoryIndex</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// check an empty dataset</comment>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>empty</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>,
+                        <argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>empty</name><operator>.</operator><name>getCategoryIndex</name></name><argument_list>(<argument><expr><literal type="string">"ABC"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getColumnIndex() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetColumnIndex</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// check an empty dataset</comment>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>empty</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>,
+                        <argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>, <argument><expr><call><name><name>empty</name><operator>.</operator><name>getColumnIndex</name></name><argument_list>(<argument><expr><literal type="string">"ABC"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the setCategoryKeys() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSetCategoryKeys</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// check an empty dataset</comment>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>empty</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>,
+                        <argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">true</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>empty</name><operator>.</operator><name>setCategoryKeys</name></name><argument_list>(<argument><expr><operator>new</operator> <name><name>String</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>RuntimeException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">false</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getColumnKeys() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetColumnKeys</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// check an empty dataset</comment>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>empty</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>,
+                        <argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>keys</name> <init>= <expr><call><name><name>empty</name><operator>.</operator><name>getColumnKeys</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>keys</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getRowKeys() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetRowKeys</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// check an empty dataset</comment>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>empty</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>,
+                        <argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>List</name><argument_list type="generic">&lt;<argument><name>?</name></argument>&gt;</argument_list></name></type> <name>keys</name> <init>= <expr><call><name><name>empty</name><operator>.</operator><name>getRowKeys</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>keys</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getColumnCount() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetColumnCount</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// check an empty dataset</comment>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>empty</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>,
+                        <argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>empty</name><operator>.</operator><name>getColumnCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    <comment type="block" format="javadoc">/**
+     * Some checks for the getRowCount() method.
+     */</comment>
+    <function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testGetRowCount</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <comment type="line">// check an empty dataset</comment>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>empty</name>
+                <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(<argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>,
+                        <argument><expr><operator>new</operator> <name><name>double</name><index>[<expr><literal type="number">0</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><call><name><name>empty</name><operator>.</operator><name>getColumnCount</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+}</block></class>
+</unit>

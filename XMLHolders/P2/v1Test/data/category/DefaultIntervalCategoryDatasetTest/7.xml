@@ -1,0 +1,36 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testSetEndValue</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S1</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.1</literal></expr>, <expr><literal type="number">0.2</literal></expr>, <expr><literal type="number">0.3</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>starts_S2</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.3</literal></expr>, <expr><literal type="number">0.4</literal></expr>, <expr><literal type="number">0.5</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S1</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.5</literal></expr>, <expr><literal type="number">0.6</literal></expr>, <expr><literal type="number">0.7</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>ends_S2</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index></name> <block>{<expr><literal type="number">0.7</literal></expr>, <expr><literal type="number">0.8</literal></expr>, <expr><literal type="number">0.9</literal></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>starts</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>starts_S1</name></expr>, <expr><name>starts_S2</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>ends</name> <init>= <expr><operator>new</operator> <name><name>double</name><index>[]</index><index>[]</index></name> <block>{<expr><name>ends_S1</name></expr>, <expr><name>ends_S2</name></expr>}</block></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>DefaultIntervalCategoryDataset</name></type> <name>d1</name> <init>= <expr><operator>new</operator> <call><name>DefaultIntervalCategoryDataset</name><argument_list>(
+                <argument><expr><operator>new</operator> <name><name>Comparable</name><index>[]</index></name> <block>{<expr><literal type="string">"Series 1"</literal></expr>, <expr><literal type="string">"Series 2"</literal></expr>}</block></expr></argument>,
+                <argument><expr><operator>new</operator> <name><name>Comparable</name><index>[]</index></name> <block>{<expr><literal type="string">"Category 1"</literal></expr>, <expr><literal type="string">"Category 2"</literal></expr>, <expr><literal type="string">"Category 3"</literal></expr>}</block></expr></argument>,
+                <argument><expr><call><name><name>DataUtils</name><operator>.</operator><name>createNumberArray2D</name></name><argument_list>(<argument><expr><name>starts</name></expr></argument>)</argument_list></call></expr></argument>,
+                <argument><expr><call><name><name>DataUtils</name><operator>.</operator><name>createNumberArray2D</name></name><argument_list>(<argument><expr><name>ends</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>setEndValue</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><literal type="string">"Category 2"</literal></expr></argument>, <argument><expr><literal type="number">99.9</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">99.9</literal></expr></argument>, <argument><expr><call><name><name>d1</name><operator>.</operator><name>getEndValue</name></name><argument_list>(<argument><expr><literal type="string">"Series 1"</literal></expr></argument>, <argument><expr><literal type="string">"Category 2"</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>boolean</name></type> <name>pass</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>setEndValue</name></name><argument_list>(<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="string">"Category 2"</literal></expr></argument>, <argument><expr><literal type="number">99.9</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">false</literal></expr>;</expr_stmt>
+        <try>try <block>{<block_content>
+            <expr_stmt><expr><call><name><name>d1</name><operator>.</operator><name>setEndValue</name></name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="string">"Category 2"</literal></expr></argument>, <argument><expr><literal type="number">99.9</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block>
+        <catch>catch <parameter_list>(<parameter><decl><type><name>IllegalArgumentException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><name>pass</name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+        </block_content>}</block></catch></try>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><name>pass</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

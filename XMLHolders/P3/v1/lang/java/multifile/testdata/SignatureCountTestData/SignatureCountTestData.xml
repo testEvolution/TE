@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\multifile\testdata\SignatureCountTestData.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>multifile</name><operator>.</operator><name>testdata</name></name>;</package>
+
+<import>import <name><name>org</name><operator>.</operator><name>apache</name><operator>.</operator><name>commons</name><operator>.</operator><name>lang3</name><operator>.</operator><name>StringUtils</name></name>;</import>
+
+<comment type="line">// Fields:</comment>
+<comment type="line">// 2 private static final</comment>
+<comment type="line">// 3 public</comment>
+<comment type="line">// 1 protected</comment>
+
+<comment type="line">// Constructors:</comment>
+<comment type="line">// 3 public</comment>
+
+<comment type="line">// Getters/ Setters:</comment>
+<comment type="line">// 4 public</comment>
+<comment type="line">// 4 package</comment>
+
+<comment type="line">// Static:</comment>
+<comment type="line">// 2 private</comment>
+<comment type="line">// 2 public</comment>
+
+<comment type="line">// Methods:</comment>
+<comment type="line">// 1 public</comment>
+<comment type="line">// 1 private</comment>
+<comment type="line">// 2 protected</comment>
+<comment type="line">// 2 protected final</comment>
+<class><specifier>public</specifier> <specifier>abstract</specifier> class <name>SignatureCountTestData</name> <block>{
+
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>int</name></type> <name>MAX_X</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>private</specifier> <specifier>static</specifier> <specifier>final</specifier> <name>int</name></type> <name>MIN_X</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>public</specifier> <name>int</name></type> <name>x</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>public</specifier> <name>int</name></type> <name>y</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>public</specifier> <name>int</name></type> <name>z</name></decl>;</decl_stmt>
+    <decl_stmt><decl><type><specifier>protected</specifier> <name>int</name></type> <name>t</name></decl>;</decl_stmt>
+
+
+    <constructor><specifier>public</specifier> <name>SignatureCountTestData</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>x</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>y</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>z</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>t</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>x</name></name> <operator>=</operator> <name>x</name></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>y</name></name> <operator>=</operator> <name>y</name></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>z</name></name> <operator>=</operator> <name>z</name></expr>;</expr_stmt>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>t</name></name> <operator>=</operator> <name>t</name></expr>;</expr_stmt>
+    </block_content>}</block></constructor>
+
+
+    <constructor><specifier>public</specifier> <name>SignatureCountTestData</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>x</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>y</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>z</name></decl></parameter>)</parameter_list> <block>{<block_content/>}</block></constructor>
+
+
+    <constructor><specifier>public</specifier> <name>SignatureCountTestData</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>x</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>y</name></decl></parameter>)</parameter_list> <block>{<block_content/>}</block></constructor>
+
+
+    <function><type><specifier>public</specifier> <name>int</name></type> <name>getX</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><name>x</name></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function><type><name>void</name></type> <name>setX</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>x</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>x</name></name> <operator>=</operator> <name>x</name></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><type><specifier>public</specifier> <name>int</name></type> <name>getY</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><name>y</name></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function><type><name>void</name></type> <name>setY</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>y</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>y</name></name> <operator>=</operator> <name>y</name></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><type><specifier>public</specifier> <name>int</name></type> <name>getZ</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><name>z</name></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function><type><name>void</name></type> <name>setZ</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>z</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>z</name></name> <operator>=</operator> <name>z</name></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><type><specifier>public</specifier> <name>int</name></type> <name>getT</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <return>return <expr><name>t</name></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function><type><name>void</name></type> <name>setT</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>t</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>t</name></name> <operator>=</operator> <name>t</name></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+
+    <function><type><specifier>public</specifier> <name>boolean</name></type> <name>isNotEmpty</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>value</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><operator>!</operator><call><name>isEmpty</name><argument_list>(<argument><expr><name>value</name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function><type><specifier>private</specifier> <name>boolean</name></type> <name>isEmpty</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>value</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><call><name><name>StringUtils</name><operator>.</operator><name>isBlank</name></name><argument_list>(<argument><expr><name>value</name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function><type><specifier>protected</specifier> <name>boolean</name></type> <name>isMissing</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>value</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><call><name><name>StringUtils</name><operator>.</operator><name>isEmpty</name></name><argument_list>(<argument><expr><name>value</name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function><type><specifier>protected</specifier> <name>boolean</name></type> <name>areSemanticEquals</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>a</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>b</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><call><name><name>a</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>b</name></expr></argument>)</argument_list></call></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function_decl><type><specifier>protected</specifier> <specifier>abstract</specifier> <name>String</name></type> <name>replaceString</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>original</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>oldString</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>newString</name></decl></parameter>)</parameter_list>;</function_decl>
+
+
+    <function_decl><annotation>@<name>Deprecated</name></annotation>
+    <type><specifier>protected</specifier> <specifier>abstract</specifier> <name>void</name></type> <name>appendXmlEscaped</name><parameter_list>(<parameter><decl><type><name>StringBuilder</name></type> <name>buf</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>src</name></decl></parameter>)</parameter_list>;</function_decl>
+
+
+    <function><type><specifier>public</specifier> <specifier>static</specifier> <name>boolean</name></type> <name>startsWithAny</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>text</name></decl></parameter>, <parameter><decl><type><name>String</name><modifier>...</modifier></type> <name>prefixes</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function><type><specifier>public</specifier> <specifier>static</specifier> <name>boolean</name></type> <name>isAnyOf</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>text</name></decl></parameter>, <parameter><decl><type><name>String</name><modifier>...</modifier></type> <name>tests</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><literal type="boolean">false</literal></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function><type><specifier>private</specifier> <specifier>static</specifier> <name>String</name></type> <name>withoutPrefixes</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>text</name></decl></parameter>, <parameter><decl><type><name>String</name><modifier>...</modifier></type> <name>prefixes</name></decl></parameter>)</parameter_list> <block>{<block_content>
+        <return>return <expr><name>text</name></expr>;</return>
+    </block_content>}</block></function>
+
+
+    <function><type><specifier>private</specifier> <specifier>static</specifier> <name>void</name></type> <name>appendXmlEscaped</name><parameter_list>(<parameter><decl><type><name>StringBuilder</name></type> <name>buf</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>src</name></decl></parameter>, <parameter><decl><type><name>boolean</name></type> <name>supportUTF8</name></decl></parameter>)</parameter_list> <block>{<block_content>
+    </block_content>}</block></function>
+
+
+}</block></class>
+</unit>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\pmd-pmd_releases-6.20.0\pmd-pmd_releases-6.20.0\pmd-java\src\test\java\net\sourceforge\pmd\lang\java\rule\codestyle\UnnecessaryFullyQualifiedNameTest.java"><comment type="block" format="javadoc">/**
+ * BSD-style license; for more info see http://pmd.sourceforge.net/license.html
+ */</comment>
+
+<package>package <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>lang</name><operator>.</operator><name>java</name><operator>.</operator><name>rule</name><operator>.</operator><name>codestyle</name></name>;</package>
+
+<import>import <name><name>net</name><operator>.</operator><name>sourceforge</name><operator>.</operator><name>pmd</name><operator>.</operator><name>testframework</name><operator>.</operator><name>PmdRuleTst</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>UnnecessaryFullyQualifiedNameTest</name> <super_list><extends>extends <super><name>PmdRuleTst</name></super></extends></super_list> <block>{
+    <comment type="line">// Do not delete these two enums - it is needed for a test case</comment>
+    <comment type="line">// see:</comment>
+    <comment type="line">// /pmd-java/src/test/resources/net/sourceforge/pmd/lang/java/rule/codestyle/xml/UnnecessaryFullyQualifiedName.xml</comment>
+    <comment type="line">// #1436 UnnecessaryFullyQualifiedName false positive on clashing static</comment>
+    <comment type="line">// imports with enums</comment>
+    <enum><specifier>public</specifier> enum <name>ENUM1</name> <block>{
+        <decl><name>A</name></decl>, <decl><name>B</name></decl>;
+    }</block></enum>
+
+    <enum><specifier>public</specifier> enum <name>ENUM2</name> <block>{
+        <decl><name>C</name></decl>, <decl><name>D</name></decl>;
+    }</block></enum>
+
+    <comment type="line">// Do not delete these two classes - it is needed for a test case</comment>
+    <comment type="line">// see: /pmd-java/src/test/resources/net/sourceforge/pmd/lang/java/rule/codestyle/xml/UnnecessaryFullyQualifiedName.xml</comment>
+    <comment type="line">// #1546 part 1 UnnecessaryFullyQualifiedName doesn't take into consideration conflict resolution</comment>
+    <comment type="line">// #1546 part 2 UnnecessaryFullyQualifiedName doesn't take into consideration conflict resolution</comment>
+    <class><specifier>public</specifier> <specifier>static</specifier> class <name>PhonyMockito</name> <block>{
+        <function><type><specifier>public</specifier> <specifier>static</specifier> <parameter_list type="generic">&lt;<parameter><name>T</name></parameter>&gt;</parameter_list> <name>T</name></type> <name>mock</name><parameter_list>(<parameter><decl><type><name><name>Class</name><argument_list type="generic">&lt;<argument><name>T</name></argument>&gt;</argument_list></name></type> <name>clazz</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <return>return <expr><literal type="null">null</literal></expr>;</return>
+        </block_content>}</block></function>
+    }</block></class>
+
+    <class><specifier>public</specifier> <specifier>static</specifier> class <name>PhonyPowerMockito</name> <block>{
+        <function><type><specifier>public</specifier> <specifier>static</specifier> <parameter_list type="generic">&lt;<parameter><name>T</name></parameter>&gt;</parameter_list> <name>T</name></type> <name>mock</name><parameter_list>(<parameter><decl><type><name><name>Class</name><argument_list type="generic">&lt;<argument><name>T</name></argument>&gt;</argument_list></name></type> <name>clazz</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <return>return <expr><literal type="null">null</literal></expr>;</return>
+        </block_content>}</block></function>
+    }</block></class>
+}</block></class>
+</unit>

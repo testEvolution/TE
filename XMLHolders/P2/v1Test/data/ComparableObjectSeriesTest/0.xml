@@ -1,0 +1,6 @@
+<unit><function><annotation>@<name>Override</name></annotation>
+        <type><specifier>public</specifier> <name>void</name></type> <name>add</name><parameter_list>(<parameter><decl><type><name>Comparable</name></type> <name>x</name></decl></parameter>, <parameter><decl><type><name>Object</name></type> <name>y</name></decl></parameter>)</parameter_list> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>super</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>x</name></expr></argument>, <argument><expr><name>y</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></function>
+
+        </unit>

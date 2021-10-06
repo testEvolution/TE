@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="1.0.0" language="Java" filename="H:\Research\TestEvolution\DataAnalysis\jfreechart-1.5.2\jfreechart-1.5.2\src\test\java\org\jfree\chart\annotations\XYImageAnnotationTest.java"><comment type="block">/* ===========================================================
+ * JFreeChart : a free chart library for the Java(tm) platform
+ * ===========================================================
+ *
+ * (C) Copyright 2000-2020, by Object Refinery Limited and Contributors.
+ *
+ * Project Info:  http://www.jfree.org/jfreechart/index.html
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
+ *
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * Other names may be trademarks of their respective owners.]
+ *
+ * --------------------------
+ * XYImageAnnotationTest.java
+ * --------------------------
+ * (C) Copyright 2004-2020, by Object Refinery Limited and Contributors.
+ *
+ * Original Author:  David Gilbert (for Object Refinery Limited);
+ * Contributor(s):   -;
+ *
+ * Changes
+ * -------
+ * 17-May-2004 : Version 1 (DG);
+ * 01-Dec-2006 : Updated testEquals() for new field (DG);
+ * 09-Jan-2007 : Comment out failing test (DG);
+ * 23-Apr-2008 : Added testPublicCloneable() (DG);
+ *
+ */</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>annotations</name></name>;</package>
+
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertEquals</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertTrue</name></name>;</import>
+<import>import static <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Assertions</name><operator>.</operator><name>assertFalse</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>awt</name><operator>.</operator><name>Image</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>JFreeChart</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>ui</name><operator>.</operator><name>RectangleAnchor</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>jfree</name><operator>.</operator><name>chart</name><operator>.</operator><name>util</name><operator>.</operator><name>PublicCloneable</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>junit</name><operator>.</operator><name>jupiter</name><operator>.</operator><name>api</name><operator>.</operator><name>Test</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Tests for the {@link XYImageAnnotation} class.
+ */</comment>
+<class><specifier>public</specifier> class <name>XYImageAnnotationTest</name> <block>{
+
+<comment type="line">//    /**</comment>
+<comment type="line">//     * Confirm that the equals method can distinguish all the required fields.</comment>
+<comment type="line">//     */</comment>
+<comment type="line">//    @Test</comment>
+<comment type="line">//    public void testEquals() {</comment>
+<comment type="line">//        Image image = JFreeChart.INFO.getLogo();</comment>
+<comment type="line">//        XYImageAnnotation a1 = new XYImageAnnotation(10.0, 20.0, image);</comment>
+<comment type="line">//        XYImageAnnotation a2 = new XYImageAnnotation(10.0, 20.0, image);</comment>
+<comment type="line">//        assertTrue(a1.equals(a2));</comment>
+<comment type="line">//</comment>
+<comment type="line">//        a1 = new XYImageAnnotation(10.0, 20.0, image, RectangleAnchor.LEFT);</comment>
+<comment type="line">//        assertFalse(a1.equals(a2));</comment>
+<comment type="line">//        a2 = new XYImageAnnotation(10.0, 20.0, image, RectangleAnchor.LEFT);</comment>
+<comment type="line">//        assertTrue(a1.equals(a2));</comment>
+<comment type="line">//    }</comment>
+
+<comment type="line">//    /**</comment>
+<comment type="line">//     * Two objects that are equal are required to return the same hashCode.</comment>
+<comment type="line">//     */</comment>
+<comment type="line">//    @Test</comment>
+<comment type="line">//    public void testHashCode() {</comment>
+<comment type="line">//        Image image = JFreeChart.INFO.getLogo();</comment>
+<comment type="line">//        XYImageAnnotation a1 = new XYImageAnnotation(10.0, 20.0, image);</comment>
+<comment type="line">//        XYImageAnnotation a2 = new XYImageAnnotation(10.0, 20.0, image);</comment>
+<comment type="line">//        assertTrue(a1.equals(a2));</comment>
+<comment type="line">//        int h1 = a1.hashCode();</comment>
+<comment type="line">//        int h2 = a2.hashCode();</comment>
+<comment type="line">//        assertEquals(h1, h2);</comment>
+<comment type="line">//    }</comment>
+
+<comment type="line">//    /**</comment>
+<comment type="line">//     * Confirm that cloning works.</comment>
+<comment type="line">//     */</comment>
+<comment type="line">//    @Test</comment>
+<comment type="line">//    public void testCloning() throws CloneNotSupportedException {</comment>
+<comment type="line">//        XYImageAnnotation a1 = new XYImageAnnotation(10.0, 20.0,</comment>
+<comment type="line">//                JFreeChart.INFO.getLogo());</comment>
+<comment type="line">//        XYImageAnnotation a2 = (XYImageAnnotation) a1.clone();</comment>
+<comment type="line">//        assertTrue(a1 != a2);</comment>
+<comment type="line">//        assertTrue(a1.getClass() == a2.getClass());</comment>
+<comment type="line">//        assertTrue(a1.equals(a2));</comment>
+<comment type="line">//    }</comment>
+
+<comment type="line">//    /**</comment>
+<comment type="line">//     * Checks that this class implements PublicCloneable.</comment>
+<comment type="line">//     */</comment>
+<comment type="line">//    @Test</comment>
+<comment type="line">//    public void testPublicCloneable() {</comment>
+<comment type="line">//        XYImageAnnotation a1 = new XYImageAnnotation(10.0, 20.0,</comment>
+<comment type="line">//                JFreeChart.INFO.getLogo());</comment>
+<comment type="line">//        assertTrue(a1 instanceof PublicCloneable);</comment>
+<comment type="line">//    }</comment>
+
+<comment type="line">// FIXME: Make this test pass</comment>
+<comment type="line">//    /**</comment>
+<comment type="line">//     * Serialize an instance, restore it, and check for equality.</comment>
+<comment type="line">//     */</comment>
+<comment type="line">//    public void testSerialization() {</comment>
+<comment type="line">//        XYImageAnnotation a1 = new XYImageAnnotation(10.0, 20.0,</comment>
+<comment type="line">//                JFreeChart.INFO.getLogo());</comment>
+<comment type="line">//        XYImageAnnotation a2 = null;</comment>
+<comment type="line">//        try {</comment>
+<comment type="line">//            ByteArrayOutputStream buffer = new ByteArrayOutputStream();</comment>
+<comment type="line">//            ObjectOutput out = new ObjectOutputStream(buffer);</comment>
+<comment type="line">//            out.writeObject(a1);</comment>
+<comment type="line">//            out.close();</comment>
+<comment type="line">//</comment>
+<comment type="line">//            ObjectInput in = new ObjectInputStream(new ByteArrayInputStream(</comment>
+<comment type="line">//                    buffer.toByteArray()));</comment>
+<comment type="line">//            a2 = (XYImageAnnotation) in.readObject();</comment>
+<comment type="line">//            in.close();</comment>
+<comment type="line">//        }</comment>
+<comment type="line">//        catch (Exception e) {</comment>
+<comment type="line">//            e.printStackTrace();</comment>
+<comment type="line">//        }</comment>
+<comment type="line">//        assertEquals(a1, a2);</comment>
+<comment type="line">//    }</comment>
+
+}</block></class>
+</unit>

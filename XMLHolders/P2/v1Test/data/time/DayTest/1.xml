@@ -1,0 +1,8 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testEquals</name><parameter_list>()</parameter_list> <block>{<block_content>
+        <decl_stmt><decl><type><name>Day</name></type> <name>day1</name> <init>= <expr><operator>new</operator> <call><name>Day</name><argument_list>(<argument><expr><literal type="number">29</literal></expr></argument>, <argument><expr><name><name>MonthConstants</name><operator>.</operator><name>MARCH</name></name></expr></argument>, <argument><expr><literal type="number">2002</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Day</name></type> <name>day2</name> <init>= <expr><operator>new</operator> <call><name>Day</name><argument_list>(<argument><expr><literal type="number">29</literal></expr></argument>, <argument><expr><name><name>MonthConstants</name><operator>.</operator><name>MARCH</name></name></expr></argument>, <argument><expr><literal type="number">2002</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name>assertTrue</name><argument_list>(<argument><expr><call><name><name>day1</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>day2</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

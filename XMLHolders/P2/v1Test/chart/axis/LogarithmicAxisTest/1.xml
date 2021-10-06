@@ -1,0 +1,13 @@
+<unit><function><annotation>@<name>BeforeEach</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>setUp</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>Exception</name></expr></argument></throws> <block>{<block_content>
+        <expr_stmt><expr><name><name>this</name><operator>.</operator><name>axis</name></name> <operator>=</operator> <operator>new</operator> <call><name>MyLogarithmicAxis</name><argument_list>(<argument><expr><literal type="string">"Value (log)"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setAllowNegativesFlag</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setLog10TickLabelsFlag</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setLowerMargin</name></name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setUpperMargin</name></name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setLowerBound</name></name><argument_list>(<argument><expr><literal type="number">0.2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>axis</name><operator>.</operator><name>setUpperBound</name></name><argument_list>(<argument><expr><literal type="number">100.0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+
+    </unit>

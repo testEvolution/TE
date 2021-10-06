@@ -1,0 +1,18 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testOLSRegression2b</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index><index>[]</index></name></type> <name>data</name> <init>= <expr><call><name>createSampleData2</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <decl_stmt><decl><type><name>XYSeries</name></type> <name>series</name> <init>= <expr><operator>new</operator> <call><name>XYSeries</name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <literal type="number">10</literal></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{<block_content>
+            <expr_stmt><expr><call><name><name>series</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>data</name><index>[<expr><name>i</name></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><name><name>data</name><index>[<expr><name>i</name></expr>]</index><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        </block_content>}</block></for>
+        <decl_stmt><decl><type><name>XYDataset</name></type> <name>ds</name> <init>= <expr><operator>new</operator> <call><name>XYSeriesCollection</name><argument_list>(<argument><expr><name>series</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name><name>double</name><index>[]</index></name></type> <name>result</name> <init>= <expr><call><name><name>Regression</name><operator>.</operator><name>getOLSRegression</name></name><argument_list>(<argument><expr><name>ds</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><literal type="number">53.9729697</literal></expr></argument>, <argument><expr><name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name>assertEquals</name><argument_list>(<argument><expr><operator>-</operator><literal type="number">4.1823030</literal></expr></argument>, <argument><expr><name><name>result</name><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">0.0000001</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+    </block_content>}</block></function>
+
+    </unit>

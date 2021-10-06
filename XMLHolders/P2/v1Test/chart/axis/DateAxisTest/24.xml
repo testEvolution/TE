@@ -1,0 +1,26 @@
+<unit><function><annotation>@<name>Test</name></annotation>
+    <type><specifier>public</specifier> <name>void</name></type> <name>testBug3484403</name><parameter_list>()</parameter_list> <block>{<block_content>
+
+        <decl_stmt><decl><type><specifier>final</specifier> <name><name>long</name><index>[]</index></name></type> <name>dates</name> <init>=
+            <expr><block>{ <expr><literal type="number">1304892000000L</literal></expr>, <expr><literal type="number">1304632800000L</literal></expr>, <expr><literal type="number">1304546400000L</literal></expr>, <expr><literal type="number">1304460000000L</literal></expr>,
+              <expr><literal type="number">1304373600000L</literal></expr>, <expr><literal type="number">1304287200000L</literal></expr>, <expr><literal type="number">1320015600000L</literal></expr>, <expr><literal type="number">1309384800000L</literal></expr>,
+              <expr><literal type="number">1319752800000L</literal></expr>, <expr><literal type="number">1319666400000L</literal></expr>, <expr><literal type="number">1319580000000L</literal></expr>, <expr><literal type="number">1319493600000L</literal></expr> }</block></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>Arrays</name><operator>.</operator><name>sort</name></name><argument_list>(<argument><expr><name>dates</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>DateAxis</name></type> <name>axis</name> <init>= <expr><operator>new</operator> <call><name>DateAxis</name><argument_list>(<argument><expr><literal type="string">"Date"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <comment type="line">// set start and end date</comment>
+        <decl_stmt><decl><type><name>Date</name></type> <name>start</name> <init>= <expr><operator>new</operator> <call><name>Date</name><argument_list>(<argument><expr><name><name>dates</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Date</name></type> <name>end</name> <init>= <expr><operator>new</operator> <call><name>Date</name><argument_list>(<argument><expr><name><name>dates</name><index>[<expr><name><name>dates</name><operator>.</operator><name>length</name></name><operator>-</operator><literal type="number">1</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>axis</name><operator>.</operator><name>setMinimumDate</name></name><argument_list>(<argument><expr><name>start</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+        <expr_stmt><expr><call><name><name>axis</name><operator>.</operator><name>setMaximumDate</name></name><argument_list>(<argument><expr><name>end</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+        <decl_stmt><decl><type><name>BufferedImage</name></type> <name>image</name> <init>= <expr><operator>new</operator> <call><name>BufferedImage</name><argument_list>(<argument><expr><literal type="number">200</literal></expr></argument>, <argument><expr><literal type="number">100</literal></expr></argument>,
+                <argument><expr><name><name>BufferedImage</name><operator>.</operator><name>TYPE_INT_ARGB</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Graphics2D</name></type> <name>g2</name> <init>= <expr><call><name><name>image</name><operator>.</operator><name>createGraphics</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <decl_stmt><decl><type><name>Rectangle2D</name></type> <name>area</name> <init>= <expr><operator>new</operator> <call><name><name>Rectangle2D</name><operator>.</operator><name>Double</name></name><argument_list>(<argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><literal type="number">0.0</literal></expr></argument>, <argument><expr><literal type="number">500</literal></expr></argument>, <argument><expr><literal type="number">200</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+        <comment type="line">// if the bug is still present, this leads to an endless loop</comment>
+        <expr_stmt><expr><call><name><name>axis</name><operator>.</operator><name>refreshTicks</name></name><argument_list>(<argument><expr><name>g2</name></expr></argument>, <argument><expr><operator>new</operator> <call><name>AxisState</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>area</name></expr></argument>, <argument><expr><name><name>RectangleEdge</name><operator>.</operator><name>BOTTOM</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    </block_content>}</block></function>
+    
+    </unit>
